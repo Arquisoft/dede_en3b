@@ -2,14 +2,14 @@
 == Introduction and Goals
 The DeDe shopping simulator is the main application that our team will be developing for the subject of Software Architecture.
 
-.Menbers of group en3b:
+.Members of group en3b:
     * Celia Melendi Lavandera
     * Jesús Alonso García
     * Mario Lombas Calderón
     * Nicolás Lozano García    
     * ÓscarPérez Arruñada
 
-Dede will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
+DeDe will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
 
 [role="arc42help"]
 ****
@@ -22,7 +22,7 @@ Describes the relevant requirements and the driving forces that software archite
 
 === Requirements Overview
 
-The application will be run online, either on heroku or in a similar platform. Every user action will work using pods.
+The application will be run online, either on Heroku or in a similar platform. Every user action will work using pods.
 Users will be able to browse the catalog and order things from their pods. Then, the app will calculate the price based on the location of the user.
 
 [role="arc42help"]
