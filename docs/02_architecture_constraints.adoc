@@ -17,3 +17,54 @@ If needed you can subdivide them into
 technical constraints, organizational and political constraints and
 conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
 ****
+
+=== Technical constraints
+
+[%header, cols=2]
+|===
+|Constraint
+|Explanation
+
+|SOLID
+|For this project, we are required to follow the link:https://solidproject.org/[SOLID principles]. The use of PODs preserves the privacy of the customers as their data is stored in a decentralized way.
+
+|React and Typescript
+|The application will be implemented using the React framework and Typescript.
+
+|Continuous integration system
+|The application should be accessible and deployed using a continuous integration system.
+
+|===
+
+=== Organizational constraints
+
+[%header, cols=2]
+|===
+|Constraint
+|Explanation
+
+|Git
+|Our project will use a repository on GitHub in order to create a Version Control System.
+
+|Team
+|Our team is composed by five students of the course with a limited knowledge and experience in the technologies to use. The composition of the team will not be affected in the entirety of the project unless a member decides to drop the subject.
+
+|Time
+|The project will be developed in the span of the duration of the course, and so the time to finish the project will be limited.
+
+|===
+
+=== Conventions
+
+[%header, cols=2]
+|===
+|Constraint
+|Explanation
+
+|Design
+|The application will have an overall pleasant aesthetic and should be easy to use by non-technical people, which means its interface should be intuitive.
+
+|Documentation
+|For the documentation we will follow the link:https://arc42.org/[arc42] template
+
+|===
