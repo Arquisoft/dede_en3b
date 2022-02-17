@@ -6,8 +6,9 @@ The DeDe shopping simulator is the main application that our team will be develo
     * Celia Melendi Lavandera
     * Jesús Alonso García
     * Mario Lombas Calderón
-    * Nicolás Lozano García    
+    * Nicolás Lozano García
     * Óscar Pérez Arruñada
+
 
 DeDe will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
 
