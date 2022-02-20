@@ -57,7 +57,7 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-_**<Overview Diagram>**_
+image:05_building_blocks_overview.png["Whitebox Overall System"]
 
 Motivation::
 
@@ -65,7 +65,12 @@ _<text explanation>_
 
 
 Contained Building Blocks::
-_<Description of contained building block (black boxes)>_
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's POD.
+|===
 
 Important Interfaces::
 _<Description of important interfaces>_
@@ -91,7 +96,8 @@ Its headline is the name of the black box.
 ****
 
 
-==== <Name black box 1>
+
+=== <Level 1>
 
 [role="arc42help"]
 ****
@@ -107,35 +113,14 @@ according the the following black box template:
 
 ****
 
-_<Purpose/Responsibility>_
+image:05_building_blocks_DeDe.png["DeDe Whitebox"]
 
-_<Interface(s)>_
-
-_<(Optional) Quality/Performance Characteristics>_
-
-_<(Optional) Directory/File Location>_
-
-_<(Optional) Fulfilled Requirements>_
-
-_<(optional) Open Issues/Problems/Risks>_
-
-
-
-
-==== <Name black box 2>
-
-_<black box template>_
-
-==== <Name black box n>
-
-_<black box template>_
-
-
-==== <Name interface 1>
-
-...
-
-==== <Name interface m>
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
+| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
+|===
 
 
 
@@ -149,6 +134,18 @@ You have to decide which building blocks of your system are important enough to 
 Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
 Leave out normal, simple, boring or standardized parts of your system
 ****
+
+image:05_building_blocks_ui_da.png["Front and Back End Whiteboxes"]
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| Products | ...
+| Shopping cart | ...
+| Orders done | ...
+| SOLID Accessing | ...
+| RestApi | ...
+|===
 
 ==== White Box _<building block 1>_
 
@@ -181,26 +178,4 @@ Here you can specify the inner structure of (some) building blocks from level 2 
 
 When you need more detailed levels of your architecture please copy this
 part of arc42 for additional levels.
-****
-
-
-==== White Box <_building block x.1_>
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block x.1_.
-****
-
-
-_<white box template>_
-
-
-==== White Box <_building block x.2_>
-
-_<white box template>_
-
-
-
-==== White Box <_building block y.1_>
-
-_<white box template>_
+***
