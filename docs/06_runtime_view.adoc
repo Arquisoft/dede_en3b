@@ -34,6 +34,7 @@ There are many notations for describing scenarios, e.g.
 
 
 * A client tries to order some items
+
 image:61SequenceDiagram.png["Sequence diagram representing the buying process"]
 
 
