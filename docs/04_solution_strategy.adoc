@@ -1,6 +1,35 @@
 [[section-solution-strategy]]
 == Solution Strategy
 
+=== Technology decisions.
+
+A summary of the technical decisions that we have taken so far:
+
+    * **React**: A framework to build the user interface of the application.
+    * **SQLite**: The DMBS of our choice. 
+
+=== Decisions about the the top-level decomposition of the system.
+
+As of now we haven't really decided upon a selected pattern for the system. A few alternatives that we are considering at the moment are the redux pattern and the mvc pattern. But it would require a meeting for us to decide if it's really worth it to learn a pattern that we don't know but that might yield a better coding experience in the future.
+
+=== Decisions on how to achive key quality goals.
+
+For now this will be the quality goals that we will focus on.
+
+    * **Usability**: We will try to develop an app that is easy to use.
+    * **Responsiveness**: We will try to develop an app that has optimal or at least acceptable response times.
+    * **Accessibilty**: We will try to develop an app that anyone can use.
+    * **Security**: Thanks to SOLID we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.
+
+
+=== Organizational decisions.
+
+* **Meetings and communication**: Our meetings will occur in person and online. For the online meetings we will use apps such as Microsoft Teams and Discord. To communicate the smaller things we will use a Whatsapp group chat.
+* **Task organization**: To organize the tasks that we have to do for the app we will use the GitHub projects, a tool that displays our issues in a KanBan view. The main factor for this was its similarity to a tool we used in the IPS course and because it allows us to see our progress and our partners progress.
+* **Development**: We will create branches for every task that involves touching the repository files. To merge the project of the branches with the master branch we will use pull request since we believe it's great for proof-reading and it forces us to "know" a bit about every part of the project so that we don't have future problems when we will work with each other's code.
+
+
+
 
 [role="arc42help"]
 ****
