@@ -98,8 +98,8 @@ image:05_building_blocks_DeDe.png["DeDe Whitebox"]
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
-| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
+| User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
+| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
 |===
 
 
@@ -121,11 +121,11 @@ image:05_building_blocks_ui_da.png["Front and Back End Whiteboxes"]
 |===
 | **Name** | **Responsibility**
 | Log in | The user will be able to log in or register an account in the system.
-| Location | This will be the location the application will use in order to deliver the user's orders.
-| Orders done | The user will be able to see the orders they have done already.
-| Profile | The user will see here their personal data that the system is provided with and will be able to edit it.
-| Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
-| Shopping cart | The user can check here the products they have selected to buy.
-| SOLID Accessing | Provides the libraries to communicate between the user's POD and the POD provider.
-| RestApi | Provides communication between the database and the application.
+| Location | This will be the location the application will use in order to deliver the user's orders. The user will be able to edit it.
+| Orders done | The user will be able to see the orders they have done already.
+| Profile | The user will be able to see and edit here their personal data stored in the system.
+| Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
+| Shopping cart | The user can check here the products they have selected to buy.
+| SOLID Accessing | Provides the libraries to communicate between the user's POD and the POD provider.
+| RestApi | Provides communication between the database and the application.
 |===
