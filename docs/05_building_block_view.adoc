@@ -57,41 +57,27 @@ In the best case you will get away with examples or simple signatures.
 
 ****
 
-_**<Overview Diagram>**_
+image:05_building_blocks_overview.png["Whitebox Overall System"]
 
 Motivation::
 
-_<text explanation>_
+Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in PODs.
 
 
 Contained Building Blocks::
-_<Description of contained building block (black boxes)>_
-
-Important Interfaces::
-_<Description of important interfaces>_
-
-[role="arc42help"]
-****
-Insert your explanations of black boxes from level 1:
-
-If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| _<black box 1>_ | _<Text>_
-| _<black box 2>_ | _<Text>_
+| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's POD.
+| POD Provider | System that stores the PODs of the users and will be used to access them.
+| User's POD | The user's information will be stored here in order to keep it decentralized.
+| Database | Here the minimal information of the application will be stored.
 |===
 
 
 
-If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.
-****
-
-
-==== <Name black box 1>
+=== Level 1
 
 [role="arc42help"]
 ****
@@ -107,35 +93,14 @@ according the the following black box template:
 
 ****
 
-_<Purpose/Responsibility>_
+image:05_building_blocks_DeDe.png["DeDe Whitebox"]
 
-_<Interface(s)>_
-
-_<(Optional) Quality/Performance Characteristics>_
-
-_<(Optional) Directory/File Location>_
-
-_<(Optional) Fulfilled Requirements>_
-
-_<(optional) Open Issues/Problems/Risks>_
-
-
-
-
-==== <Name black box 2>
-
-_<black box template>_
-
-==== <Name black box n>
-
-_<black box template>_
-
-
-==== <Name interface 1>
-
-...
-
-==== <Name interface m>
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
+| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
+|===
 
 
 
@@ -150,57 +115,17 @@ Please prefer relevance over completeness. Specify important, surprising, risky,
 Leave out normal, simple, boring or standardized parts of your system
 ****
 
-==== White Box _<building block 1>_
+image:05_building_blocks_ui_da.png["Front and Back End Whiteboxes"]
 
-[role="arc42help"]
-****
-...describes the internal structure of _building block 1_.
-****
-
-_<white box template>_
-
-==== White Box _<building block 2>_
-
-
-_<white box template>_
-
-...
-
-==== White Box _<building block m>_
-
-
-_<white box template>_
-
-
-
-=== Level 3
-
-[role="arc42help"]
-****
-Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
-
-When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.
-****
-
-
-==== White Box <_building block x.1_>
-
-[role="arc42help"]
-****
-Specifies the internal structure of _building block x.1_.
-****
-
-
-_<white box template>_
-
-
-==== White Box <_building block x.2_>
-
-_<white box template>_
-
-
-
-==== White Box <_building block y.1_>
-
-_<white box template>_
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| Log in | The user will be able to log in or register an account in the system.
+| Location | This will be the location the application will use in order to deliver the user's orders. The user will be able to edit it.
+| Orders done | The user will be able to see the orders they have done already.
+| Profile | The user will be able to see and edit here their personal data stored in the system.
+| Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
+| Shopping cart | The user can check here the products they have selected to buy.
+| SOLID Accessing | Provides the libraries to communicate between the user's POD and the POD provider.
+| RestApi | Provides communication between the database and the application.
+|===
