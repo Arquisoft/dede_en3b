@@ -1078,7 +1078,7 @@ In the best case you will get away with examples or simple signatures.</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p><em>&lt;text explanation&gt;</em></p>
+<p>Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in PODs.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 </dl>
@@ -1099,53 +1099,20 @@ In the best case you will get away with examples or simple signatures.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DeDe</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Main part of the application. The user will interact with it and it will access the necessary data from the database and the user&#8217;s POD.</p></td>
 </tr>
-</tbody>
-</table>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Important Interfaces</dt>
-<dd>
-<p><em>&lt;Description of important interfaces&gt;</em></p>
-</dd>
-</dl>
-</div>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Insert your explanations of black boxes from level 1:</p>
-</div>
-<div class="paragraph">
-<p>If you use tabular form you will only describe your black boxes with name and
-responsibility according to the following schema:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POD Provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System that stores the PODs of the users and will be used to access them.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User&#8217;s POD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s information will be stored here in order to keep it decentralized.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Here the minimal information of the application will be stored.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.</p>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_level_1">5.2. Level 1</h3>
@@ -1235,56 +1202,40 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Products</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to log in or register an account in the system.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shopping cart</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This will be the location the application will use in order to deliver the user&#8217;s orders.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Orders done</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> The user will be able to see the orders they have done already.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user will see here their personal data that the system is provided with and will be able to edit it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Products Catalogue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shopping cart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> The user can check here the products they have selected to buy.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Accessing</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> Provides the libraries to communicate between the user&#8217;s POD and the POD provider.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RestApi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> Provides communication between the database and the application.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="_white_box_building_block_1">5.3.1. White Box <em>&lt;building block 1&gt;</em></h4>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_2">5.3.2. White Box <em>&lt;building block 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_white_box_building_block_m">5.3.3. White Box <em>&lt;building block m&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;white box template&gt;</em></p>
-</div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
