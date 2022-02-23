@@ -63,8 +63,8 @@ together with a mapping table showing the relationships between channels and inp
 
 ****
 
-**<Diagram or Table>**
+image:32diagram.png["Technical details"]
 
-**<optionally: Explanation of technical interfaces>**
-
-**<Mapping Input/Output to Channels>**
+The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
+be behind a RESTful API, and user data will be fetched from a POD system (which is yet to be disclosed).
+The application itself will be written in nodejs with typescript, and will be deployed in heroku.
