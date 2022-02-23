@@ -1,7 +1,12 @@
 [[section-system-scope-and-context]]
 == System Scope and Context
 
-
+The application, called DeDe, is a privacy-aware retail system, that aims to provide users
+a way to buy goods without having their data compromised. To do this, the user data will
+be fetched from a SOLID project Pod, provided that authorization is granted by the user. 
+The application will provide the user with a way to place orders, as well as 
+allowing the user to view past ones. It also has capabilities to calculate
+the cost of the item bought.
 
 [role="arc42help"]
 
