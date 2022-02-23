@@ -38,8 +38,10 @@ There are many notations for describing scenarios, e.g.
 image:61SequenceDiagram.png["Sequence diagram representing the buying process"]
 
 
-=== <Runtime Scenario 2>
+=== Viewing an order
 
-=== ...
+* A client tries to view an order.
+
+image:06.2-sequence_diagram.PNG["Sequence diagram representing the process"]
 
 === <Runtime Scenario n>
