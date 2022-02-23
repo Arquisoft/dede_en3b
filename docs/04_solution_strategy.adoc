@@ -6,9 +6,9 @@
 A summary of the technical decisions that we have taken so far:
 
     * **React**: A framework to build the user interface of the application.
-    * **SQLite**: The DMBS of our choice. 
+    * **MongoDB**: The DMBS of our choice.
 
-=== Decisions about the the top-level decomposition of the system.
+=== Decisions about the the top-level decomposition of the system
 
 As of now we haven't really decided upon a selected pattern for the system. A few alternatives that we are considering at the moment are the redux pattern and the mvc pattern. But it would require a meeting for us to decide if it's really worth it to learn a pattern that we don't know but that might yield a better coding experience in the future.
 
