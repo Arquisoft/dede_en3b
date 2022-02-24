@@ -42,6 +42,6 @@ image:61SequenceDiagram.png["Sequence diagram representing the buying process"]
 
 * A client tries to view an order.
 
-image:06.2-sequence_diagram.PNG["Sequence diagram representing the process"]
+image:06.2-Sequence_Diagram.PNG["Sequence diagram representing the process"]
 
 === <Runtime Scenario n>
