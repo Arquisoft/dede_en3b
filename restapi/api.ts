@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from 'express';
-import {check} from 'express-validator';
+import {check, Schema} from 'express-validator';
+import { IUser } from './model/User';
 const User = require('../restapi/model/User');
 const api:Router = express.Router()
 
@@ -20,7 +21,7 @@ api.get(
         // return res.status(200).send(users);
         //Await is an asynchronous keyword that forces the system to wait for this call to end. Siempre va con funciones async
         //Find all users.
-        const users = await User.find({});
+        const users:IUser[] = await User.find({});
         //We send a 200 "OK" back and we send the users that we found in the database.
         return res.status(200).send(users);
     }
