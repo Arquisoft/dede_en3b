@@ -32,3 +32,6 @@ docs/build
 #Vim and ctags
 *.swp
 tags
+
+#Environment variable
+restapi/.env

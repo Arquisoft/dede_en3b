@@ -4,6 +4,7 @@ import bp from "body-parser";
 import promBundle from "express-prom-bundle";
 import api from "./api";
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 
@@ -11,7 +12,10 @@ function connect() {
   // const mongoUrl = "mongodb://localhost:27017/exampleDatabase";
   //This is the url of the connection to the database, currently the database is stored in MongoDB Atlas (A browser version for MongoDB)
   //The user and the password are for this instance only and will be changed for when this is merged.
-  const mongoUrl = "mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority";
+  var mongoUrl = process.env.ATLAS;
+  var hola = process.env.PRUEBA;
+  console.log(hola);
+  console.log(mongoUrl);
   //Creation of the connection for the database. Pretty simple like any other db.
   mongoose
     .connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
