@@ -6,12 +6,12 @@ import EmailForm from './components/EmailForm';
 import Welcome from './components/Welcome';
 import UserList from './components/UserList';
 import  {getUsers} from './api/api';
-import {User} from './shared/shareddtypes';
+import {IUser} from '../../restapi/model/User';
 import './App.css';
 
 function App(): JSX.Element {
 
-  const [users,setUsers] = useState<User[]>([]);
+  const [users,setUsers] = useState<IUser[]>([]);
 
   const refreshUserList = async () => {
     setUsers(await getUsers());

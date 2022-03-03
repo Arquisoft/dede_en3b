@@ -1,6 +1,6 @@
-import {User} from '../shared/shareddtypes';
+import {IUser} from '../../../restapi/model/User';
 
-export async function addUser(user:User):Promise<boolean>{
+export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
     let response = await fetch(apiEndPoint+'/users/add', {
         method: 'POST',
@@ -13,7 +13,7 @@ export async function addUser(user:User):Promise<boolean>{
       return false;
 }
 
-export async function getUsers():Promise<User[]>{
+export async function getUsers():Promise<IUser[]>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
     let response = await fetch(apiEndPoint+'/users/list');
     //The objects returned by the api are directly convertible to User objects
