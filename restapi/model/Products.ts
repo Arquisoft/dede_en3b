@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-const ObjectID = mongoose.Schema.ObjectID;
 
 export interface IProduct {
     name: string;
-    description: string;
-    photo: string;
-    price: number;
+    description?: string;
+    photo?: string;
+    price?: number;
 }
 
 const productSchema = new mongoose.Schema({
@@ -16,4 +15,3 @@ const productSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Products", productSchema);
-export{}; 

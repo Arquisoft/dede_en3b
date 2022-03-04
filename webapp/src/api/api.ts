@@ -1,4 +1,5 @@
 import {IUser} from '../../../restapi/model/User';
+import {IProduct} from '../../../restapi/model/Products'
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
@@ -18,4 +19,16 @@ export async function getUsers():Promise<IUser[]>{
     let response = await fetch(apiEndPoint+'/users/list');
     //The objects returned by the api are directly convertible to User objects
     return response.json()
+}
+
+/**
+ * This fucntion returns the productst that are currently stored in the databse.
+ * First we get the api endpoint that we are going to be listening on.
+ * Then we call the api function with the address that we want to request at. (localhost:5000/products/list)
+ * Then we send back the response.
+ */
+export async function getProducts():Promise<IProduct[]> {
+    const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+    let response = await fetch(apiEndPoint+'/products/list');
+    return response.json();
 }

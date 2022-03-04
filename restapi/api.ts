@@ -1,7 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';
+import { IProduct } from './model/Products';
 const User = require('../restapi/model/User');
+const Product = require('../restapi/model/Products');
 const api:Router = express.Router()
 
 // interface User {
@@ -43,6 +45,17 @@ api.post(
     await user.save();
     //We answer that its all ok.
     return res.sendStatus(200);
+  }
+);
+
+/**
+ * We get all the products that are currently stored in the database.
+ */
+api.get(
+  "/products/list",
+  async (req: Request, res: Response): Promise<Response> => {
+    const products:IProduct[] = await Product.find({});
+    return res.status(200).send(products);
   }
 );
 
