@@ -13,9 +13,6 @@ function connect() {
   //This is the url of the connection to the database, currently the database is stored in MongoDB Atlas (A browser version for MongoDB)
   //The user and the password are for this instance only and will be changed for when this is merged.
   var mongoUrl = process.env.ATLAS;
-  var hola = process.env.PRUEBA;
-  console.log(hola);
-  console.log(mongoUrl);
   //Creation of the connection for the database. Pretty simple like any other db.
   mongoose
     .connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})

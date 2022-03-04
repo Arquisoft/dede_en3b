@@ -35,3 +35,6 @@ tags
 
 #Environment variable
 restapi/.env
+
+#Images of the products
+webapp/src/components/img
