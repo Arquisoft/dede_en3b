@@ -2,6 +2,10 @@ import {
 	Session,
 	ISessionInfo
 } from "@inrupt/solid-client-authn-browser";
+import {
+	getFile,
+	overwriteFile,
+} from "@inrupt/solid-client";
 
 //TODO(Mario): Maybe change this to a state design pattern?
 
@@ -44,7 +48,7 @@ export class SolidConnection {
 	public async login(redirect?: string): Promise<void> {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
-		if(!this._session.info.isLoggedIn) 
+		if(!this.isLoggedIn()) 
 			await this._session.login({
 				oidcIssuer: this._identityProvider,
 				clientName: this.SOLID_CLIENT_NAME,
@@ -54,6 +58,74 @@ export class SolidConnection {
 					window.location.href : 
 					`${window.location.origin}/${redirect}`, 
 			});
+	}
+
+	/**
+	 * Converts an URL to the same url but the base is
+	 * now the base of user's webID
+	 */
+	public convertToLoggedUserUrl(fileUrl: URL): URL {
+		let webIdUrl = new URL(this._session.info.webId);
+		return new URL(`${webIdUrl.origin}/${fileUrl}`);
+	}
+
+	/**
+	 * Returns specified url.
+	 */
+	public async getFileFromRawUrl(fileUrl: URL)
+		: Promise<Blob> 
+	{
+		console.log(fileUrl);
+		let result = await getFile(
+			fileUrl.href,
+			{ fetch: this._session.fetch }
+		);
+		return result;
+	}
+
+	/**
+	 * Returns specified url.
+	 * This method converts the passed in url to a url with the
+	 * base of the webID of the user.
+	 */
+	public async getFileFromLoggedUser(fileUrl: URL) 
+		: Promise<Blob>
+	{
+		if(this.isLoggedIn()) {
+			return this.getFileFromRawUrl(
+				this.convertToLoggedUserUrl(fileUrl)
+			);
+		}
+	}
+
+	/**
+	 * Overwrites the specified file (or creates it, if it doesnt exist)
+	 * with the passed in file. 
+	 */
+	public async overwriteFileInRawUrl(fileUrl: URL, file: File)
+		: Promise<void>
+	{
+		await overwriteFile(
+			fileUrl.href,
+			file,
+			{ contentType: file.type, fetch: this._session.fetch }
+		);
+	}
+
+	/**
+	 * Overwrites the specified file (or creates it, if it doesnt exist)
+	 * with the passed in file. 
+	 * This method converts the passed in url to a url with the
+	 * base of the webID of the user.
+	 */
+	public async overwriteFileInLoggedUserUrl(fileUrl: URL, file: File) 
+		: Promise<void>
+	{
+		if(this.isLoggedIn()) {
+			return this.putFileInRawUrl(
+				this.convertToLoggedUserUrl(fileUrl), file
+			);
+		}
 	}
 
 	/**
@@ -80,7 +152,7 @@ export class SolidConnection {
 
 	//Note: This WILL logout the current user
 	public setIdentityProvider(provider: string) {
-		if(this._session.info.isLoggedIn)
+		if(this.isLoggedIn())
 			this._session.logout();
 
 		this._identityProvider = provider;
