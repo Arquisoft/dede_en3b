@@ -51,4 +51,4 @@ function connect() {
 };
 
 //Timeout to allow the database to finish building.
-setTimeout(connect,5000);
+setTimeout(connect,1000);

@@ -48,3 +48,22 @@ describe('user ', () => {
         expect(response.statusCode).toBe(200);
     });
 });
+
+describe('product', () => {
+    /**
+     * Test that we can list products without any error.
+     */
+    it('can be listed', async () => {
+        const response: Response = await request(app).get("/api/products/list");
+        expect(response.statusCode).toBe(200);
+    });
+
+    /**
+     * Test that we can get a product based on its id.
+     */
+    it('A product to be listed', async() => {
+        let id:string = "62222f0768d0bc49564b740d";
+        const response:Response = await request(app).get('/api/products/' + id);
+        expect(response.statusCode).toBe(200);
+    });
+});

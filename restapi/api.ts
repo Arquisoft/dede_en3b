@@ -59,4 +59,14 @@ api.get(
   }
 );
 
+api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
+    var  id = req.params.id;
+    console.log(id);
+    const product = Product.findOne({name:id});
+    if(!product) {
+      return res.status(404).json({message: 'Product with name "${name}" not found'});
+    }
+    return res.status(200).send(product);
+});
+
 export default api;
