@@ -38,12 +38,12 @@ var mongoose = require('mongoose');
 main()["catch"](function (err) { return console.log(err); });
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var productSchema, Clothing, pantalon;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var productSchema, Clothing, pantalon, _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0: return [4 /*yield*/, mongoose.connect('mongodb+srv://dedeAdmin:aswLosMejores_3b@dedecluster.iqslm.mongodb.net/Products?retryWrites=true&w=majority')];
                 case 1:
-                    _a.sent();
+                    _c.sent();
                     console.log("connected");
                     productSchema = new mongoose.Schema({
                         name: String,
@@ -58,7 +58,11 @@ function main() {
                     pantalon = new Clothing({ name: 'Pantalón de chandal', description: 'Pantalones de chandal para hacer deporte', photo: 'link aqui?', type: 'Pantalón', price: 20.55 });
                     return [4 /*yield*/, pantalon.save()];
                 case 2:
-                    _a.sent();
+                    _c.sent();
+                    _b = (_a = console).log;
+                    return [4 /*yield*/, Clothing.find()];
+                case 3:
+                    _b.apply(_a, [_c.sent()]);
                     return [2 /*return*/];
             }
         });
