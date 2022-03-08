@@ -1,16 +1,16 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Container from '@mui/material/Container';
-import EmailForm from './components/EmailForm';
-import Welcome from './components/Welcome';
-import UserList from './components/UserList';
+// import Box from '@mui/material/Box';
+// import Link from '@mui/material/Link';
+// import Container from '@mui/material/Container';
+// import EmailForm from './components/EmailForm';
+// import Welcome from './components/Welcome';
+// import UserList from './components/UserList';
 import ProductList from './components/ProductList';
-import  {getUsers, getProducts} from './api/api';
-import {IUser} from '../../restapi/model/User';
+import  {getProducts} from './api/api';
+// import {IUser} from '../../restapi/model/User';
 import {IProduct} from '../../restapi/model/Products';
 import './App.css';
-import ProductComponent from './components/ProductComponent'; 
+// import ProductComponent from './components/ProductComponent'; 
 import { Button } from '@mui/material';
 
 function App(): JSX.Element {
