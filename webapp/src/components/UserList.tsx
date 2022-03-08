@@ -1,4 +1,4 @@
-import {User} from '../shared/shareddtypes';
+import {IUser} from '../../../restapi/model/User';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -8,7 +8,7 @@ import ContactPageIcon from '@mui/icons-material/ContactPage';
 
 
 type UserListProps = {
-  users: User[];
+  users: IUser[];
 }
 
 function UserList(props: UserListProps): JSX.Element {
