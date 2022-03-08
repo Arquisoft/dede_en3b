@@ -37,10 +37,10 @@ type ProductListProps = {
 //     );
 // }
 
-const getCurrentProduct = async (id:string) => {
+const getCurrentProduct = async (id:IProduct) => {
     console.log(id);
-    const a:IProduct = await getProduct(id);
-    console.log(a);
+    const a:IProduct = await getProduct(id.name);
+    console.log("We got the product " + id.name + id.description + id.photo + id.price);
     //setProduct(await getProduct(id));
 }
 
@@ -56,7 +56,7 @@ function ProductList(props: ProductListProps): JSX.Element {
                             </ListItemIcon>
                             <ListItemText primary={product.name} secondary={product.description}/>
                             <p> {product.price} </p>
-                            <Button onClick={e => getCurrentProduct(product.name)}>Accept</Button>
+                            <Button onClick={e => getCurrentProduct(product)}>Accept</Button>
                         </ListItem>
                     );
                 })}

@@ -3,8 +3,15 @@ import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';
 import { IProduct } from './model/Products';
 const User = require('../restapi/model/User');
-const Product = require('../restapi/model/Products');
-const api:Router = express.Router()
+const Products = require('../restapi/model/Products');
+const api:Router = express.Router();
+
+// app.use(function(req,res,next){
+//     res.header("Access-Control-Allow-Origin","*");
+//     res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+
 
 // interface User {
 //     name: string;
@@ -54,7 +61,7 @@ api.post(
 api.get(
   "/products/list",
   async (req: Request, res: Response): Promise<Response> => {
-    const products:IProduct[] = await Product.find({});
+    const products:IProduct[] = await Products.find({});
     return res.status(200).send(products);
   }
 );
@@ -62,11 +69,11 @@ api.get(
 api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
     console.log(id);
-    const product = Product.findOne({name:id});
-    if(!product) {
+    const products:IProduct = await Products.findOne({name:id});
+    if(!products) {
       return res.status(404).json({message: 'Product with name "${name}" not found'});
     }
-    return res.status(200).send(product);
+    return res.status(200).send(products);
 });
 
 export default api;

@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
+import  mongoose, {Schema, Types} from 'mongoose';
 
-export interface IProduct {
+export type IProduct = {
+    // id: Types.ObjectId;
     name: string;
     description?: string;
     photo?: string;
     price?: number;
 }
 
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema<IProduct>({
     name: {type: String, require:true},
     description: String,
     photo: String,
