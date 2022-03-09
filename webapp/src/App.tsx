@@ -6,7 +6,7 @@ import React, { useState, useEffect, FormEvent } from 'react';
 // import Welcome from './components/Welcome';
 // import UserList from './components/UserList';
 import ProductList from './components/ProductList';
-import  {getProducts} from './api/api';
+import  {findProductsByName, getProducts} from './api/api';
 // import {IUser} from '../../restapi/model/User';
 import {IProduct} from '../../restapi/model/Products';
 import './App.css';
@@ -20,12 +20,11 @@ function App(): JSX.Element {
   const [products, setProducts] = useState<IProduct[]>([]);
 
   const refreshProductList = async () => {
-    console.log("Tamos por aqui");
     const a:IProduct[] = await getProducts();
     var b = a[0]._id;
     console.log(a);
     console.log(b);
-    setProducts(await getProducts());
+    setProducts(a);
   }
 
   useEffect(()=>{
@@ -33,9 +32,12 @@ function App(): JSX.Element {
     refreshProductList();
   },[]);
 
-  const searchForProducts = async (query: String): Promise<IProduct[]> => {
-    const result = await fetch('http://localhost:5000/?search=${query}')
-    return (await result.json()).results;
+  const searchForProducts = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('#searchText') as HTMLInputElement;
+    findProductsByName(input.value);
+    input.value = '';
   };
 
   // useEffect(() => {
@@ -58,16 +60,13 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <h1>Product Search App</h1>
-      <form className="searchForm" onSubmit={event => search(event)} >
+      <form className="searchForm" onSubmit={event => searchForProducts(event)} >
         <input id="searchText" type="text" />
-        <Button onClick={refreshProductList}>Search</Button>
+        <Button>Search</Button>
       </form>
-      {productSearch && <p>Results for {productSearch}...</p>}
+      {productSearch && <p>Results for {products}...</p>}
       <div className="products-container">
-        {productsFound.length &&
-          productsFound.map(product =>
-            product)
-        }
+
         <ProductList products={products}/>
       </div>
 

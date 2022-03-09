@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {getProduct} from '../api/api';
+import ProductComponent from "./ProductComponent";
 
 type ProductListProps = {
     products: IProduct[];
@@ -47,17 +48,18 @@ const getCurrentProduct = async (id:IProduct) => {
 function ProductList(props: ProductListProps): JSX.Element {
     return (
         <>
-            <List>
+            <List className="prodList">
                 {props.products.map((product,i)=>{
                     return (
-                        <ListItem key={product.name}>
+                        <ProductComponent key={i} product={product} ></ProductComponent>
+                        /*<ListItem key={product.name}>
                             <ListItemIcon>
                                 <img src={product.photo} alt="Foto de la sudadera."/>
                             </ListItemIcon>
                             <ListItemText primary={product.name} secondary={product.description}/>
                             <p> {product.price} </p>
                             <Button onClick={e => getCurrentProduct(product)}>Accept</Button>
-                        </ListItem>
+                        </ListItem>*/
                     );
                 })}
             </List>
