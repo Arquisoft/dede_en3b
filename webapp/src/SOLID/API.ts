@@ -2,12 +2,17 @@ import {
 	Session,
 	ISessionInfo
 } from "@inrupt/solid-client-authn-browser";
+
 import {
 	getFile,
 	overwriteFile,
+	getSolidDataset, SolidDataset,
+	getThing, Thing,
+	getStringNoLocale
 } from "@inrupt/solid-client";
 
 //TODO(Mario): Maybe change this to a state design pattern?
+//TODO(Mario): Custom exception
 
 /**
  * Represents a connection to a solid pod. This 
@@ -21,7 +26,7 @@ export class SolidConnection {
 	private _identityProvider: string;
 	private readonly _session: Session;
 
-	private _initializePromise: Promise<ISessionInfo>;
+	private _initializePromise: Promise<SolidConnection>;
 	private _isInitialized: boolean;
 
 	/**
@@ -65,17 +70,21 @@ export class SolidConnection {
 	 * now the base of user's webID
 	 */
 	public convertToLoggedUserUrl(fileUrl: URL): URL {
-		let webIdUrl = new URL(this._session.info.webId);
+		let webIdUrl = this.getWebId(); 
 		return new URL(`${webIdUrl.origin}/${fileUrl}`);
 	}
 
 	/**
 	 * Returns specified url.
 	 */
+	public async getFileFromRawUrl(fileUrl: string)
+		: Promise<Blob> 
+	{
+		return this.getFileFromRawUrl(new ULR(fileUrl));
+	}
 	public async getFileFromRawUrl(fileUrl: URL)
 		: Promise<Blob> 
 	{
-		console.log(fileUrl);
 		let result = await getFile(
 			fileUrl.href,
 			{ fetch: this._session.fetch }
@@ -88,6 +97,11 @@ export class SolidConnection {
 	 * This method converts the passed in url to a url with the
 	 * base of the webID of the user.
 	 */
+	public async getFileFromLoggedUser(fileUrl: string) 
+		: Promise<Blob>
+	{
+		return this.getFileFromLoggedUser(new URL(fileUrl));
+	}
 	public async getFileFromLoggedUser(fileUrl: URL) 
 		: Promise<Blob>
 	{
@@ -102,6 +116,11 @@ export class SolidConnection {
 	 * Overwrites the specified file (or creates it, if it doesnt exist)
 	 * with the passed in file. 
 	 */
+	public async overwriteFileInRawUrl(fileUrl: string, file: File)
+		: Promise<void>
+	{
+		return this.overwriteFileInRawUrl(new URL(fileUrl), file);
+	}
 	public async overwriteFileInRawUrl(fileUrl: URL, file: File)
 		: Promise<void>
 	{
@@ -118,14 +137,37 @@ export class SolidConnection {
 	 * This method converts the passed in url to a url with the
 	 * base of the webID of the user.
 	 */
+	public async overwriteFileInLoggedUserUrl(fileUrl: string, file: File) 
+		: Promise<void>
+	{
+		return this.overwriteFileInLoggedUserUrl(new URL(fileUrl), file);
+	}
 	public async overwriteFileInLoggedUserUrl(fileUrl: URL, file: File) 
 		: Promise<void>
 	{
 		if(this.isLoggedIn()) {
-			return this.putFileInRawUrl(
+			return this.overwriteFileInRawUrl(
 				this.convertToLoggedUserUrl(fileUrl), file
 			);
 		}
+	}
+
+	public fetchDatasetFromRawUrl(datasetUrl: string): DatasetBrowser {
+		return this.fetchDatasetFromRawUrl(new URL(datasetUrl));
+	}
+	public fetchDatasetFromRawUrl(datasetUrl: URL): DatasetBrowser {
+		return new DatasetBrowser(
+			getSolidDataset(datasetUrl.href, { fetch: this._session.fetch })
+		);
+	}
+
+	public fetchDatasetFromUser(datasetUrl: string): DatasetBrowser {
+		return this.fetchDatasetFromUser(new URL(datasetUrl));
+	}
+	public fetchDatasetFromUser(datasetUrl: URL): DatasetBrowser {
+		return this.fetchDatasetFromRawUrl(
+			this.convertToLoggedUserUrl(datasetUrl)
+		);
 	}
 
 	/**
@@ -135,9 +177,17 @@ export class SolidConnection {
 		return this._session.info.isLoggedIn;
 	}
 
+	public getWebId(): URL {
+		return new URL(this._session.info.webId);
+	}
+
 	private _initialize() {
-		this._initializePromise =
-			this._session.handleIncomingRedirect();
+		this._initializePromise = new Promise((accept, reject) => 
+			this._session.handleIncomingRedirect()
+			.then(() => accept(this))
+			.catch(err => reject(err))
+		);
+
 		this._initializePromise.then(() => this._isInitialized = true);
 	}
 
@@ -146,7 +196,7 @@ export class SolidConnection {
 	 * gets fulfilled when the redirect handle finishes
 	 * and the connection knows if its logged in, or not
 	 */
-	public getInitializePromise(): Promise<ISessionInfo> {
+	public getLoginPromise(): Promise<SolidConnection> {
 		return this._initializePromise;
 	}
 
@@ -156,5 +206,59 @@ export class SolidConnection {
 			this._session.logout();
 
 		this._identityProvider = provider;
+	}
+}
+
+export class DatasetBrowser {
+	private readonly _datasetPromise: Promise<SolidDataset>;
+	private _dataset: SolidDataset;
+
+	constructor(datasetPromise: Promise<SolidDataset>) {
+		this._datasetPromise = datasetPromise;
+
+		this._datasetPromise.then(dataset => this._dataset = dataset);
+	}
+
+	private async _waitForDataset() {
+		await this._datasetPromise;
+	}
+
+	public getThing(thingUrl: string, callback: Thing => void)
+		: DatasetBrowser 
+	{
+		return this.getThing(new URL(thingUrl), callback);
+	}
+	public getThing(thingUrl: URL, callback: Thing => void)
+		: DatasetBrowser 
+	{
+		this.getThingAsync(thingUrl).then(callback);
+		return this;
+	}
+
+	public async getThingAsync(thingUrl: string): Promise<Thing> {
+		return this.getThingAsync(new URL(thingUrl));
+	}
+	public async getThingAsync(thingUrl: URL): Promise<Thing> {
+		await this._waitForDataset();
+		console.log(thingUrl);
+		let thing = new ThingBrowser(
+			getThing(this._dataset, thingUrl.href)
+		);
+		return thing;
+	}
+}
+
+export class ThingBrowser {
+	private _thing: Thing;
+
+	constructor(thing: Thing) {
+		this._thing = thing;
+	}
+
+	public getString(url: string): string {
+		return this.getString(new URL(url));
+	}
+	public getString(url: URL): string {
+		return getStringNoLocale(this._thing, url.href);
 	}
 }
