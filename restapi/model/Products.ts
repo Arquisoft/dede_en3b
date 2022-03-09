@@ -1,18 +1,20 @@
-import  mongoose, {Schema, Types} from 'mongoose';
+import  mongoose, {Document, Types} from 'mongoose';
 
-export type IProduct = {
-    // id: Types.ObjectId;
+export interface IProduct  extends Document{
+    _id: Types.ObjectId;
     name: string;
     description?: string;
     photo?: string;
+    type?: string;
     price?: number;
 }
 
-const productSchema = new Schema<IProduct>({
-    name: {type: String, require:true},
+const productSchema = new mongoose.Schema({
+    name: String,
     description: String,
     photo: String,
+    type: String,
     price: Number
-});
+  });
 
 module.exports = mongoose.model("Products", productSchema);
