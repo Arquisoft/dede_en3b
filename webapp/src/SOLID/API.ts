@@ -11,8 +11,11 @@ import {
 	getStringNoLocale
 } from "@inrupt/solid-client";
 
-//TODO(Mario): Maybe change this to a state design pattern?
-//TODO(Mario): Custom exception
+export class LogInError extends Error {
+	constructor(message?: string) {
+		super(message);
+	}
+}
 
 /**
  * Represents a connection to a solid pod. This 
@@ -63,15 +66,19 @@ export class SolidConnection {
 					window.location.href : 
 					`${window.location.origin}/${redirect}`, 
 			});
+		else throw new LogInError("Already logged in");
 	}
 
 	/**
 	 * Converts an URL to the same url but the base is
 	 * now the base of user's webID
 	 */
-	public convertToLoggedUserUrl(fileUrl: URL): URL {
+	public convertToLoggedUserUrl(fileUrl: string): string {
+		if(!this.isLoggedIn())
+			throw new LogInError("Not logged in");
+
 		let webIdUrl = this.getWebId(); 
-		return new URL(`${webIdUrl.origin}/${fileUrl}`);
+		return `${webIdUrl.origin}/${fileUrl}`;
 	}
 
 	/**
@@ -80,13 +87,8 @@ export class SolidConnection {
 	public async getFileFromRawUrl(fileUrl: string)
 		: Promise<Blob> 
 	{
-		return this.getFileFromRawUrl(new ULR(fileUrl));
-	}
-	public async getFileFromRawUrl(fileUrl: URL)
-		: Promise<Blob> 
-	{
 		let result = await getFile(
-			fileUrl.href,
+			fileUrl,
 			{ fetch: this._session.fetch }
 		);
 		return result;
@@ -100,16 +102,9 @@ export class SolidConnection {
 	public async getFileFromLoggedUser(fileUrl: string) 
 		: Promise<Blob>
 	{
-		return this.getFileFromLoggedUser(new URL(fileUrl));
-	}
-	public async getFileFromLoggedUser(fileUrl: URL) 
-		: Promise<Blob>
-	{
-		if(this.isLoggedIn()) {
-			return this.getFileFromRawUrl(
-				this.convertToLoggedUserUrl(fileUrl)
-			);
-		}
+		return this.getFileFromRawUrl(
+			this.convertToLoggedUserUrl(fileUrl)
+		);
 	}
 
 	/**
@@ -119,13 +114,8 @@ export class SolidConnection {
 	public async overwriteFileInRawUrl(fileUrl: string, file: File)
 		: Promise<void>
 	{
-		return this.overwriteFileInRawUrl(new URL(fileUrl), file);
-	}
-	public async overwriteFileInRawUrl(fileUrl: URL, file: File)
-		: Promise<void>
-	{
 		await overwriteFile(
-			fileUrl.href,
+			fileUrl,
 			file,
 			{ contentType: file.type, fetch: this._session.fetch }
 		);
@@ -140,31 +130,18 @@ export class SolidConnection {
 	public async overwriteFileInLoggedUserUrl(fileUrl: string, file: File) 
 		: Promise<void>
 	{
-		return this.overwriteFileInLoggedUserUrl(new URL(fileUrl), file);
-	}
-	public async overwriteFileInLoggedUserUrl(fileUrl: URL, file: File) 
-		: Promise<void>
-	{
-		if(this.isLoggedIn()) {
-			return this.overwriteFileInRawUrl(
-				this.convertToLoggedUserUrl(fileUrl), file
-			);
-		}
+		return this.overwriteFileInRawUrl(
+			this.convertToLoggedUserUrl(fileUrl), file
+		);
 	}
 
 	public fetchDatasetFromRawUrl(datasetUrl: string): DatasetBrowser {
-		return this.fetchDatasetFromRawUrl(new URL(datasetUrl));
-	}
-	public fetchDatasetFromRawUrl(datasetUrl: URL): DatasetBrowser {
 		return new DatasetBrowser(
-			getSolidDataset(datasetUrl.href, { fetch: this._session.fetch })
+			getSolidDataset(datasetUrl, { fetch: this._session.fetch })
 		);
 	}
 
 	public fetchDatasetFromUser(datasetUrl: string): DatasetBrowser {
-		return this.fetchDatasetFromUser(new URL(datasetUrl));
-	}
-	public fetchDatasetFromUser(datasetUrl: URL): DatasetBrowser {
 		return this.fetchDatasetFromRawUrl(
 			this.convertToLoggedUserUrl(datasetUrl)
 		);
@@ -182,6 +159,7 @@ export class SolidConnection {
 	}
 
 	private _initialize() {
+		console.log("initializing");
 		this._initializePromise = new Promise((accept, reject) => 
 			this._session.handleIncomingRedirect()
 			.then(() => accept(this))
@@ -219,32 +197,23 @@ export class DatasetBrowser {
 		this._datasetPromise.then(dataset => this._dataset = dataset);
 	}
 
-	private async _waitForDataset() {
-		await this._datasetPromise;
-	}
-
-	public getThing(thingUrl: string, callback: Thing => void)
-		: DatasetBrowser 
-	{
-		return this.getThing(new URL(thingUrl), callback);
-	}
-	public getThing(thingUrl: URL, callback: Thing => void)
+	public getThing(thingUrl: string, callback: (ThingBrowser) => void)
 		: DatasetBrowser 
 	{
 		this.getThingAsync(thingUrl).then(callback);
 		return this;
 	}
 
-	public async getThingAsync(thingUrl: string): Promise<Thing> {
-		return this.getThingAsync(new URL(thingUrl));
-	}
-	public async getThingAsync(thingUrl: URL): Promise<Thing> {
+	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
-		console.log(thingUrl);
 		let thing = new ThingBrowser(
-			getThing(this._dataset, thingUrl.href)
+			getThing(this._dataset, thingUrl)
 		);
 		return thing;
+	}
+
+	private async _waitForDataset() {
+		await this._datasetPromise;
 	}
 }
 
@@ -256,9 +225,6 @@ export class ThingBrowser {
 	}
 
 	public getString(url: string): string {
-		return this.getString(new URL(url));
-	}
-	public getString(url: URL): string {
-		return getStringNoLocale(this._thing, url.href);
+		return getStringNoLocale(this._thing, url);
 	}
 }
