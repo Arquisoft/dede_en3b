@@ -66,14 +66,31 @@ api.get(
   }
 );
 
-api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
+/*api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
     console.log(id);
-    const products:IProduct = await Products.findOne({name:id});
+    const products:IProduct = await Products.findOne({id: id});
     if(!products) {
       return res.status(404).json({message: 'Product with name "${name}" not found'});
     }
     return res.status(200).send(products);
+});
+*/
+
+/**
+ * OSCAR
+ * Response for finding products by name 
+ */
+api.get("/products/:name", async (req: Request, res: Response): Promise<Response> => {
+
+  const products: IProduct[] = await Products.find({
+    name: {$regex: '.*' + req.params.name + '.*'}
+  });
+  
+  if(!products) {
+    return res.status(404).json({message: 'Product with name '+ req.params.name +' not found'});
+  }
+  return res.status(200).send(products);
 });
 
 export default api;

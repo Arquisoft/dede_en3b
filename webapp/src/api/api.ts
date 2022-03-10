@@ -41,3 +41,19 @@ export async function getProduct(id:string):Promise<IProduct> {
   return response.json();
 }
 
+/**
+ * Function to query the database looking for products realated with title name
+ * @param id 
+ * @returns 
+ */
+export async function findProductsByName(name: string): Promise<IProduct[]> {
+  const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/products/' + name;
+
+  console.log(str);
+  let response = await fetch(str);
+  return response.json();
+}
+
+
+
