@@ -24,6 +24,14 @@
   
 }
 
+.prodList {
+  margin: 1em 1em 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em ;
+
+}
+
 .product {
   width: 300px;
   height: 300px;

@@ -7,6 +7,7 @@ export interface IProduct  extends Document{
     photo?: string;
     type?: string;
     price?: number;
+    _v?: number;
 }
 
 const productSchema = new mongoose.Schema({
@@ -14,7 +15,7 @@ const productSchema = new mongoose.Schema({
     description: String,
     photo: String,
     type: String,
-    price: Number
+    price: Number,
   });
 
 module.exports = mongoose.model("Products", productSchema);
