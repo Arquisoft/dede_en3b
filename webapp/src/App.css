@@ -3,14 +3,14 @@
 }
 
 .searchForm input {
-  border: 2px solid rgb(29, 29, 220);
+  border: 2px solid rgb(156, 39, 176);
   padding: 10px;
   font-size: 18px;
 }
 
 .searchForm button {
-  background-color: rgb(29, 29, 220);
-  color: rgb(223, 217, 217);
+  background-color: rgb(156, 39, 176);
+  color: rgb(255, 255, 255);
   padding: 12px;
   font-size: 18px;
   border: 0;
