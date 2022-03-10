@@ -1,3 +1,4 @@
+
 import express, { Request, Response, Router } from 'express';
 import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';

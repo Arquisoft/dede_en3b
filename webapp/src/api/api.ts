@@ -40,4 +40,3 @@ export async function getProduct(id:string):Promise<IProduct> {
   let response = await fetch(str);
   return response.json();
 }
-
