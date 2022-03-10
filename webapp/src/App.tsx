@@ -10,35 +10,47 @@ import  {findProductsByName, getProducts} from './api/api';
 // import {IUser} from '../../restapi/model/User';
 import {IProduct} from '../../restapi/model/Products';
 import './App.css';
+import ProductComponent from "./components/ProductComponent";
 // import ProductComponent from './components/ProductComponent'; 
 import { Button } from '@mui/material';
 
 function App(): JSX.Element {
 
-  const [productsFound, setProductsFound] = useState<IProduct[]>([]);
-  const [productSearch, setProductSearch] = useState('');
+ // const [productsFound, setProductsFound] = useState<IProduct[]>([]);
+ // const [productSearch, setProductSearch] = useState('');
   const [products, setProducts] = useState<IProduct[]>([]);
 
   const refreshProductList = async () => {
-    const a:IProduct[] = await getProducts();
-    var b = a[0]._id;
-    console.log(a);
-    console.log(b);
-    setProducts(a);
+    const productsResult : IProduct[] = await getProducts();
+
+    setProducts(productsResult);
   }
 
   useEffect(()=>{
-    // refreshUserList();
     refreshProductList();
   },[]);
 
+  /**
+   * Filters the products by name
+   * @param event 
+   */
   const searchForProducts = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-    findProductsByName(input.value);
-    input.value = '';
+    updateProductList(input);
+    
   };
+
+  /**
+   * Updates the list of products
+   * @param input 
+   */
+  const updateProductList = async (input: HTMLInputElement) => {
+    const filteredProducts: IProduct[] = await findProductsByName(input.value);
+    setProducts(filteredProducts);
+    input.value = '';
+  }
 
   // useEffect(() => {
   //   (async () => {
@@ -52,7 +64,7 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-    setProductSearch(input.value);
+//    setProductSearch(input.value);
     input.value = '';
   };
 
@@ -62,12 +74,18 @@ function App(): JSX.Element {
       <h1>Product Search App</h1>
       <form className="searchForm" onSubmit={event => searchForProducts(event)} >
         <input id="searchText" type="text" />
-        <Button>Search</Button>
+        <button>Search</button>
       </form>
-      {productSearch && <p>Results for {products}...</p>}
       <div className="products-container">
 
-        <ProductList products={products}/>
+        {products.map((product,i)=>{
+                    return (
+                        <ProductComponent key={i} product={product} ></ProductComponent>
+                        
+                    );
+                })}
+
+     
       </div>
 
       

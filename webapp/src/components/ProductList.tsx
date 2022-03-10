@@ -49,17 +49,11 @@ function ProductList(props: ProductListProps): JSX.Element {
     return (
         <>
             <List className="prodList">
+                
                 {props.products.map((product,i)=>{
                     return (
                         <ProductComponent key={i} product={product} ></ProductComponent>
-                        /*<ListItem key={product.name}>
-                            <ListItemIcon>
-                                <img src={product.photo} alt="Foto de la sudadera."/>
-                            </ListItemIcon>
-                            <ListItemText primary={product.name} secondary={product.description}/>
-                            <p> {product.price} </p>
-                            <Button onClick={e => getCurrentProduct(product)}>Accept</Button>
-                        </ListItem>*/
+                        
                     );
                 })}
             </List>
