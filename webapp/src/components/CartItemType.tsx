@@ -1,6 +1,6 @@
 import { IProduct } from "./IProduct";
 
-export interface ICartItem {
+export type CartItemType = {
     product: IProduct,
     units: number,
 }
