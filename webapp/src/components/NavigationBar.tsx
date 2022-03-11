@@ -12,29 +12,10 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link, Route, Routes } from 'react-router-dom';
-import { CartItemType } from './CartItemType';
-import cart from '../App';
+import { Link} from 'react-router-dom';
 
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -128,7 +109,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <SearchIcon />
           </Badge>
         </IconButton>
       </MenuItem>
@@ -138,12 +119,14 @@ export default function PrimarySearchAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
+          
           <Badge badgeContent={17} color="error">
-          <Link to="/cart">
-                  <ShoppingCartIcon />  
-                </Link>
-          </Badge>
-        </IconButton>
+          
+            <ShoppingCartIcon />  
+          
+            </Badge>
+            
+          </IconButton>
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -183,32 +166,32 @@ export default function PrimarySearchAppBar() {
           >
             DEDE_EN3B
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Link to="/" style={{ color: '#FFF' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+              <Badge color="error">
+              
+            <SearchIcon />  
+          
               </Badge>
-            </IconButton>
+              </IconButton>
+              </Link>
+            <Link to="/cart" style={{ color: '#FFF' }}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-            >
+              >
+                
               <Badge badgeContent={17} color="error">
-                  <ShoppingCartIcon />  
+              
+            <ShoppingCartIcon />  
                  
               </Badge>
-            </IconButton>
+              </IconButton>
+              </Link>
             <IconButton
               size="large"
               edge="end"

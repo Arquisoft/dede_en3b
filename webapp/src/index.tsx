@@ -9,8 +9,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
+    
     <BrowserRouter>
-      
       <NavigationBar />
       <Routes>
         
