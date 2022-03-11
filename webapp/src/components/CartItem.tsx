@@ -1,10 +1,10 @@
 import styled from "@emotion/styled/types/base";
 import Button from "@mui/material/Button";
-import { CartItemType } from "./CartItemType";
+import { ICartItem } from "./ICartItem";
 
 type Props = {
-  item: CartItemType;
-  addToCart: (clickedItem: CartItemType) => void;
+  item: ICartItem;
+  addToCart: (clickedItem: ICartItem) => void;
   removeFromCart: (id: string) => void;
 };
 

@@ -1,14 +1,14 @@
 import CartItem from "../components/CartItem";
-import { CartItemType } from "../components/CartItemType";
+import { ICartItem } from "../components/ICartItem";
 
 type Props = {
-  cartItems: CartItemType[];
-  addToCart: (clickedItem: CartItemType) => void;
+  cartItems: ICartItem[];
+  addToCart: (clickedItem: ICartItem) => void;
   removeFromCart: (id: string) => void;
 };
 
 const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
-  const calculateTotal = (items: CartItemType[]) =>
+  const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
 
   return (
