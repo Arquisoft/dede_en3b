@@ -15,6 +15,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link} from 'react-router-dom';
+import logo from '../logo.png';
+import { createTheme } from '@mui/material/styles';
+
 
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -151,7 +154,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="secondary"> 
         <Toolbar>
           <IconButton
             size="large"
@@ -162,6 +165,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           >
             <MenuIcon />
           </IconButton>
+          <img src={logo} alt="logo" />
           <Typography
             variant="h6"
             noWrap
