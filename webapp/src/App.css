@@ -2,14 +2,20 @@
   padding: 0px 100px;
 }
 
+body {
+  background-color: #697689;
+}
+
+
 .searchForm input {
-  border: 2px solid rgb(156, 39, 176);
+  border: 2px solid rgb(39, 42, 64);
+  background-color: #cccce0;
   padding: 10px;
   font-size: 18px;
 }
 
 .searchForm button {
-  background-color: rgb(156, 39, 176);
+  background-color: rgb(39, 42, 64);
   color: rgb(255, 255, 255);
   padding: 12px;
   font-size: 18px;

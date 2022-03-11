@@ -48,6 +48,8 @@ interface NavigationBarProps {
   numberOfProductsInCart: number;
 }
 
+
+
 export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -154,7 +156,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="secondary"> 
+      <AppBar position="static" style={{ background: '#272a40'}}> 
         <Toolbar>
           <IconButton
             size="large"
@@ -165,14 +167,19 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           >
             <MenuIcon />
           </IconButton>
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <IconButton>
+              <img src={logo} alt="logo" id="app-logo"/>
+            </IconButton>
+          </Link>
+          
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            DEDE_EN3B
+            DeDe_en3B
           </Typography>
           
           <Box sx={{ flexGrow: 1 }} />
