@@ -120,7 +120,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       <MenuItem>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
           color="inherit"
         >
           
@@ -185,11 +185,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             <Link to="cart" style={{ color: '#FFF' }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
               color="inherit"
               >
                 
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={props.numberOfProductsInCart} color="error">
               
             <ShoppingCartIcon />  
                  
