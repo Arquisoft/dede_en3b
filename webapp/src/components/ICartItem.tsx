@@ -1,4 +1,5 @@
-import { IProduct } from "./IProduct";
+import { IProduct } from "../../../restapi/model/Products";
+
 
 export interface ICartItem {
     product: IProduct,

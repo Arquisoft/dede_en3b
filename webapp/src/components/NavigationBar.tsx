@@ -41,7 +41,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+interface NavigationBarProps {
+  numberOfProductsInCart: number;
+}
+
+export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -145,7 +149,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    
+    <>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -178,7 +182,7 @@ export default function PrimarySearchAppBar() {
               </Badge>
               </IconButton>
               </Link>
-            <Link to="/cart" style={{ color: '#FFF' }}>
+            <Link to="cart" style={{ color: '#FFF' }}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -221,7 +225,8 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+      </Box>
+      </>
 
      
         

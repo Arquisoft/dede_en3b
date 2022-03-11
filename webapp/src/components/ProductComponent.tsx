@@ -11,10 +11,11 @@ import { ICartItem } from "./ICartItem";
 
 type ProductComponentProps = {
   product: IProduct;
-  onAddToCart: (clickedItem: ICartItem) => void;
+  onAddToCart: (clickedItem: IProduct) => void;
 }
 
 function ProductComponent(props: ProductComponentProps): JSX.Element {
+
   
   let imageRef: string = require("../static/images/" + props.product._id + ".png");
 
@@ -39,7 +40,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <button onClick={event => props.onAddToCart}>Add to cart</button>
+        <button onClick={event => props.onAddToCart(props.product)}>Add to cart</button>
       </CardActions>
     </Card>
     )

@@ -27,8 +27,8 @@ function ProductList(props: ProductListProps): JSX.Element {
                 
                 {props.products.map((product,i)=>{
                     return (
-                        <ProductComponent key={i} product={product} onAddToCart={props.onAddToCart}></ProductComponent>
-                        
+                        //<ProductComponent key={i} product={product} onAddToCart={props.onAddToCart(product)}></ProductComponent>
+                        <></>
                     );
                 })}
             </List>

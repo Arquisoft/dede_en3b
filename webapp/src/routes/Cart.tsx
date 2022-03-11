@@ -1,9 +1,10 @@
+import { IProduct } from "../../../restapi/model/Products";
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../components/ICartItem";
 
 type Props = {
   cartItems: ICartItem[];
-  addToCart: (clickedItem: ICartItem) => void;
+  addToCart: (clickedItem: IProduct) => void;
   removeFromCart: (id: string) => void;
 };
 

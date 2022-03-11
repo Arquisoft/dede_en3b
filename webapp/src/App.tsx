@@ -1,16 +1,17 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import ProductList from './components/ProductList';
 import  {findProductsByName, getProducts} from './api/api';
-import {IProduct} from '../../restapi/model/Products';
 import './App.css';
 import ProductComponent from "./components/ProductComponent";
 import { Button, circularProgressClasses, Menu, MenuItem } from '@mui/material';
-import { Link, NavLink, Route } from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import CartItem from './components/CartItem';
-
-declare var cart: ICartItem[];
+import { IProduct } from '../../restapi/model/Products';
+import Cart from './routes/Cart';
+import { Browser } from 'puppeteer';
+import Catalogue from './routes/Catalogue';
 
 function App(): JSX.Element {
 
@@ -18,7 +19,7 @@ function App(): JSX.Element {
   const [products, setProducts] = useState<IProduct[]>([]);
 
   //Cart
-  const [cart, setCart] = useState<ICartItem[]>([]);
+  const [shoppingCart, setCart] = useState<ICartItem[]>([]);
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -60,36 +61,66 @@ function App(): JSX.Element {
     input.value = '';
   };
 
-  const onAddToCart = (clickedItem: ICartItem) => {
+  /**
+   * Function to add a product to the cart
+   * 
+   * @param clickedItem 
+   */
+  const onAddToCart = (clickedItem: IProduct) => {
 
     var found = false;
-    cart.forEach(i => { if (i.product.id == clickedItem.product.id) { i.units++; found = true; } } );
+    shoppingCart.forEach(i =>
+    {
+      if (i.product.id == clickedItem.id) {
+        i.units++; found = true;
+      }
 
-    var prod: ICartItem = { product: clickedItem.product, units: 1 };
-    if (found == false) cart.slice().concat([prod]);
+    });
+
+    var prod: ICartItem = { product: clickedItem, units: 1 };
+    if (found == false) shoppingCart.slice().concat([prod]);
+
+    console.log("Added to cart");
+    console.log(shoppingCart);
+
+  }
+
+  /**
+   * Function to remove a product from the cart
+   * 
+   * @param clickedItem 
+   */
+   const onRemoveFromCart = (productId : string) => {
+
+    var found = false;
+    shoppingCart.forEach(i =>
+    {
+      if (i.product.id == productId) {
+        i.units--; found = true;
+      }
+
+    });
   }
 
   
   return (
+  
+    <BrowserRouter>
+      
+      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
+
+      <Routes>
+
+        
+
+        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
+
+      </Routes>
     
-    <div className="App">
-      <h1>Product Search App</h1>
-      <form className="searchForm" onSubmit={event => searchForProducts(event)} >
-        <input id="searchText" type="text" />
-        <button>Search</button>
-      </form>
-      <div className="products-container">
-
-        {products.map((product,i)=>{
-                    return (
-                        <ProductComponent key={i} product={product} onAddToCart={onAddToCart} ></ProductComponent>
-                        
-                    );
-                })}
-     
-      </div>
-
-      </div>
+    </BrowserRouter>
+      
+      
   );
 }
 

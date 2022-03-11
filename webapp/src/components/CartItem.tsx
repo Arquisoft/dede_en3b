@@ -1,10 +1,11 @@
 import styled from "@emotion/styled/types/base";
 import Button from "@mui/material/Button";
+import { IProduct } from "../../../restapi/model/Products";
 import { ICartItem } from "./ICartItem";
 
 type Props = {
   item: ICartItem;
-  addToCart: (clickedItem: ICartItem) => void;
+  addToCart: (clickedItem: IProduct) => void;
   removeFromCart: (id: string) => void;
 };
 
@@ -31,13 +32,13 @@ function CartItem(props :  Props) : JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => props.addToCart(props.item)}
+            onClick={() => props.addToCart(props.item.product)}
           >
             +
           </Button>
         </div>
       </div>
-      <img src={props.item.product.href} alt={props.item.product.name} />
+      <img src={props.item.product.photo} alt={props.item.product.name} />
     </>
       
   );
