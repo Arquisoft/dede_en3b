@@ -1,10 +1,11 @@
 import { FormEvent } from "react";
 import { IProduct } from "../../../restapi/model/Products";
+import { ICartItem } from "../components/ICartItem";
 import ProductComponent from "../components/ProductComponent";
 
 interface CatalogueProps {
     products: IProduct[];
-    addToCart: (clickedItem: IProduct) => void;
+    addToCart: (clickedItem: ICartItem) => void;
     searchForProducts: (event: FormEvent<HTMLFormElement>) => void;
 }
 
