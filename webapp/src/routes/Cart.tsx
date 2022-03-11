@@ -1,10 +1,11 @@
 import { IProduct } from "../../../restapi/model/Products";
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../components/ICartItem";
+import { Wrapper } from "./Cart.styles";
 
 type Props = {
   cartItems: ICartItem[];
-  addToCart: (clickedItem: IProduct) => void;
+  addToCart: (clickedItem: ICartItem) => void;
   removeFromCart: (id: string) => void;
 };
 
@@ -13,7 +14,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
 
   return (
-    <>
+    <Wrapper>
       <h2>Your Cart</h2>
       {cartItems.length === 0 ? <p>No items in cart.</p> : null}
       {cartItems.map((item) => (
@@ -24,8 +25,8 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
-      <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
-    </>
+          <h2>Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+          </Wrapper>
   );
 };
 
