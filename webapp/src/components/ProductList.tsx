@@ -6,37 +6,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {getProduct} from '../api/api';
 import ProductComponent from "./ProductComponent";
+import { ICartItem } from "./ICartItem";
 
 type ProductListProps = {
     products: IProduct[];
+    onAddToCart: (clickedItem: ICartItem) => void;
 }
-
-// const getCurrentProduct = async (id:string) => {
-//     console.log(id);
-//     const a:IProduct = await getProduct(id);
-//     console.log(a);
-//     //setProduct(await getProduct(id));
-// }
-
-// function ProductList(props: ProductListProps): JSX.Element {
-//     return (
-//         <>
-//             <List>
-//                 {props.products.map((product,i)=>{
-//                     return (
-//                         <ListItem key={product.name}>
-//                             <ListItemIcon>
-//                                 <img src={product.photo} alt="Foto de la sudadera."/>
-//                             </ListItemIcon>
-//                             <ListItemText primary={product.name} secondary={product.description}/>
-//                             <Button onClick={e => getCurrentProduct(product.name)}>Accept</Button>
-//                         </ListItem>
-//                     );
-//                 })}
-//             </List>
-//         </>
-//     );
-// }
 
 const getCurrentProduct = async (id:IProduct) => {
     console.log(id);
@@ -52,7 +27,7 @@ function ProductList(props: ProductListProps): JSX.Element {
                 
                 {props.products.map((product,i)=>{
                     return (
-                        <ProductComponent key={i} product={product} ></ProductComponent>
+                        <ProductComponent key={i} product={product} onAddToCart={props.onAddToCart}></ProductComponent>
                         
                     );
                 })}

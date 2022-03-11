@@ -7,9 +7,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { IProduct } from "../../../restapi/model/Products";
+import { ICartItem } from "./ICartItem";
 
 type ProductComponentProps = {
-    product: IProduct;
+  product: IProduct;
+  onAddToCart: (clickedItem: ICartItem) => void;
 }
 
 function ProductComponent(props: ProductComponentProps): JSX.Element {
@@ -37,7 +39,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small">View</Button>
+        <button onClick={event => props.onAddToCart}>Add to cart</button>
       </CardActions>
     </Card>
     )

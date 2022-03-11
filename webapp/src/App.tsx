@@ -1,28 +1,24 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-// import Box from '@mui/material/Box';
-// import Link from '@mui/material/Link';
-// import Container from '@mui/material/Container';
-// import EmailForm from './components/EmailForm';
-// import Welcome from './components/Welcome';
-// import UserList from './components/UserList';
 import ProductList from './components/ProductList';
 import  {findProductsByName, getProducts} from './api/api';
-// import {IUser} from '../../restapi/model/User';
 import {IProduct} from '../../restapi/model/Products';
 import './App.css';
 import ProductComponent from "./components/ProductComponent";
-// import ProductComponent from './components/ProductComponent'; 
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, circularProgressClasses, Menu, MenuItem } from '@mui/material';
 import { Link, NavLink, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import { CartItemType } from './components/CartItemType';
+import { ICartItem } from './components/ICartItem';
+import CartItem from './components/CartItem';
 
-declare var cart: CartItemType[];
+declare var cart: ICartItem[];
 
 function App(): JSX.Element {
 
   //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
+
+  //Cart
+  const [cart, setCart] = useState<ICartItem[]>([]);
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -64,6 +60,15 @@ function App(): JSX.Element {
     input.value = '';
   };
 
+  const onAddToCart = (clickedItem: ICartItem) => {
+
+    var found = false;
+    cart.forEach(i => { if (i.product.id == clickedItem.product.id) { i.units++; found = true; } } );
+
+    var prod: ICartItem = { product: clickedItem.product, units: 1 };
+    if (found == false) cart.slice().concat([prod]);
+  }
+
   
   return (
     
@@ -77,7 +82,7 @@ function App(): JSX.Element {
 
         {products.map((product,i)=>{
                     return (
-                        <ProductComponent key={i} product={product} ></ProductComponent>
+                        <ProductComponent key={i} product={product} onAddToCart={onAddToCart} ></ProductComponent>
                         
                     );
                 })}
