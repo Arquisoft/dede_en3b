@@ -4,11 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NavigationBar from './components/NavigationBar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <NavigationBar/>
-    <App />
+    <BrowserRouter>
+      
+      <NavigationBar />
+      <Routes>
+        
+        <Route path="/" element={<App />} />
+        <Route path="/cart" />
+      </Routes>
+
+    </BrowserRouter>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

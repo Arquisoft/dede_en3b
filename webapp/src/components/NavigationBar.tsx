@@ -13,8 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link, Route, Routes } from 'react-router-dom';
+import { CartItemType } from './CartItemType';
+import cart from '../App';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -126,7 +131,6 @@ export default function PrimarySearchAppBar() {
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -135,7 +139,9 @@ export default function PrimarySearchAppBar() {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+          <Link to="/cart">
+                  <ShoppingCartIcon />  
+                </Link>
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -156,6 +162,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
+    
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -198,7 +205,8 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                  <ShoppingCartIcon />  
+                 
               </Badge>
             </IconButton>
             <IconButton
@@ -226,9 +234,13 @@ export default function PrimarySearchAppBar() {
             </IconButton>
           </Box>
         </Toolbar>
+        
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
     </Box>
+
+     
+        
   );
 }
