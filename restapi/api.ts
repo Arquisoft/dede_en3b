@@ -66,7 +66,7 @@ api.get(
   }
 );
 
-/*api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
+api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
     console.log(id);
     const products:IProduct = await Products.findOne({id: id});
@@ -75,16 +75,18 @@ api.get(
     }
     return res.status(200).send(products);
 });
-*/
 
 /**
  * OSCAR
  * Response for finding products by name 
  */
-api.get("/products/:name", async (req: Request, res: Response): Promise<Response> => {
+api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
+
+  let name = req.params.name;
+
 
   const products: IProduct[] = await Products.find({
-    name: {$regex: '.*' + req.params.name + '.*'}
+    name: {$regex: '.*' + name + '.*'}
   });
   
   if(!products) {
