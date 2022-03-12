@@ -4,6 +4,7 @@ import { IUser } from './model/User';
 import { IProduct } from './model/Products';
 const User = require('../restapi/model/User');
 const Products = require('../restapi/model/Products');
+var mongoose = require('mongoose');
 const api:Router = express.Router();
 
 // app.use(function(req,res,next){
@@ -68,8 +69,9 @@ api.get(
 
 api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
-    console.log(id);
-    const products:IProduct = await Products.findOne({id: id});
+    var objID = mongoose.Types.ObjectId(id);
+    console.log(objID);
+    const products:IProduct = await Products.findOne({_id: objID});
     if(!products) {
       return res.status(404).json({message: 'Product with name "${name}" not found'});
     }
