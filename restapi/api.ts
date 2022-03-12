@@ -4,6 +4,8 @@ import { IUser } from './model/User';
 import { IProduct } from './model/Products';
 const User = require('../restapi/model/User');
 const Products = require('../restapi/model/Products');
+const Order = require('../restapi/model/Order');
+const Utils = require('../restapi/util/utils');
 const api:Router = express.Router();
 
 // app.use(function(req,res,next){
@@ -92,4 +94,20 @@ api.get("/products/:name", async (req: Request, res: Response): Promise<Response
   }
   return res.status(200).send(products);
 });
+
+//Call to add an order to the database
+api.post(
+  "/orders/add", [
+    check('products').isLength({min : 1}),
+  ],
+  async (req: Request, res: Response): Promise<Response> => {
+    //Creting the order
+    const order = new Order({webId:"",productIds:req.body.products, address:"", totalPrice:Utils.computeTotalPrice(req.body.products)});
+    //Adding the order to the database
+    await order.save();
+    //We answer that its all ok.
+    return res.sendStatus(200);
+  }
+);
+
 export default api;
