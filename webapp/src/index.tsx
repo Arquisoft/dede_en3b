@@ -5,14 +5,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NavigationBar from './components/NavigationBar';
-import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <NavigationBar/>
-      <App />
-    </BrowserRouter>
+    <NavigationBar/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
