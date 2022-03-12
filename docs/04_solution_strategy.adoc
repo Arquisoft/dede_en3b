@@ -5,7 +5,6 @@
 
 A summary of the technical decisions that we have taken so far:
 
-    * **React**: A framework to build the user interface of the application.
     * **MongoDB**: The DMBS of our choice.
 
 === Decisions about the the top-level decomposition of the system
