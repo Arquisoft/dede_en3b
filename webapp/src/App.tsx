@@ -84,6 +84,18 @@ function App(): JSX.Element {
     input.value = '';
   };
 
+  const handleChange = async (event: { target: { value: string } }) => {
+    var type = event.target.value;
+    var filteredProducts: IProduct[];
+    if(!type) {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    setProducts(filteredProducts);
+  };
+
   
   return (
     <div className="App">
@@ -91,14 +103,27 @@ function App(): JSX.Element {
       <form className="searchForm" onSubmit={event => searchForProducts(event)} >
         <input id="searchText" type="text" />
         <button>Search</button>
-        <select className="searchForm" id="lang" onChange={event => filterProduct(event)}>
-                  
+        {/* <select className="searchForm" id="lang" onChange={event => filterProduct(event)}>
                   <option value="Default">Default</option>
                   <option value="Camiseta">Camiseta</option>
                   <option value="Pantalon">Pantalon</option>
                   <option value="Sudadera">Sudadera</option>
-        </select>
+        </select> */}
+        <InputLabel id="demo-customized-select-label">Type</InputLabel>
+        <Select
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
+          <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
+          <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
+        </Select>
       </form>
+      
       <div className="products-container">
 
         {products.map((product,i)=>{
