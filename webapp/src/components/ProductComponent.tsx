@@ -21,7 +21,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
   let imageRef: string = require("../static/images/" + props.product._id + ".png");
   const navigate = useNavigate();
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345, minWidth: 345 }}>
       <CardMedia
         component="img"
         height="350"

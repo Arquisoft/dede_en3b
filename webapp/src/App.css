@@ -22,12 +22,16 @@ body {
   border: 0;
 }
 
+.search-container {
+  animation: fadein 6s;
+}
+
 .products-container {
   margin: 10px 0;
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
-  
+  animation: slidein 4.5s ease-in-out;
 }
 
 .prodList {
@@ -94,21 +98,29 @@ body {
 
 .product-info {
   animation: fadein;
-  animation-duration: 4s;
+  animation-duration: 3.5s;
 }
 
 .product-pic {
-  animation: fadein 4s;
+  animation: fadein 3.5s;
+}
+
+h1 {
+  text-align: center;
+  animation: fadein 4s ease-in;
+  font-size: 3.05em;
 }
 
 @keyframes slidein {
   from {
-    margin-left: 100%;
-    width: 300%;
+    opacity: 0.2;
+    margin-top: 50%;
+    width: 100%;
   }
 
   to {
-    margin-left: 0%;
+    opacity: 1;
+    margin-top: 0.5%;
     width: 100%;
   }
 }
