@@ -158,7 +158,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: '#272a40'}}> 
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -166,7 +166,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Link to="/">
             <IconButton>
               <img src={logo} alt="logo" id="app-logo"/>

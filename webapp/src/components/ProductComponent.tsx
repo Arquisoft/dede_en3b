@@ -42,7 +42,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       <CardActions>
         <Button size="small">Share</Button>
           <Button onClick={event => props.onAddToCart(productToItem(props.product))}>Add to cart</Button>
-          <Button onClick={event => navigate(`/product/${props.product._id}`)}>See more</Button>
+          <Button onClick={event => navigate(`/products/${props.product._id}`)}>See more</Button>
       </CardActions>
     </Card>
     )

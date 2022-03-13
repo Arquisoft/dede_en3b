@@ -108,9 +108,9 @@ function App(): JSX.Element {
 
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
-        <Route path="product/:id" 
+        <Route path="products/:id" 
           element={
-            <IndividualProduct product={ null as any } /> 
+            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
           } 
         />
         
