@@ -111,6 +111,23 @@ h1 {
   font-size: 3.05em;
 }
 
+h2 {
+  font-size: 2.2em;
+}
+
+.cart-item-product{
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.total-text {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2px;
+  font-size: 1.5em;
+}
+
 @keyframes slidein {
   from {
     opacity: 0.2;

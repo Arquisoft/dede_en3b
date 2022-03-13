@@ -15,7 +15,7 @@ function CartItem(props: Props): JSX.Element {
   let imageRef: string = require("../static/images/" + props.item.product._id + ".png");
 
   return (
-    <Wrapper>
+    <Wrapper className="cart-item-product">
       <div>
         <h3>{props.item.product.name}</h3>
         <div className="information">

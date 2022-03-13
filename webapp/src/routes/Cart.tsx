@@ -25,7 +25,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
-          <h2>Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+          <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
           </Wrapper>
   );
 };
