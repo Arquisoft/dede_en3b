@@ -7,7 +7,7 @@ import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 // import UserList from './components/UserList';
 import Select, {SelectChangeEvent} from '@mui/material/Select'
 import ProductList from './components/ProductList';
-import  {findProductsByName, getProducts} from './api/api';
+import  {findProductsByName, getProducts, filterProducts} from './api/api';
 // import {IUser} from '../../restapi/model/User';
 import {IProduct} from '../../restapi/model/Products';
 import './App.css';
@@ -56,8 +56,14 @@ function App(): JSX.Element {
 
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
-    console.log(type);
-
+    var filteredProducts: IProduct[];
+    if(type=="Default") {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    setProducts(filteredProducts);
   }
 
 
@@ -85,10 +91,11 @@ function App(): JSX.Element {
       <form className="searchForm" onSubmit={event => searchForProducts(event)} >
         <input id="searchText" type="text" />
         <button>Search</button>
-        <select className="searchForm" id="lang" onChange={event => filterProduct(event)} value="Select">
-                  <option value="select">Select</option>
-                  <option value="Pantalon">Pantalon</option>
+        <select className="searchForm" id="lang" onChange={event => filterProduct(event)}>
+                  
+                  <option value="Default">Default</option>
                   <option value="Camiseta">Camiseta</option>
+                  <option value="Pantalon">Pantalon</option>
                   <option value="Sudadera">Sudadera</option>
         </select>
       </form>
