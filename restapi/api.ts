@@ -78,6 +78,14 @@ api.get(
 */
 
 /**
+ * 
+ */
+api.get("/products/filter/:type", async (req: Request, res:Response): Promise<Response> => {
+  let type: string = req.params.type;
+  const products:IProduct[] = await Products.find({type:type});
+  return res.status(200).send(products);
+});
+/**
  * OSCAR
  * Response for finding products by name 
  */

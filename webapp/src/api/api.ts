@@ -49,8 +49,13 @@ export async function getProduct(id:string):Promise<IProduct> {
 export async function findProductsByName(name: string): Promise<IProduct[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
   var str: string = apiEndPoint + '/products/' + name;
+  let response = await fetch(str);
+  return response.json();
+}
 
-  console.log(str);
+export async function filterProducts(type:string): Promise<IProduct[]> {
+  const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/products/filter/' + type;
   let response = await fetch(str);
   return response.json();
 }

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 // import Box from '@mui/material/Box';
 // import Link from '@mui/material/Link';
 // import Container from '@mui/material/Container';
 // import EmailForm from './components/EmailForm';
 // import Welcome from './components/Welcome';
 // import UserList from './components/UserList';
+import Select, {SelectChangeEvent} from '@mui/material/Select'
 import ProductList from './components/ProductList';
 import  {findProductsByName, getProducts} from './api/api';
 // import {IUser} from '../../restapi/model/User';
@@ -12,7 +13,8 @@ import {IProduct} from '../../restapi/model/Products';
 import './App.css';
 import ProductComponent from "./components/ProductComponent";
 // import ProductComponent from './components/ProductComponent'; 
-import { Button } from '@mui/material';
+import { Button, InputLabel, MenuItem } from '@mui/material';
+import { typeOptions } from '@testing-library/user-event/dist/type/typeImplementation';
 
 function App(): JSX.Element {
 
@@ -52,6 +54,14 @@ function App(): JSX.Element {
     input.value = '';
   }
 
+  const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
+    var type = event.target.value;
+    console.log(type);
+
+  }
+
+
+
   // useEffect(() => {
   //   (async () => {
   //     const query = encodeURIComponent(productSearch);
@@ -75,6 +85,12 @@ function App(): JSX.Element {
       <form className="searchForm" onSubmit={event => searchForProducts(event)} >
         <input id="searchText" type="text" />
         <button>Search</button>
+        <select className="searchForm" id="lang" onChange={event => filterProduct(event)} value="Select">
+                  <option value="select">Select</option>
+                  <option value="Pantalon">Pantalon</option>
+                  <option value="Camiseta">Camiseta</option>
+                  <option value="Sudadera">Sudadera</option>
+        </select>
       </form>
       <div className="products-container">
 
