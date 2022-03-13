@@ -7,6 +7,7 @@ import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
+import IndividualProduct from './routes/IndividualProduct';
 
 function App(): JSX.Element {
 
@@ -107,7 +108,12 @@ function App(): JSX.Element {
 
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
-
+        <Route path="product/:id" 
+          element={
+            <IndividualProduct product={ null as any } /> 
+          } 
+        />
+        
       </Routes>
     
     </BrowserRouter>
