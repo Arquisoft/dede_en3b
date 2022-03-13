@@ -2,6 +2,8 @@ import { IProduct } from "../../../restapi/model/Products";
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
+import Grid from "@mui/material/Grid";
+import { StyledButton } from './Product.styles';
 
 type Props = {
   cartItems: ICartItem[];
@@ -25,7 +27,10 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
+      <Grid direction="row">
           <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+          <StyledButton>Check out</StyledButton>
+      </Grid>
           </Wrapper>
   );
 };

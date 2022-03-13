@@ -1,8 +1,7 @@
-import styled from "@emotion/styled/types/base";
-import Button from "@mui/material/Button";
 import { IProduct } from "../../../restapi/model/Products";
 import { Wrapper } from "./CartItem.styles";
 import { ICartItem } from "./ICartItem";
+import {  StyledButton } from '../routes/Product.styles';
 
 type Props = {
   item: ICartItem;
@@ -23,23 +22,23 @@ function CartItem(props: Props): JSX.Element {
           <p>Total: {(props.item.units * props.item.product.price).toFixed(2)} € </p>
         </div>
         <div className="buttons">
-          <Button
+          <StyledButton
             size="small"
             disableElevation
             variant="contained"
             onClick={() => props.removeFromCart(props.item.product.id)}
           >
             -
-          </Button>
+          </StyledButton>
           <p>{props.item.units}</p>
-          <Button
+          <StyledButton
             size="small"
             disableElevation
             variant="contained"
             onClick={() => props.addToCart(props.item)}
           >
             +
-          </Button>
+          </StyledButton>
         </div>
       </div>
       
