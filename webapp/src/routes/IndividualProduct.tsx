@@ -5,9 +5,8 @@ import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { ICartItem } from "../components/ICartItem";
-import { styled } from '@mui/material/styles';
+import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
 
 type IndividualProductProps = {
     product: IProduct;
@@ -43,31 +42,6 @@ const IndividualProduct = (props: IndividualProductProps) => {
     } else {
 
         let imageRef: string = require("../static/images/" + id + ".png");
-        const StyledButton = styled(Button)`
-            background: #9681f2;
-
-            color: black;
-
-            :hover {
-                background: #81c9f2;
-            }
-        `;
-
-        const StyledImg = styled('img')({
-            margin: 20,
-            marginLeft: 90,
-            display: 'inline-block',
-            height: '500px',
-            borderRadius: 25
-        });
-        
-        const StyledOuterGrid = styled(Grid)({
-            margin: '1em',
-            borderRadius: 25,
-            alignItems: "center", 
-            justifyContent: "center",
-            resizeMode: 'cover'
-        });
 
         return (
             <React.Fragment>
