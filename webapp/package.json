@@ -4,6 +4,9 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@inrupt/solid-client": "^1.20.1",
+    "@inrupt/solid-client-authn-browser": "^1.11.6",
+    "@inrupt/vocab-common-rdf": "^1.0.3",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
     "@testing-library/jest-dom": "^5.16.1",
@@ -53,7 +56,7 @@
     "expect-puppeteer": "^6.0.2",
     "jest-cucumber": "^3.0.1",
     "jest-puppeteer": "^6.0.3",
-    "puppeteer": "^13.0.1",
+    "puppeteer": "^13.5.1",
     "react-scripts": "5.0.0",
     "start-server-and-test": "^1.14.0",
     "ts-jest": "^27.1.2",

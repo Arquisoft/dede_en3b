@@ -159,7 +159,6 @@ export class SolidConnection {
 	}
 
 	private _initialize() {
-		console.log("initializing");
 		this._initializePromise = new Promise((accept, reject) => 
 			this._session.handleIncomingRedirect()
 			.then(() => accept(this))
