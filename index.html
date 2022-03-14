@@ -462,14 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_technical_context">3.2. Technical Context</a></li>
 </ul>
 </li>
-<li><a href="#section-solution-strategy">4. Solution Strategy</a>
-<ul class="sectlevel2">
-<li><a href="#_technology_decisions">4.1. Technology decisions.</a></li>
-<li><a href="#_decisions_about_the_the_top_level_decomposition_of_the_system">4.2. Decisions about the the top-level decomposition of the system</a></li>
-<li><a href="#_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals.</a></li>
-<li><a href="#_organizational_decisions">4.4. Organizational decisions.</a></li>
-</ul>
-</li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
@@ -479,9 +472,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_making_an_order">6.1. Making an order</a></li>
-<li><a href="#_viewing_an_order">6.2. Viewing an order</a></li>
-<li><a href="#_runtime_scenario_n">6.3. &lt;Runtime Scenario n&gt;</a></li>
+<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
+<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
+<li><a href="#">6.3. &#8230;&#8203;</a></li>
+<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -574,15 +568,75 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <div class="paragraph">
 <p>DeDe will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders.</p>
 </div>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Describes the relevant requirements and the driving forces that software architects and development team must consider. These include</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>underlying business goals, essential features and functional requirements for the system</p>
+</li>
+<li>
+<p>quality goals for the architecture</p>
+</li>
+<li>
+<p>relevant stakeholders and their expectations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
 <div class="paragraph">
 <p>The application will be run online, either on Heroku or in a similar platform. Every user action will work using pods.
 Users will be able to browse the catalog and order things from their pods. Then, the app will calculate the price based on the location of the user.</p>
 </div>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Short description of the functional requirements, driving forces, extract (or abstract)
+of requirements. Link to (hopefully existing) requirements documents
+(with version number and information where to find it).</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>From the point of view of the end users a system is created or modified to
+improve support of a business activity and/or improve the quality.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Short textual description, probably in tabular use-case format.
+If requirements documents exist this overview should refer to these documents.</p>
+</div>
+<div class="paragraph">
+<p>Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders. We really mean quality goals for the architecture. Don&#8217;t confuse them with project goals. They are not necessarily identical.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions. Make sure to be very concrete about these qualities, avoid buzzwords.
+If you as an architect do not know how the quality of your work will be judged …</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>A table with quality goals and concrete scenarios, ordered by priorities</p>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>The quality goals are the following:</p>
 </div>
@@ -619,6 +673,43 @@ Users will be able to browse the catalog and order things from their pods. Then,
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>should know the architecture</p>
+</li>
+<li>
+<p>have to be convinced of the architecture</p>
+</li>
+<li>
+<p>have to work with the architecture or with code</p>
+</li>
+<li>
+<p>need the documentation of the architecture for their work</p>
+</li>
+<li>
+<p>have to come up with decisions about the system or its development</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>You should know all parties involved in development of the system or affected by the system.
+Otherwise, you may get nasty surprises later in the development process.
+These stakeholders determine the extent and the level of detail of your work and its results.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Table with role names, person names, and their expectations with respect to the architecture and its documentation.</p>
+</div>
+</div>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -856,65 +947,6 @@ together with a mapping table showing the relationships between channels and inp
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_technology_decisions">4.1. Technology decisions.</h3>
-<div class="paragraph">
-<p>A summary of the technical decisions that we have taken so far:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>React</strong>: A framework to build the user interface of the application.</p>
-</li>
-<li>
-<p><strong>MongoDB</strong>: The DMBS of our choice.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_decisions_about_the_the_top_level_decomposition_of_the_system">4.2. Decisions about the the top-level decomposition of the system</h3>
-<div class="paragraph">
-<p>As of now we haven&#8217;t really decided upon a selected pattern for the system. A few alternatives that we are considering at the moment are the redux pattern and the mvc pattern. But it would require a meeting for us to decide if it&#8217;s really worth it to learn a pattern that we don&#8217;t know but that might yield a better coding experience in the future.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals.</h3>
-<div class="paragraph">
-<p>For now this will be the quality goals that we will focus on.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Usability</strong>: We will try to develop an app that is easy to use.</p>
-</li>
-<li>
-<p><strong>Responsiveness</strong>: We will try to develop an app that has optimal or at least acceptable response times.</p>
-</li>
-<li>
-<p><strong>Accessibilty</strong>: We will try to develop an app that anyone can use.</p>
-</li>
-<li>
-<p><strong>Security</strong>: Thanks to SOLID we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_organizational_decisions">4.4. Organizational decisions.</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Meetings and communication</strong>: Our meetings will occur in person and online. For the online meetings we will use apps such as Microsoft Teams and Discord. To communicate the smaller things we will use a Whatsapp group chat.</p>
-</li>
-<li>
-<p><strong>Task organization</strong>: To organize the tasks that we have to do for the app we will use the GitHub projects, a tool that displays our issues in a KanBan view. The main factor for this was its similarity to a tool we used in the IPS course and because it allows us to see our progress and our partners progress.</p>
-</li>
-<li>
-<p><strong>Development</strong>: We will create branches for every task that involves touching the repository files. To merge the project of the branches with the master branch we will use pull request since we believe it&#8217;s great for proof-reading and it forces us to "know" a bit about every part of the project so that we don&#8217;t have future problems when we will work with each other&#8217;s code.</p>
-</li>
-</ul>
-</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -953,7 +985,6 @@ Refer to details in the following sections.</p>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1077,8 +1108,8 @@ In the best case you will get away with examples or simple signatures.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s information will be stored here in order to keep it decentralized.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Here the minimal information of the application will be stored.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mongodb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In this database, the minimal information of the application will be stored.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1114,9 +1145,6 @@ according the the following black box template:</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_building_blocks_DeDe.png" alt="DeDe Whitebox"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1155,9 +1183,6 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_building_blocks_ui_da.png" alt="Front and Back End Whiteboxes"></span></p>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1183,8 +1208,8 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see the orders they have done already.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Profile</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see and edit here their personal data stored in the system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Product</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see the full information of a single product and will be able to choose to buy it.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Products Catalogue</p></td>
@@ -1195,7 +1220,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user can check here the products they have selected to buy.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Accessing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID API</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provides the libraries to communicate between the user&#8217;s POD and the POD provider.</p></td>
 </tr>
 <tr>
@@ -1270,33 +1295,37 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_making_an_order">6.1. Making an order</h3>
+<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>A client tries to order some items</p>
+<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
+</li>
+<li>
+<p><em>&lt;insert description of the notable aspects of the interactions between the
+building block instances depicted in this diagram.&gt;</em></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/61SequenceDiagram.png" alt="Sequence diagram representing the buying process"></span></p>
+<p>It is possible to use a sequence diagram:</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="332" height="343">
 </div>
-<div class="sect2">
-<h3 id="_viewing_an_order">6.2. Viewing an order</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>A client tries to view an order.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/06-2_Oscar_SequenceDiagram.png" alt="Sequence diagram representing the process"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_n">6.3. &lt;Runtime Scenario n&gt;</h3>
+<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="">6.3. &#8230;&#8203;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1810,7 +1839,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-15 17:23:44 +0100
+Last updated 2022-02-16 19:11:12 +0100
 </div>
 </div>
 </body>
