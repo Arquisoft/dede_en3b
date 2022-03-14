@@ -27,7 +27,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
-      <Grid direction="row">
+      <Grid>
           <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
           <StyledButton>Check out</StyledButton>
       </Grid>

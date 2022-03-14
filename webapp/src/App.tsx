@@ -75,7 +75,7 @@ function App(): JSX.Element {
         );
       }
 
-      return [...prev, { ...clickedItem, units: 1 }];
+      return [...prev, { ...clickedItem, units: clickedItem.units }];
     });
   };
 

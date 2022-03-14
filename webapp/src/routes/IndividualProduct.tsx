@@ -7,6 +7,7 @@ import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { ICartItem } from "../components/ICartItem";
 import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
+import NumberPicker from "react-widgets/NumberPicker";
 
 type IndividualProductProps = {
     product: IProduct;
@@ -31,7 +32,12 @@ const IndividualProduct = (props: IndividualProductProps) => {
         console.log(product?._id);
     }, []);
 
-    const productToItem = (prod: IProduct) => ({ product: prod, units: 1 });
+
+    const [value, setValue] = useState<number>(1);
+
+    const showValue = (n : number) => console.log(value);
+
+    const productToItem = (prod: IProduct) => ({ product: prod, units: value });
 
     if (typeof product === "undefined"){
         return (
@@ -57,15 +63,16 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={4} direction="column">
+                    <Grid item xs={4} >
                         <div className="product-info">
                             <h2>{product.name}</h2>
                             <Card sx={{maxWidth: 550}}>
                                 <Typography>{product.description}</Typography>
                             </Card>
                             <h3>Price: {product.price}€</h3>
+                            <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value); showValue(1)}}></NumberPicker>
                         
-                            <StyledButton onClick={event => props.onAddToCart(productToItem(props.product))}>Add to cart</StyledButton>
+                            <StyledButton onClick={event => props.onAddToCart(productToItem(product))}>Add to cart</StyledButton>
                         </div>
                     </Grid>
                 </StyledOuterGrid>
