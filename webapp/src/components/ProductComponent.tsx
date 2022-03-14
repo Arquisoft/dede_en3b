@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { IProduct } from "../../../restapi/model/Products";
 import { ICartItem } from "./ICartItem";
 import { useNavigate } from 'react-router-dom';
+import {getProduct} from '../api/api';
 
 type ProductComponentProps = {
   product: IProduct;

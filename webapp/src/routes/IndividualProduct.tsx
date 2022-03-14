@@ -59,9 +59,9 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
                     <Grid item xs={4} direction="column">
                         <div className="product-info">
-                            <h2>Product name: {product.name}</h2>
+                            <h2>{product.name}</h2>
                             <Card sx={{maxWidth: 550}}>
-                                <Typography>Description {product.description}</Typography>
+                                <Typography>{product.description}</Typography>
                             </Card>
                             <h3>Price: {product.price}€</h3>
                         
