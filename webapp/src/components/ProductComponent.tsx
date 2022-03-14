@@ -15,6 +15,12 @@ type ProductComponentProps = {
   onAddToCart: (clickedproduct: ICartItem) => void;
 }
 
+const findProductById = async (id: string) => {
+  console.log(id);
+  let prod:IProduct = await getProduct(id);
+  console.log(prod);
+}
+
 function ProductComponent(props: ProductComponentProps): JSX.Element {
 
   const productToItem = (prod: IProduct) => ({ product: prod, units: 1 });

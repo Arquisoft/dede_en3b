@@ -35,8 +35,9 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
+    console.log(input.value);
     updateProductList(input);
-    
+
   };
 
   /**
