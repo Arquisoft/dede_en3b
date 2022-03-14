@@ -13,7 +13,7 @@ export interface IOrder extends Document {
 
 const orderSchema = new mongoose.Schema({
     webId: String,
-    productIds: {type: Array, default: []},
+    orderProducts: {type: Array, default: []},
     address: String,
     totalPrice: Number,
 });

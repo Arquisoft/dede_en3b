@@ -102,7 +102,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     //Creting the order
-    const order = new Order({webId:"",productIds:req.body.products, address:"", totalPrice:Utils.computeTotalPrice(req.body.products)});
+    const order = new Order({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:Utils.computeTotalPrice(req.body.products)});
     //Adding the order to the database
     await order.save();
     //We answer that its all ok.
