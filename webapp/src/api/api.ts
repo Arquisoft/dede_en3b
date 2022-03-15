@@ -1,11 +1,7 @@
 import {IUser} from '../../../restapi/model/User';
-<<<<<<< HEAD
-import {IProduct} from '../../../restapi/model/Products';
 import mongoose from 'mongoose';
-=======
-import {IProduct} from '../../../restapi/model/Products'
-import {OrderProduct} from '../../../restapi/model/Order'
->>>>>>> master
+import { IProduct } from '../../../restapi/model/Products';
+import { OrderProduct } from '../../../restapi/model/Order';
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'

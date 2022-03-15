@@ -207,6 +207,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
               </Badge>
               </IconButton>
               </Link>
+              
             <IconButton
               size="large"
               edge="end"
@@ -214,12 +215,15 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+                  color=
+                  "inherit"
             >
               <AccountCircle />
-            </IconButton>
+                </IconButton>
+                
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Link to="/login">
             <IconButton
               size="large"
               aria-label="show more"
@@ -229,7 +233,8 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
               color="inherit"
             >
               <MoreIcon />
-            </IconButton>
+                </IconButton>
+                </Link>
           </Box>
         </Toolbar>
         

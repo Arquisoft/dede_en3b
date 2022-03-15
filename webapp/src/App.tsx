@@ -8,6 +8,7 @@ import { IProduct } from '../../restapi/model/Products';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
+import Login from './components/LoginComponent';
 
 function App(): JSX.Element {
 
@@ -106,7 +107,7 @@ function App(): JSX.Element {
       <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
       <Routes>
-
+        <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
         <Route path="products/:id" 
@@ -114,6 +115,7 @@ function App(): JSX.Element {
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
           } 
         />
+       
         
       </Routes>
     
