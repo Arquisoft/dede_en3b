@@ -74,4 +74,16 @@ export async function addOrder(orders:OrderProduct[], webId:string, adress:strin
     return false;
 }
 
+/**
+ * Function to query the database looking for products realated with title name
+ * @param id 
+ * @returns 
+ */
+ export async function findOrdersByUser(webId: string): Promise<IProduct[]> {
+  const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/orders/list/' + webId;
 
+  console.log(str);
+  let response = await fetch(str);
+  return response.json();
+}
