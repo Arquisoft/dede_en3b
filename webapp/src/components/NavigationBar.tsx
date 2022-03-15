@@ -17,6 +17,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { createTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -76,6 +77,13 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    handleMenuClose();
+    navigate('/login');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -93,7 +101,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={goToLogin}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -223,7 +231,6 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
                 
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <Link to="/login">
             <IconButton
               size="large"
               aria-label="show more"
@@ -234,7 +241,6 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             >
               <MoreIcon />
                 </IconButton>
-                </Link>
           </Box>
         </Toolbar>
         
