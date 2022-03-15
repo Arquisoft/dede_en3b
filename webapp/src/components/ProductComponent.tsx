@@ -7,9 +7,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { IProduct } from "../../../restapi/model/Products";
+import { getProduct } from "../api/api";
 
 type ProductComponentProps = {
     product: IProduct;
+}
+
+const findProductById = async (id: string) => {
+  console.log(id);
+  let prod:IProduct = await getProduct(id);
+  console.log(prod);
 }
 
 function ProductComponent(props: ProductComponentProps): JSX.Element {
@@ -37,7 +44,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button size="small">View</Button>
+        <Button onClick={() => findProductById(props.product._id.toString())} size="small">View</Button>
       </CardActions>
     </Card>
     )

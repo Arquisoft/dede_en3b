@@ -4,6 +4,7 @@ import { IUser } from './model/User';
 import { IProduct } from './model/Products';
 const User = require('../restapi/model/User');
 const Products = require('../restapi/model/Products');
+var mongoose = require('mongoose');
 const api:Router = express.Router();
 
 // app.use(function(req,res,next){
@@ -66,25 +67,28 @@ api.get(
   }
 );
 
-/*api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
+api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
-    console.log(id);
-    const products:IProduct = await Products.findOne({id: id});
+    var objID = mongoose.Types.ObjectId(id);
+    console.log(objID);
+    const products:IProduct = await Products.findOne({_id: objID});
     if(!products) {
       return res.status(404).json({message: 'Product with name "${name}" not found'});
     }
     return res.status(200).send(products);
 });
-*/
 
 /**
  * OSCAR
  * Response for finding products by name 
  */
-api.get("/products/:name", async (req: Request, res: Response): Promise<Response> => {
+api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
+
+  let name = req.params.name;
+
 
   const products: IProduct[] = await Products.find({
-    name: {$regex: '.*' + req.params.name + '.*'}
+    name: {$regex: '.*' + name + '.*'}
   });
   
   if(!products) {
@@ -92,4 +96,20 @@ api.get("/products/:name", async (req: Request, res: Response): Promise<Response
   }
   return res.status(200).send(products);
 });
+
+//Call to add an order to the database
+api.post(
+  "/orders/add", [
+    check('products').isLength({min : 1}),
+  ],
+  async (req: Request, res: Response): Promise<Response> => {
+    //Creting the order
+    const order = new Order({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:Utils.computeTotalPrice(req.body.products)});
+    //Adding the order to the database
+    await order.save();
+    //We answer that its all ok.
+    return res.sendStatus(200);
+  }
+);
+
 export default api;

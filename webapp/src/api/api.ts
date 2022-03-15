@@ -1,5 +1,6 @@
 import {IUser} from '../../../restapi/model/User';
 import {IProduct} from '../../../restapi/model/Products'
+import {OrderProduct} from '../../../restapi/model/Order'
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
@@ -48,12 +49,29 @@ export async function getProduct(id:string):Promise<IProduct> {
  */
 export async function findProductsByName(name: string): Promise<IProduct[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/products/' + name;
+  var str: string = apiEndPoint + '/products/search/' + name;
 
   console.log(str);
   let response = await fetch(str);
   return response.json();
 }
 
+/**
+ * 
+ * @param user Function to add orders to the db
+ * @returns 
+ */
+export async function addOrder(orders:OrderProduct[], webId:string, adress:string):Promise<boolean>{
+  const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  let response = await fetch(apiEndPoint+'/orders/add', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({'webId':webId, products:orders, 'adress':adress})
+    });
+  if (response.status===200)
+    return true;
+  else
+    return false;
+}
 
 
