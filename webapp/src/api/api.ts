@@ -69,7 +69,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:string,
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders.map((item) => { <OrderProduct>{id: item.product._id.toString(), quantity:item.units }}), 'adress':address, 'price':price})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => { <OrderProduct>{id: item.product._id.toString(), quantity:item.units }}), 'address':address, 'price':price})
     });
   if (response.status===200)
     return true;
