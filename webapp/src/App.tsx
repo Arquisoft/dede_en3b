@@ -3,8 +3,9 @@ import {IProduct} from '../../restapi/model/Products';
 import './App.css';
 import ProductComponent from "./components/ProductComponent";
 import  {findProductsByName, getProducts, filterProducts} from './api/api';
-import { InputLabel, MenuItem } from '@mui/material';
-import Select, {SelectChangeEvent} from '@mui/material/Select'
+import { FormControl, InputLabel, MenuItem } from '@mui/material';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
 
 function App(): JSX.Element {
 
@@ -13,6 +14,7 @@ function App(): JSX.Element {
  // const [productsFound, setProductsFound] = useState<IProduct[]>([]);
  // const [productSearch, setProductSearch] = useState('');
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [value,setValue] = useState('');
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -88,6 +90,7 @@ function App(): JSX.Element {
       filteredProducts = await filterProducts(type);
     }
     setProducts(filteredProducts);
+    setValue(type);
   };
 
   
@@ -103,20 +106,25 @@ function App(): JSX.Element {
                   <option value="Pantalon">Pantalon</option>
                   <option value="Sudadera">Sudadera</option>
         </select> */}
-        <InputLabel id="demo-customized-select-label">Type</InputLabel>
-        <Select
-          labelId="demo-customized-select-label"
-          id="demo-customized-select"
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
-          <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
-          <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
-        </Select>
+        <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
+          <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="demo-simple-select-filled"
+            value={value}
+            label="Type"
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
+            <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
+            <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
+          </Select>
+        </FormControl>
       </form>
+      
       
       <div className="products-container">
 

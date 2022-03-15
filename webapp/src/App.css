@@ -2,10 +2,14 @@
   padding: 50px 100px;
 }
 
+
+
 .searchForm input {
   border: 2px solid rgb(156, 39, 176);
   padding: 10px;
+  margin-right: 2px;
   font-size: 18px;
+  border-radius: 10px;
 }
 
 .searchForm button {
@@ -14,6 +18,8 @@
   padding: 12px;
   font-size: 18px;
   border: 0;
+  border-radius: 10px;
+  height: 50px;
 }
 
 .products-container {
