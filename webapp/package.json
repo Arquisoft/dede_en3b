@@ -4,7 +4,9 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@inrupt/solid-client": "^1.20.1",
     "@inrupt/solid-client-authn-browser": "^1.11.6",
+    "@inrupt/vocab-common-rdf": "^1.0.3",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
     "@testing-library/jest-dom": "^5.16.1",
