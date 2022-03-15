@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
+import { SolidConnection } from '../SOLID/API';
+
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,26 +35,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//state type
-
 type State = {
-  username: string
-  password:  string
+  identityPovider: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
 
 const initialState:State = {
-  username: '',
-  password: '',
+  identityPovider: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false
 };
 
-type Action = { type: 'setUsername', payload: string }
-  | { type: 'setPassword', payload: string }
+type Action = { type: 'setIdentityProvider', payload: string }
   | { type: 'setIsButtonDisabled', payload: boolean }
   | { type: 'loginSuccess', payload: string }
   | { type: 'loginFailed', payload: string }
@@ -58,15 +57,10 @@ type Action = { type: 'setUsername', payload: string }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'setUsername': 
+    case 'setIdentityProvider': 
       return {
         ...state,
-        username: action.payload
-      };
-    case 'setPassword': 
-      return {
-        ...state,
-        password: action.payload
+        identityPovider: action.payload
       };
     case 'setIsButtonDisabled': 
       return {
@@ -95,10 +89,11 @@ const reducer = (state: State, action: Action): State => {
 
 const Login = () => {
   const classes = useStyles();
-  const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const [solidConnection, setSolidConnection] = useState(new SolidConnection()); //TODO
 
   useEffect(() => {
-    if (state.username.trim() && state.password.trim()) {
+    if (state.identityPovider.trim()) {
      dispatch({
        type: 'setIsButtonDisabled',
        payload: false
@@ -109,14 +104,16 @@ const Login = () => {
         payload: true
       });
     }
-  }, [state.username, state.password]);
+  }, [state.identityPovider]);
 
   const handleLogin = () => {
-    if (state.username === 'abc@email.com' && state.password === 'password') {
+    if (state.identityPovider.trim().length != 0) {
       dispatch({
         type: 'loginSuccess',
         payload: 'Login Successfully'
       });
+        setSolidConnection(new SolidConnection(state.identityPovider));
+
     } else {
       dispatch({
         type: 'loginFailed',
@@ -134,45 +131,26 @@ const Login = () => {
   const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> =
     (event) => {
       dispatch({
-        type: 'setUsername',
+        type: 'setIdentityProvider',
         payload: event.target.value
       });
     };
 
-  const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> =
-    (event) => {
-      dispatch({
-        type: 'setPassword',
-        payload: event.target.value
-      });
-    }
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <Card className={classes.card}>
-        <CardHeader className={classes.header} title="Login App" />
+        <CardHeader className={classes.header} title="POD Service Provider" />
         <CardContent>
           <div>
             <TextField
               error={state.isError}
               fullWidth
-              id="username"
+              id="identityProvider"
               type="email"
-              label="Username"
-              placeholder="Username"
+              label="POD identity provider"
+              placeholder="URL of the POD identity provider"
               margin="normal"
               onChange={handleUsernameChange}
-              onKeyPress={handleKeyPress}
-            />
-            <TextField
-              error={state.isError}
-              fullWidth
-              id="password"
-              type="password"
-              label="Password"
-              placeholder="Password"
-              margin="normal"
-              helperText={state.helperText}
-              onChange={handlePasswordChange}
               onKeyPress={handleKeyPress}
             />
           </div>
@@ -185,7 +163,7 @@ const Login = () => {
             className={classes.loginBtn}
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
-            Login
+            Go to the service
           </Button>
         </CardActions>
       </Card>
