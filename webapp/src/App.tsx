@@ -1,16 +1,22 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import  {findProductsByName, getProducts} from './api/api';
-import {IProduct} from '../../restapi/model/Products';
 import './App.css';
-import ProductComponent from "./components/ProductComponent";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NavigationBar from './components/NavigationBar';
+import { ICartItem } from './components/ICartItem';
+import { IProduct } from '../../restapi/model/Products';
+import Cart from './routes/Cart';
+import Catalogue from './routes/Catalogue';
+import IndividualProduct from './routes/IndividualProduct';
+import Login from './components/LoginComponent';
 
 function App(): JSX.Element {
 
-  
-
- // const [productsFound, setProductsFound] = useState<IProduct[]>([]);
- // const [productSearch, setProductSearch] = useState('');
+  //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
+
+  //Cart
+  const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -45,46 +51,77 @@ function App(): JSX.Element {
     input.value = '';
   }
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const query = encodeURIComponent(productSearch);
-  //     const response = await searchForProducts(query);
-  //     setProductsFound(response);
-  //   })();
-  // }, [productSearch]);
+  const search = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('#searchText') as HTMLInputElement;
+//    setProductSearch(input.value);
+    input.value = '';
+  };
 
-//   const search = (event: FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
-//     const input = form.querySelector('#searchText') as HTMLInputElement;
-// //    setProductSearch(input.value);
-//     input.value = '';
-//   };
-  
+  /**
+   * Function to add a product to the cart
+   * 
+   * @param clickedItem 
+   */
+  const onAddToCart = (clickedItem: ICartItem) => {
+    setShoppingCart((prev) => {
+      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
+
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.product === clickedItem.product
+            ? { ...item, units: item.units + 1 }
+            : item
+        );
+      }
+
+      return [...prev, { ...clickedItem, units: clickedItem.units }];
+    });
+  };
+
+  /**
+   * Function to remove a product from the cart
+   * 
+   * @param clickedItem 
+   */
+   const onRemoveFromCart = (id: Object) => {
+    setShoppingCart((prev) =>
+      prev.reduce((acc, item) => {
+        if (item.product._id === id) {
+          if (item.units === 1) return acc;
+          return [...acc, { ...item, amount: item.units - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as ICartItem[])
+    );
+  };
+
 
   
   return (
-    <div className="App">
-      <h1>Product Search App</h1>
-      <form className="searchForm" onSubmit={event => searchForProducts(event)} >
-        <input id="searchText" type="text" />
-        <button>Search</button>
-      </form>
-      <div className="products-container">
-
-        {products.map((product,i)=>{
-                    return (
-                        <ProductComponent key={i} product={product} ></ProductComponent>
-                        
-                    );
-                })}
-
-     
-      </div>
-
+  
+    <BrowserRouter>
       
+      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
-    </div>
+      <Routes>
+        <Route path="login" element={<Login></Login>}> </Route>
+        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
+        <Route path="products/:id" 
+          element={
+            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
+          } 
+        />
+       
+        
+      </Routes>
+    
+    </BrowserRouter>
+      
+      
   );
 }
 
