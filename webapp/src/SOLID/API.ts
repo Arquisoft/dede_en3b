@@ -17,6 +17,12 @@ export class LogInError extends Error {
 	}
 }
 
+export class ThingNotFoundError extends Error {
+	constructor(message?: string) {
+		super(message);
+	}
+}
+
 /**
  * Represents a connection to a solid pod. This 
  * is actually a Facade for the Session object
@@ -159,6 +165,7 @@ export class SolidConnection {
 	}
 
 	private _initialize() {
+		console.log("initializing");
 		this._initializePromise = new Promise((accept, reject) => 
 			this._session.handleIncomingRedirect()
 			.then(() => accept(this))
@@ -196,7 +203,7 @@ export class DatasetBrowser {
 		this._datasetPromise.then(dataset => this._dataset = dataset);
 	}
 
-	public getThing(thingUrl: string, callback: (ThingBrowser) => void)
+	public getThing(thingUrl: string, callback: (cbParam: ThingBrowser) => void)
 		: DatasetBrowser 
 	{
 		this.getThingAsync(thingUrl).then(callback);
@@ -205,10 +212,11 @@ export class DatasetBrowser {
 
 	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
-		let thing = new ThingBrowser(
-			getThing(this._dataset, thingUrl)
-		);
-		return thing;
+		let insideThing = getThing(this._dataset, thingUrl);
+		if(insideThing === null)
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+
+		return new ThingBrowser(insideThing);
 	}
 
 	private async _waitForDataset() {
@@ -223,7 +231,7 @@ export class ThingBrowser {
 		this._thing = thing;
 	}
 
-	public getString(url: string): string {
+	public getString(url: string): string | null {
 		return getStringNoLocale(this._thing, url);
 	}
 }
