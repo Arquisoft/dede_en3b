@@ -35,9 +35,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
     const [value, setValue] = useState<number>(1);
 
-    const showValue = (n : number) => console.log(value);
-
-    const productToItem = (prod: IProduct) => ({ product: prod, units: value });
+    const productToItem = (prod: IProduct) => ({ product: prod, units: value });    
 
     if (typeof product === "undefined"){
         return (
@@ -46,6 +44,11 @@ const IndividualProduct = (props: IndividualProductProps) => {
             </React.Fragment>
         );
     } else {
+
+        const addProductToCart = () => {
+            props.onAddToCart(productToItem(product));
+            setValue(1);
+        }
 
         let imageRef: string = require("../static/images/" + id + ".png");
 
@@ -70,9 +73,9 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 <Typography>{product.description}</Typography>
                             </Card>
                             <h3>Price: {product.price}€</h3>
-                            <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value); showValue(1)}}></NumberPicker>
+                            <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}}></NumberPicker>
                         
-                            <StyledButton onClick={event => props.onAddToCart(productToItem(product))}>Add to cart</StyledButton>
+                            <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
                         </div>
                     </Grid>
                 </StyledOuterGrid>
