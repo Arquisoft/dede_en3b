@@ -2,6 +2,7 @@ import express, { Request, Response, Router } from 'express';
 import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';
 import { IProduct } from './model/Products';
+import { IOrder } from './model/Order';
 import { computeTotalPrice } from '../restapi/util/utils';
 const User = require('./model/User');
 const Products = require('./model/Products');
@@ -113,5 +114,23 @@ api.post(
     return res.sendStatus(200);
   }
 );
+
+/**
+ * Response for finding order for a client
+ */
+ api.get("/orders/list", async (req: Request, res: Response): Promise<Response> => {
+
+  let webId = req.params.webId;
+
+
+  const orders: IOrder[] = await Order.find({
+    webId: {$regex: '/^'+ webId +'$/'}
+  });
+  
+  if(!orders) {
+    return res.status(404).json({message: 'Product with name '+ req.params.name +' not found'});
+  }
+  return res.status(200).send(orders);
+});
 
 export default api;
