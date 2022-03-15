@@ -2,6 +2,8 @@ import {IUser} from '../../../restapi/model/User';
 import mongoose from 'mongoose';
 import { IProduct } from '../../../restapi/model/Products';
 import { OrderProduct } from '../../../restapi/model/Order';
+import { ICartItem } from '../components/ICartItem';
+import { isTemplateExpression } from 'typescript';
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
@@ -62,12 +64,12 @@ export async function findProductsByName(name: string): Promise<IProduct[]> {
  * @param user Function to add orders to the db
  * @returns 
  */
-export async function addOrder(orders:OrderProduct[], webId:string, adress:string):Promise<boolean>{
+export async function addOrder(orders:ICartItem[], webId:string, address:string, price:number):Promise<boolean>{
   const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders, 'adress':adress})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => { <OrderProduct>{id: item.product._id.toString(), quantity:item.units }}), 'adress':address, 'price':price})
     });
   if (response.status===200)
     return true;

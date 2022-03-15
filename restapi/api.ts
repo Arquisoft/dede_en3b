@@ -107,7 +107,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     //Creting the order
-    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:computeTotalPrice(req.body.products)});
+    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price});
     //Adding the order to the database
     await order.save();
     //We answer that its all ok.
@@ -128,7 +128,7 @@ api.post(
   });
   
   if(!orders) {
-    return res.status(404).json({message: 'Product with name '+ req.params.name +' not found'});
+    return res.status(404).json({message: 'Product with name '+ req.params.webId +' not found'});
   }
   return res.status(200).send(orders);
 });

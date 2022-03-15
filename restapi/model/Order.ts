@@ -21,7 +21,6 @@ const orderSchema = new mongoose.Schema({
 export interface OrderProduct{
     id: String;
     quantity: number;
-    price: number;
 }
 
 module.exports = mongoose.model("Orders", orderSchema);
