@@ -1,66 +1,33 @@
 [[section-system-scope-and-context]]
 == System Scope and Context
 
+The application, called DeDe, is a privacy-aware retail system, that aims to provide users
+a way to buy goods without having their data compromised. To do this, the user data will
+be fetched from a SOLID project Pod, provided that authorization is granted by the user. 
+The application will provide the user with a way to place orders, as well as 
+allowing the user to view past ones. It also has capabilities to calculate
+the cost of the item bought.
 
 [role="arc42help"]
-****
-.Contents
-System scope and context - as the name suggests - delimits your system (i.e. your scope) from all its communication partners
-(neighboring systems and users, i.e. the context of your system). It thereby specifies the external interfaces.
-
-If necessary, differentiate the business context (domain specific inputs and outputs) from the technical context (channels, protocols, hardware).
-
-.Motivation
-The domain interfaces and technical interfaces to communication partners are among your system's most critical aspects. Make sure that you completely understand them.
-
-.Form
-Various options:
-
-* Context diagrams
-* Lists of communication partners and their interfaces.
-****
-
 
 === Business Context
 
 [role="arc42help"]
-****
-.Contents
-Specification of *all* communication partners (users, IT-systems, ...) with explanations of domain specific inputs and outputs or interfaces.
-Optionally you can add domain specific formats or communication protocols.
 
-.Motivation
-All stakeholders should understand which data are exchanged with the environment of the system.
+image:03-01_Mario_BusinessContext.png["Business context diagram"]
 
-.Form
-All kinds of diagrams that show the system as a black box and specify the domain interfaces to communication partners.
+The user gives permission to use their data via the POD system, then he can browse products
+placed by vendors, order new items or see their previous orders.
 
-Alternatively (or additionally) you can use a table.
-The title of the table is the name of your system, the three columns contain the name of the communication partner, the inputs, and the outputs.
-****
-
-**<Diagram or Table>**
-
-**<optionally: Explanation of external domain interfaces>**
+The system stores the products in a regular database, and asks the POD system
+for user data when needed (to see previous orders or to see their address).
 
 === Technical Context
 
 [role="arc42help"]
-****
-.Contents
-Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation with I/O uses which channel.
 
-.Motivation
-Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.
+image:03-02_Mario_TechnicalContext.png["Technical details"]
 
-.Form
-E.g. UML deployment diagram describing channels to neighboring systems,
-together with a mapping table showing the relationships between channels and input/output.
-
-****
-
-**<Diagram or Table>**
-
-**<optionally: Explanation of technical interfaces>**
-
-**<Mapping Input/Output to Channels>**
+The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
+be behind a RESTful API, and user data will be fetched from a POD system (which is yet to be disclosed).
+The application itself will be written in nodejs with typescript, and will be deployed in heroku.
