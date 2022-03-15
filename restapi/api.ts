@@ -96,4 +96,20 @@ api.get("/products/search/:name", async (req: Request, res: Response): Promise<R
   }
   return res.status(200).send(products);
 });
+
+//Call to add an order to the database
+api.post(
+  "/orders/add", [
+    check('products').isLength({min : 1}),
+  ],
+  async (req: Request, res: Response): Promise<Response> => {
+    //Creting the order
+    const order = new Order({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:Utils.computeTotalPrice(req.body.products)});
+    //Adding the order to the database
+    await order.save();
+    //We answer that its all ok.
+    return res.sendStatus(200);
+  }
+);
+
 export default api;
