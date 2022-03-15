@@ -14,7 +14,7 @@ the cost of the item bought.
 
 [role="arc42help"]
 
-image:31diagram.png["Business context diagram"]
+image:03-01_Mario_BusinessContext.png["Business context diagram"]
 
 The user gives permission to use their data via the POD system, then he can browse products
 placed by vendors, order new items or see their previous orders.
@@ -26,7 +26,7 @@ for user data when needed (to see previous orders or to see their address).
 
 [role="arc42help"]
 
-image:32diagram.png["Technical details"]
+image:03-02_Mario_TechnicalContext.png["Technical details"]
 
 The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
 be behind a RESTful API, and user data will be fetched from a POD system (which is yet to be disclosed).
