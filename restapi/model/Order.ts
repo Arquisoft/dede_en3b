@@ -23,3 +23,5 @@ export interface OrderProduct{
     quantity: number;
     price: number;
 }
+
+module.exports = mongoose.model("Orders", orderSchema);
