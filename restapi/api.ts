@@ -2,8 +2,10 @@ import express, { Request, Response, Router } from 'express';
 import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';
 import { IProduct } from './model/Products';
-const User = require('../restapi/model/User');
-const Products = require('../restapi/model/Products');
+import { computeTotalPrice } from '../restapi/util/utils';
+const User = require('./model/User');
+const Products = require('./model/Products');
+const Order = require('./model/Order');
 var mongoose = require('mongoose');
 const api:Router = express.Router();
 
@@ -104,7 +106,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     //Creting the order
-    const order = new Order({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:Utils.computeTotalPrice(req.body.products)});
+    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:computeTotalPrice(req.body.products)});
     //Adding the order to the database
     await order.save();
     //We answer that its all ok.
