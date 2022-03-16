@@ -15,3 +15,26 @@ This should be your motto for systematic detection and evaluation of risks and t
 .Form
 List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.
 ****
+
+These are the technical debts we have identified as of the moment.
+
+[cols="1,2" options="header"]
+|===
+| **Technical Debt** | **Description** |
+| Unfamiliarity with Solid
+| Since Solid is a new technology for all the team members and there is little documentation available online, it requires a lot of personal research that takes up a lot of time.
+| Unfamiliarity with React and Typescript
+| We have no knowledge of Typescript nor the React library, and thus we will need to learn to work with them. React's documentation will be very useful since it is extensive and well explained. It will require some time to get used to it.
+| Time management 
+| Having specified deadlines and not being able to prioritize the project above all our other workload will require a very good organization.
+| Team 
+| When working with a new team for a project, a lot of time will be used in order to bond with the members and have a good rapport between us.
+|===
+
+These are some risks we might encounter during the development process.
+
+[cols="1,2" options="header"]
+|===
+| **Risk** | **Description** |
+| Solid failure | If the pod host fails or the Solid specification changes due to it being a fairly new concept, our application will not work properly.
+|===
