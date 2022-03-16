@@ -7,7 +7,7 @@ export interface IOrder extends Document {
     _id: Types.ObjectId;
     webId: string;
     orderProducts: OrderProduct[];
-    address: string;
+    address: Address;
     totalPrice: number;
 }
 
@@ -22,5 +22,13 @@ export interface OrderProduct{
     id: String;
     quantity: number;
 }
+
+export type Address = {
+    country:string;
+    locality:string;
+    postal_code:string;
+    region:string;
+    street:string;
+  }  
 
 module.exports = mongoose.model("Orders", orderSchema);

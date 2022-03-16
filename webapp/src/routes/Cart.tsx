@@ -6,6 +6,8 @@ import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { addOrder } from "../api/api";
 import { SolidConnection } from '../SOLID/API';
+import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+import { Address } from "../../../restapi/model/Order";
 
 type Props = {
   cartItems: ICartItem[];
@@ -19,6 +21,26 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
   
   let connection = new SolidConnection();
   
+  const checkOut = () => {
+    let address:Address | null = null;
+    if(connection.isLoggedIn()){
+      connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
+        let addressString = thing.getString(VCARD.hasAddress);
+        connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
+           address = {
+              country: VCARD.country_name,
+              locality: VCARD.locality,
+              postal_code: VCARD.postal_code,
+              region: VCARD.region,
+              street: VCARD.street_address,
+            };
+        });
+      });
+      if(address!=null)
+        addOrder(cartItems, connection.getWebId().href, address, calculateTotal(cartItems));
+    }
+  };
+
   return (
     <Wrapper>
       <h2>Your Cart</h2>
@@ -34,7 +56,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
       <Grid>
           <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
           <StyledButton
-          onClick={() => {addOrder(cartItems, 'test', 'test', calculateTotal(cartItems))}}
+          onClick={checkOut}
           >Check out</StyledButton>
       </Grid>
           </Wrapper>

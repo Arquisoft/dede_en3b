@@ -4,6 +4,7 @@ import { IProduct } from '../../../restapi/model/Products';
 import { OrderProduct } from '../../../restapi/model/Order';
 import { ICartItem } from '../components/ICartItem';
 import { isTemplateExpression } from 'typescript';
+import { Address } from '../../../restapi/model/Order';
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
@@ -69,7 +70,7 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  * @param user Function to add orders to the db
  * @returns 
  */
-export async function addOrder(orders:ICartItem[], webId:string, address:string, price:number):Promise<boolean>{
+export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number):Promise<boolean>{
   const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
