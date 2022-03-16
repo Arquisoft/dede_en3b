@@ -112,9 +112,10 @@ const Login = () => {
         type: 'loginSuccess',
         payload: 'Login Successfully'
       });
-        setSolidConnection(new SolidConnection(state.identityPovider));
-        console.log(state.identityPovider);
-        solidConnection.login('cart');
+    
+    let connection = new SolidConnection(state.identityPovider);
+    console.log(state.identityPovider);
+    connection.login('cart');
 
     } else {
       dispatch({

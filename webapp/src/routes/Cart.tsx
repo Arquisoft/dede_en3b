@@ -8,7 +8,7 @@ import { StyledButton } from './Product.styles';
 type Props = {
   cartItems: ICartItem[];
   addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: Object) => void;
 };
 
 const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
