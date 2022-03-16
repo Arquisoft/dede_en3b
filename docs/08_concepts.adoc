@@ -52,7 +52,7 @@ image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscuttin
 
 === Domain model
 
-image:UmlDiagram.png["Example UML Diagram"]
+image:08-01_Nico_DomainModel["UML Diagram of the domain model"]
 
 
 
