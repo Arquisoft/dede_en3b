@@ -106,28 +106,6 @@ function App(): JSX.Element {
       }, [] as ICartItem[])
     );
   };
-
-  /**
-   * Function to remove a product from the cart
-   * 
-   * @param clickedItem 
-   
-   const onRemoveFromCart = (clickedItem: ICartItem) => {
-    setShoppingCart((prev) => {
-      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
-
-      if (isItemInCart) {
-        return prev.map((item) =>
-          item.product === clickedItem.product 
-            ? { ...item, units: item.units - 1 }
-            : item
-        );
-      }
-
-      return [...prev, { ...clickedItem, units: clickedItem.units }];
-    });
-  };
-  */
   
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
@@ -140,16 +118,6 @@ function App(): JSX.Element {
     }
     setProducts(filteredProducts);
   }
-
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const query = encodeURIComponent(productSearch);
-  //     const response = await searchForProducts(query);
-  //     setProductsFound(response);
-  //   })();
-  // }, [productSearch]);
-
 
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;
