@@ -52,11 +52,11 @@ image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscuttin
 
 === Domain model
 
-image:08-01_Nico_DomainModel["UML Diagram of the domain model"]
+image:08-01_Nico_DomainModel.png["UML Diagram of the domain model"]
 
 
 
 === Reduced pod storage
 
 We will not store anything in the user pod, as we can't be sure of what does the user want stored in it. 
-We wil store all the necesary information in our, keeping some references to the WebId of the users.
+We wil store all the necesary information in our database, keeping some references to the WebId of the users.
