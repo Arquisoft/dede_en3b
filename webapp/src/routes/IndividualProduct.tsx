@@ -57,7 +57,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                 
                 <StyledOuterGrid container>
 
-                    <Grid item xs={4}>
+                    <Grid item >
                         <div className="product-pic">
                             <StyledImg
                                 src={imageRef}
@@ -66,7 +66,9 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={4} >
+                    <Grid item sm={1}/>
+
+                    <Grid item >
                         <div className="product-info">
                             <h2>{product.name}</h2>
                             <Card sx={{maxWidth: 550}}>

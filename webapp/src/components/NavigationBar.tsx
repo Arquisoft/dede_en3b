@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,7 +9,6 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -44,6 +43,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  '&':{
+    color: theme.palette.common.white,
+  }
+})) as typeof Typography;
+
 
 interface NavigationBarProps {
   numberOfProductsInCart: number;
@@ -181,14 +187,14 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             </IconButton>
           </Link>
           
-          <Typography
+          <StyledTypography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             DeDe_en3B
-          </Typography>
+          </StyledTypography>
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

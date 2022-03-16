@@ -81,18 +81,22 @@ api.get("/products/:id",async (req: Request, res:Response): Promise<Response> =>
 });
 
 /**
+ * 
+ */
+api.get("/products/filter/:type", async (req: Request, res:Response): Promise<Response> => {
+  let type: string = req.params.type;
+  const products:IProduct[] = await Products.find({type:type});
+  return res.status(200).send(products);
+});
+/**
  * OSCAR
  * Response for finding products by name 
  */
 api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
-
   let name = req.params.name;
-
-
   const products: IProduct[] = await Products.find({
     name: {$regex: '.*' + name + '.*'}
   });
-  
   if(!products) {
     return res.status(404).json({message: 'Product with name '+ req.params.name +' not found'});
   }

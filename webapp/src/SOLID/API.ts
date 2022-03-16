@@ -32,7 +32,7 @@ export class SolidConnection {
 	//This is the name that identifies this application in the pod.
 	public readonly SOLID_CLIENT_NAME: string = "DeDe";
 
-	private _identityProvider: string | undefined;
+	private _identityProvider: string;
 	private readonly _session: Session;
 
 	private _initializePromise: Promise<SolidConnection>;
@@ -161,8 +161,6 @@ export class SolidConnection {
 	}
 
 	public getWebId(): URL {
-		if(!this.isLoggedIn() || this._session.info.webId === undefined)
-			throw new LogInError("Not logged in");
 		return new URL(this._session.info.webId);
 	}
 
