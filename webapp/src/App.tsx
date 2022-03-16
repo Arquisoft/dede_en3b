@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import  {findProductsByName, getProducts} from './api/api';
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import  {findProductsByName, getProducts, filterProducts} from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -10,10 +10,13 @@ import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
 
+
+
 function App(): JSX.Element {
 
   //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [value,setValue] = useState('');
 
   //Cart
   const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
@@ -85,11 +88,17 @@ function App(): JSX.Element {
    * 
    * @param clickedItem 
    */
-   const onRemoveFromCart = (id: Object) => {
+   const onRemoveFromCart = (clickedItem : ICartItem) => {
     setShoppingCart((prev) =>
       prev.reduce((acc, item) => {
-        if (item.product._id === id) {
-          if (item.units === 1) return acc;
+        if (item.product._id === clickedItem.product._id) {
+          
+          if (item.units === 1) {
+            return acc;
+          } else {
+            item.units = item.units - 1;
+          }
+            
           return [...acc, { ...item, amount: item.units - 1 }];
         } else {
           return [...acc, item];
@@ -97,7 +106,31 @@ function App(): JSX.Element {
       }, [] as ICartItem[])
     );
   };
+  
+  const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
+    var type = event.target.value;
+    var filteredProducts: IProduct[];
+    if(type=="Default") {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    setProducts(filteredProducts);
+  }
 
+  const handleChange = async (event: { target: { value: string } }) => {
+    var type = event.target.value;
+    var filteredProducts: IProduct[];
+    if(!type) {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    setProducts(filteredProducts);
+    setValue(type);
+  };
 
   
   return (
@@ -109,7 +142,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
-        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} /> } />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 

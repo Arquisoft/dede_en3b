@@ -90,7 +90,6 @@ const reducer = (state: State, action: Action): State => {
 const Login = () => {
   const classes = useStyles();
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [solidConnection, setSolidConnection] = useState(new SolidConnection()); //TODO
 
   useEffect(() => {
     if (state.identityPovider.trim()) {
@@ -112,7 +111,9 @@ const Login = () => {
         type: 'loginSuccess',
         payload: 'Login Successfully'
       });
-        setSolidConnection(new SolidConnection(state.identityPovider));
+    
+    let connection = new SolidConnection(state.identityPovider);
+    connection.login('cart');
 
     } else {
       dispatch({

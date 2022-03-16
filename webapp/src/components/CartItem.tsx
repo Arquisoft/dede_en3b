@@ -6,7 +6,7 @@ import {  StyledButton } from '../routes/Product.styles';
 type Props = {
   item: ICartItem;
   addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (clickedItem: ICartItem) => void;
 };
 
 function CartItem(props: Props): JSX.Element {
@@ -26,7 +26,7 @@ function CartItem(props: Props): JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => props.removeFromCart(props.item.product.id)}
+            onClick={() => props.removeFromCart(props.item)}
           >
             -
           </StyledButton>
