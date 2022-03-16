@@ -4,6 +4,7 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
+import { SolidConnection } from '../SOLID/API';
 
 type Props = {
   cartItems: ICartItem[];
@@ -14,7 +15,9 @@ type Props = {
 const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
-
+  
+  let connection = new SolidConnection();
+  
   return (
     <Wrapper>
       <h2>Your Cart</h2>
