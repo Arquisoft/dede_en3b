@@ -487,7 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-deployment-view">7. Deployment View</a>
 <ul class="sectlevel2">
 <li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#_infrastructure_level_2">7.2. Infrastructure Level 2</a></li>
+<li><a href="#_infrastructure_level_1_2">7.2. Infrastructure Level 1.2</a></li>
 </ul>
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
@@ -769,9 +769,9 @@ The application will provide the user with a way to place orders, as well as
 allowing the user to view past ones. It also has capabilities to calculate
 the cost of the item bought.</p>
 </div>
-<div class="sect2">
+<div class="sect2 arc42help">
 <h3 id="_business_context">3.1. Business Context</h3>
-<div class="paragraph">
+<div class="paragraph arc42help">
 <p><span class="image"><img src="./images/03-01_Mario_BusinessContext.png" alt="Business context diagram"></span></p>
 </div>
 <div class="paragraph">
@@ -785,7 +785,7 @@ for user data when needed (to see previous orders or to see their address).</p>
 </div>
 <div class="sect2">
 <h3 id="_technical_context">3.2. Technical Context</h3>
-<div class="paragraph">
+<div class="paragraph arc42help">
 <p><span class="image"><img src="./images/03-02_Mario_TechnicalContext.png" alt="Technical details"></span></p>
 </div>
 <div class="paragraph">
@@ -1021,8 +1021,8 @@ In the best case you will get away with examples or simple signatures.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s information will be stored here in order to keep it decentralized.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Here the minimal information of the application will be stored.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mongodb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In this database, the minimal information of the application will be stored.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1058,9 +1058,6 @@ according the the following black box template:</p>
 </ul>
 </div>
 </div>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_building_blocks_DeDe.png" alt="DeDe Whitebox"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1099,9 +1096,6 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/05_building_blocks_ui_da.png" alt="Front and Back End Whiteboxes"></span></p>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1127,8 +1121,8 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see the orders they have done already.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Profile</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see and edit here their personal data stored in the system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Product</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user will be able to see the full information of a single product and will be able to choose to buy it.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Products Catalogue</p></td>
@@ -1139,7 +1133,7 @@ Leave out normal, simple, boring or standardized parts of your system</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user can check here the products they have selected to buy.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID Accessing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID API</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provides the libraries to communicate between the user&#8217;s POD and the POD provider.</p></td>
 </tr>
 <tr>
@@ -1223,7 +1217,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/61SequenceDiagram.png" alt="Sequence diagram representing the buying process"></span></p>
+<p><span class="image"><img src="./images/06-01_Nico_SequenceDiagram.png" alt="Sequence diagram representing the buying process"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -1236,7 +1230,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="./images/06.2-Sequence_Diagram.PNG" alt="Sequence diagram representing the process"></span></p>
+<p><span class="image"><img src="./images/06-2_Oscar_SequenceDiagram.png" alt="Sequence diagram representing the process"></span></p>
 </div>
 </div>
 <div class="sect2">
@@ -1300,6 +1294,109 @@ when your infrastructure is more complex.</p>
 </div>
 <div class="sect2">
 <h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/07-Deployment-View-En.png" alt="Deployment view"></span></p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student&#8217;s machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the latter, at the production stage.</p>
+</div>
+<div class="paragraph">
+<div class="title">Quality and/or performance features</div>
+<p>The performance on the deployment build will depend on the user&#8217;s internet connection and the servers used for the deployment of the app since those are factors that we can not control. But the performance of the application can be maxed with posible improvements on our code.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Mapping of building blocks to infrastructure</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The device of the user, of course internet connection is required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where we will host our app, all browsers should be compatible.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POD provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solid pods will be provided by Solid Community</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WebApp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the front end of our application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RestApi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the back-end of our application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database will be hosted, since we are using mongoDB Atlas</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_level_1_2">7.2. Infrastructure Level 1.2</h3>
+<div class="paragraph">
+<p><span class="image"><img src="./images/07-Deployment-View-Development-En.png" alt="Deployment view"></span></p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>The motivation here, as stated in the previous point is similar, but this is how the deployment view would look for the development/testing environment</p>
+</div>
+<div class="paragraph">
+<div class="title">Quality</div>
+<p>The same as in the point above, nothing much changes, just the fact that all is hosted on the developer&#8217;s pc.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Mapping of building blocks to infrastructure</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The device of the developer, internet connection is needed to access the database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POD provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solid pods will be provided by Solid Community</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WebApp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the front end of our application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RestApi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the back-end of our application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database will be hosted, since we are using mongoDB Atlas</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1326,28 +1423,6 @@ when your infrastructure is more complex.</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Quality and/or Performance Features</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd>
-<p><em>&lt;description of the mapping&gt;</em></p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_infrastructure_level_2">7.2. Infrastructure Level 2</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1358,28 +1433,7 @@ when your infrastructure is more complex.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_infrastructure_element_1">7.2.1. <em>&lt;Infrastructure Element 1&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_2">7.2.2. <em>&lt;Infrastructure Element 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_n">7.2.3. <em>&lt;Infrastructure Element n&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
@@ -1754,7 +1808,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-24 01:03:27 +0100
+Last updated 2022-02-20 21:30:23 +0100
 </div>
 </div>
 </body>
