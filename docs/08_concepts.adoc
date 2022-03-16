@@ -56,12 +56,7 @@ image:UmlDiagram.png["Example UML Diagram"]
 
 
 
-=== _<Concept 2>_
+=== Reduced pod storage
 
-_<explanation>_
-
-...
-
-=== _<Concept n>_
-
-_<explanation>_
+We will not store anything in the user pod, as we can't be sure of what does the user want stored in it. 
+We wil store all the necesary information in our, keeping some references to the WebId of the users.
