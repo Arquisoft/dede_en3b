@@ -8,6 +8,7 @@ import { addOrder } from "../api/api";
 import { SolidConnection } from '../SOLID/API';
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { Address } from "../../../restapi/model/Order";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   cartItems: ICartItem[];
@@ -22,11 +23,14 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   
   let connection = new SolidConnection();
   
+  let navigate = useNavigate();
+
   const checkOut = () => {
     let address:Address | null = null;
     if(connection.isLoggedIn()){
       connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
         let addressString = thing.getString(VCARD.hasAddress);
+        if(addressString!=null)
         connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
            address = {
               country: VCARD.country_name,
@@ -40,6 +44,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       if(address!=null){
         addOrder(cartItems, connection.getWebId().href, address, calculateTotal(cartItems));
         emptyCart();
+        navigate('/');
       }
     }
   };
