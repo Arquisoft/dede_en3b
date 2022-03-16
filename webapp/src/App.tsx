@@ -1,20 +1,25 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import {IProduct} from '../../restapi/model/Products';
-import './App.css';
-import ProductComponent from "./components/ProductComponent";
 import  {findProductsByName, getProducts, filterProducts} from './api/api';
-import { FormControl, InputLabel, MenuItem } from '@mui/material';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NavigationBar from './components/NavigationBar';
+import { ICartItem } from './components/ICartItem';
+import { IProduct } from '../../restapi/model/Products';
+import Cart from './routes/Cart';
+import Catalogue from './routes/Catalogue';
+import IndividualProduct from './routes/IndividualProduct';
+import Login from './components/LoginComponent';
+
+
 
 function App(): JSX.Element {
 
-  
-
- // const [productsFound, setProductsFound] = useState<IProduct[]>([]);
- // const [productSearch, setProductSearch] = useState('');
+  //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
   const [value,setValue] = useState('');
+
+  //Cart
+  const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -49,6 +54,59 @@ function App(): JSX.Element {
     input.value = '';
   }
 
+  const search = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('#searchText') as HTMLInputElement;
+//    setProductSearch(input.value);
+    input.value = '';
+  };
+
+  /**
+   * Function to add a product to the cart
+   * 
+   * @param clickedItem 
+   */
+  const onAddToCart = (clickedItem: ICartItem) => {
+    setShoppingCart((prev) => {
+      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
+
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.product === clickedItem.product
+            ? { ...item, units: item.units + 1 }
+            : item
+        );
+      }
+
+      return [...prev, { ...clickedItem, units: clickedItem.units }];
+    });
+  };
+
+  /**
+   * Function to remove a product from the cart
+   * 
+   * @param clickedItem 
+   */
+   const onRemoveFromCart = (clickedItem : ICartItem) => {
+    setShoppingCart((prev) =>
+      prev.reduce((acc, item) => {
+        if (item.product._id === clickedItem.product._id) {
+          
+          if (item.units === 1) {
+            return acc;
+          } else {
+            item.units = item.units - 1;
+          }
+            
+          return [...acc, { ...item, amount: item.units - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as ICartItem[])
+    );
+  };
+  
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
     var filteredProducts: IProduct[];
@@ -60,25 +118,6 @@ function App(): JSX.Element {
     }
     setProducts(filteredProducts);
   }
-
-
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const query = encodeURIComponent(productSearch);
-  //     const response = await searchForProducts(query);
-  //     setProductsFound(response);
-  //   })();
-  // }, [productSearch]);
-
-//   const search = (event: FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
-//     const input = form.querySelector('#searchText') as HTMLInputElement;
-// //    setProductSearch(input.value);
-//     input.value = '';
-//   };
-  
 
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;
@@ -95,52 +134,27 @@ function App(): JSX.Element {
 
   
   return (
-    <div className="App">
-      <h1>Product Search App</h1>
-      <form className="searchForm" onSubmit={event => searchForProducts(event)} >
-        <input id="searchText" type="text" />
-        <button>Search</button>
-        {/* <select className="searchForm" id="lang" onChange={event => filterProduct(event)}>
-                  <option value="Default">Default</option>
-                  <option value="Camiseta">Camiseta</option>
-                  <option value="Pantalon">Pantalon</option>
-                  <option value="Sudadera">Sudadera</option>
-        </select> */}
-        <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
-          <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
-          <Select
-            labelId="demo-simple-select-filled-label"
-            id="demo-simple-select-filled"
-            value={value}
-            label="Type"
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
-            <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
-            <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
-          </Select>
-        </FormControl>
-      </form>
+  
+    <BrowserRouter>
+      
+      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
+
+      <Routes>
+        <Route path="login" element={<Login></Login>}> </Route>
+        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+        <Route path="products/:id" 
+          element={
+            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
+          } 
+        />
+       
+        
+      </Routes>
+    
+    </BrowserRouter>
       
       
-      <div className="products-container">
-
-        {products.map((product,i)=>{
-                    return (
-                        <ProductComponent key={i} product={product} ></ProductComponent>
-                        
-                    );
-                })}
-
-     
-      </div>
-
-      
-
-    </div>
   );
 }
 

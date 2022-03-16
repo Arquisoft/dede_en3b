@@ -7,10 +7,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { IProduct } from "../../../restapi/model/Products";
-import { getProduct } from "../api/api";
+import { ICartItem } from "./ICartItem";
+import { useNavigate } from 'react-router-dom';
+import {getProduct} from '../api/api';
 
 type ProductComponentProps = {
-    product: IProduct;
+  product: IProduct;
+  onAddToCart: (clickedproduct: ICartItem) => void;
 }
 
 const findProductById = async (id: string) => {
@@ -20,11 +23,12 @@ const findProductById = async (id: string) => {
 }
 
 function ProductComponent(props: ProductComponentProps): JSX.Element {
-  
-  let imageRef: string = require("../static/images/" + props.product._id + ".png");
 
+  const productToItem = (prod: IProduct) => ({ product: prod, units: 1 });
+  let imageRef: string = require("../static/images/" + props.product._id + ".png");
+  const navigate = useNavigate();
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345, minWidth: 345 }}>
       <CardMedia
         component="img"
         height="350"
@@ -44,7 +48,8 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-        <Button onClick={() => findProductById(props.product._id.toString())} size="small">View</Button>
+          <Button onClick={event => props.onAddToCart(productToItem(props.product))}>Add to cart</Button>
+          <Button onClick={event => navigate(`/products/${props.product._id}`)}>See more</Button>
       </CardActions>
     </Card>
     )
