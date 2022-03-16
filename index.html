@@ -769,9 +769,9 @@ The application will provide the user with a way to place orders, as well as
 allowing the user to view past ones. It also has capabilities to calculate
 the cost of the item bought.</p>
 </div>
-<div class="sect2 arc42help">
+<div class="sect2">
 <h3 id="_business_context">3.1. Business Context</h3>
-<div class="paragraph arc42help">
+<div class="paragraph">
 <p><span class="image"><img src="./images/03-01_Mario_BusinessContext.png" alt="Business context diagram"></span></p>
 </div>
 <div class="paragraph">
@@ -785,7 +785,7 @@ for user data when needed (to see previous orders or to see their address).</p>
 </div>
 <div class="sect2">
 <h3 id="_technical_context">3.2. Technical Context</h3>
-<div class="paragraph arc42help">
+<div class="paragraph">
 <p><span class="image"><img src="./images/03-02_Mario_TechnicalContext.png" alt="Technical details"></span></p>
 </div>
 <div class="paragraph">
@@ -808,10 +808,16 @@ The application itself will be written in nodejs with typescript, and will be de
 <div class="ulist">
 <ul>
 <li>
-<p><strong>React</strong>: A framework to build the user interface of the application.</p>
+<p><strong>MongoDB</strong>: The DMBS of our choice.</p>
 </li>
 <li>
-<p><strong>MongoDB</strong>: The DMBS of our choice.</p>
+<p><strong>Express</strong>: Express is a framework to handle the backend of our application.</p>
+</li>
+<li>
+<p><strong>Redux</strong>: Although it has not been implemented yet, we are considering it.</p>
+</li>
+<li>
+<p><strong>Heroku</strong>: It will be where we will deploy our app.</p>
 </li>
 </ul>
 </div>
@@ -1704,25 +1710,60 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div class="sect1">
 <h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>A list of identified technical risks or technical debts, ordered by priority</p>
+<p>These are the technical debts we have identified as of the moment.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Technical Debt</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unfamiliarity with Solid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since Solid is a new technology for all the team members and there is little documentation available online, it requires a lot of personal research that takes up a lot of time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unfamiliarity with React and Typescript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We have no knowledge of Typescript nor the React library, and thus we will need to learn to work with them. React&#8217;s documentation will be very useful since it is extensive and well explained. It will require some time to get used to it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Having specified deadlines and not being able to prioritize the project above all our other workload will require a very good organization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When working with a new team for a project, a lot of time will be used in order to bond with the members and have a good rapport between us.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.)</p>
+<p>These are some risks we might encounter during the development process.</p>
 </div>
-<div class="paragraph">
-<p>This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Risk</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solid failure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the pod host fails or the Solid specification changes due to it being a fairly new concept, our application will not work properly.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1808,7 +1849,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-20 21:30:23 +0100
+Last updated 2022-02-16 19:11:12 +0100
 </div>
 </div>
 </body>
