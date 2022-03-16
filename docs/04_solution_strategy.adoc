@@ -6,6 +6,9 @@
 A summary of the technical decisions that we have taken so far:
 
     * **MongoDB**: The DMBS of our choice.
+    * **Express**: Express is a framework to handle the backend of our application.
+    * **Redux**: Though it hasn't been implemented yet, we are considering it.
+
 
 === Decisions about the the top-level decomposition of the system
 
