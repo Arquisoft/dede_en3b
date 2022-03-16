@@ -27,26 +27,33 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
 
   const checkOut = () => {
     let address:Address | null = null;
-    if(connection.isLoggedIn()){
-      connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
-        let addressString = thing.getString(VCARD.hasAddress);
-        if(addressString!=null)
-        connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
-           address = {
-              country: VCARD.country_name,
-              locality: VCARD.locality,
-              postal_code: VCARD.postal_code,
-              region: VCARD.region,
-              street: VCARD.street_address,
-            };
-        });
-      });
+    // if(connection.isLoggedIn()){
+    //   connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
+    //     let addressString = thing.getString(VCARD.hasAddress);
+    //     if(addressString!=null)
+    //     connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
+    //        address = {
+    //           country: VCARD.country_name,
+    //           locality: VCARD.locality,
+    //           postal_code: VCARD.postal_code,
+    //           region: VCARD.region,
+    //           street: VCARD.street_address,
+    //         };
+    //     });
+    //   });
+      address = {
+        country: 'Country',
+          locality: 'Locality',
+          postal_code: '000000',
+          region: 'Region',
+          street: 'Street',
+      };
       if(address!=null){
-        addOrder(cartItems, connection.getWebId().href, address, calculateTotal(cartItems));
+        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
         emptyCart();
         navigate('/');
       }
-    }
+    //}
   };
 
   return (
