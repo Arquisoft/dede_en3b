@@ -6,7 +6,7 @@ These are the technical debts we have identified as of the moment.
 
 [cols="1,2" options="header"]
 |===
-| **Technical Debt** | **Description** |
+| **Technical Debt** | **Description**
 | Unfamiliarity with Solid
 | Since Solid is a new technology for all the team members and there is little documentation available online, it requires a lot of personal research that takes up a lot of time.
 | Unfamiliarity with React and Typescript
@@ -21,6 +21,6 @@ These are some risks we might encounter during the development process.
 
 [cols="1,2" options="header"]
 |===
-| **Risk** | **Description** |
+| **Risk** | **Description**
 | Solid failure | If the pod host fails or the Solid specification changes due to it being a fairly new concept, our application will not work properly.
 |===
