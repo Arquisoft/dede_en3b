@@ -88,11 +88,17 @@ function App(): JSX.Element {
    * 
    * @param clickedItem 
    */
-   const onRemoveFromCart = (id: Object) => {
+   const onRemoveFromCart = (clickedItem : ICartItem) => {
     setShoppingCart((prev) =>
       prev.reduce((acc, item) => {
-        if (item.product._id === id) {
-          if (item.units === 1) return acc;
+        if (item.product._id === clickedItem.product._id) {
+          
+          if (item.units === 1) {
+            return acc;
+          } else {
+            item.units = item.units - 1;
+          }
+            
           return [...acc, { ...item, amount: item.units - 1 }];
         } else {
           return [...acc, item];
@@ -100,6 +106,28 @@ function App(): JSX.Element {
       }, [] as ICartItem[])
     );
   };
+
+  /**
+   * Function to remove a product from the cart
+   * 
+   * @param clickedItem 
+   
+   const onRemoveFromCart = (clickedItem: ICartItem) => {
+    setShoppingCart((prev) => {
+      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
+
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.product === clickedItem.product 
+            ? { ...item, units: item.units - 1 }
+            : item
+        );
+      }
+
+      return [...prev, { ...clickedItem, units: clickedItem.units }];
+    });
+  };
+  */
   
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
