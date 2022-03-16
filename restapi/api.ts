@@ -2,8 +2,10 @@ import express, { Request, Response, Router } from 'express';
 import {check, Schema} from 'express-validator';
 import { IUser } from './model/User';
 import { IProduct } from './model/Products';
-const User = require('../restapi/model/User');
-const Products = require('../restapi/model/Products');
+import { computeTotalPrice } from '../restapi/util/utils';
+const User = require('./model/User');
+const Products = require('./model/Products');
+const Order = require('./model/Order');
 var mongoose = require('mongoose');
 const api:Router = express.Router();
 
@@ -79,18 +81,22 @@ api.get("/products/:id",async (req: Request, res:Response): Promise<Response> =>
 });
 
 /**
+ * 
+ */
+api.get("/products/filter/:type", async (req: Request, res:Response): Promise<Response> => {
+  let type: string = req.params.type;
+  const products:IProduct[] = await Products.find({type:type});
+  return res.status(200).send(products);
+});
+/**
  * OSCAR
  * Response for finding products by name 
  */
 api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
-
   let name = req.params.name;
-
-
   const products: IProduct[] = await Products.find({
     name: {$regex: '.*' + name + '.*'}
   });
-  
   if(!products) {
     return res.status(404).json({message: 'Product with name '+ req.params.name +' not found'});
   }
@@ -104,7 +110,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     //Creting the order
-    const order = new Order({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:Utils.computeTotalPrice(req.body.products)});
+    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:computeTotalPrice(req.body.products)});
     //Adding the order to the database
     await order.save();
     //We answer that its all ok.

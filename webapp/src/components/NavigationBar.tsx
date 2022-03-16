@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,14 +9,14 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { createTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -44,7 +44,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  '&':{
+    color: theme.palette.common.white,
+  }
+})) as typeof Typography;
+
+
+interface NavigationBarProps {
+  numberOfProductsInCart: number;
+}
+
+
+
+export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -69,6 +83,13 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    handleMenuClose();
+    navigate('/login');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -86,7 +107,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={goToLogin}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -111,21 +132,24 @@ export default function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <SearchIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
       </MenuItem>
       <MenuItem>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
           color="inherit"
         >
+          
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+          
+            <ShoppingCartIcon />  
+          
+            </Badge>
+            
+          </IconButton>
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -144,10 +168,11 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
+    <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="secondary"> 
+      <AppBar position="static" style={{ background: '#272a40'}}> 
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -155,32 +180,48 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          <img src={logo} alt="logo" />
-          <Typography
+          </IconButton> */}
+          <Link to="/">
+            <IconButton>
+              <img src={logo} alt="logo" id="app-logo"/>
+            </IconButton>
+          </Link>
+          
+          <StyledTypography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            DEDE_EN3B
-          </Typography>
+            DeDe_en3B
+          </StyledTypography>
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Link to="/" style={{ color: '#FFF' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+              <Badge color="error">
+              
+            <SearchIcon />  
+          
               </Badge>
-            </IconButton>
+              </IconButton>
+              </Link>
+            <Link to="cart" style={{ color: '#FFF' }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
               color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+              >
+                
+              <Badge badgeContent={props.numberOfProductsInCart} color="error">
+              
+            <ShoppingCartIcon />  
+                 
               </Badge>
-            </IconButton>
+              </IconButton>
+              </Link>
+              
             <IconButton
               size="large"
               edge="end"
@@ -188,10 +229,12 @@ export default function PrimarySearchAppBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+                  color=
+                  "inherit"
             >
               <AccountCircle />
-            </IconButton>
+                </IconButton>
+                
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -203,12 +246,17 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <MoreIcon />
-            </IconButton>
+                </IconButton>
           </Box>
         </Toolbar>
+        
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+      </Box>
+      </>
+
+     
+        
   );
 }
