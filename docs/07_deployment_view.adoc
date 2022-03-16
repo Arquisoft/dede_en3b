@@ -55,7 +55,7 @@ The performance on the deployment build will depend on the user's internet conne
 | POD provider | Solid pods will be provided by Solid Community
 | WebApp | the front end of our application
 | RestApi | the back-end of our application
-| Database server | Where our databse will be hosted, since we are using mongoDB Atlas
+| Database server | Where our database will be hosted, since we are using mongoDB Atlas
 |===
 
 
@@ -78,7 +78,7 @@ The same as in the point above, nothing much changes, just the fact that all is 
 | POD provider | Solid pods will be provided by Solid Community
 | WebApp | the front end of our application
 | RestApi | the back-end of our application
-| Database server | Where our databse will be hosted, since we are using mongoDB Atlas
+| Database server | Where our database will be hosted, since we are using mongoDB Atlas
 |===
 
 [role="arc42help"]
