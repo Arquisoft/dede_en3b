@@ -7,21 +7,34 @@ export interface IOrder extends Document {
     _id: Types.ObjectId;
     webId: string;
     orderProducts: OrderProduct[];
-    address: string;
+    address: Address;
     totalPrice: number;
 }
 
 const orderSchema = new mongoose.Schema({
     webId: String,
     orderProducts: {type: Array, default: []},
-    address: String,
+    address: {
+        country:String,
+        locality:String,
+        postal_code:String,
+        region:String,
+        street:String,
+    },
     totalPrice: Number,
 });
 
 export interface OrderProduct{
     id: String;
     quantity: number;
-    price: number;
 }
+
+export type Address = {
+    country:string;
+    locality:string;
+    postal_code:string;
+    region:string;
+    street:string;
+  }  
 
 module.exports = mongoose.model("Orders", orderSchema);

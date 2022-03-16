@@ -5,8 +5,11 @@
 
 A summary of the technical decisions that we have taken so far:
 
-    * **React**: A framework to build the user interface of the application.
     * **MongoDB**: The DMBS of our choice.
+    * **Express**: Express is a framework to handle the backend of our application.
+    * **Redux**: Although it has not been implemented yet, we are considering it.
+    * **Heroku**: It will be where we will deploy our app.
+
 
 === Decisions about the the top-level decomposition of the system
 
