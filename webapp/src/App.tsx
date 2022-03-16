@@ -107,6 +107,15 @@ function App(): JSX.Element {
     );
   };
   
+  /**
+  * Function to empty the shopping cart
+  */ 
+  const emptyCart = () => {
+    let empty : ICartItem[] = new Array();
+    setShoppingCart(empty);
+  };
+
+
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
     var filteredProducts: IProduct[];
@@ -141,7 +150,7 @@ function App(): JSX.Element {
 
       <Routes>
         <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} />} />
+        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={

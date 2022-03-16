@@ -13,9 +13,10 @@ type Props = {
   cartItems: ICartItem[];
   addToCart: (clickedItem: ICartItem) => void;
   removeFromCart: (clickedItem: ICartItem) => void;
+  emptyCart: () => void;
 };
 
-const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
+const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
@@ -36,8 +37,10 @@ const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
             };
         });
       });
-      if(address!=null)
+      if(address!=null){
         addOrder(cartItems, connection.getWebId().href, address, calculateTotal(cartItems));
+        emptyCart();
+      }
     }
   };
 
