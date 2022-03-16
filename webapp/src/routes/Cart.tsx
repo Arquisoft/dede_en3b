@@ -9,7 +9,7 @@ import { SolidConnection } from '../SOLID/API';
 type Props = {
   cartItems: ICartItem[];
   addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (id: Object) => void;
+  removeFromCart: (clickedItem: ICartItem) => void;
 };
 
 const Cart = ({ cartItems, addToCart, removeFromCart }: Props) => {
