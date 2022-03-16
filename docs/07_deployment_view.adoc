@@ -3,6 +3,7 @@
 
 == Deployment View
 
+
 [role="arc42help"]
 ****
 .Content
@@ -35,6 +36,30 @@ when your infrastructure is more complex.
 ****
 
 === Infrastructure Level 1
+
+
+
+image:07-Deployment-Viwe-En.png["Deployment view"]
+
+.Motivation
+In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student's machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the latter, at the production stage.
+
+
+.Quality and/or performance features
+The performance on the deployment build will depend on the user's internet connection and the servers used for the deployment of the app since those are factors that we can not control. But the performance of the application can be maxed with posible improvements on our code.
+
+.Mapping of building blocks to infrastructure
+
+[options="header",cols="1,2"]
+|===
+|Element|Description
+| Client | The device of the user, of course internet connection is required.
+| Web server | Where we will host our app, all browsers should be compatible.
+| POD provider | Solid pods will be provided by Solid Community
+| WebApp | the front end of our application
+| RestApi | the back-end of our application
+| MongoDB | the dbms, where all the data relevant to the application will be stored
+|===
 
 [role="arc42help"]
 ****
