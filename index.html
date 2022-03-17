@@ -1598,6 +1598,177 @@ here in this central section or whether you better document it locally
 </div>
 </div>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DataBase Management System</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Technology</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Used</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Pros</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Non relational database, stores information in JSON. It&#8217;s query
+language is based on JS, which happens to be the language we are
+building the application on. Also, it is not neccesary to define
+the tables. It is not the most used DBMS, but it is widely used
+along JS.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A bit slow, and doesn&#8217;t support JOIN. It also has no query cache.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MySQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational database, with tables and JOIN operations. It is more
+similar to the DBMS we are used to. It also is widely used in the
+industry, so a lot of docs are available.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You have to define the schemas, and the query language is more
+like SQL.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight, proven, standard-of-the-industry. Comprehensive
+documentation. Most used DBMS in the world.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very basic, and does not support advanced operations that are
+not basic SQL language.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Continuous deployment system</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Technology</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Used</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Pros</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heroku</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes (will be used)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recommended by the teachers. We are somewhat familiar with it
+already. Powerful and not too hard to use, as it is
+just an environment for the server. Does not
+require special code. Compatibility with docker
+containers for deployment.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Special code and configuration needs to be written. Free plan is
+a bit restrictive. Not a lot of documentation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serverless architecture. Powered by Amazon. It is the most used
+cloud computing service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hard to use. We are not so used to it, and it would impede application
+development. We are not sure how well it works with SOLID. We need
+to write specific code for it.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">About SOLID</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Option</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Used</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Pros</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Design a custom API to work with the POD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ease of use. Better code legibility. Generally more friendly
+for the majority of the team. Only the person who develops it truly
+needs to dig into how solid works.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It needs to be build. If wrongly designed, it could hinder
+development. Only the person who develops it truly needs
+to dig into how solid works.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the POD with just inrupt API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More flexibility. Forces all the team to learn how SOLID works.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hard and cumbersome to use. Poor legibility. Forces all the team
+to learn how SOLID works.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">RESTful API</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Option</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Used</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Pros</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Cons</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RESTful API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separates client and server, yet makes it easier for them to work
+together. Stateless and uniform interface.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It needs to be designed. A poor design could hinder project
+development.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Faster to build. Easier to do and understand for a small project.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cumbersome, and rapidly loses legibility and cohesivity as
+project size increases. Will incurr in a lot of technical debt.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1884,7 +2055,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-15 17:07:51 +0100
+Last updated 2022-02-24 01:03:27 +0100
 </div>
 </div>
 </body>
