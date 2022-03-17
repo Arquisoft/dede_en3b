@@ -36,6 +36,8 @@ The quality tree is a high-level overview of the quality goals and requirements:
 In any case the tree should include links to the scenarios of the following section.
 ****
 
+image:10_Oscar_QualityTree.png["Quality tree diagram"]
+
 === Quality Scenarios
 
 [role="arc42help"]
@@ -61,3 +63,13 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 .Form
 Tabular or free form text.
 ****
+
+[options="header"]
+|===
+| Quality attribute | Scenario | Approach
+| Usability |  We want to have a way of filtering the products that makes the searching process faster for the client | We develop a primitive search engine and classification for the types of products.
+| Usability | Fast paying process | We developed an easy check out process that is called directly from the cart.
+| Decentralization | Decentralization of the log in process (serverless) | is gained by means of calling the POD service provider and delegating the process to it.
+| Privacy | We don't want to put in danger user data | Unless it is required by the client the application won't show any personal data.
+| Accesibilty | We want to traverse the application easily | Intuitive navigation bar present in every route of the application.
+|===

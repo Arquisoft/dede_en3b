@@ -3,6 +3,7 @@
 
 == Deployment View
 
+
 [role="arc42help"]
 ****
 .Content
@@ -36,6 +37,50 @@ when your infrastructure is more complex.
 
 === Infrastructure Level 1
 
+image:07-Deployment-View-En.png["Deployment view"]
+
+.Motivation
+In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student's machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the latter, at the production stage.
+
+
+.Quality and/or performance features
+The performance on the deployment build will depend on the user's internet connection and the servers used for the deployment of the app since those are factors that we can not control. But the performance of the application can be maxed with posible improvements on our code.
+
+.Mapping of building blocks to infrastructure
+[options="header",cols="1,2"]
+|===
+|Element|Description
+| Client | The device of the user, of course internet connection is required.
+| Web server | Where we will host our app, all browsers should be compatible.
+| POD provider | Solid pods will be provided by Solid Community
+| WebApp | the front end of our application
+| RestApi | the back-end of our application
+| Database server | Where our database will be hosted, since we are using mongoDB Atlas
+|===
+
+
+=== Infrastructure Level 1.2
+
+image:07-Deployment-View-Development-En.png["Deployment view"]
+
+.Motivation
+The motivation here, as stated in the previous point is similar, but this is how the deployment view would look for the development/testing environment
+
+.Quality
+The same as in the point above, nothing much changes, just the fact that all is hosted on the developer's pc.
+
+.Mapping of building blocks to infrastructure
+[options="header",cols="1,2"]
+|===
+|Element|Description
+| Developer | The device of the developer, internet connection is needed to access the database.
+| Development environment | The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.
+| POD provider | Solid pods will be provided by Solid Community
+| WebApp | the front end of our application
+| RestApi | the back-end of our application
+| Database server | Where our database will be hosted, since we are using mongoDB Atlas
+|===
+
 [role="arc42help"]
 ****
 Describe (usually in a combination of diagrams, tables, and text):
@@ -48,21 +93,6 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
 ****
 
-_**<Overview Diagram>**_
-
-Motivation::
-
-_<explanation in text form>_
-
-Quality and/or Performance Features::
-
-_<explanation in text form>_
-
-Mapping of Building Blocks to Infrastructure::
-_<description of the mapping>_
-
-
-=== Infrastructure Level 2
 
 [role="arc42help"]
 ****
@@ -71,16 +101,3 @@ Here you can include the internal structure of (some) infrastructure elements fr
 Please copy the structure from level 1 for each selected element.
 ****
 
-==== _<Infrastructure Element 1>_
-
-_<diagram + explanation>_
-
-==== _<Infrastructure Element 2>_
-
-_<diagram + explanation>_
-
-...
-
-==== _<Infrastructure Element n>_
-
-_<diagram + explanation>_
