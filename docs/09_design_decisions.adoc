@@ -33,7 +33,7 @@ DataBase Management System::
 
 | MongoDB | Yes 
 | Non relational database, stores information in JSON. It's query
-languaje is based on JS, which happens to be the languaje we are
+language is based on JS, which happens to be the language we are
 building the application on. Also, it is not neccesary to define
 the tables. It is not the most used DBMS, but it is widely used
 along JS.
@@ -43,14 +43,14 @@ along JS.
 | Relational database, with tables and JOIN operations. It is more
 similar to the DBMS we are used to. It also is widely used in the
 industry, so a lot of docs are available.
-| You have to define the schemas, and the query languaje is more
+| You have to define the schemas, and the query language is more
 like SQL.
 
 | SQLite | No
 | Lightweight, proven, standard-of-the-industry. Comprehensive 
 documentation. Most used DBMS in the world.
 | Very basic, and does not support advanced operations that are
-not basic SQL languaje.
+not basic SQL language.
 |===
 
 Continuous deployment system::
