@@ -24,3 +24,93 @@ Various options:
 * more detailed in form of separate sections per decision
 * ADR (architecture decision record) for every important decision
 ****
+
+DataBase Management System::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Technology** | **Used** | **Pros** | **Cons**
+
+| MongoDB | Yes 
+| Non relational database, stores information in JSON. It's query
+languaje is based on JS, which happens to be the languaje we are
+building the application on. Also, it is not neccesary to define
+the tables. It is not the most used DBMS, but it is widely used
+along JS.
+| A bit slow, and doesn't support JOIN. It also has no query cache.
+
+| MySQL | No
+| Relational database, with tables and JOIN operations. It is more
+similar to the DBMS we are used to. It also is widely used in the
+industry, so a lot of docs are available.
+| You have to define the schemas, and the query languaje is more
+like SQL.
+
+| SQLite | No
+| Lightweight, proven, standard-of-the-industry. Comprehensive 
+documentation. Most used DBMS in the world.
+| Very basic, and does not support advanced operations that are
+not basic SQL languaje.
+|===
+
+Continuous deployment system::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Technology** | **Used** | **Pros** | **Cons**
+
+| Heroku | Yes (will be used)
+| Recommended by the teachers. We are somewhat familiar with it
+already. Powerful and not too hard to use, as it is
+just an environment for the server. Does not
+require special code. Compatibility with docker
+containers for deployment.
+| Special code and configuration needs to be written. Free plan is 
+a bit restrictive. Not a lot of documentation.
+
+| AWS | No
+| Serverless architecture. Powered by Amazon. It is the most used
+cloud computing service.
+| Hard to use. We are not so used to it, and it would impede application
+development. We are not sure how well it works with SOLID. We need
+to write specific code for it.
+|===
+
+About SOLID::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Option** | **Used** | **Pros** | **Cons**
+
+| Design a custom API to work with the POD | Yes
+| Ease of use. Better code legibility. Generally more friendly
+for the majority of the team. Only the person who develops it truly
+needs to dig into how solid works.
+| It needs to be build. If wrongly designed, it could hinder
+development. Only the person who develops it truly needs 
+to dig into how solid works.
+
+| Use the POD with just inrupt API | No
+| More flexibility. Forces all the team to learn how SOLID works.
+| Hard and cumbersome to use. Poor legibility. Forces all the team
+to learn how SOLID works.
+|===
+
+RESTful API::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Option** | **Used** | **Pros** | **Cons**
+
+| RESTful API | Yes
+| Separates client and server, yet makes it easier for them to work
+together. Stateless and uniform interface.
+| It needs to be designed. A poor design could hinder project
+development.
+
+| No API | No
+| Faster to build. Easier to do and understand for a small project.
+| Cumbersome, and rapidly loses legibility and cohesivity as
+project size increases. Will incurr in a lot of technical debt.
+|===
+
