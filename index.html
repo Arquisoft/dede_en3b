@@ -493,8 +493,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_domain_model">8.1. Domain model</a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_reduced_pod_storage">8.2. Reduced pod storage</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Design Decisions</a></li>
@@ -1545,22 +1544,14 @@ on this list.</p>
 <div class="sect2">
 <h3 id="_domain_model">8.1. Domain model</h3>
 <div class="paragraph">
-<p><span class="image"><img src="./images/UmlDiagram.png" alt="Example UML Diagram"></span></p>
+<p><span class="image"><img src="./images/08-01_Nico_DomainModel.png" alt="UML Diagram of the domain model"></span></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
+<h3 id="_reduced_pod_storage">8.2. Reduced pod storage</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>We will not store anything in the user pod, as we can&#8217;t be sure of what does the user want stored in it.
+We wil store all the necesary information in our database, keeping some references to the WebId of the users.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1662,6 +1653,9 @@ concrete and measurable.</p>
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/10_Oscar_QualityTree.png" alt="Quality tree diagram"></span></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
@@ -1703,6 +1697,47 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Quality attribute</th>
+<th class="tableblock halign-left valign-top">Scenario</th>
+<th class="tableblock halign-left valign-top">Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We want to have a way of filtering the products that makes the searching process faster for the client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We develop a primitive search engine and classification for the types of products.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fast paying process</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We developed an easy check out process that is called directly from the cart.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralization of the log in process (serverless)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is gained by means of calling the POD service provider and delegating the process to it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We don&#8217;t want to put in danger user data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unless it is required by the client the application won&#8217;t show any personal data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accesibilty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We want to traverse the application easily</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intuitive navigation bar present in every route of the application.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1849,7 +1884,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-16 19:11:12 +0100
+Last updated 2022-02-15 17:07:51 +0100
 </div>
 </div>
 </body>
