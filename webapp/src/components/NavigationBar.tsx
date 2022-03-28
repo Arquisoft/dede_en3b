@@ -198,7 +198,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Link to="/" style={{ color: '#FFF' }}>
+          <Link to="shop" style={{ color: '#FFF' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge color="error">
               
