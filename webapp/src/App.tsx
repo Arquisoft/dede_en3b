@@ -9,6 +9,8 @@ import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
+import { AddAddressComponent, IOrder } from './components/AddAddressComponent';
+import { Address } from '../../restapi/model/Order';
 
 
 
@@ -16,10 +18,13 @@ function App(): JSX.Element {
 
   //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [value,setValue] = useState('');
+  const [value, setValue] = useState('');
+
 
   //Cart
   const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
+  //Order
+  const [order, setOrder] = useState<IOrder>({ cart : shoppingCart });
 
   const refreshProductList = async () => {
     const productsResult : IProduct[] = await getProducts();
@@ -141,6 +146,16 @@ function App(): JSX.Element {
     setValue(type);
   };
 
+  const getIOrder = () =>
+  {
+    return order;
+  }
+
+  const setAddress = (address: Address) =>
+  {
+    order.shippingAddress = address;
+    order.invoicingAddress = address;
+  }
   
   return (
   
@@ -157,7 +172,9 @@ function App(): JSX.Element {
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
           } 
         />
-       
+        <Route path="shipping/address" element={<AddAddressComponent order={getIOrder() } setAddress={setAddress}></AddAddressComponent>}></Route>
+        <Route path="shipping/payment"></Route> 
+        <Route path="shipping/payment"></Route> 
         
       </Routes>
     
