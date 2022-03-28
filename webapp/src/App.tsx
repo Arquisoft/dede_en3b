@@ -40,14 +40,13 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-    console.log(input.value);
     updateProductList(input);
   };
 
   const loadCartFromLocalStorage = () => {
     let str = localStorage.getItem('cart');
     console.log(str);
-    let cart:ICartItem[] = str!== null ? JSON.parse(str) : "{}";
+    let cart:ICartItem[] = str!== null ? JSON.parse(str) : [];
     setShoppingCart(cart);
   };
 
@@ -85,10 +84,11 @@ function App(): JSX.Element {
             : item
         );
       }
-      //We add the cart to the local storage
-      localStorage.setItem('cart', JSON.stringify(shoppingCart));
       return [...prev, { ...clickedItem, units: clickedItem.units }];
     });
+    //We add the cart to the local storage
+    console.log(JSON.stringify(shoppingCart));
+    localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
 
   /**
@@ -113,6 +113,8 @@ function App(): JSX.Element {
         }
       }, [] as ICartItem[])
     );
+    //We add the cart to the local storage
+    console.log(JSON.stringify(shoppingCart));
     localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
   
