@@ -1,4 +1,3 @@
-import { IProduct } from "../../../restapi/model/Products";
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";

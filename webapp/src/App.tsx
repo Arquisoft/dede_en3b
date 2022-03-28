@@ -29,6 +29,7 @@ function App(): JSX.Element {
 
   useEffect(()=>{
     refreshProductList();
+    loadCartFromLocalStorage();
   },[]);
 
   /**
@@ -41,7 +42,13 @@ function App(): JSX.Element {
     const input = form.querySelector('#searchText') as HTMLInputElement;
     console.log(input.value);
     updateProductList(input);
+  };
 
+  const loadCartFromLocalStorage = () => {
+    let str = localStorage.getItem('cart');
+    console.log(str);
+    let cart:ICartItem[] = str!== null ? JSON.parse(str) : "{}";
+    setShoppingCart(cart);
   };
 
   /**
@@ -78,7 +85,8 @@ function App(): JSX.Element {
             : item
         );
       }
-
+      //We add the cart to the local storage
+      localStorage.setItem('cart', JSON.stringify(shoppingCart));
       return [...prev, { ...clickedItem, units: clickedItem.units }];
     });
   };
@@ -105,6 +113,7 @@ function App(): JSX.Element {
         }
       }, [] as ICartItem[])
     );
+    localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
   
   /**
@@ -113,6 +122,7 @@ function App(): JSX.Element {
   const emptyCart = () => {
     let empty : ICartItem[] = new Array();
     setShoppingCart(empty);
+    localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
 
 
