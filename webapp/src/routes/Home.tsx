@@ -12,21 +12,21 @@ import ButtonBase from '@mui/material/ButtonBase';
 const Home = () => {
 
     const imageShop = {
-        url: '../static/images/buttons/shop.png',
+        url: require("../static/images/buttons/shop.png"),
         title: 'Start shopping',
         width: '50%',
       };
 
     const imageOrders = 
         {
-          url: '/static/images/buttons/burgers.jpg',
+          url: require("../static/images/buttons/orders.png"),
           title: 'Check your orders',
           width: '50%',
         };
       
       const ImageButton = styled(ButtonBase)(({ theme }) => ({
         position: 'relative',
-        height: 200,
+        height: 250,
         [theme.breakpoints.down('sm')]: {
           width: '100% !important', // Overrides inline-style
           height: 100,
@@ -95,24 +95,26 @@ const Home = () => {
             justifyContent="center"
             alignItems="center"
             spacing={10}>
-                <Grid item xs="auto">
+                <Grid item xs wrap="wrap">
                     <Typography 
                         variant="h1"
                         align="center"
                         color="text.primary">
                             Welcome to DeDe
                     </Typography>
-                    <Grid item xs={10}/>
                     <Typography 
-                        variant="h4"
+                        variant="h5"
                         align="center"
                         color="text.primary"
-                        paragraph>
-                            You can start shopping our products keeping your privacy
+                        paragraph 
+                        style={{ wordWrap: "break-word" }}
+                        >
+                            <br/>Welcome to the clothing store where we value your privacy<br/>
+                            You can start shopping our products or checking your previous orders
                     </Typography>
                 </Grid>
 
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '80%' }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '80%', p: { xs:2, } }}>
                     
                     <ImageButton
                     focusRipple
