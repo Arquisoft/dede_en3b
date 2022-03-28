@@ -42,11 +42,11 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
     //     });
     //   });
       address = {
-        country: 'Country',
+          country: 'Country',
           locality: 'Locality',
           postal_code: '000000',
-          region: 'Region',
           street: 'Street',
+          region: 'Asturias'
       };
       if(address!=null){
         addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
