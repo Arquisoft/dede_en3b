@@ -43,6 +43,9 @@ function App(): JSX.Element {
     updateProductList(input);
   };
 
+  /**
+   * Loads the data on the cart if there was something in the local storage, if not it creates a new list and sets it to the shopping cart
+   */
   const loadCartFromLocalStorage = () => {
     let str = localStorage.getItem('cart');
     console.log(str);
@@ -87,7 +90,6 @@ function App(): JSX.Element {
       return [...prev, { ...clickedItem, units: clickedItem.units }];
     });
     //We add the cart to the local storage
-    console.log(JSON.stringify(shoppingCart));
     localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
 
@@ -114,7 +116,6 @@ function App(): JSX.Element {
       }, [] as ICartItem[])
     );
     //We add the cart to the local storage
-    console.log(JSON.stringify(shoppingCart));
     localStorage.setItem('cart', JSON.stringify(shoppingCart));
   };
   
