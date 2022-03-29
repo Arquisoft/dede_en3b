@@ -91,9 +91,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/orders/list/' + webId;
-
-  console.log(str);
+  var str: string = apiEndPoint + '/orders/' + webId;
   let response = await fetch(str);
   return response.json();
 }

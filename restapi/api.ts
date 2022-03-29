@@ -122,13 +122,9 @@ api.post(
 /**
  * Response for finding order for a client
  */
- api.get("/orders", async (req: Request, res: Response): Promise<Response> => {
-
-  let webId = req.params.webId;
-
-
+ api.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
   const orders: IOrder[] = await Order.find({
-    webId: {$regex: '/^'+ webId +'$/'}
+    webId: req.params.id
   });
   
   if(!orders) {

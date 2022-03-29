@@ -6,16 +6,16 @@ import { findOrdersByUser } from "../api/api";
 
 type Props = {
     orders:IOrder[];
-    findOrdersByUser: (webId:string) => void;
+    getUserOrders: (orders:IOrder[], webId:string) => void;
   };
 
-const UserOrders = ({orders}:Props) => {
+const UserOrders = ({orders, getUserOrders}:Props) => {
     //SOLID STUFF TO GET THE WEB ID
-    findOrdersByUser("WebId");
+    getUserOrders(orders, "WebId");
     return (
         <Wrapper>
           <h2>Your Orders</h2>
-          {orders.length === 0 ? <p>No orders made.</p> : null}
+          {orders.length === 0 ? <p>No orders made.</p> : <p>orders[0].totalPrice</p>}
           {orders.map((order:IOrder) => (
               order.totalPrice
           ))}

@@ -146,11 +146,11 @@ function App(): JSX.Element {
 
 
    //Orders
-   const [orders, setOrders] = useState<IOrder[]>([]);
+   const [orders] = useState<IOrder[]>([]);
 
-   const getUserOrders = async (WebId:string) =>{
-     const ordersResult:IOrder[] = await findOrdersByUser(WebId);
-     setOrders(ordersResult);
+   const getUserOrders = async (orders:IOrder[], WebId:string) =>{
+     orders = await findOrdersByUser(WebId);
+console.log("Orders" + orders.length);
      return;
    }
   
@@ -170,7 +170,7 @@ function App(): JSX.Element {
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
           } 
         />
-        <Route path="orders" element={<UserOrders orders={orders} findOrdersByUser={getUserOrders}/> } />
+        <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
        
         
       </Routes>
