@@ -1,15 +1,17 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts} from './api/api';
+import  {findProductsByName, getProducts, filterProducts, findOrdersByUser} from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
+import { IOrder } from '../../restapi/model/Order';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
 import Home from './routes/Home';
+import UserOrders from './routes/UserOrders';
 
 
 
@@ -142,6 +144,15 @@ function App(): JSX.Element {
     setValue(type);
   };
 
+
+   //Orders
+   const [orders, setOrders] = useState<IOrder[]>([]);
+
+   const getUserOrders = async (WebId:string) =>{
+     const ordersResult:IOrder[] = await findOrdersByUser(WebId);
+     setOrders(ordersResult);
+     return;
+   }
   
   return (
   
@@ -159,6 +170,7 @@ function App(): JSX.Element {
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
           } 
         />
+        <Route path="orders" element={<UserOrders orders={orders} findOrdersByUser={getUserOrders}/> } />
        
         
       </Routes>

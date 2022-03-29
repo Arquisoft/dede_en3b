@@ -1,7 +1,7 @@
 import {IUser} from '../../../restapi/model/User';
 import mongoose from 'mongoose';
 import { IProduct } from '../../../restapi/model/Products';
-import { OrderProduct } from '../../../restapi/model/Order';
+import { IOrder } from '../../../restapi/model/Order';
 import { ICartItem } from '../components/ICartItem';
 import { isTemplateExpression } from 'typescript';
 import { Address } from '../../../restapi/model/Order';
@@ -89,7 +89,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * @param id 
  * @returns 
  */
- export async function findOrdersByUser(webId: string): Promise<IProduct[]> {
+ export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
   var str: string = apiEndPoint + '/orders/list/' + webId;
 

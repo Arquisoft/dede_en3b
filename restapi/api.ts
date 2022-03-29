@@ -122,7 +122,7 @@ api.post(
 /**
  * Response for finding order for a client
  */
- api.get("/orders/list", async (req: Request, res: Response): Promise<Response> => {
+ api.get("/orders", async (req: Request, res: Response): Promise<Response> => {
 
   let webId = req.params.webId;
 
@@ -132,7 +132,7 @@ api.post(
   });
   
   if(!orders) {
-    return res.status(404).json({message: 'Product with name '+ req.params.webId +' not found'});
+    return res.status(404).json({message: 'No orders for user '+ req.params.webId +' found!'});
   }
   return res.status(200).send(orders);
 });
