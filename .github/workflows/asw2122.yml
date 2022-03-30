@@ -66,7 +66,7 @@ deploy-webapp:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
         with:
-          heroku_api_key: ${{secrets.HEROKUAPIKEY}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_USER}}
           usedocker: true
