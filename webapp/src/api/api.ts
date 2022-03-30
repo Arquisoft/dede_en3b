@@ -70,13 +70,13 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  * @param user Function to add orders to the db
  * @returns 
  */
-export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number):Promise<boolean>{
+export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
   const apiEndPoint= process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
   
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address':address, 'price':price})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address':address, 'price':price, 'date':date})
     });
   if (response.status===200)
     return true;

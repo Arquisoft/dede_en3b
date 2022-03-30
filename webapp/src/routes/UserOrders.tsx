@@ -15,7 +15,7 @@ const UserOrders = ({orders, getUserOrders}:Props) => {
     return (
         <Wrapper>
           <h2>Your Orders</h2>
-          {orders.length === 0 ? <p>No orders made.</p> : <p>orders[0].totalPrice</p>}
+          {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
           {orders.map((order:IOrder) => (
               order.totalPrice
           ))}

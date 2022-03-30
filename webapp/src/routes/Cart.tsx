@@ -49,7 +49,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
           street: 'Street',
       };
       if(address!=null){
-        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
+        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems), new Date());
         emptyCart();
         navigate('/');
       }
