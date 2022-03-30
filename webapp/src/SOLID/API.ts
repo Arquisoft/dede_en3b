@@ -4,7 +4,7 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 
 import {
-	getFile,
+	getFile, getUrl
 	overwriteFile,
 	getSolidDataset, SolidDataset,
 	getThing, Thing,
@@ -234,5 +234,9 @@ export class ThingBrowser {
 
 	public getString(url: string): string | null {
 		return getStringNoLocale(this._thing, url);
+	}
+
+	public getUrl(url: string): string | null {
+		return getUrl(this._thing, url);
 	}
 }
