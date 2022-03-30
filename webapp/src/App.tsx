@@ -9,6 +9,7 @@ import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
+import Home from './routes/Home';
 
 
 
@@ -165,9 +166,10 @@ function App(): JSX.Element {
       <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
       <Routes>
+        <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+        <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={
             <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
