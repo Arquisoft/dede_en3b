@@ -15,6 +15,7 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import { SolidConnection } from './SOLID/API';
 import { VCARD } from '@inrupt/vocab-common-rdf';
+import Home from './routes/Home';
 
 function App(): JSX.Element {
 
@@ -37,7 +38,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     refreshProductList();
-  }, []);
+    loadCartFromLocalStorage();
+  },[]);
 
   /**
    * Filters the products by name
@@ -47,9 +49,16 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-    console.log(input.value);
     updateProductList(input);
+  };
 
+  /**
+   * Loads the data on the cart if there was something in the local storage, if not it creates a new list and sets it to the shopping cart
+   */
+  const loadCartFromLocalStorage = () => {
+    let str = sessionStorage.getItem('cart');
+    let cart:ICartItem[] = str!== null ? JSON.parse(str) : [];
+    setShoppingCart(cart);
   };
 
   /**
@@ -70,6 +79,8 @@ function App(): JSX.Element {
     input.value = '';
   };
 
+  
+
   /**
    * Function to add a product to the cart
    * 
@@ -79,15 +90,19 @@ function App(): JSX.Element {
     setShoppingCart((prev) => {
       const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
 
+      let cart: ICartItem[];
       if (isItemInCart) {
-        return prev.map((item) =>
+        cart = prev.map((item) =>
           item.product === clickedItem.product
             ? { ...item, units: item.units + 1 }
             : item
         );
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        return cart;
       }
-
-      return [...prev, { ...clickedItem, units: clickedItem.units }];
+      cart = [...prev, { ...clickedItem, units: clickedItem.units }];
+      sessionStorage.setItem('cart',JSON.stringify(cart))
+      return cart;
     });
   };
 
@@ -96,22 +111,20 @@ function App(): JSX.Element {
    * 
    * @param clickedItem 
    */
-  const onRemoveFromCart = (clickedItem: ICartItem) => {
-    setShoppingCart((prev) =>
-      prev.reduce((acc, item) => {
-        if (item.product._id === clickedItem.product._id) {
-
+   const onRemoveFromCart = (clickedItem : ICartItem) => {
+    setShoppingCart((prev) => 
           if (item.units === 1) {
+            sessionStorage.setItem('cart',JSON.stringify(acc));
             return acc;
           } else {
             item.units = item.units - 1;
           }
-
-          return [...acc, { ...item, amount: item.units - 1 }];
-        } else {
-          return [...acc, item];
         }
+        cart = [...acc, item];
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        return cart;
       }, [] as ICartItem[])
+      
     );
   };
 
@@ -121,6 +134,7 @@ function App(): JSX.Element {
   const emptyCart = () => {
     let empty: ICartItem[] = new Array();
     setShoppingCart(empty);
+    sessionStorage.setItem('cart',JSON.stringify(empty));
   };
 
 
@@ -182,10 +196,13 @@ function App(): JSX.Element {
       <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
       <Routes>
+        <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
         <Route path="products/:id"
+        <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+        <Route path="products/:id" 
           element={
             <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
           }
