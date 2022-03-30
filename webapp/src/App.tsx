@@ -1,10 +1,11 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import { findProductsByName, getProducts, filterProducts, addOrder } from './api/api';
+import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder} from './api/api';
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
+import { IOrder } from '../../restapi/model/Order';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
@@ -16,6 +17,7 @@ import { ConfirmationComponent } from './components/ConfirmationComponent';
 import { SolidConnection } from './SOLID/API';
 import { VCARD } from '@inrupt/vocab-common-rdf';
 import Home from './routes/Home';
+import UserOrders from './routes/UserOrders';
 
 function App(): JSX.Element {
 
@@ -210,6 +212,14 @@ function App(): JSX.Element {
     });
 
   }
+     //Orders
+   const [orders, setOrders] = useState<IOrder[]>([]);
+
+   const getUserOrders = async (orders:IOrder[], WebId:string) =>{
+     var ordersFound : IOrder[];
+     ordersFound = await findOrdersByUser(WebId);
+     setOrders(ordersFound);
+   }
 
 
   return (
@@ -231,7 +241,7 @@ function App(): JSX.Element {
         />
         <Route path="shipping/payment" element={<AddPaymentMeanComponent connection={connection} setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
         <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
-
+        <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
 
     </BrowserRouter>

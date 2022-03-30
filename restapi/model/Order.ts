@@ -9,6 +9,7 @@ export interface IOrder extends Document {
     orderProducts: OrderProduct[];
     address: Address;
     totalPrice: number;
+    date: Date
 }
 
 const orderSchema = new mongoose.Schema({
@@ -22,6 +23,7 @@ const orderSchema = new mongoose.Schema({
         street:String,
     },
     totalPrice: Number,
+    date: Date
 });
 
 export interface OrderProduct{

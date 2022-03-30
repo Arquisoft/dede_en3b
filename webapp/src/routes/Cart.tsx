@@ -33,9 +33,9 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
           region: 'Asturias'
       };
       if(address!=null){
-        //addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
-        //emptyCart();
-        navigate('/shipping/payment');
+        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems), new Date());
+        emptyCart();
+        navigate('/');
       }
     //}
   };
