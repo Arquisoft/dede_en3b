@@ -152,7 +152,7 @@ const Home = () => {
                         width: imageOrders.width,
                     }}
                     >
-                    <Link to="/">
+                    <Link to="/orders">
                     <ImageSrc style={{ backgroundImage: `url(${imageOrders.url})` }} />
                     <ImageBackdrop className="MuiImageBackdrop-root" />
                     <Image>
