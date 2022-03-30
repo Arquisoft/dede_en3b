@@ -5,7 +5,6 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
-import { IOrder } from '../../restapi/model/Order';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
@@ -32,7 +31,7 @@ function App(): JSX.Element {
   //PaymentMean
   const [paymentMean, setPaymentMean] = useState('');
 
-  var connection = new SolidConnection('https://solidcommunity.net');
+  var connection = new SolidConnection('https://broker.pod.inrupt.com/');
 
   const setConnection = (c: SolidConnection) => {
     connection = c;
@@ -180,38 +179,50 @@ function App(): JSX.Element {
     setShoppingCart([]);
 
   }
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageSize = urlParams.get('code');
+  console.log(pageSize);
 
   const makeOrder = () => {
 
-    connection.getLoginPromise().then((connection) => {
-      if (connection.isLoggedIn() && address !== undefined) {
-      connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
-        let addressString = thing.getString(VCARD.hasAddress);
-        if (addressString != null)
-          connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
-            setAddress({
-              country: VCARD.country_name,
-              locality: VCARD.locality,
-              postal_code: VCARD.postal_code,
-              region: VCARD.region,
-              street: VCARD.street_address,
-            });
-          });
-        });
+    connection.getLoginPromise().then(async (connection) => {
+      if (connection.isLoggedIn()) {
+        console.log('aohfeahfeahfo');
+      //   let addressURL = await connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => thing.getUrl(VCARD.hasAddress));
+      //   await connection.fetchDatasetFromUser('profile/card').getThingAsync(addressURL ?? '').then(thing => setAddress({
+      //     country: thing.getString(VCARD.country_name) ?? '',
+      //     locality: thing.getString(VCARD.locality) ?? '',
+      //     postal_code: thing.getString(VCARD.postal_code) ?? '',
+      //     region: thing.getString(VCARD.region) ?? '',
+      //     street: thing.getString(VCARD.street_address) ?? ''
+      //   }));
 
-        console.log(connection.getWebId());
-  
-        //addOrder(shoppingCart, connection.getWebId().toString(), address, computeTotalPrice(shoppingCart));
-       addOrder(shoppingCart, 'hola', address, computeTotalPrice(shoppingCart));
+
+      //   addOrder(shoppingCart, connection.getWebId().toString(), address ?? {
+      //     country: 'fsfsef',
+      //     locality: 'fsf',
+      //     region: 'region',
+      //     postal_code: 'fsfsef',
+      //     street: 'fsdfes'
+      //   } , computeTotalPrice(shoppingCart), new Date());
        
-       restoreDefaults();
+      //  restoreDefaults();
+        
       } else {
+
+
+        console.log('else')
         connection.login(); 
-        console.log(address !== undefined ? address.country : "nah");
       }
+      
     });
 
+
+    
+
   }
+  console.log("fuera")
+
      //Orders
    const [orders, setOrders] = useState<IOrder[]>([]);
 

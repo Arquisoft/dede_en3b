@@ -77,7 +77,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
                 <h2>TOTAL (IVA included) {props.totalCost}€ </h2>
             </div>
         
-            <Link to='/'><Button onClick={handleConfirmOrder}>CONFIRM ORDER</Button></Link>
+            <Button onClick={handleConfirmOrder}>CONFIRM ORDER</Button>
 
       
         </div>

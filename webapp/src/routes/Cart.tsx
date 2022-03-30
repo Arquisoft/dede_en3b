@@ -35,7 +35,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       if(address!=null){
         addOrder(cartItems, 'WebId', address, calculateTotal(cartItems), new Date());
         emptyCart();
-        navigate('/');
+        navigate('/shipping/payment');
       }
     //}
   };

@@ -131,6 +131,6 @@ api.post(
     return res.status(404).json({message: 'No orders for user '+ req.params.webId +' found!'});
   }
   return res.status(200).send(orders);
-});
+ });
 
 export default api;

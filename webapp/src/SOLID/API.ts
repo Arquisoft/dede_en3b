@@ -4,7 +4,7 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 
 import {
-	getFile, getUrl
+	getFile, getUrl,
 	overwriteFile,
 	getSolidDataset, SolidDataset,
 	getThing, Thing,
@@ -60,6 +60,7 @@ export class SolidConnection {
 	 * the constructor does this automatically
 	 */
 	public async login(redirect?: string): Promise<void> {
+		console.log(redirect, window.location.href);
 		//Log in to the session, wait for redirect,
 		//and return the promise.
 		if(!this.isLoggedIn()) 
@@ -68,7 +69,7 @@ export class SolidConnection {
 				clientName: this.SOLID_CLIENT_NAME,
 				//If no redirect, then go back to same url
 				//else, go to selected url
-				redirectUrl: redirect === null ?
+				redirectUrl: redirect === undefined ?
 					window.location.href : 
 					`${window.location.origin}/${redirect}`, 
 			});
