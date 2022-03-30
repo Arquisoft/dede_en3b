@@ -146,12 +146,12 @@ function App(): JSX.Element {
 
 
    //Orders
-   const [orders] = useState<IOrder[]>([]);
+   const [orders, setOrders] = useState<IOrder[]>([]);
 
    const getUserOrders = async (orders:IOrder[], WebId:string) =>{
-     orders = await findOrdersByUser(WebId);
-console.log("Orders" + orders.length);
-     return;
+     var ordersFound : IOrder[];
+     ordersFound = await findOrdersByUser(WebId);
+     setOrders(ordersFound);
    }
   
   return (
