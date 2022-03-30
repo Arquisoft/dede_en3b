@@ -23,6 +23,11 @@ export class ThingNotFoundError extends Error {
 	}
 }
 
+interface SolidOptions {
+	identityProvider?: string,
+	redirectCode?: string
+}
+
 /**
  * Represents a connection to a solid pod. This 
  * is actually a Facade for the Session object
@@ -38,16 +43,19 @@ export class SolidConnection {
 	private _initializePromise: Promise<SolidConnection>;
 	private _isInitialized: boolean;
 
+	private _redirectCode: string | undefined;
+
 	/**
 	 * Constructs the connection and tries to catch
 	 * the login callback
 	 */
-	constructor({ identityProvider?: string, redirectCode?: string }? options) {
-		this._identityProvider = identityProvider;
+	constructor(options?: SolidOptions) {
+		this._identityProvider = options === undefined ? undefined : options.identityProvider
 		this._session = new Session();
-		this._redirectCode = redirectCode;
+		this._redirectCode = options === undefined ? undefined : options.redirectCode
 
 		this._initialize();
+
 	}
 
 	/**
@@ -170,7 +178,7 @@ export class SolidConnection {
 
 	private _initialize() {
 		this._initializePromise = new Promise((accept, reject) => 
-			this._session.handleIncomingRedirect({ code: this._redirectCode })
+			this._session.handleIncomingRedirect(this._redirectCode)
 			.then(() => accept(this))
 			.catch(err => reject(err))
 		);

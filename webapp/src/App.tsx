@@ -31,7 +31,16 @@ function App(): JSX.Element {
   //PaymentMean
   const [paymentMean, setPaymentMean] = useState('');
 
-  var connection = new SolidConnection('https://broker.pod.inrupt.com/');
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  console.log(code);
+  let solidOptions : any = { 
+    identityProvider: 'https://broker.pod.inrupt.com/',
+    redirectCode: window.location.href
+  }
+
+  var connection = new SolidConnection(solidOptions);
+
 
   const setConnection = (c: SolidConnection) => {
     connection = c;
@@ -180,9 +189,7 @@ function App(): JSX.Element {
     setShoppingCart([]);
 
   }
-  const urlParams = new URLSearchParams(window.location.search);
-  const pageSize = urlParams.get('code');
-  console.log(pageSize);
+
 
   const makeOrder = () => {
 

@@ -113,7 +113,7 @@ export function Login(props: LoginProps): JSX.Element {
         payload: 'Login Successfully'
       });
     
-      let connection = new SolidConnection(state.identityPovider);
+      let connection = new SolidConnection();
       props.setConnection(connection);
     connection.login('cart');
 
