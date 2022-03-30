@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts} from './api/api';
+import { findProductsByName, getProducts, filterProducts, addOrder } from './api/api';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
@@ -9,10 +9,12 @@ import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
-import { AddAddressComponent, IOrder } from './components/AddAddressComponent';
-import { Address } from '../../restapi/model/Order';
-
-
+import { Address, IOrder, OrderProduct } from '../../restapi/model/Order';
+import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
+import { computeTotalPrice } from './utils/utils';
+import { ConfirmationComponent } from './components/ConfirmationComponent';
+import { SolidConnection } from './SOLID/API';
+import { VCARD } from '@inrupt/vocab-common-rdf';
 
 function App(): JSX.Element {
 
@@ -20,21 +22,22 @@ function App(): JSX.Element {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [value, setValue] = useState('');
 
-
   //Cart
   const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
-  //Order
-  const [order, setOrder] = useState<IOrder>({ cart : shoppingCart });
+  //Address
+  const [address, setAddress] = useState<Address>();
+  //PaymentMean
+  const [paymentMean, setPaymentMean] = useState('');
 
   const refreshProductList = async () => {
-    const productsResult : IProduct[] = await getProducts();
+    const productsResult: IProduct[] = await getProducts();
 
     setProducts(productsResult);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     refreshProductList();
-  },[]);
+  }, []);
 
   /**
    * Filters the products by name
@@ -63,7 +66,7 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-//    setProductSearch(input.value);
+    //    setProductSearch(input.value);
     input.value = '';
   };
 
@@ -93,17 +96,17 @@ function App(): JSX.Element {
    * 
    * @param clickedItem 
    */
-   const onRemoveFromCart = (clickedItem : ICartItem) => {
+  const onRemoveFromCart = (clickedItem: ICartItem) => {
     setShoppingCart((prev) =>
       prev.reduce((acc, item) => {
         if (item.product._id === clickedItem.product._id) {
-          
+
           if (item.units === 1) {
             return acc;
           } else {
             item.units = item.units - 1;
           }
-            
+
           return [...acc, { ...item, amount: item.units - 1 }];
         } else {
           return [...acc, item];
@@ -111,12 +114,12 @@ function App(): JSX.Element {
       }, [] as ICartItem[])
     );
   };
-  
+
   /**
   * Function to empty the shopping cart
-  */ 
+  */
   const emptyCart = () => {
-    let empty : ICartItem[] = new Array();
+    let empty: ICartItem[] = new Array();
     setShoppingCart(empty);
   };
 
@@ -124,7 +127,7 @@ function App(): JSX.Element {
   const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
     var type = event.target.value;
     var filteredProducts: IProduct[];
-    if(type=="Default") {
+    if (type == "Default") {
       filteredProducts = await getProducts();
     }
     else {
@@ -136,7 +139,7 @@ function App(): JSX.Element {
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;
     var filteredProducts: IProduct[];
-    if(!type) {
+    if (!type) {
       filteredProducts = await getProducts();
     }
     else {
@@ -146,41 +149,55 @@ function App(): JSX.Element {
     setValue(type);
   };
 
-  const getIOrder = () =>
-  {
-    return order;
+  const makeOrder = () => {
+    var connection = new SolidConnection();
+    if (connection.isLoggedIn() && address !== undefined) {
+      connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
+        let addressString = thing.getString(VCARD.hasAddress);
+        if (addressString != null)
+          connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
+            setAddress({
+              country: VCARD.country_name,
+              locality: VCARD.locality,
+              postal_code: VCARD.postal_code,
+              region: VCARD.region,
+              street: VCARD.street_address,
+            });
+          });
+      });
+
+      addOrder(shoppingCart, connection.getWebId().toString(), address, computeTotalPrice(shoppingCart));
+    } else {
+      console.log("Nah");
+    }
+
+
   }
 
-  const setAddress = (address: Address) =>
-  {
-    order.shippingAddress = address;
-    order.invoicingAddress = address;
-  }
-  
+
   return (
-  
+
     <BrowserRouter>
-      
+
       <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
       <Routes>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
-        <Route path="products/:id" 
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
+        <Route path="products/:id"
           element={
-            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
-          } 
+            <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
+          }
         />
-        <Route path="shipping/address" element={<AddAddressComponent order={getIOrder() } setAddress={setAddress}></AddAddressComponent>}></Route>
-        <Route path="shipping/payment"></Route> 
-        <Route path="shipping/payment"></Route> 
-        
+        <Route path="shipping/payment" element={<AddPaymentMeanComponent setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
+        <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
+
       </Routes>
-    
+
     </BrowserRouter>
-      
-      
+
+
   );
 }
 
