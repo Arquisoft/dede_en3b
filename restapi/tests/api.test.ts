@@ -58,28 +58,42 @@ describe('product', () => {
     /**
      * Test that we can list products without any error.
      */
-    it('can be listed', async () => {
+    it('All the products available are listed', async () => {
         const response: Response = await request(app).get("/api/products/list");
+        const products:IProduct[] = response.body;
+        //We get an OK
         expect(response.statusCode).toBe(200);
+        products.forEach(product => {
+            //We change the id to an object id
+            product._id = new Types.ObjectId(product._id);
+            
+        });
+        for(var i = 0; i<products.length ; i++){
+            //We check that the products are the ones in the database.
+            expect(products[i]).toStrictEqual(server.prods[i]);
+        }
+        
     });
 
     /**
      * Test that we can get a product based on its id.
      */
     it('A product to be listed', async() => {
-        let toBeFound:IProduct = {
-            "_id": new Types.ObjectId("6227ae61e18344de6a6f9278"),
-            "name":"Pantalón de chandal",
-            "description":"Pantalones de chandal para hacer deporte",
-            "photo":"pantalon_chandal.png",
-            "type":"Pantalon",
-            "price":20.55,
-            "__v":0
-        } as IProduct;
+        let toBeFound:IProduct = server.prods[1];
         //The response is good.
-        const response:Response = await request(app).get('/api/products/' + toBeFound._id);
+        const response:Response = await request(app).get('/api/products/' + toBeFound._id.toString());
         expect(response.statusCode).toBe(200);
-        console.log(response.body);
+        //We make the product._id be a ObjectID to ensure equality.
+        let prod:IProduct = response.body;
+        prod._id = new Types.ObjectId(prod._id);
         //The object is the one that we were looking for.
+        expect(prod).toStrictEqual(toBeFound);
+    });
+
+    it('A product that doesnt exist', async() => {
+        let id:string = "aaaaaaaaaaaaaaaaaaaaaaaa";
+        //We search for the product
+        const response:Response = await request(app).get('/api/products/' + id);
+        expect(response.statusCode).toBe(404);
     });
 });

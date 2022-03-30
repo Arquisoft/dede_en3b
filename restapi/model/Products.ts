@@ -7,7 +7,7 @@ export interface IProduct {
     photo?: string;
     type?: string;
     price: number;
-    _v?: number;
+    __v?: number;
 }
 
 const productSchema = new mongoose.Schema({

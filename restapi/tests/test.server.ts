@@ -16,7 +16,7 @@ export const prods:IProduct[] = [
         "photo":"pantalon_chandal.png",
         "type":"Pantalon",
         "price":20.55,
-        "_v":0
+        "__v":0
     }
     ,{
         "_id":new Types.ObjectId("6227ae61e18344de6a6f927a"),
@@ -25,7 +25,7 @@ export const prods:IProduct[] = [
         "photo":"camiseta_basket.png",
         "type":"Camiseta",
         "price":18.5,
-        "_v":0
+        "__v":0
     }
     ,{
         "_id": new Types.ObjectId("6227ae61e18344de6a6f927c"),
@@ -34,7 +34,7 @@ export const prods:IProduct[] = [
         "photo":"sudadera_negra.png",
         "type":"Sudadera",
         "price":15,
-        "_v":0
+        "__v":0
     }
     ,{
         "_id": new Types.ObjectId("6227ae62e18344de6a6f927e"),
@@ -43,7 +43,7 @@ export const prods:IProduct[] = [
         "photo":"pantalones_anchos.png",
         "type":"Pantalon",
         "price":75.99,
-        "_v":0
+        "__v":0
     }
 ]; 
 
