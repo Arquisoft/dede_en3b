@@ -18,7 +18,8 @@ import logo from '../logo.png';
 import { createTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
-
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -53,8 +54,17 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 interface NavigationBarProps {
   numberOfProductsInCart: number;
+  changeTheme: Function;
+  themeState: boolean;
 }
 
+function ToggleColorMode(props: any) {
+  return (
+   <IconButton sx={{ ml: 1 }} onClick={props.changeTheme} color="inherit">
+        {props.themeState === false ? <Brightness7Icon /> : <Brightness4Icon />}
+    </IconButton>
+  )
+};
 
 
 export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
@@ -144,7 +154,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
         >
           
           <Badge badgeContent={17} color="error">
-          
+            
             <ShoppingCartIcon />  
           
             </Badge>
@@ -198,6 +208,10 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <ToggleColorMode
+              changeTheme={props.changeTheme}
+              themeState={props.themeState}
+          />
           <Link to="shop" style={{ color: '#FFF' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge color="error">

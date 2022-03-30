@@ -11,7 +11,7 @@ import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
 import Home from './routes/Home';
 
-
+import {ThemeProvider, PaletteMode, createTheme} from '@mui/material';
 
 function App(): JSX.Element {
 
@@ -142,29 +142,93 @@ function App(): JSX.Element {
     setValue(type);
   };
 
+  const themeOptions = (b: boolean) => (b ? "dark" : "light");
+
+  //palettes for both theme options
+  const getPaletteForTheme = (mode : PaletteMode) => ({
+    palette: {
+      ...(mode === "light"
+        ? {
+          primary: {main: '#fff'},
+          secondary: {main: '#212121'},
+          background: {
+            default: '#697689',
+            card: '#000',
+            dark: '#272a40',
+            button: '#9681f2',
+            buttonhover: '#81c9f2'
+          },
+          text: {
+            default: '#fff',
+            secondary: '#454545',
+            dark: '#000'
+          }
+        }
+        : {
+          primary: {main: '#fff'},
+          secondary: {main: '#212121'},
+          background: {
+            default: '#272a40',
+            card: '#454545',
+            dark: '#0e0e1a',
+            button: '#9681f2',
+            buttonhover: '#81c9f2'
+          },
+          text: {
+            default: '#fff',
+            secondary: '#454545',
+            dark: '#000'
+          }
+        }
+      )
+    }
+  });
+
+  let chosenTheme: boolean = true;
+
+  if (localStorage.getItem("theme") === null){
+    localStorage.setItem("theme", String(chosenTheme));
+  } else {
+    chosenTheme = localStorage.getItem("theme") === "true";
+  }
+
+  const [mode, setMode] = React.useState<PaletteMode>(
+      themeOptions(!chosenTheme)
+  );
   
+  const theme = React.useMemo(() => createTheme(getPaletteForTheme(mode)), [mode]);
+  
+  /**
+   * Function to change the theme mode
+   */
+  const changeThemeMode = () => {
+      setMode(themeOptions(mode === "light"));
+      localStorage.setItem("theme", String(mode === "dark"));
+  };
+
   return (
   
-    <BrowserRouter>
-      
-      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
-
-      <Routes>
-        <Route path="/" element={ <Home />} ></Route>
-        <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-        <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
-        <Route path="products/:id" 
-          element={
-            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
-          } 
-        />
-       
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
         
-      </Routes>
-    
-    </BrowserRouter>
+        <NavigationBar numberOfProductsInCart={shoppingCart.length} changeTheme={changeThemeMode} themeState={chosenTheme}/>
+
+        <Routes>
+          <Route path="/" element={ <Home />} ></Route>
+          <Route path="login" element={<Login></Login>}> </Route>
+          <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
+          <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+          <Route path="products/:id" 
+            element={
+              <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
+            } 
+          />
+        
+          
+        </Routes>
       
+      </BrowserRouter>
+    </ThemeProvider>
       
   );
 }

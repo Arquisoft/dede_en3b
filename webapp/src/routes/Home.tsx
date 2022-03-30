@@ -94,7 +94,10 @@ const Home = () => {
         <Grid container
             justifyContent="center"
             alignItems="center"
-            spacing={10}>
+            sx={{ 
+              bgcolor: "background.default",
+              height:"93vh"
+            }}>
                 <Grid item xs wrap="wrap">
                     <Typography 
                         variant="h1"
