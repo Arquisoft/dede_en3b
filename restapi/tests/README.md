@@ -1,6 +1,6 @@
 # Tests
 
-For the tests on the RESTApi i've created a mock server that uses a MongoDb database in memory database to ensure that the tests are executed in a controlled environment.
+For the tests on the RESTApi i've created a mock server that uses an in memory mongoDb database to ensure that the tests are executed in a controlled environment.
 
 ## What is used.
   - **mongodb-memory-server**: a memory instance of a mongo database. It works like the database we have remotely
