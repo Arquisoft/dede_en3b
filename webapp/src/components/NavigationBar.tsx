@@ -90,6 +90,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
     navigate('/login');
   }
 
+  const goToOrders = () => {
+    handleMenuClose();
+    navigate('/orders');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -108,7 +113,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       onClose={handleMenuClose}
     >
       <MenuItem onClick={goToLogin}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={goToOrders}>My orders</MenuItem>
     </Menu>
   );
 

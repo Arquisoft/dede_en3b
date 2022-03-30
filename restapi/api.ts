@@ -99,7 +99,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     //Creting the order
-    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price});
+    const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price, date:req.body.date});
     //Adding the order to the database
     await order.save();
     //We answer that its all ok.
@@ -110,17 +110,13 @@ api.post(
 /**
  * Response for finding order for a client
  */
- api.get("/orders/list", async (req: Request, res: Response): Promise<Response> => {
-
-  let webId = req.params.webId;
-
-
+ api.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
   const orders: IOrder[] = await Order.find({
-    webId: {$regex: '/^'+ webId +'$/'}
+    webId: req.params.id
   });
   
   if(!orders) {
-    return res.status(404).json({message: 'Product with name '+ req.params.webId +' not found'});
+    return res.status(404).json({message: 'No orders for user '+ req.params.webId +' found!'});
   }
   return res.status(200).send(orders);
 });
