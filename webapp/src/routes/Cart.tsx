@@ -61,7 +61,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       {cartItems.length === 0 ? <p>No items in cart.</p> : null}
       {cartItems.map((item) => (
         <CartItem
-          key={item.product.id}
+          key={item.product._id.toString()}
           item={item}
           addToCart={addToCart}
           removeFromCart={removeFromCart}
