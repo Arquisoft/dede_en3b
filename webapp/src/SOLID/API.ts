@@ -4,7 +4,7 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 
 import {
-	getFile,
+	getFile, getUrl
 	overwriteFile,
 	getSolidDataset, SolidDataset,
 	getThing, Thing,
@@ -42,9 +42,10 @@ export class SolidConnection {
 	 * Constructs the connection and tries to catch
 	 * the login callback
 	 */
-	constructor(identityProvider?: string) {
+	constructor({ identityProvider?: string, redirectCode?: string }? options) {
 		this._identityProvider = identityProvider;
 		this._session = new Session();
+		this._redirectCode = redirectCode;
 
 		this._initialize();
 	}
@@ -168,7 +169,7 @@ export class SolidConnection {
 
 	private _initialize() {
 		this._initializePromise = new Promise((accept, reject) => 
-			this._session.handleIncomingRedirect()
+			this._session.handleIncomingRedirect({ code: this._redirectCode })
 			.then(() => accept(this))
 			.catch(err => reject(err))
 		);
@@ -234,5 +235,9 @@ export class ThingBrowser {
 
 	public getString(url: string): string | null {
 		return getStringNoLocale(this._thing, url);
+	}
+
+	public getUrl(url: string): string | null {
+		return getUrl(this._thing, url);
 	}
 }
