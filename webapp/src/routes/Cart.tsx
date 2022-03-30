@@ -20,27 +20,11 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
-  let connection = new SolidConnection();
-  
   let navigate = useNavigate();
 
   const checkOut = () => {
 
     let address:Address | null = null;
-    // if(connection.isLoggedIn()){
-    //   connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
-    //     let addressString = thing.getString(VCARD.hasAddress);
-    //     if(addressString!=null)
-    //     connection.fetchDatasetFromUser('profile/card').getThingAsync(addressString).then(thing => {
-    //        address = {
-    //           country: VCARD.country_name,
-    //           locality: VCARD.locality,
-    //           postal_code: VCARD.postal_code,
-    //           region: VCARD.region,
-    //           street: VCARD.street_address,
-    //         };
-    //     });
-    //   });
       address = {
           country: 'Country',
           locality: 'Locality',

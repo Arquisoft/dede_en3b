@@ -30,6 +30,13 @@ function App(): JSX.Element {
   //PaymentMean
   const [paymentMean, setPaymentMean] = useState('');
 
+  var connection = new SolidConnection('https://solidcommunity.net');
+
+  const setConnection = (c: SolidConnection) => {
+    connection = c;
+    console.log(c.getWebId());
+  }
+
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
 
@@ -112,7 +119,10 @@ function App(): JSX.Element {
    * @param clickedItem 
    */
    const onRemoveFromCart = (clickedItem : ICartItem) => {
-    setShoppingCart((prev) => 
+     setShoppingCart((prev) => 
+      prev.reduce((acc, item) => {
+      let cart:ICartItem[];
+      if (item.product._id === clickedItem.product._id) {
           if (item.units === 1) {
             sessionStorage.setItem('cart',JSON.stringify(acc));
             return acc;
@@ -124,7 +134,7 @@ function App(): JSX.Element {
         sessionStorage.setItem('cart', JSON.stringify(cart));
         return cart;
       }, [] as ICartItem[])
-      
+
     );
   };
 
@@ -162,10 +172,17 @@ function App(): JSX.Element {
     setProducts(filteredProducts);
     setValue(type);
   };
+   
+  const restoreDefaults = () => {
+    setAddress(undefined);
+    setShoppingCart([]);
+
+  }
 
   const makeOrder = () => {
-    var connection = new SolidConnection();
-    if (connection.isLoggedIn() && address !== undefined) {
+
+    connection.getLoginPromise().then((connection) => {
+      if (connection.isLoggedIn() && address !== undefined) {
       connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
         let addressString = thing.getString(VCARD.hasAddress);
         if (addressString != null)
@@ -178,13 +195,19 @@ function App(): JSX.Element {
               street: VCARD.street_address,
             });
           });
-      });
+        });
 
-      addOrder(shoppingCart, connection.getWebId().toString(), address, computeTotalPrice(shoppingCart));
-    } else {
-      console.log("Nah");
-    }
-
+        console.log(connection.getWebId());
+  
+        //addOrder(shoppingCart, connection.getWebId().toString(), address, computeTotalPrice(shoppingCart));
+       addOrder(shoppingCart, 'hola', address, computeTotalPrice(shoppingCart));
+       
+       restoreDefaults();
+      } else {
+        connection.login(); 
+        console.log(address !== undefined ? address.country : "nah");
+      }
+    });
 
   }
 
@@ -197,17 +220,16 @@ function App(): JSX.Element {
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
-        <Route path="login" element={<Login></Login>}> </Route>
+        <Route path="login" element={<Login setConnection={setConnection} ></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
-        <Route path="products/:id"
         <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={
             <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
           }
         />
-        <Route path="shipping/payment" element={<AddPaymentMeanComponent setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
+        <Route path="shipping/payment" element={<AddPaymentMeanComponent connection={connection} setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
         <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
 
       </Routes>

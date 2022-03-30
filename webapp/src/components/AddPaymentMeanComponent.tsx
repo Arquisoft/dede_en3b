@@ -6,7 +6,8 @@ import { SolidConnection } from "../SOLID/API";
 interface AddPaymentMeanComponentProps {
     totalCost: number,
     setPaymentMean: (pm: string) => void,
-    makeOrder: () => void
+    makeOrder: () => void,
+    connection: SolidConnection
 }
 
 export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JSX.Element {
@@ -33,9 +34,9 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
     }
 
-    if (!new SolidConnection().isLoggedIn()) {
-        return <Navigate to='/login'></Navigate>
-    } else {
+   // if (props.connection.isLoggedIn()) {
+   //     return <Navigate to='/login'></Navigate>
+    //} else {
 
 
         return <div className="container">
@@ -80,6 +81,6 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
       
         </div>
-    }
+    
 
 }

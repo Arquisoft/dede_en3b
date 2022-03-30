@@ -9,9 +9,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import { SolidConnection } from '../SOLID/API';
 
-
-
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -87,9 +84,13 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const Login = () => {
+interface LoginProps {
+  setConnection : (s: SolidConnection) => void
+}
+
+export function Login(props: LoginProps): JSX.Element {
   const classes = useStyles();
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (state.identityPovider.trim()) {
@@ -112,7 +113,8 @@ const Login = () => {
         payload: 'Login Successfully'
       });
     
-    let connection = new SolidConnection(state.identityPovider);
+      let connection = new SolidConnection(state.identityPovider);
+      props.setConnection(connection);
     connection.login('cart');
 
     } else {
