@@ -1,13 +1,11 @@
 import { Button, Container, FormLabel, Grid, Input, InputLabel, InputLabelProps, Radio } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { SolidConnection } from "../SOLID/API";
 
 interface AddPaymentMeanComponentProps {
     totalCost: number,
     setPaymentMean: (pm: string) => void,
     makeOrder: () => void,
-    connection: SolidConnection
 }
 
 export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JSX.Element {

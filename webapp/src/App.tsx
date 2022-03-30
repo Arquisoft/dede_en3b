@@ -13,8 +13,6 @@ import { Address, IOrder, OrderProduct } from '../../restapi/model/Order';
 import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
 import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
-import { SolidConnection } from './SOLID/API';
-import { VCARD } from '@inrupt/vocab-common-rdf';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
 
@@ -37,14 +35,6 @@ function App(): JSX.Element {
   let solidOptions : any = { 
     identityProvider: 'https://broker.pod.inrupt.com/',
     redirectCode: window.location.href
-  }
-
-  var connection = new SolidConnection(solidOptions);
-
-
-  const setConnection = (c: SolidConnection) => {
-    connection = c;
-    console.log(c.getWebId());
   }
 
   const refreshProductList = async () => {
@@ -193,43 +183,9 @@ function App(): JSX.Element {
 
   const makeOrder = () => {
 
-    connection.getLoginPromise().then(async (connection) => {
-      if (connection.isLoggedIn()) {
-        console.log('aohfeahfeahfo');
-      //   let addressURL = await connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => thing.getUrl(VCARD.hasAddress));
-      //   await connection.fetchDatasetFromUser('profile/card').getThingAsync(addressURL ?? '').then(thing => setAddress({
-      //     country: thing.getString(VCARD.country_name) ?? '',
-      //     locality: thing.getString(VCARD.locality) ?? '',
-      //     postal_code: thing.getString(VCARD.postal_code) ?? '',
-      //     region: thing.getString(VCARD.region) ?? '',
-      //     street: thing.getString(VCARD.street_address) ?? ''
-      //   }));
-
-
       //   addOrder(shoppingCart, connection.getWebId().toString(), address ?? {
-      //     country: 'fsfsef',
-      //     locality: 'fsf',
-      //     region: 'region',
-      //     postal_code: 'fsfsef',
-      //     street: 'fsdfes'
-      //   } , computeTotalPrice(shoppingCart), new Date());
-       
-      //  restoreDefaults();
-        
-      } else {
-
-
-        console.log('else')
-        connection.login(); 
-      }
-      
-    });
-
-
-    
 
   }
-  console.log("fuera")
 
      //Orders
    const [orders, setOrders] = useState<IOrder[]>([]);

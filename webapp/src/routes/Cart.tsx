@@ -4,7 +4,6 @@ import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { addOrder } from "../api/api";
-import { SolidConnection } from '../SOLID/API';
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { Address } from "../../../restapi/model/Order";
 import { useNavigate } from "react-router-dom";
