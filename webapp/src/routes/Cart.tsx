@@ -26,6 +26,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   let navigate = useNavigate();
 
   const checkOut = () => {
+
     let address:Address | null = null;
     // if(connection.isLoggedIn()){
     //   connection.fetchDatasetFromUser('profile/card').getThingAsync(connection.getWebId().href).then(thing => {
@@ -49,9 +50,9 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
           region: 'Asturias'
       };
       if(address!=null){
-        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
-        emptyCart();
-        navigate('/');
+        //addOrder(cartItems, 'WebId', address, calculateTotal(cartItems));
+        //emptyCart();
+        navigate('/shipping/payment');
       }
     //}
   };
@@ -69,7 +70,8 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
         />
       ))}
       <Grid>
-          <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+        <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+        
           <StyledButton
           onClick={checkOut}
           >Check out</StyledButton>
