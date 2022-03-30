@@ -41,7 +41,8 @@ function App(): JSX.Element {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const input = form.querySelector('#searchText') as HTMLInputElement;
-    updateProductList(input);
+    if(input.value.trim() !== "")
+      updateProductList(input);
   };
 
   /**
@@ -62,14 +63,14 @@ function App(): JSX.Element {
     setProducts(filteredProducts);
     input.value = '';
   }
-
-  const search = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const input = form.querySelector('#searchText') as HTMLInputElement;
-//    setProductSearch(input.value);
-    input.value = '';
-  };
+//Repeated method
+//   const search = (event: FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+//     const form = event.target as HTMLFormElement;
+//     const input = form.querySelector('#searchText') as HTMLInputElement;
+// //    setProductSearch(input.value);
+//     input.value = '';
+//   };
 
   
 
@@ -133,8 +134,7 @@ function App(): JSX.Element {
   };
 
 
-  const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
-    var type = event.target.value;
+  const filterProduct = async (type: string) => {
     var filteredProducts: IProduct[];
     if(type=="Default") {
       filteredProducts = await getProducts();
@@ -142,7 +142,7 @@ function App(): JSX.Element {
     else {
       filteredProducts = await filterProducts(type);
     }
-    setProducts(filteredProducts);
+    return filteredProducts;
   }
 
   const handleChange = async (event: { target: { value: string } }) => {
@@ -152,7 +152,7 @@ function App(): JSX.Element {
       filteredProducts = await getProducts();
     }
     else {
-      filteredProducts = await filterProducts(type);
+      filteredProducts = await filterProduct(type);
     }
     setProducts(filteredProducts);
     setValue(type);

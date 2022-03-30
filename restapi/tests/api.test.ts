@@ -68,11 +68,11 @@ describe('product', () => {
             product._id = new Types.ObjectId(product._id);
             
         });
+        expect(products.length).toBe(server.prods.length);
         for(var i = 0; i<products.length ; i++){
             //We check that the products are the ones in the database.
             expect(products[i]).toStrictEqual(server.prods[i]);
         }
-        
     });
 
     /**
@@ -95,5 +95,50 @@ describe('product', () => {
         //We search for the product
         const response:Response = await request(app).get('/api/products/' + id);
         expect(response.statusCode).toBe(404);
+    });
+
+    it('Filter the products with a correct filter',async()=> {
+        let filter:string = "Pantalon";
+        let filteredList:IProduct[] = [server.prods[0],server.prods[3]];
+        const response: Response = await request(app).get('/api/products/filter/' + filter);
+        const products:IProduct[] = response.body;
+        //We get an OK
+        expect(response.statusCode).toBe(200);
+        products.forEach(product => {
+            //We change the id to an object id
+            product._id = new Types.ObjectId(product._id);
+        });
+        expect(products.length).toBe(filteredList.length);
+        for(var i = 0; i<products.length ; i++){
+            //We check that the products are the ones in the database.
+            expect(products[i]).toStrictEqual(filteredList[i]);
+        }
+    });
+
+    it('Search for a product by a string', async() => {
+        let search:string = "pan";
+        let filteredList:IProduct[] = [server.prods[0],server.prods[3]];
+        const response: Response = await request(app).get('/api/products/search/' + search);
+        const products:IProduct[] = response.body;
+        //We get an OK
+        expect(response.statusCode).toBe(200);
+        products.forEach(product => {
+            //We change the id to an object id
+            product._id = new Types.ObjectId(product._id);
+        });
+        expect(products.length).toBe(filteredList.length);
+        for(var i = 0; i<products.length ; i++){
+            //We check that the products are the ones in the database.
+            expect(products[i]).toStrictEqual(filteredList[i]);
+        }
+    });
+
+    it('Search for a product by a string that no product has', async() => {
+        let search:string = "fadhsjfkadsfhdjksafhasd";
+        const response: Response = await request(app).get('/api/products/search/' + search);
+        const products:IProduct[] = response.body;
+        //We get an OK
+        expect(response.statusCode).toBe(200);
+        expect(products.length).toBe(0);
     });
 });
