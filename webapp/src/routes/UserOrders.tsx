@@ -9,13 +9,6 @@ type Props = {
     getUserOrders: (orders:IOrder[], webId:string) => void;
   };
 
-  const getUserOrders2 = async (orders:IOrder[] | null, WebId:string) =>{
-    var ordersFound : IOrder[];
-    ordersFound = await findOrdersByUser(WebId);
-    orders = ordersFound;
-    return orders;
-  }
-
 const UserOrders = ({orders, getUserOrders}:Props) => {
     //SOLID STUFF TO GET THE WEB ID
     getUserOrders(orders, "WebId");
