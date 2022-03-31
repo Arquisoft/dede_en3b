@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder} from './api/api';
+import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidName, getSolidWebId, getSolidAddress} from './api/api';
 import './App.css';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -15,6 +15,7 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import { AnyRecord } from 'dns';
 
 function App(): JSX.Element {
 
@@ -28,14 +29,6 @@ function App(): JSX.Element {
   const [address, setAddress] = useState<Address>();
   //PaymentMean
   const [paymentMean, setPaymentMean] = useState('');
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const code = urlParams.get('code');
-  console.log(code);
-  let solidOptions : any = { 
-    identityProvider: 'https://broker.pod.inrupt.com/',
-    redirectCode: window.location.href
-  }
 
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
@@ -181,9 +174,14 @@ function App(): JSX.Element {
   }
 
 
-  const makeOrder = () => {
+  const makeOrder = async () => {
+    var webId: any = await getSolidWebId();
+    var address: any = await getSolidAddress();
 
-      //   addOrder(shoppingCart, connection.getWebId().toString(), address ?? {
+    console.log('webId' + webId.webId);
+    console.log(address);
+    addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
+    restoreDefaults();
 
   }
 
@@ -205,7 +203,7 @@ function App(): JSX.Element {
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
-        <Route path="login" element={<Login setConnection={setConnection} ></Login>}> </Route>
+        <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
         <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
@@ -214,7 +212,7 @@ function App(): JSX.Element {
             <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
           }
         />
-        <Route path="shipping/payment" element={<AddPaymentMeanComponent connection={connection} setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
+        <Route path="shipping/payment" element={<AddPaymentMeanComponent setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
         <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>

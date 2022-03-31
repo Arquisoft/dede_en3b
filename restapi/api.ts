@@ -100,6 +100,7 @@ api.post(
     check('products').isLength({min : 1}),
   ],
   async (req: Request, res: Response): Promise<Response> => {
+    console.log(req.body.address);
     //Creting the order
     const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price, date:req.body.date});
     //Adding the order to the database
@@ -129,15 +130,15 @@ let connection = new SolidConnection("https://solidcommunity.net");
  * Test for solid
  */
 api.get("/solid/login", async (req: Request, res: Response) => {
-	if(connection.isLoggedIn())
-		console.log(connection.getWebId());
-	else connection.login('http://localhost:5000/api/solid/redirect', res);
+  console.log(connection.isLoggedIn())
+  if (!connection.isLoggedIn()) connection.login('http://localhost:5000/api/solid/redirect', res);
+  else res.status(300).json({ message: "User is already logged in" });
 });
 
 api.get("/solid/redirect", async (req: Request, res: Response) => {
 	await connection.tryHandleRedirect(`http://localhost:5000/api${req.url}`);
 
-	res.redirect("/");
+  res.redirect("http://localhost:3000/cart");
 });
 
 api.get("/solid/address", async (req: Request, res: Response): Promise<Response> => {
@@ -148,7 +149,8 @@ api.get("/solid/address", async (req: Request, res: Response): Promise<Response>
 
 	let url = await connection.fetchDatasetFromUser("profile/card")
 		.getThingAsync(connection.getWebId().href)
-		.then(thing => thing.getUrl(VCARD.hasAddress));
+    .then(thing => thing.getUrl(VCARD.hasAddress));
+  console.log(url);
 
 	let address = await connection.fetchDatasetFromUser("profile/card")
 		.getThingAsync(url ?? '')
