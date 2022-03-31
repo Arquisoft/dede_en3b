@@ -76,7 +76,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address':address, 'price':price, 'date':date})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address': address, 'price':price, 'date':date})
     });
   if (response.status===200)
     return true;
@@ -94,4 +94,46 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
   var str: string = apiEndPoint + '/orders/' + webId;
   let response = await fetch(str);
   return response.json();
+}
+
+/**
+ * Function to get solid name
+ */
+export async function getSolidName(): Promise<any> {
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/solid/name';
+  let response = await fetch(str);
+  return response.json();
+}
+
+/**
+ * Function to get webId
+ */
+ export async function getSolidWebId(): Promise<Object> {
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/solid/webId';
+  let response = await fetch(str);
+  return response.json();
+}
+
+/**
+ * Function to get solid address
+ */
+ export async function getSolidAddress(): Promise<Address> {
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/solid/address';
+  let response = await fetch(str);
+  return response.json();
+}
+
+/**
+ * Function to solid login
+ */
+ export async function doSolidLogin(): Promise<any> {
+   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
+   var str: string = apiEndPoint + '/solid/login';
+   console.log(str);
+   //await fetch(str);
+   window.location.href = str;
+   console.log(window.location.href);
 }

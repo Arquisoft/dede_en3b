@@ -7,10 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import { SolidConnection } from '../SOLID/API';
-
-
-
+import { doSolidLogin, getSolidWebId } from '../api/api';
+import { Connection } from 'puppeteer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,9 +85,9 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const Login = () => {
+export function Login(): JSX.Element {
   const classes = useStyles();
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (state.identityPovider.trim()) {
@@ -105,22 +103,23 @@ const Login = () => {
     }
   }, [state.identityPovider]);
 
-  const handleLogin = () => {
-    if (state.identityPovider.trim().length != 0) {
-      dispatch({
-        type: 'loginSuccess',
-        payload: 'Login Successfully'
-      });
+  const handleLogin = async () => {
+    console.log("doSolidLogin");
+    await doSolidLogin();
+    console.log(getSolidWebId());
+    console.log("xfavor")
+    // if (state.identityPovider.trim().length != 0) {
+    //   dispatch({
+    //     type: 'loginSuccess',
+    //     payload: 'Login Successfully'
+    //   });
     
-    let connection = new SolidConnection(state.identityPovider);
-    connection.login('cart');
-
-    } else {
-      dispatch({
-        type: 'loginFailed',
-        payload: 'Incorrect username or password'
-      });
-    }
+    // } else {
+    //   dispatch({
+    //     type: 'loginFailed',
+    //     payload: 'Incorrect username or password'
+    //   });
+    // }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {

@@ -1,10 +1,13 @@
+import { Response } from 'express';
+
 import { 
 	Session,
-	ISessionInfo
-} from "@inrupt/solid-client-authn-browser";
+	ISessionInfo,
+	getSessionFromStorage,
+} from "@inrupt/solid-client-authn-node";
 
 import {
-	getFile, getUrl
+	getFile, getUrl,
 	overwriteFile,
 	getSolidDataset, SolidDataset,
 	getThing, Thing,
@@ -33,21 +36,19 @@ export class SolidConnection {
 	public readonly SOLID_CLIENT_NAME: string = "DeDe";
 
 	private _identityProvider: string | undefined;
-	private readonly _session: Session;
+	private _session: Session;
 
-	private _initializePromise: Promise<SolidConnection>;
 	private _isInitialized: boolean;
 
 	/**
 	 * Constructs the connection and tries to catch
 	 * the login callback
 	 */
-	constructor({ identityProvider?: string, redirectCode?: string }? options) {
+	constructor(identityProvider?: string) {
 		this._identityProvider = identityProvider;
 		this._session = new Session();
-		this._redirectCode = redirectCode;
 
-		this._initialize();
+		this._isInitialized = false;
 	}
 
 	/**
@@ -60,18 +61,15 @@ export class SolidConnection {
 	 * It is neccesary to catch the redirect when it comes back,
 	 * the constructor does this automatically
 	 */
-	public async login(redirect?: string): Promise<void> {
+	public async login(redirect: string, res: Response): Promise<void> {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
 		if(!this.isLoggedIn()) 
 			await this._session.login({
+				redirectUrl: redirect,
 				oidcIssuer: this._identityProvider,
 				clientName: this.SOLID_CLIENT_NAME,
-				//If no redirect, then go back to same url
-				//else, go to selected url
-				redirectUrl: redirect === null ?
-					window.location.href : 
-					`${window.location.origin}/${redirect}`, 
+				handleRedirect: (url) => res.redirect(url)
 			});
 		else throw new LogInError("Already logged in");
 	}
@@ -167,23 +165,15 @@ export class SolidConnection {
 		return new URL(this._session.info.webId);
 	}
 
-	private _initialize() {
-		this._initializePromise = new Promise((accept, reject) => 
-			this._session.handleIncomingRedirect({ code: this._redirectCode })
-			.then(() => accept(this))
-			.catch(err => reject(err))
-		);
+	public async tryHandleRedirect(url: string) {
+		//Try to reload session
+		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
+		if(possibleNewSession !== undefined) this._session = possibleNewSession;
 
-		this._initializePromise.then(() => this._isInitialized = true);
-	}
+		await this._session.handleIncomingRedirect(url);
 
-	/**
-	 * Returns the initialize promise. This is, a promise that
-	 * gets fulfilled when the redirect handle finishes
-	 * and the connection knows if its logged in, or not
-	 */
-	public getLoginPromise(): Promise<SolidConnection> {
-		return this._initializePromise;
+		this._isInitialized = true;
+		return this;
 	}
 
 	//Note: This WILL logout the current user
@@ -197,7 +187,7 @@ export class SolidConnection {
 
 export class DatasetBrowser {
 	private readonly _datasetPromise: Promise<SolidDataset>;
-	private _dataset: SolidDataset;
+	private _dataset: SolidDataset | undefined;
 
 	constructor(datasetPromise: Promise<SolidDataset>) {
 		this._datasetPromise = datasetPromise;
@@ -214,6 +204,9 @@ export class DatasetBrowser {
 
 	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
+		if(this._dataset === undefined)
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+
 		let insideThing = getThing(this._dataset, thingUrl);
 		if(insideThing === null)
 			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);

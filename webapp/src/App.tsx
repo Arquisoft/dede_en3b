@@ -1,36 +1,42 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts, findOrdersByUser} from './api/api';
+import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidName, getSolidWebId, getSolidAddress} from './api/api';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
 import { IProduct } from '../../restapi/model/Products';
-import { IOrder } from '../../restapi/model/Order';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
+import { Address, IOrder, OrderProduct } from '../../restapi/model/Order';
+import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
+import { computeTotalPrice } from './utils/utils';
+import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
-
-
+import { AnyRecord } from 'dns';
 
 function App(): JSX.Element {
 
   //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [value,setValue] = useState('');
+  const [value, setValue] = useState('');
 
   //Cart
   const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
+  //Address
+  const [address, setAddress] = useState<Address>();
+  //PaymentMean
+  const [paymentMean, setPaymentMean] = useState('');
 
   const refreshProductList = async () => {
-    const productsResult : IProduct[] = await getProducts();
+    const productsResult: IProduct[] = await getProducts();
 
     setProducts(productsResult);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     refreshProductList();
     loadCartFromLocalStorage();
   },[]);
@@ -65,6 +71,7 @@ function App(): JSX.Element {
     setProducts(filteredProducts);
     input.value = '';
   }
+
 //Repeated method
 //   const search = (event: FormEvent<HTMLFormElement>) => {
 //     event.preventDefault();
@@ -107,10 +114,10 @@ function App(): JSX.Element {
    * @param clickedItem 
    */
    const onRemoveFromCart = (clickedItem : ICartItem) => {
-    setShoppingCart((prev) => 
+     setShoppingCart((prev) => 
       prev.reduce((acc, item) => {
-        let cart:ICartItem[];
-        if (item.product._id === clickedItem.product._id) {
+      let cart:ICartItem[];
+      if (item.product._id === clickedItem.product._id) {
           if (item.units === 1) {
             sessionStorage.setItem('cart',JSON.stringify(acc));
             return acc;
@@ -122,15 +129,15 @@ function App(): JSX.Element {
         sessionStorage.setItem('cart', JSON.stringify(cart));
         return cart;
       }, [] as ICartItem[])
-      
+
     );
   };
-  
+
   /**
   * Function to empty the shopping cart
-  */ 
+  */
   const emptyCart = () => {
-    let empty : ICartItem[] = new Array();
+    let empty: ICartItem[] = new Array();
     setShoppingCart(empty);
     sessionStorage.setItem('cart',JSON.stringify(empty));
   };
@@ -138,7 +145,7 @@ function App(): JSX.Element {
 
   const filterProduct = async (type: string) => {
     var filteredProducts: IProduct[];
-    if(type=="Default") {
+    if (type == "Default") {
       filteredProducts = await getProducts();
     }
     else {
@@ -150,7 +157,7 @@ function App(): JSX.Element {
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;
     var filteredProducts: IProduct[];
-    if(!type) {
+    if (!type) {
       filteredProducts = await getProducts();
     }
     else {
@@ -159,9 +166,26 @@ function App(): JSX.Element {
     setProducts(filteredProducts);
     setValue(type);
   };
+   
+  const restoreDefaults = () => {
+    setAddress(undefined);
+    setShoppingCart([]);
+
+  }
 
 
-   //Orders
+  const makeOrder = async () => {
+    var webId: any = await getSolidWebId();
+    var address: any = await getSolidAddress();
+
+    console.log('webId' + webId.webId);
+    console.log(address);
+    addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
+    restoreDefaults();
+
+  }
+
+     //Orders
    const [orders, setOrders] = useState<IOrder[]>([]);
 
    const getUserOrders = async (orders:IOrder[], WebId:string) =>{
@@ -169,31 +193,33 @@ function App(): JSX.Element {
      ordersFound = await findOrdersByUser(WebId);
      setOrders(ordersFound);
    }
-  
+
+
   return (
-  
+
     <BrowserRouter>
-      
+
       <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
         <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={
-            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
-          } 
+            <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
+          }
         />
+        <Route path="shipping/payment" element={<AddPaymentMeanComponent setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
+        <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
-       
-        
       </Routes>
-    
+
     </BrowserRouter>
-      
-      
+
+
   );
 }
 
