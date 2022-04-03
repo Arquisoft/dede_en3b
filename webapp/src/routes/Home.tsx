@@ -1,15 +1,13 @@
 import React from "react";
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
-import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 
-const Home = () => {
+export default function Home() {
 
     const imageShop = {
         url: require("../static/images/buttons/shop.png"),
@@ -88,14 +86,12 @@ const Home = () => {
         transition: theme.transitions.create('opacity'),
       }));
       
-      let navigate = useNavigate();
-
     return (
         <Grid container
             justifyContent="center"
             alignItems="center"
             spacing={10}>
-                <Grid item xs wrap="wrap">
+                <Grid item xs>
                     <Typography 
                         variant="h1"
                         align="center"
@@ -122,6 +118,7 @@ const Home = () => {
                     style={{
                         width: imageShop.width,
                     }}
+                    data-testid="toShop"
                     >
                     <Link to="shop">
                     <ImageSrc style={{ backgroundImage: `url(${imageShop.url})` }} />
@@ -177,5 +174,3 @@ const Home = () => {
         </Grid>
     );
 };
-
-export default Home;
