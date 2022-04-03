@@ -3,20 +3,21 @@ import cors from "cors";
 import bp from "body-parser";
 import promBundle from "express-prom-bundle";
 import api from "./api";
+import solid from "./solid";
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 
-function async connect() {
+async function connect() {
 	const app: Application = express();
 	const port: number = 5000;
-
-	console.log("Application started: " + options.origin);
 
 	const options: cors.CorsOptions = {
 		origin: ["http://localhost:3000"],
 	};
+
+	console.log("Application started: " + options.origin);
 
 	const metricsMiddleware: RequestHandler = promBundle({
 		includeMethod: true,
@@ -26,8 +27,8 @@ function async connect() {
 	app.use(cors(options));
 	app.use(bp.json());
 
-	await restapi();
-	await solid();
+	await restapi(app);
+	await solidapi(app);
 
 	app
 		.listen(port, (): void => {
@@ -55,7 +56,7 @@ function restapi(app: Application) {
 	db.on("error",console.error.bind(db,"Error on connection: "));
 };
 
-function solid(app: Application) {
+function solidapi(app: Application) {
 	app.use("/solid", solid);
 }
 

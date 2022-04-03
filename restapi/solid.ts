@@ -9,7 +9,7 @@ let connection: SolidConnection =
 
 api.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
-		connection = new SolidConnection(req.query.provider);
+		connection = new SolidConnection(req.query.provider as string);
 
 	if(!connection.isLoggedIn())
 		connection.login("http://localhost:5000/api/redirect", res);
