@@ -36,7 +36,8 @@
     "test": "react-scripts test --coverage",
     "test:e2e": "start-server-and-test 'npm --prefix ../restapi start' http://localhost:5000/api/users/list prod 3000 'cd e2e && jest'",
     "eject": "react-scripts eject",
-    "prod": "ts-node-dev ./server.ts"
+    "prod": "ts-node-dev ./server.ts",
+    "test:coverage": "npm test -- --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": [
