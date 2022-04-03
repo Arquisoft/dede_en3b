@@ -2,27 +2,27 @@ import express, { Request, Response, Router } from "express";
 import { SolidConnection } from "./SOLID/API";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 
-const api: Router = express.Router();
+const solid: Router = express.Router();
 
 let connection: SolidConnection = 
 	new SolidConnection("https://www.solidcommunity.net");
 
-api.get("/login", async (req: Request, res: Response) => {
+solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
 		connection = new SolidConnection(req.query.provider as string);
 
 	if(!connection.isLoggedIn())
-		connection.login("http://localhost:5000/api/redirect", res);
+		connection.login("http://localhost:5000/solid/redirect", res);
 });
 
-api.get("/redirect", async (req: Request, res: Response) => {
+solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
 		.tryHandleRedirect(`http://localhost:5000/api${req.url}`);
 
 	res.redirect("/");
 });
 
-api.get("/address", async (req: Request, res: Response): Promise<Response> => {
+solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
@@ -45,7 +45,7 @@ api.get("/address", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json(address);
 });
 
-api.get("/webId", async (req: Request, res: Response): Promise<Response> => {
+solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
@@ -54,7 +54,7 @@ api.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({ webId: connection.getWebId() });
 });
 
-api.get("/name", async (req: Request, res: Response): Promise<Response> => {
+solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
@@ -66,4 +66,4 @@ api.get("/name", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({ name: name });
 });
 
-export default api;
+export default solid;

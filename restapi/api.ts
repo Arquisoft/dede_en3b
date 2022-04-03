@@ -8,7 +8,7 @@ const User = require('./model/User');
 const Products = require('./model/Products');
 const Order = require('./model/Order');
 var mongoose = require('mongoose');
-const solid: Router = express.Router();
+const api: Router = express.Router();
 
 interface User {
     name: string;
@@ -21,7 +21,7 @@ let users: Array<User> = [];
 
 
 //The code here answers to the get petition over "users/list", basically shows all the users that are currently stored in the database.
-solid.get(
+api.get(
     "/users/list",
     async (req: Request, res: Response): Promise<Response> => {
         // return res.status(200).send(users);
@@ -35,7 +35,7 @@ solid.get(
 
 //The code here answers to the post petition over "users/add". Adds an user to the database.
 //First we check that the data that we received isn't faulty, to avoid errors.
-solid.post(
+api.post(
   "/users/add",[
     check('name').isLength({ min: 1 }).trim().escape(),
     check('email').isEmail().normalizeEmail(),
@@ -55,7 +55,7 @@ solid.post(
 /**
  * We get all the products that are currently stored in the database.
  */
-solid.get(
+api.get(
   "/products/list",
   async (req: Request, res: Response): Promise<Response> => {
     const products:IProduct[] = await Products.find({});
@@ -63,7 +63,7 @@ solid.get(
   }
 );
 
-solid.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
+api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
     var objID = mongoose.Types.ObjectId(id);
     console.log(objID);
@@ -77,7 +77,7 @@ solid.get("/products/:id",async (req: Request, res:Response): Promise<Response> 
 /**
  * 
  */
-solid.get("/products/filter/:type", async (req: Request, res:Response): Promise<Response> => {
+api.get("/products/filter/:type", async (req: Request, res:Response): Promise<Response> => {
   let type: string = req.params.type;
   const products:IProduct[] = await Products.find({type:type});
   return res.status(200).send(products);
@@ -86,14 +86,14 @@ solid.get("/products/filter/:type", async (req: Request, res:Response): Promise<
  * OSCAR
  * Response for finding products by name 
  */
-solid.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
+api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
   let name:string = req.params.name;
   const products: IProduct[] = await Products.find({'name': {'$regex': name, '$options': 'i'}});
   return res.status(200).send(products);
 });
 
 //Call to add an order to the database
-solid.post(
+api.post(
   "/orders/add", [
     check('products').isLength({min : 1}),
   ],
@@ -110,7 +110,7 @@ solid.post(
 /**
  * Response for finding order for a client
  */
- solid.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
+ api.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
   const orders: IOrder[] = await Order.find({
     webId: req.params.id
   });
@@ -121,4 +121,4 @@ solid.post(
   return res.status(200).send(orders);
  });
 
-export default solid;
+export default api;
