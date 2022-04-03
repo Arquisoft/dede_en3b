@@ -2,7 +2,7 @@ import React, { FormEvent } from "react";
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 
-import Home from '../../routes/Home';
+import Home from '../routes/Home';
 import { BrowserRouter } from "react-router-dom";
 
 
