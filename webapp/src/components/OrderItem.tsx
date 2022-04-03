@@ -1,8 +1,10 @@
 import { Wrapper } from "./CartItem.styles";
 import { IOrder } from "../../../restapi/model/Order";
+import { StyledButton } from '../routes/Product.styles';
 
 type Props = {
   item: IOrder;
+  seeOrder: (SelectedOrder: IOrder) => void;
 };
 
 function OrderItem(props: Props): JSX.Element {
@@ -15,9 +17,18 @@ function OrderItem(props: Props): JSX.Element {
           <p>Country: {props.item.address.country}, Region: {props.item.address.region}, Postal Code: {props.item.address.postal_code}, Street: {props.item.address.street}</p>
           <p>Total: {(props.item.totalPrice).toFixed(2)} € </p>
         </div>
+        <div className="buttons">
+          <StyledButton
+            size="small"
+            disableElevation
+            variant="contained"
+            onClick={() => props.seeOrder(props.item)}
+          >
+            See Order
+          </StyledButton>
         </div>
-    
-      </Wrapper>
+      </div>
+    </Wrapper>
   );
 };
 
