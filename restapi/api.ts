@@ -98,6 +98,7 @@ api.post(
     check('products').isLength({min : 1}),
   ],
   async (req: Request, res: Response): Promise<Response> => {
+    console.log(req.body.address);
     //Creting the order
     const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price, date:req.body.date});
     //Adding the order to the database

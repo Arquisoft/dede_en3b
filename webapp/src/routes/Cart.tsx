@@ -6,7 +6,7 @@ import { StyledButton } from './Product.styles';
 import { addOrder } from "../api/api";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { Address } from "../../../restapi/model/Order";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 type Props = {
   cartItems: ICartItem[];
@@ -22,21 +22,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   let navigate = useNavigate();
 
   const checkOut = () => {
-
-    let address:Address | null = null;
-      address = {
-          country: 'Country',
-          locality: 'Locality',
-          postal_code: '000000',
-          street: 'Street',
-          region: 'Asturias'
-      };
-      if(address!=null){
-        addOrder(cartItems, 'WebId', address, calculateTotal(cartItems), new Date());
-        emptyCart();
-        navigate('/shipping/payment');
-      }
-    //}
+      //navigate('/shipping/payment');
   };
 
   return (
@@ -54,9 +40,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       <Grid>
         <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
         
-          <StyledButton
-          onClick={checkOut}
-          >Check out</StyledButton>
+          <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
       </Grid>
           </Wrapper>
   );
