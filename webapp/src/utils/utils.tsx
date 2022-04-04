@@ -6,5 +6,6 @@ export function computeTotalPrice(cart: ICartItem[]) {
     cart.forEach(
         i => totalPrice += i.product.price * i.units
     )
+    
     return totalPrice;
 }
