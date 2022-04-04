@@ -132,10 +132,15 @@ export async function getSolidName(): Promise<any> {
  export async function doSolidLogin(): Promise<any> {
    const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
    var str: string = apiEndPoint + '/solid/login';
-   console.log(str);
    //await fetch(str);
    window.location.href = str;
-   console.log(window.location.href);
+}
+
+export async function isLoggedIn(): Promise<any> {
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  var str: string = apiEndPoint + '/solid/isLoggedIn';
+  let response = await fetch(str);
+  return response.json();
 }
 
 // // //SHIPPING WITH FEDEX API
