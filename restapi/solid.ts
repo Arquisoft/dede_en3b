@@ -17,7 +17,7 @@ solid.get("/login", async (req: Request, res: Response) => {
 
 solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
-		.tryHandleRedirect(`http://localhost:5000/api${req.url}`);
+		.tryHandleRedirect(`http://localhost:5000/solid${req.url}`);
 
 	res.redirect("/");
 });
@@ -53,6 +53,10 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 		);
 
 	return res.status(200).json({ webId: connection.getWebId() });
+});
+
+solid.get("/isLoggedIn", async (_req: Request, res: Response): Promise<Response> => {
+	return res.status(200).json({ isLoggedIn: connection.isLoggedIn() });
 });
 
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {

@@ -1,8 +1,8 @@
-import React, { FormEvent } from "react";
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 
 import Home from '../routes/Home';
+import App from '../App';
 import { BrowserRouter } from "react-router-dom";
 
 
@@ -16,21 +16,29 @@ test('home page is rendered correctly', () => {
     expect(screen.getByText("Welcome to DeDe")).toBeInTheDocument();
 });
 
+ test('home page shows buttons to go to shop and orders', async () => {
+
+  const { getByRole } = render(<Home />, {wrapper: BrowserRouter});
+  
+  expect(getByRole('button', {name: "Start shopping"})).toBeInTheDocument();
+  expect(getByRole('button', {name: "Check your orders"})).toBeInTheDocument();
+});
+
 /**
  * Test that shop button takes you to shop
  */
 test('clicking on the button to shop takes you to the shop page', async () => {
 
-    const { getByText, findByText } = render(<Home />, {wrapper: BrowserRouter});
-    
-    fireEvent(getByText('Start shopping'), new MouseEvent('click', {
-      bubbles: true,
-      cancelable: true,
-    }));
+    const { getByRole, getByAltText } = render(<App />);
 
-    const newScreen = findByText('Product search');
+    fireEvent.click(getByAltText('logo')); //go back home
 
-    expect(newScreen).toBeTruthy();
+    const link = getByRole('link', {name: 'Start shopping'});
+
+    fireEvent.click(link);
+
+    const newScreen = screen.getByText('Product search');
+    expect(newScreen).toBeInTheDocument();
 });
 
 /**
@@ -38,14 +46,14 @@ test('clicking on the button to shop takes you to the shop page', async () => {
  */
  test('clicking on the button to check orders takes you to your orders page', async () => {
 
-  const { getByText, findByText } = render(<Home />, {wrapper: BrowserRouter});
+  const { getByRole, getByAltText } = render(<App />);
+
+  fireEvent.click(getByAltText('logo')); //go back home
   
-  fireEvent(getByText('Check your orders'), new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-  }));
+  const link = getByRole('link', {name: 'Check your orders'});
 
-  const newScreen = findByText('Your orders');
+  fireEvent.click(link);
 
-  expect(newScreen).toBeTruthy();
+  const newScreen = screen.getByText('Your Orders');
+  expect(newScreen).toBeInTheDocument();
 });
