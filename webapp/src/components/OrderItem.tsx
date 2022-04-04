@@ -4,7 +4,7 @@ import { StyledButton } from '../routes/Product.styles';
 
 type Props = {
   item: IOrder;
-  seeOrder: (SelectedOrder: IOrder) => void;
+  //seeOrder: (SelectedOrder: IOrder) => void;
 };
 
 function OrderItem(props: Props): JSX.Element {
@@ -22,7 +22,7 @@ function OrderItem(props: Props): JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => props.seeOrder(props.item)}
+            //onClick={() => props.seeOrder(props.item)}
           >
             See Order
           </StyledButton>

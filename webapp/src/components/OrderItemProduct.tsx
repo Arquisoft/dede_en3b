@@ -1,12 +1,10 @@
 import { IProduct } from "../../../restapi/model/Products";
 import { Wrapper } from "./CartItem.styles";
 import { ICartItem } from "./ICartItem";
-import {  StyledButton } from '../routes/Product.styles';
+import { StyledButton } from '../routes/Product.styles';
 
 type Props = {
   item: ICartItem;
-  addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (clickedItem: ICartItem) => void;
 };
 
 function CartItem(props: Props): JSX.Element {
@@ -21,30 +19,11 @@ function CartItem(props: Props): JSX.Element {
           <p>Price: {props.item.product.price} € </p>
           <p>Total: {(props.item.units * props.item.product.price).toFixed(2)} € </p>
         </div>
-        <div className="buttons">
-          <StyledButton
-            size="small"
-            disableElevation
-            variant="contained"
-            onClick={() => props.removeFromCart(props.item)}
-          >
-            -
-          </StyledButton>
-          <p>{props.item.units}</p>
-          <StyledButton
-            size="small"
-            disableElevation
-            variant="contained"
-            onClick={() => props.addToCart(props.item)}
-          >
-            +
-          </StyledButton>
-        </div>
       </div>
-      
+
       <img src={imageRef} alt={props.item.product.name} />
-    
-      </Wrapper>
+
+    </Wrapper>
   );
 };
 
