@@ -17,7 +17,7 @@ solid.get("/login", async (req: Request, res: Response) => {
 
 solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
-		.tryHandleRedirect(`http://localhost:5000/api${req.url}`);
+		.tryHandleRedirect(`http://localhost:5000/solid${req.url}`);
 
 	res.redirect("/");
 });
