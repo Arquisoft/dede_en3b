@@ -16,6 +16,7 @@ import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
 import { AnyRecord } from 'dns';
+import { getShippingCosts } from './api/ShippingApi';
 
 function App(): JSX.Element {
 
@@ -30,6 +31,9 @@ function App(): JSX.Element {
   //PaymentMean
   const [paymentMean, setPaymentMean] = useState('');
 
+  //Shipping
+  const [shippingCosts, setShippingCosts] = useState(0);
+  
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
 
@@ -178,6 +182,8 @@ function App(): JSX.Element {
     var webId: any = await getSolidWebId();
     var address: any = await getSolidAddress();
 
+    setAddress(address);
+
     console.log('webId' + webId.webId);
     console.log(address);
     addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
@@ -212,7 +218,10 @@ function App(): JSX.Element {
             <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
           }
         />
-        <Route path="shipping/payment" element={<AddPaymentMeanComponent setPaymentMean={setPaymentMean} totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder}></AddPaymentMeanComponent>}></Route>
+        <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
+          totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>}></Route>
+
+        
         <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
