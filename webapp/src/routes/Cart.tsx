@@ -3,10 +3,11 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
-import { addOrder} from "../api/api";
+import { addOrder, isLoggedIn} from "../api/api";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { Address } from "../../../restapi/model/Order";
 import { useNavigate, Link } from "react-router-dom";
+import { Switch } from "@mui/material";
 
 type Props = {
   cartItems: ICartItem[];
@@ -24,6 +25,15 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const checkOut = () => {
   };
 
+  const renderSwitch = async() => {
+    var isLogged = await isLoggedIn();
+    if (!isLogged) {
+      return (<Link to="/login"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>);
+    } 
+    return (<Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>);
+  }
+          
+
   return (
     <Wrapper>
       <h2>Your Cart</h2>
@@ -39,7 +49,8 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       <Grid>
         <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
         
-        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link> 
+        {renderSwitch()}
+         
       </Grid>
           </Wrapper>
   );
