@@ -56,9 +56,9 @@ jobs:
           usedocker: true
           appdir: "webapp"
           docker_build_args: |
-            REACT_APP_API_URI
+            API_URI
         env:
-          REACT_APP_API_URI: ${{secrets.HEROKU_API_URI}}
+          API_URI: "https://dede-en3b-test-2.herokuapp.com"
   deploy-restapi:
     needs: [unit-test-restapi]
     runs-on: ubuntu-latest
