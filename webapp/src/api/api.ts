@@ -133,6 +133,7 @@ export async function getSolidName(): Promise<any> {
    const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000';
    var str: string = apiEndPoint + '/solid/login?provider=' + provider;
    //await fetch(str);
+   console.log(str);
    window.location.href = str;
 }
 
