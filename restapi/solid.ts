@@ -42,7 +42,8 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 			street_address: thing.getString(VCARD.street_address),
 		}));
 
-	return res.status(200).json(address);
+	if(address !== null) return res.status(200).json(address);
+	else return res.status(404).json({ message: "Address not found" });
 });
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
