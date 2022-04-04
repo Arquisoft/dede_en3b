@@ -90,7 +90,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * @returns 
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
-  const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000/api'
+  const apiEndPoint = process.env.REACT_APP_API_URI|| 'http://localhost:5000'
   var str: string = apiEndPoint + '/orders/' + webId;
   let response = await fetch(str);
   return response.json();
@@ -100,7 +100,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * Function to get solid name
  */
 export async function getSolidName(): Promise<any> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000'
   var str: string = apiEndPoint + '/solid/name';
   let response = await fetch(str);
   return response.json();
@@ -110,7 +110,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get webId
  */
  export async function getSolidWebId(): Promise<Object> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000'
   var str: string = apiEndPoint + '/solid/webId';
   let response = await fetch(str);
   return response.json();
@@ -120,7 +120,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get solid address
  */
  export async function getSolidAddress(): Promise<Address> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000'
   var str: string = apiEndPoint + '/solid/address';
   let response = await fetch(str);
   return response.json();
@@ -129,16 +129,16 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to solid login
  */
- export async function doSolidLogin(): Promise<any> {
-   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
-   var str: string = apiEndPoint + '/solid/login';
+ export async function doSolidLogin(provider : string): Promise<any> {
+   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000';
+   var str: string = apiEndPoint + '/solid/login?provider=' + provider;
    //await fetch(str);
    window.location.href = str;
 }
 
 export async function isLoggedIn(): Promise<any> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/solid/isLoggedIn';
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000'
+  var str: string = 'http://localhost:5000/solid/isLoggedIn';
   let response = await fetch(str);
   return response.json();
 }
