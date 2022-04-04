@@ -100,8 +100,8 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * Function to get solid name
  */
 export async function getSolidName(): Promise<any> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/solid/name';
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid'
+  var str: string = apiEndPoint + '/name';
   let response = await fetch(str);
   return response.json();
 }
@@ -109,19 +109,20 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to get webId
  */
- export async function getSolidWebId(): Promise<Object> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/solid/webId';
+ export async function getSolidWebId(): Promise<string> {
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid'
+  var str: string = apiEndPoint + '/webId';
   let response = await fetch(str);
-  return response.json();
+  let webId = await response.json();
+  return webId.webId;
 }
 
 /**
  * Function to get solid address
  */
  export async function getSolidAddress(): Promise<Address> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api'
-  var str: string = apiEndPoint + '/solid/address';
+  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid'
+  var str: string = apiEndPoint + '/address';
   let response = await fetch(str);
   return response.json();
 }
@@ -130,8 +131,8 @@ export async function getSolidName(): Promise<any> {
  * Function to solid login
  */
  export async function doSolidLogin(): Promise<any> {
-   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
-   var str: string = apiEndPoint + '/solid/login';
+   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+   var str: string = apiEndPoint + '/login';
    console.log(str);
    //await fetch(str);
    window.location.href = str;
