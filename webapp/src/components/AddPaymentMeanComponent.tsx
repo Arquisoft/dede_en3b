@@ -1,20 +1,37 @@
 import { Button, Container, FormLabel, Grid, Input, InputLabel, InputLabelProps, Radio } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { Address } from "../../../restapi/model/Order";
+import { getSolidAddress } from "../api/api";
+import { getShippingCosts } from "../api/ShippingApi";
 
 interface AddPaymentMeanComponentProps {
     totalCost: number,
     setPaymentMean: (pm: string) => void,
-    makeOrder: () => void,
+    makeOrder: () => void
 }
 
-export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JSX.Element {
 
+export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JSX.Element {
 
     // The selected paymentmean
     const [payment, setPayment] = useState('');
     //Discount code
     const [discountCode, setDiscountCode] = useState('');
+    //Shipping costs
+    const [shippingCosts, setShippingCosts] = useState(0);
+ 
+    const computeShippingCosts = async () => {
+        const res = await getShippingCosts(await getSolidAddress());
+
+        console.log(res);
+
+        setShippingCosts(Number((res * 0.10).toFixed(2)));
+    };
+
+    React.useEffect(() => {
+        computeShippingCosts();
+      }, []);
 
     // This function will be triggered when a radio button is selected
     const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,10 +87,14 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
                 <h2> Discount code: </h2>
                 <input type="text" name="discount" onChange={handleChangeDiscount} placeholder="Introduce your discount code." id="discount"></input>
             </div>
+            
             <div>
-                <h2>Shipping Free</h2>
-                <h2>TOTAL (IVA included) {props.totalCost}€ </h2>
+                
+                <h2>Shipping {shippingCosts} € </h2>
+                <h2>Cart Items {props.totalCost} € </h2>
+                <h1>TOTAL (IVA included) {props.totalCost + shippingCosts}€ </h1>
             </div>
+            
         
             <Link to='/'><Button onClick={handleConfirmOrder}>CONFIRM ORDER</Button></Link>
 
