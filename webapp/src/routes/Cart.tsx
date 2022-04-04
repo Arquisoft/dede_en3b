@@ -8,6 +8,7 @@ import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 import { Address } from "../../../restapi/model/Order";
 import { useNavigate, Link } from "react-router-dom";
 import { Switch } from "@mui/material";
+import React from "react";
 
 type Props = {
   cartItems: ICartItem[];
@@ -22,18 +23,16 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   
   let navigate = useNavigate();
 
-  const checkOut = () => {
+  const checkOut = async () => {
+  
+      var obj = await isLoggedIn();
+      console.log(!obj.isLoggedIn);
+      if (!obj.isLoggedIn) {
+        navigate('/login');
+      } 
+    
   };
-
-  const renderSwitch = async() => {
-    var isLogged = await isLoggedIn();
-    if (!isLogged) {
-      return (<Link to="/login"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>);
-    } 
-    return (<Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>);
-  }
-          
-
+        
   return (
     <Wrapper>
       <h2>Your Cart</h2>
@@ -49,7 +48,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       <Grid>
         <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
         
-        {renderSwitch()}
+        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
          
       </Grid>
           </Wrapper>
