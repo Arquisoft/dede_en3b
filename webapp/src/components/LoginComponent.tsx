@@ -104,7 +104,7 @@ export function Login(): JSX.Element {
   }, [state.identityProvider]);
 
   const handleLogin = async () => {
-    console.log("doSolidLogin");
+    console.log(state.identityProvider);
     await doSolidLogin(state.identityProvider);
     console.log(getSolidWebId());
     console.log("xfavor")
