@@ -55,6 +55,10 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({ webId: connection.getWebId() });
 });
 
+solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	return res.status(200).json({ isLoggedIn: connection.isLoggedIn() });
+});
+
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
