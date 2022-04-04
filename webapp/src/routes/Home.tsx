@@ -118,7 +118,6 @@ export default function Home() {
                     style={{
                         width: imageShop.width,
                     }}
-                    data-testid="toShop"
                     >
                     <Link to="shop">
                     <ImageSrc style={{ backgroundImage: `url(${imageShop.url})` }} />
