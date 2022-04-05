@@ -33,12 +33,14 @@ export async function getUsers():Promise<IUser[]>{
  * Then we send back the response.
  */
 export async function getProducts():Promise<IProduct[]> {
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
     const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/products/list');
     return response.json();
 }
 
 export async function getProduct(id:string):Promise<IProduct> {
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str:string = apiEndPoint+'/products/'+id;
   console.log(str);
@@ -52,6 +54,7 @@ export async function getProduct(id:string):Promise<IProduct> {
  * @returns 
  */
 export async function findProductsByName(name: string): Promise<IProduct[]> {
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str: string = apiEndPoint + '/products/search/' + name;
   let response = await fetch(str);
@@ -59,6 +62,7 @@ export async function findProductsByName(name: string): Promise<IProduct[]> {
 }
 
 export async function filterProducts(type:string): Promise<IProduct[]> {
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str: string = apiEndPoint + '/products/filter/' + type;
   let response = await fetch(str);
@@ -71,6 +75,7 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  * @returns 
  */
 export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
   
   let response = await fetch(apiEndPoint+'/orders/add', {
@@ -90,6 +95,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * @returns 
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
+   //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str: string = apiEndPoint + '/orders/' + webId;
   let response = await fetch(str);
@@ -100,6 +106,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * Function to get solid name
  */
 export async function getSolidName(): Promise<any> {
+  //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
   var str: string = apiEndPoint + '/solid/name';
   let response = await fetch(str);
@@ -110,6 +117,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get webId
  */
  export async function getSolidWebId(): Promise<Object> {
+   //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
   var str: string = apiEndPoint + '/solid/webId';
   let response = await fetch(str);
@@ -120,6 +128,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get solid address
  */
  export async function getSolidAddress(): Promise<Address> {
+   //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
   var str: string = apiEndPoint + '/solid/address';
   let response = await fetch(str);
@@ -130,6 +139,7 @@ export async function getSolidName(): Promise<any> {
  * Function to solid login
  */
  export async function doSolidLogin(): Promise<any> {
+   //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
    const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/';
    var str: string = apiEndPoint + '/solid/login';
    console.log(str);
