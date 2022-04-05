@@ -2,8 +2,7 @@ name: CI for ASW2122
 
 on:
   push:
-    branches: 
-      - master
+    branches: [ master ]
 
 jobs:
   unit-test-webapp:
@@ -17,6 +16,7 @@ jobs:
       with:
         node-version: 16
     - run: npm ci
+    - run: npm run build
     - run: npm test
     - uses: codecov/codecov-action@v2
   unit-test-restapi:
