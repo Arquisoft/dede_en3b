@@ -54,8 +54,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "dede-en3b-jesus"
           heroku_email: "uo271723@uniovi.es"
-          dontuseforce : 1
           usedocker: true
+          dontuseforce : true
           appdir: "webapp"
           docker_build_args: |
             API_URI
