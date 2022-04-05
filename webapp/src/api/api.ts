@@ -2,7 +2,6 @@ import {IUser} from '../../../restapi/model/User';
 import { IProduct } from '../../../restapi/model/Products';
 import { IOrder } from '../../../restapi/model/Order';
 import { ICartItem } from '../components/ICartItem';
-import { isTemplateExpression } from 'typescript';
 import { Address } from '../../../restapi/model/Order';
 
 export async function addUser(user:IUser):Promise<boolean>{

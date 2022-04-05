@@ -25,12 +25,15 @@ const IndividualProduct = (props: IndividualProductProps) => {
         if (props.product == null) setProduct( await getProduct(id!));
         else setProduct(props.product);
     }
-
+    // eslint-disable-next-line
     useEffect(() =>{ 
+        // eslint-disable-next-line
         selectProduct();
-        console.log(product?.name);
-        console.log(product?._id);
-    }, []);
+        // console.log(product?.name);
+        // console.log(product?._id);
+    },
+    // eslint-disable-next-line
+    []);
 
 
     const [value, setValue] = useState<number>(1);

@@ -1,6 +1,6 @@
-import { Button, Container, FormLabel, Grid, Input, InputLabel, InputLabelProps, Radio } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface AddPaymentMeanComponentProps {
     totalCost: number,
@@ -14,6 +14,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
     // The selected paymentmean
     const [payment, setPayment] = useState('');
     //Discount code
+    // eslint-disable-next-line
     const [discountCode, setDiscountCode] = useState('');
 
     // This function will be triggered when a radio button is selected

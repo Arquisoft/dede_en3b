@@ -1,11 +1,3 @@
-import { Button, Container, FormLabel, Grid, Input, InputLabel, InputLabelProps, Radio } from "@material-ui/core";
-import { FormControl, FormControlLabel, FormHelperText, RadioGroup } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Address, IOrder } from "../../../restapi/model/Order";
-import { addOrder } from "../api/api";
-import { ICartItem } from "./ICartItem";
 
 interface ConfirmationComponentProps {
     orderID : string

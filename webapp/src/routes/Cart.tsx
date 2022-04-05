@@ -3,9 +3,7 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
-import { addOrder } from "../api/api";
-import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
-import { Address } from "../../../restapi/model/Order";
+// eslint-disable-next-line
 import { useNavigate, Link } from "react-router-dom";
 
 type Props = {
@@ -19,7 +17,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const checkOut = () => {
       //navigate('/shipping/payment');
