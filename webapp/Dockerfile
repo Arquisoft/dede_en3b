@@ -11,7 +11,7 @@ ENV REACT_APP_API_URI=$API_URI
 RUN npm install
 
 #Create an optimized version of the webapp
-RUN npm run build
+RUN npm start
 
 #Ver como podemos llamar npm run prod aquí
 CMD [ "npm", "start" ]
