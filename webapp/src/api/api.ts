@@ -109,7 +109,7 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to get webId
  */
- export async function getSolidWebId(): Promise<Object> {
+ export async function getSolidWebId(): Promise<string> {
   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000'
   var str: string = apiEndPoint + '/solid/webId';
   let response = await fetch(str);
