@@ -16,7 +16,7 @@ interface User {
 }
 
 //This is not a restapi as it mantains state but it is here for
-//simplicity. A database should be used instead.
+//simplicity. A database should be used instead. This is just to test the workflows.
 let users: Array<User> = [];
 
 
