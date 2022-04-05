@@ -14,4 +14,4 @@ RUN npm install
 RUN npm run build
 
 #Ver como podemos llamar npm run prod aquí
-CMD [ "npm", "run", "prod" ]
+CMD [ "npm", "start" ]
