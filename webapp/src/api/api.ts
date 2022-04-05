@@ -1,5 +1,4 @@
 import {IUser} from '../../../restapi/model/User';
-import mongoose from 'mongoose';
 import { IProduct } from '../../../restapi/model/Products';
 import { IOrder } from '../../../restapi/model/Order';
 import { ICartItem } from '../components/ICartItem';
