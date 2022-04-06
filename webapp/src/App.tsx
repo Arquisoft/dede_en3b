@@ -74,18 +74,7 @@ function App(): JSX.Element {
     const filteredProducts: IProduct[] = await findProductsByName(input.value);
     setProducts(filteredProducts);
     input.value = '';
-  }
-
-//Repeated method
-//   const search = (event: FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     const form = event.target as HTMLFormElement;
-//     const input = form.querySelector('#searchText') as HTMLInputElement;
-// //    setProductSearch(input.value);
-//     input.value = '';
-//   };
-
-  
+  }  
 
   /**
    * Function to add a product to the cart
@@ -172,9 +161,7 @@ function App(): JSX.Element {
   };
    
   const restoreDefaults = () => {
-    setAddress(undefined);
-    setShoppingCart([]);
-
+    emptyCart();
   }
 
 
@@ -186,6 +173,7 @@ function App(): JSX.Element {
 
     console.log('webId' + webId.webId);
     console.log(address);
+    console.log(shoppingCart);
     addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
     restoreDefaults();
 
@@ -220,10 +208,8 @@ function App(): JSX.Element {
         />
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
-          totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>
-
-        
-        <Route path="shipping/confirmation" element={<ConfirmationComponent orderID='ratatatata'></ConfirmationComponent>}></Route>
+          totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
+        <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
 
