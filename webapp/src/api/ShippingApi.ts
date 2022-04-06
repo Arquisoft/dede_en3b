@@ -1,8 +1,6 @@
-import { env } from "process";
 import { Address } from "../../../restapi/model/Order";
 
 const storeGeolocation = "43.53544 -6.71935"; // Our Store, located in Navia
-const eurosPerKm = 0.2;
 /**
  * Function that returns the shipping costs
  * 

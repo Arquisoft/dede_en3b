@@ -14,8 +14,6 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
-import { AnyRecord } from 'dns';
-import { getShippingCosts } from './api/ShippingApi';
 
 function App(): JSX.Element {
 
@@ -34,7 +32,7 @@ function App(): JSX.Element {
   const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
-  const [shippingCosts, setShippingCosts] = useState(0);
+  //const [shippingCosts, setShippingCosts] = useState(0);
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();

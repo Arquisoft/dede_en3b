@@ -1,6 +1,6 @@
 import { Wrapper } from "./Cart.styles";
 import { IOrder } from '../shared/shareddtypes';
-import { findOrdersByUser, getSolidWebId } from "../api/api";
+import { getSolidWebId } from "../api/api";
 import OrderItem from "../components/OrderItem";
 import React, { useState } from "react";
 
