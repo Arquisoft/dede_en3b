@@ -1,4 +1,5 @@
 import { Box, Button } from "@material-ui/core";
+import { color } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getSolidAddress } from "../api/api";
@@ -85,10 +86,14 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
             <h2> Discount code: </h2>
             <input type="text" name="discount" onChange={handleChangeDiscount} placeholder="Introduce your discount code." id="discount"></input>
         </div>
-        <div>
+        <div > 
+            <h2>Total</h2>
+            <div>
+                <h3>Subtotal {props.totalCost} € </h3>
+                <h2>Shipping {shippingCosts} € </h2>
+            </div>
 
-            <h2>Shipping {shippingCosts} € </h2>
-            <h2>Cart Items {props.totalCost} € </h2>
+
             <h1>TOTAL (IVA included) {(props.totalCost + shippingCosts).toFixed(2)}€ </h1>
         </div>
 
