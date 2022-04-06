@@ -8,7 +8,7 @@ test ('the individual view of a product is rendered', () => {
         <IndividualProduct 
         product={
             {
-                _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927a'),
+                _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
                 name: "pants",
                 photo: "",
                 type: "",
