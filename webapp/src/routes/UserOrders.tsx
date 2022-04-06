@@ -1,10 +1,7 @@
 import { Wrapper } from "./Cart.styles";
-import Grid from "@mui/material/Grid";
-import { StyledButton } from './Product.styles';
 import { IOrder } from "../../../restapi/model/Order";
 import { findOrdersByUser, getSolidWebId } from "../api/api";
 import OrderItem from "../components/OrderItem";
-import { ICartItem } from "../components/ICartItem";
 import React, { useState } from "react";
 
 type Props = {
