@@ -25,7 +25,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
-	res.redirect(`${apiEndPoint}/cart`);
+	res.redirect(`https://dedeen3b.herokuapp.com/cart`);
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
