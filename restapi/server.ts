@@ -13,6 +13,10 @@ async function connect() {
 	const app: Application = express();
 	const port: number = 5000;
 
+	const options: cors.CorsOptions = {
+		origin: ["http://localhost:3000"],
+	};
+
 	console.log("Application started: " + options.origin);
 
 	const metricsMiddleware: RequestHandler = promBundle({
