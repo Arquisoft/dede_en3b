@@ -3,7 +3,7 @@ import express,{Application} from 'express';
 //setting the option module to commonjs
 
 var app: Application = express()
-const port: number = +process.env.PORT || 3000;
+const port: number = (process.env.PORT!==undefined? +process.env.PORT : 3000) || 3000;
 
 app.use(express.static('build'))
 
