@@ -3,13 +3,8 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
-import { addOrder, isLoggedIn} from "../api/api";
-import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
-import { Address } from "../../../restapi/model/Order";
-// eslint-disable-next-line
-import { useNavigate, Link } from "react-router-dom";
-import { Switch } from "@mui/material";
-import React from "react";
+import { isLoggedIn} from "../api/api";
+import { Link } from "react-router-dom";
 
 type Props = {
   cartItems: ICartItem[];
