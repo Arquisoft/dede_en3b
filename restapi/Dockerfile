@@ -16,7 +16,7 @@ RUN npm install
 # bundle app source
 COPY server.ts api.ts solid.ts ./
 COPY model ./model
-COPY util ./util
-COPY solid ./SOLID
+COPY utils.ts ./util
+COPY API.ts ./SOLID
 
 CMD [ "npm", "start" ]
