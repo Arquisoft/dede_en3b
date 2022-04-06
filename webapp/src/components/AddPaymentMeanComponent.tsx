@@ -31,6 +31,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
     React.useEffect(() => {
         computeShippingCosts();
+        console.log(shippingCosts);
       }, []);
 
     // This function will be triggered when a radio button is selected
