@@ -1,8 +1,6 @@
-import {IUser} from '../../../restapi/model/User';
-import { IProduct } from '../../../restapi/model/Products';
-import { IOrder } from '../../../restapi/model/Order';
+
 import { ICartItem } from '../components/ICartItem';
-import { Address } from '../../../restapi/model/Order';
+import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
 export async function addUser(user:IUser):Promise<boolean>{
     const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'

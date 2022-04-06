@@ -3,7 +3,7 @@ import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 // eslint-disable-next-line
 import { StyledButton } from './Product.styles';
-import { IOrder } from "../../../restapi/model/Order";
+import { IOrder } from '../shared/shareddtypes';
 // eslint-disable-next-line
 import { findOrdersByUser } from "../api/api";
 import OrderItem from "../components/OrderItem";

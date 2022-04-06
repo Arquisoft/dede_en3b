@@ -1,5 +1,5 @@
 import { Wrapper } from "./CartItem.styles";
-import { IOrder } from "../../../restapi/model/Order";
+import { IOrder } from '../shared/shareddtypes';
 
 type Props = {
   item: IOrder;

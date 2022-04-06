@@ -2,7 +2,7 @@ import { Button, Grid, Input, InputLabel, InputLabelProps } from "@material-ui/c
 import { FormControl, FormHelperText } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Address } from "../../../restapi/model/Order";
+import {Address} from '../shared/shareddtypes';
 import { ICartItem } from "./ICartItem";
 
 const defaultValues = {

@@ -37,6 +37,6 @@ export type Address = {
     postal_code:string;
     region:string;
     street:string;
-  }  
+}  
 
 module.exports = mongoose.model("Orders", orderSchema);

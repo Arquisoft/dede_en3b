@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { IProduct } from "../../../restapi/model/Products";
+import { IProduct } from '../shared/shareddtypes';
 import { ICartItem } from "./ICartItem";
 import { useNavigate } from 'react-router-dom';
 import {getProduct} from '../api/api';
