@@ -1,5 +1,8 @@
 export default {
-    transform: {
-        "^.+\\.tsx?$": "ts-jest"
-    },
+	rootDir: './../',
+	transform: {
+		"^.+\\.tsx?$": "ts-jest"
+	},
+	collectCoverage: true,
+	collectCoverageFrom: ["SOLID/API.ts"]
 }

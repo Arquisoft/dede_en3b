@@ -53,7 +53,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
             setValue(1);
         }
 
-        let imageRef: string = require("../static/images/" + id + ".png");
+        let imageRef: string = require("../static/images/" + product._id + ".png");
 
         return (
             <React.Fragment>

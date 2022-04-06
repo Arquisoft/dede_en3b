@@ -30,10 +30,9 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
     React.useEffect(() => {
         computeShippingCosts();
-        //console.log(shippingCosts);
-    }, 
-     // eslint-disable-next-line
-    []);
+        console.log(shippingCosts);
+    }, []);
+
 
     // This function will be triggered when a radio button is selected
     const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
