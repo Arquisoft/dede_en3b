@@ -91,7 +91,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
 
   const goToOrders = () => {
     handleMenuClose();
-    navigate('/orders');
+    navigate('/orders/find');
   }
 
   const menuId = 'primary-search-account-menu';
