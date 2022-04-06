@@ -26,7 +26,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const checkOut = async () => {
   
       var obj = await isLoggedIn();
-      console.log(!obj.isLoggedIn);
+      console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (!obj.isLoggedIn) {
         navigate('/login');
       } 
