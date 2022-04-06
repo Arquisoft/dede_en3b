@@ -2,7 +2,7 @@ name: CI for ASW2122
 
 on:
   push:
-    branches: [ Jesus_fix_141_deployment ]
+    branches: [ master ]
 
 jobs:
   unit-test-webapp:
