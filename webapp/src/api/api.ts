@@ -2,9 +2,9 @@
 import { ICartItem } from '../components/ICartItem';
 import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b.herokuapp.com/api'
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
-const solidEndPoint = apiEndPoint + '/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b.herokuapp.com/api'
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
+const solidEndPoint = apiEndPoint.replace('/api', '/solid');
 
 export async function addUser(user:IUser):Promise<boolean>{
     let response = await fetch(apiEndPoint+'/users/add', {
@@ -66,7 +66,7 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  */
 export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
   
-  let response = await fetch(apiEndPoint+'orders/add', {
+  let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address': address, 'price':price, 'date':date})
