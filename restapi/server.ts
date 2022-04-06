@@ -1,30 +1,32 @@
-import express, { Application, RequestHandler } from "express";
-import cors from "cors";
-import bp from "body-parser";
-import promBundle from "express-prom-bundle";
+const express = require('express');
+const cors = require('cors');
+const bp = require('body-parser');
+const promBundle = require("express-prom-bundle");
 import api from "./api";
 import solid from "./solid";
-const mongoose = require('mongoose');
+const mongoose =  require('mongoose');
+import { Application } from "express";
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
+const port: number = (process.env.PORT!==undefined? +process.env.PORT : 5000) || 5000;
 
 async function connect() {
-	const app: Application = express();
-	const port: number = 5000;
+	const app = express();
+	
 
-	const options: cors.CorsOptions = {
+	const options = {
 		origin: ["http://localhost:3000"],
 	};
 
 	console.log("Application started: " + options.origin);
 
-	const metricsMiddleware: RequestHandler = promBundle({
+	const metricsMiddleware = promBundle({
 		includeMethod: true,
 	});
 	app.use(metricsMiddleware);
 
-	app.use(cors(options));
+	app.use(cors());
 	app.use(bp.json());
 
 	await restapi(app);

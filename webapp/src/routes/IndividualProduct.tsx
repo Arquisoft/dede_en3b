@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Grid from "@mui/material/Grid";
-import { IProduct } from "../../../restapi/model/Products";
+import {IProduct} from '../shared/shareddtypes';
 import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
@@ -25,12 +25,15 @@ const IndividualProduct = (props: IndividualProductProps) => {
         if (props.product == null) setProduct( await getProduct(id!));
         else setProduct(props.product);
     }
-
+    // eslint-disable-next-line
     useEffect(() =>{ 
+        // eslint-disable-next-line
         selectProduct();
-        console.log(product?.name);
-        console.log(product?._id);
-    }, []);
+        // console.log(product?.name);
+        // console.log(product?._id);
+    },
+    // eslint-disable-next-line
+    []);
 
 
     const [value, setValue] = useState<number>(1);

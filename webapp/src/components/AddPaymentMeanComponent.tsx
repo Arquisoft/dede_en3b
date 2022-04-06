@@ -15,6 +15,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
     // The selected paymentmean
     const [payment, setPayment] = useState('');
     //Discount code
+    // eslint-disable-next-line
     const [discountCode, setDiscountCode] = useState('');
     //Shipping costs
     const [shippingCosts, setShippingCosts] = useState(0);

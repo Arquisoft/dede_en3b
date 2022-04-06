@@ -1,15 +1,14 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidName, getSolidWebId, getSolidAddress} from './api/api';
+import React, { useState, useEffect, FormEvent} from 'react';
+import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidWebId, getSolidAddress} from './api/api';
 import './App.css';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import { ICartItem } from './components/ICartItem';
-import { IProduct } from '../../restapi/model/Products';
+import {IProduct, IOrder, Address} from './shared/shareddtypes';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
-import { Address, IOrder, OrderProduct } from '../../restapi/model/Order';
 import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
 import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
@@ -22,13 +21,16 @@ function App(): JSX.Element {
 
   //Products showed in the catalogue
   const [products, setProducts] = useState<IProduct[]>([]);
+// eslint-disable-next-line
   const [value, setValue] = useState('');
 
   //Cart
   const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
   //Address
+  // eslint-disable-next-line
   const [address, setAddress] = useState<Address>();
   //PaymentMean
+  // eslint-disable-next-line
   const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
@@ -130,7 +132,7 @@ function App(): JSX.Element {
   * Function to empty the shopping cart
   */
   const emptyCart = () => {
-    let empty: ICartItem[] = new Array();
+    let empty: ICartItem[] = [];
     setShoppingCart(empty);
     sessionStorage.setItem('cart',JSON.stringify(empty));
   };
@@ -138,7 +140,7 @@ function App(): JSX.Element {
 
   const filterProduct = async (type: string) => {
     var filteredProducts: IProduct[];
-    if (type == "Default") {
+    if (type === "Default") {
       filteredProducts = await getProducts();
     }
     else {
