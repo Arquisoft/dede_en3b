@@ -11,7 +11,7 @@ require('dotenv').config();
 
 async function connect() {
 	const app: Application = express();
-	const port: number = 5000;
+	const port: number = process.env.PORT || 5000;
 
 	const options: cors.CorsOptions = {
 		origin: ["http://localhost:3000"],
