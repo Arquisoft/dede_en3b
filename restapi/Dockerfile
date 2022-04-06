@@ -14,7 +14,7 @@ ENV MONGO_URI=$MONGO_URI
 
 RUN npm install
 # bundle app source
-COPY server.ts api.ts ./
+COPY server.ts api.ts solid.ts ./
 COPY model ./model
 
 CMD [ "npm", "start" ]
