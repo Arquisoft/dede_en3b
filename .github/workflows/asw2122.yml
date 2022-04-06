@@ -55,7 +55,7 @@ jobs:
           heroku_app_name: "dede-en3b-jesus"
           heroku_email: "uo271723@uniovi.es"
           usedocker: true
-          dontuseforce : true
+          dontuseforce : 1
           appdir: "webapp"
           docker_build_args: |
             API_URI
