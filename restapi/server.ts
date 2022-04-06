@@ -13,10 +13,6 @@ async function connect() {
 	const app: Application = express();
 	const port: number = 5000;
 
-	const options: cors.CorsOptions = {
-		origin: ["http://localhost:3000"],
-	};
-
 	console.log("Application started: " + options.origin);
 
 	const metricsMiddleware: RequestHandler = promBundle({
@@ -24,7 +20,7 @@ async function connect() {
 	});
 	app.use(metricsMiddleware);
 
-	app.use(cors(options));
+	app.use(cors());
 	app.use(bp.json());
 
 	await restapi(app);
