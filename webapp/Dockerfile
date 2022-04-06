@@ -8,6 +8,8 @@ RUN npm install --production
 ARG API_URI="http://localhost:5000/api"
 ENV REACT_APP_API_URI=$API_URI
 
+RUN npm install
+
 #Create an optimized version of the webapp
 RUN npm run build
 
