@@ -32,7 +32,7 @@ function App(): JSX.Element {
   const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
-  //const [shippingCosts, setShippingCosts] = useState(0);
+  const [shippingCosts, setShippingCosts] = useState(0);
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();

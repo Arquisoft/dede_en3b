@@ -59,7 +59,7 @@ function restapi(app: Application) {
 };
 
 function solidapi(app: Application) {
-	app.use("/api/solid", solid);
+	app.use("/solid", solid);
 }
 
 //Timeout to allow the database to finish building.
