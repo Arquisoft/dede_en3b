@@ -3,12 +3,17 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
+// eslint-disable-next-line
 import { addOrder, isLoggedIn} from "../api/api";
+// eslint-disable-next-line
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+// eslint-disable-next-line
 import { Address } from "../../../restapi/model/Order";
 // eslint-disable-next-line
 import { useNavigate, Link } from "react-router-dom";
+// eslint-disable-next-line
 import { Switch } from "@mui/material";
+// eslint-disable-next-line
 import React from "react";
 
 type Props = {

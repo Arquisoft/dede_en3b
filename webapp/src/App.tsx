@@ -14,7 +14,9 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+// eslint-disable-next-line
 import { AnyRecord } from 'dns';
+// eslint-disable-next-line
 import { getShippingCosts } from './api/ShippingApi';
 
 function App(): JSX.Element {
@@ -34,6 +36,7 @@ function App(): JSX.Element {
   const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
+  // eslint-disable-next-line
   const [shippingCosts, setShippingCosts] = useState(0);
   
   const refreshProductList = async () => {
