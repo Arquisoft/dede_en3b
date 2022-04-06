@@ -2,7 +2,7 @@
 import { ICartItem } from '../components/ICartItem';
 import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b.herokuapp.com/api'
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
 //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000/api';
 const solidEndPoint = apiEndPoint + '/solid';
 
