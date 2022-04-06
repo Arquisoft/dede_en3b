@@ -8,19 +8,24 @@ const solid: Router = express.Router();
 let connection: SolidConnection = 
 	new SolidConnection("https://www.solidcommunity.net");
 
+/**
+ * TODO: Deshardcodear esto.
+ */
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
 		connection = new SolidConnection(req.query.provider as string);
 
 	if(!connection.isLoggedIn())
-		connection.login("http://localhost:5000/solid/redirect", res);
+		connection.login(`${apiEndPoint}/redirect`, res);
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
-		.tryHandleRedirect(`http://localhost:5000/solid${req.url}`);
+		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
-	res.redirect("http://localhost:3000/cart");
+	res.redirect(`${apiEndPoint}/cart`);
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
