@@ -77,7 +77,7 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  * @returns 
  */
 export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
+  const apiEndPoint = 'http://localhost:5000/api/'
   //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
   
   let response = await fetch(apiEndPoint+'orders/add', {
@@ -121,7 +121,7 @@ export async function getSolidName(): Promise<any> {
  export async function getSolidWebId(): Promise<Object> {
   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  var str: string = apiEndPoint + '/solid/webId';
+  var str: string = apiEndPoint + 'solid/webId';
   let response = await fetch(str);
   return response.json();
 }
