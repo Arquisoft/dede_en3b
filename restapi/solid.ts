@@ -1,4 +1,5 @@
-import express, { Request, Response, Router } from "express";
+const express = require('express'); 
+import { Request, Response, Router } from "express";
 import { SolidConnection } from "./SOLID/API";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 

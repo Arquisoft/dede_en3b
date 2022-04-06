@@ -1,4 +1,5 @@
-import  mongoose, {Document, Types} from 'mongoose';
+const mongoose = require('mongoose');
+import {Document, Types} from 'mongoose';
 
 export interface IOrder extends Document {
     _id: Types.ObjectId;
@@ -34,6 +35,6 @@ export type Address = {
     postal_code:string;
     region:string;
     street:string;
-  }  
+}  
 
 module.exports = mongoose.model("Orders", orderSchema);

@@ -1,14 +1,11 @@
-import {IUser} from '../../../restapi/model/User';
-import mongoose from 'mongoose';
-import { IProduct } from '../../../restapi/model/Products';
-import { IOrder } from '../../../restapi/model/Order';
+
 import { ICartItem } from '../components/ICartItem';
-import { isTemplateExpression } from 'typescript';
-import { Address } from '../../../restapi/model/Order';
+import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
 export async function addUser(user:IUser):Promise<boolean>{
     //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
   const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000/api';
+    //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/users/add', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -23,6 +20,7 @@ export async function addUser(user:IUser):Promise<boolean>{
 export async function getUsers():Promise<IUser[]>{
  // const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
   const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000';
+    //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/api/users/list');
     //The objects returned by the api are directly convertible to User objects
     return response.json()
@@ -37,6 +35,7 @@ export async function getUsers():Promise<IUser[]>{
 export async function getProducts():Promise<IProduct[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
     //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/products/list');
     return response.json();
 }
@@ -67,6 +66,8 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   //const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str: string = apiEndPoint + 'api/products/filter/' + type;
+  var str: string = apiEndPoint + 'products/filter/' + type;
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
   let response = await fetch(str);
   return response.json();
 }
@@ -79,6 +80,7 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
 export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
   const apiEndPoint = 'http://localhost:5000/api/'
   //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
   
   let response = await fetch(apiEndPoint+'orders/add', {
       method: 'POST',
@@ -100,7 +102,6 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
    const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   //const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
   var str: string = apiEndPoint + 'api/orders/find?webId=' + encodeURIComponent(webId);
-  console.log(str);
   let response = await fetch(str);
   return response.json();
 }
@@ -122,7 +123,8 @@ export async function getSolidName(): Promise<any> {
  export async function getSolidWebId(): Promise<string> {
   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  var str: string = apiEndPoint + 'solid/webId';
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
+  var str: string = apiEndPoint + '/solid/webId';
   let response = await fetch(str);
   let webId = await response.json();
   return webId.webId;
@@ -134,7 +136,8 @@ export async function getSolidName(): Promise<any> {
  export async function getSolidAddress(): Promise<Address> {
    const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
   //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  var str: string = apiEndPoint + 'solid/address';
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
+   var str: string = apiEndPoint + 'solid/address';
   let response = await fetch(str);
   return response.json();
 }
@@ -147,9 +150,9 @@ export async function getSolidName(): Promise<any> {
    var str: string = apiEndPoint + '/solid/login?provider=' + provider;
 
    //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
+  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
    // const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/';
-   // var str: string = apiEndPoint + '/solid/login';
-   // console.log(str);
+
    //await fetch(str);
    console.log(str);
    window.location.href = str;
