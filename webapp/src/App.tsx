@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useState, useEffect, FormEvent} from 'react';
 import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidWebId, getSolidAddress} from './api/api';
 import './App.css';
@@ -32,6 +33,7 @@ function App(): JSX.Element {
   const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
+  // eslint-disable-next-line
   const [shippingCosts, setShippingCosts] = useState(0);
   
   const refreshProductList = async () => {
