@@ -32,7 +32,7 @@ jobs:
     - run: npm ci
     - run: npm test
     - uses: codecov/codecov-action@v2
-  #e2e-tests:
+  #e2e-tests: 👀
     #needs: [unit-test-webapp, unit-test-restapi]
     #runs-on: ubuntu-latest
     #steps:
