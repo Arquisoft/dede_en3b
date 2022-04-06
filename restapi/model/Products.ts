@@ -1,5 +1,5 @@
-import  mongoose, {Document, Types} from 'mongoose';
-
+const mongoose = require('mongoose');
+import {Types} from 'mongoose';
 export interface IProduct {
     _id: Types.ObjectId;
     name: string;

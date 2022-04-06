@@ -1,6 +1,5 @@
-import  mongoose, {Document, Types} from 'mongoose';
-import internal from 'stream';
-import {IProduct} from './Products';
+const mongoose = require('mongoose');
+import {Document, Types} from 'mongoose';
 
 
 export interface IOrder extends Document {
