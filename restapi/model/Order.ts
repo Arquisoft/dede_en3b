@@ -1,7 +1,4 @@
 import  mongoose, {Document, Types} from 'mongoose';
-import internal from 'stream';
-import {IProduct} from './Products';
-
 
 export interface IOrder extends Document {
     _id: Types.ObjectId;
