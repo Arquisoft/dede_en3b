@@ -171,10 +171,10 @@ function App(): JSX.Element {
 
     setAddress(address);
 
-    console.log('webId' + webId.webId);
+    console.log('webId' + webId);
     console.log(address);
     console.log(shoppingCart);
-    addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
+    addOrder(shoppingCart, webId, address, computeTotalPrice(shoppingCart), new Date());
     restoreDefaults();
 
   }
@@ -210,7 +210,7 @@ function App(): JSX.Element {
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
-        <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
+        <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
 
     </BrowserRouter>

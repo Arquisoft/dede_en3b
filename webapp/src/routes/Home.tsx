@@ -148,7 +148,7 @@ export default function Home() {
                         width: imageOrders.width,
                     }}
                     >
-                    <Link to="/orders">
+                    <Link to="/orders/find">
                     <ImageSrc style={{ backgroundImage: `url(${imageOrders.url})` }} />
                     <ImageBackdrop className="MuiImageBackdrop-root" />
                     <Image>

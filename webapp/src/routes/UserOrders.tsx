@@ -13,7 +13,7 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
   const [webId, setWebId] = useState('');
  
   const computeWebId = async () => {
-      const res = await getSolidWebId();
+      const res:string = await getSolidWebId();
   
       console.log(res);
   
