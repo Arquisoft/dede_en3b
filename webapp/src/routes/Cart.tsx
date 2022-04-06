@@ -29,7 +29,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       var obj = await isLoggedIn();
       console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (!obj.isLoggedIn) {
-        navigate('/login');
+        //navigate('/login'); //Careful navigate is commented.
       } 
     
   };
