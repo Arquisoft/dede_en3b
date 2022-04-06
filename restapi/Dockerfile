@@ -11,6 +11,8 @@ RUN npm install --production
 
 ARG MONGO_URI="mongodb+srv://dedeAdmin:aswLosMejores_3b@DeDe-en3b-Cluster.iqslm.mongodb.net/Database?retryWrites=true&w=majority"
 ENV MONGO_URI=$MONGO_URI
+
+RUN npm install
 # bundle app source
 COPY server.ts api.ts ./
 COPY model ./model
