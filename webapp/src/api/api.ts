@@ -2,10 +2,11 @@
 import { ICartItem } from '../components/ICartItem';
 import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b.herokuapp.com/api'
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000/api';
+const solidEndPoint = apiEndPoint + '/solid';
+
 export async function addUser(user:IUser):Promise<boolean>{
-    //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000/api';
-    //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/users/add', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -18,10 +19,7 @@ export async function addUser(user:IUser):Promise<boolean>{
 }
 
 export async function getUsers():Promise<IUser[]>{
- // const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'https://localhost:5000';
-    //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
-    let response = await fetch(apiEndPoint+'/api/users/list');
+    let response = await fetch(apiEndPoint+'/users/list');
     //The objects returned by the api are directly convertible to User objects
     return response.json()
 }
@@ -33,17 +31,12 @@ export async function getUsers():Promise<IUser[]>{
  * Then we send back the response.
  */
 export async function getProducts():Promise<IProduct[]> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
-    //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
     let response = await fetch(apiEndPoint+'/products/list');
     return response.json();
 }
 
 export async function getProduct(id:string):Promise<IProduct> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
-  var str:string = apiEndPoint+'api/products/'+id;
+  var str:string = apiEndPoint+'/products/'+id;
   console.log(str);
   let response = await fetch(str);
   return response.json();
@@ -55,17 +48,13 @@ export async function getProduct(id:string):Promise<IProduct> {
  * @returns 
  */
 export async function findProductsByName(name: string): Promise<IProduct[]> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
-  var str: string = apiEndPoint + 'api/products/search/' + name;
+  var str: string = apiEndPoint + '/products/search/' + name;
   let response = await fetch(str);
   return response.json();
 }
 
 export async function filterProducts(type:string): Promise<IProduct[]> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  var str: string = apiEndPoint + 'api/products/filter/' + type;
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
+  var str: string = apiEndPoint + '/products/filter/' + type;
   let response = await fetch(str);
   return response.json();
 }
@@ -76,9 +65,6 @@ export async function filterProducts(type:string): Promise<IProduct[]> {
  * @returns 
  */
 export async function addOrder(orders:ICartItem[], webId:string, address:Address, price:number, date:Date):Promise<boolean>{
-  const apiEndPoint = 'http://localhost:5000/api/'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/api'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
   
   let response = await fetch(apiEndPoint+'orders/add', {
       method: 'POST',
@@ -97,9 +83,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * @returns 
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
-   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI|| 'https://dede-en3b-test-2.herokuapp.com/api'
-  var str: string = apiEndPoint + 'api/orders/find?webId=' + encodeURIComponent(webId);
+  var str: string = apiEndPoint + '/orders/find?webId=' + encodeURIComponent(webId);
   let response = await fetch(str);
   return response.json();
 }
@@ -108,9 +92,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * Function to get solid name
  */
 export async function getSolidName(): Promise<any> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  var str: string = apiEndPoint + 'solid/name';
+  var str: string = solidEndPoint + '/name';
   let response = await fetch(str);
   return response.json();
 }
@@ -119,10 +101,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get webId
  */
  export async function getSolidWebId(): Promise<string> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
-  var str: string = apiEndPoint + '/solid/webId';
+  var str: string = solidEndPoint + '/webId';
   let response = await fetch(str);
   let webId = await response.json();
   return webId.webId;
@@ -132,10 +111,7 @@ export async function getSolidName(): Promise<any> {
  * Function to get solid address
  */
  export async function getSolidAddress(): Promise<Address> {
-   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
-   var str: string = apiEndPoint + 'solid/address';
+   var str: string = solidEndPoint + '/address';
   let response = await fetch(str);
   return response.json();
 }
@@ -144,21 +120,13 @@ export async function getSolidName(): Promise<any> {
  * Function to solid login
  */
  export async function doSolidLogin(provider : string): Promise<any> {
-   const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000';
-   var str: string = apiEndPoint + '/solid/login?provider=' + provider;
-
-   //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/'
-  //const apiEndPoint= process.env.REACT_APP_API_URI || 'https://dede-en3b-jesus-restapi.herokuapp.com/api'
-   // const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dede-en3b-test-2.herokuapp.com/';
-
-   //await fetch(str);
+   var str: string = solidEndPoint + '/login?provider=' + provider;
    console.log(str);
    window.location.href = str;
 }
 
 export async function isLoggedIn(): Promise<any> {
-  const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000';
-  var str: string = apiEndPoint + '/solid/isLoggedIn';
+  var str: string = solidEndPoint + '/isLoggedIn';
   let response = await fetch(str);
   return response.json();
 }
