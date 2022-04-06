@@ -4,7 +4,7 @@ const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
 import api from "./api";
 import solid from "./solid";
-import mongoose from 'mongoose';
+const mongoose =  require('mongoose');
 import { Application } from "express";
 require('dotenv').config();
 
