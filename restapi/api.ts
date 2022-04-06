@@ -112,13 +112,16 @@ api.post(
 /**
  * Response for finding order for a client
  */
- api.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
+ api.get("/orders/find", async (req: Request, res: Response): Promise<Response> => {
+  if(req.query.webId === undefined)
+    return res.status(404).json({message: 'WebId is undefined!'});
+  let webId = decodeURIComponent(req.query.webId.toString());
   const orders: IOrder[] = await Order.find({
-    webId: req.params.id
+    webId: webId
   });
   
   if(!orders) {
-    return res.status(404).json({message: 'No orders for user '+ req.params.webId +' found!'});
+    return res.status(404).json({message: 'No orders for user '+ req.query.webId +' found!'});
   }
   return res.status(200).send(orders);
  });
