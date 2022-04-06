@@ -12,10 +12,14 @@ test ('the individual view of a product is rendered', () => {
                 name: "pants",
                 photo: "",
                 type: "",
-                description: "description",
+                description: "description of pants",
                 price: 30
             }
         } 
-        onAddToCart={() => {}} 
+        onAddToCart={() => {}}
         />, {wrapper: BrowserRouter});
+
+    expect(screen.getByText('pants')).toBeInTheDocument();
+    expect(screen.getByText('description of pants')).toBeInTheDocument();
+    expect(screen.getByText('Price: 30€')).toBeInTheDocument();
 });
