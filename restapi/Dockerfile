@@ -1,7 +1,18 @@
 FROM node:16.13.1
-LABEL org.opencontainers.image.source https://github.com/pglez82/ASW2122_0
-COPY . /app
-WORKDIR /app
-#Install the dependencies
-RUN npm install
+
+#Create the app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+RUN npm install --production
+
+ARG MONGO_URI="mongodb+srv://dedeAdmin:aswLosMejores_3b@DeDe-en3b-Cluster.iqslm.mongodb.net/Database?retryWrites=true&w=majority"
+ENV MONGO_URI=$MONGO_URI
+# bundle app source
+COPY server.ts api.ts ./
+COPY model ./model
+
 CMD [ "npm", "start" ]
