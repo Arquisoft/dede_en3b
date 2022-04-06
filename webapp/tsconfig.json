@@ -25,5 +25,5 @@
   },
   "include": [
     "src","e2e"
-  ]
+, "src/tests/home"  ]
 }

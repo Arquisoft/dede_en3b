@@ -15,11 +15,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
-import { createTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 
-
+// eslint-disable-next-line
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -29,7 +28,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
+// eslint-disable-next-line
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -90,6 +89,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
     navigate('/login');
   }
 
+  const goToOrders = () => {
+    handleMenuClose();
+    navigate('/orders');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -108,7 +112,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       onClose={handleMenuClose}
     >
       <MenuItem onClick={goToLogin}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={goToOrders}>My orders</MenuItem>
     </Menu>
   );
 
@@ -199,7 +203,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Link to="shop" style={{ color: '#FFF' }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton size="large" aria-label="go to shop" color="inherit">
               <Badge color="error">
               
             <SearchIcon />  
