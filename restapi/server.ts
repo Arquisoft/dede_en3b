@@ -8,10 +8,11 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
+const port: number = (process.env.PORT!==undefined? +process.env.PORT : 5000) || 5000;
 
 async function connect() {
 	const app: Application = express();
-	const port: number = process.env.PORT || 5000;
+	
 
 	const options: cors.CorsOptions = {
 		origin: ["http://localhost:3000"],
