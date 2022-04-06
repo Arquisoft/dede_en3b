@@ -33,6 +33,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
         console.log(shippingCosts);
     }, []);
 
+
     // This function will be triggered when a radio button is selected
     const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPayment(event.target.value);

@@ -1,6 +1,8 @@
-import { IProduct } from "../../../restapi/model/Products";
+// eslint-disable-next-line
+import { IProduct } from "../shared/shareddtypes";
 import { Wrapper } from "./CartItem.styles";
 import { ICartItem } from "./ICartItem";
+// eslint-disable-next-line
 import { StyledButton } from '../routes/Product.styles';
 
 type Props = {
