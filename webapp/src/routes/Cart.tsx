@@ -3,8 +3,13 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
+import { addOrder, isLoggedIn} from "../api/api";
+import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+import { Address } from "../../../restapi/model/Order";
 // eslint-disable-next-line
 import { useNavigate, Link } from "react-router-dom";
+import { Switch } from "@mui/material";
+import React from "react";
 
 type Props = {
   cartItems: ICartItem[];
@@ -19,10 +24,16 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   
   // let navigate = useNavigate();
 
-  const checkOut = () => {
-      //navigate('/shipping/payment');
+  const checkOut = async () => {
+  
+      var obj = await isLoggedIn();
+      console.log("¿Is user logged in? " + obj.isLoggedIn);
+      if (!obj.isLoggedIn) {
+        navigate('/login');
+      } 
+    
   };
-
+        
   return (
     <Wrapper>
       <h2>Your Cart</h2>
@@ -38,10 +49,12 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       <Grid>
         <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
         
-          <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
+        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
+         
       </Grid>
           </Wrapper>
   );
 };
 
 export default Cart;
+

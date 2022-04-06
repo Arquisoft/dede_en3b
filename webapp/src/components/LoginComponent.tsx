@@ -33,14 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type State = {
-  identityPovider: string
+  identityProvider: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
 
 const initialState:State = {
-  identityPovider: '',
+  identityProvider: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false
@@ -57,7 +57,7 @@ const reducer = (state: State, action: Action): State => {
     case 'setIdentityProvider': 
       return {
         ...state,
-        identityPovider: action.payload
+        identityProvider: action.payload
       };
     case 'setIsButtonDisabled': 
       return {
@@ -89,7 +89,7 @@ export function Login(): JSX.Element {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (state.identityPovider.trim()) {
+    if (state.identityProvider.trim()) {
      dispatch({
        type: 'setIsButtonDisabled',
        payload: false
@@ -100,11 +100,11 @@ export function Login(): JSX.Element {
         payload: true
       });
     }
-  }, [state.identityPovider]);
+  }, [state.identityProvider]);
 
   const handleLogin = async () => {
-    console.log("doSolidLogin");
-    await doSolidLogin();
+    console.log(state.identityProvider);
+    await doSolidLogin(state.identityProvider);
     console.log(getSolidWebId());
     console.log("xfavor")
     // if (state.identityPovider.trim().length != 0) {

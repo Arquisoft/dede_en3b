@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 import {Document, Types} from 'mongoose';
 
-
 export interface IOrder extends Document {
     _id: Types.ObjectId;
     webId: string;

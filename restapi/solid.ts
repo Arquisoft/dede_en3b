@@ -20,7 +20,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	await connection
 		.tryHandleRedirect(`http://localhost:5000/solid${req.url}`);
 
-	res.redirect("/");
+	res.redirect("http://localhost:3000/cart");
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
