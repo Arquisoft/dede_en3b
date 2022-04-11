@@ -2,7 +2,8 @@ name: CI for ASW2122
 
 on:
   push:
-    branches: [ master ]
+    tags: 
+     - '*'
 
 jobs:
   unit-test-webapp:
