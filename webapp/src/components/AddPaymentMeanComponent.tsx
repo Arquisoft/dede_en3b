@@ -1,3 +1,4 @@
+
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,14 +28,13 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
         setShippingCosts(Number((res * 0.10).toFixed(2)));
     };
-
+    // eslint-disable-next-line
     React.useEffect(() => {
         computeShippingCosts();
         console.log(shippingCosts);
     }, 
     // eslint-disable-next-line
     []);
-
 
     // This function will be triggered when a radio button is selected
     const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

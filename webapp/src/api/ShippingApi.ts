@@ -1,6 +1,8 @@
+
 import { Address } from "../shared/shareddtypes";
 
 const storeGeolocation = "43.53544 -6.71935"; // Our Store, located in Navia
+
 /**
  * Function that returns the shipping costs
  * 
