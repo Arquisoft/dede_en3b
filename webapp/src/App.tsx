@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useState, useEffect, FormEvent} from 'react';
 import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addOrder, getSolidWebId, getSolidAddress} from './api/api';
 import './App.css';
@@ -14,10 +15,6 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
-// eslint-disable-next-line
-import { AnyRecord } from 'dns';
-// eslint-disable-next-line
-import { getShippingCosts } from './api/ShippingApi';
 
 function App(): JSX.Element {
 
@@ -176,10 +173,10 @@ function App(): JSX.Element {
 
     setAddress(address);
 
-    console.log('webId' + webId.webId);
+    console.log('webId' + webId);
     console.log(address);
     console.log(shoppingCart);
-    addOrder(shoppingCart, webId.webId, address, computeTotalPrice(shoppingCart), new Date());
+    addOrder(shoppingCart, webId, address, computeTotalPrice(shoppingCart), new Date());
     restoreDefaults();
 
   }
@@ -215,7 +212,7 @@ function App(): JSX.Element {
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
-        <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
+        <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
 
     </BrowserRouter>

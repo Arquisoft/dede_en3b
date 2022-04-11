@@ -1,7 +1,7 @@
 
 interface ConfirmationComponentProps {
 }
-
+// eslint-disable-next-line
 export function ConfirmationComponent(props: ConfirmationComponentProps): JSX.Element {
 
     return <div className="container">

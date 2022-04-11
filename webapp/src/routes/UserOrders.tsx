@@ -1,35 +1,44 @@
 import { Wrapper } from "./Cart.styles";
-// eslint-disable-next-line
-import Grid from "@mui/material/Grid";
-// eslint-disable-next-line
-import { StyledButton } from './Product.styles';
 import { IOrder } from '../shared/shareddtypes';
-// eslint-disable-next-line
-import { findOrdersByUser } from "../api/api";
+import { getSolidWebId } from "../api/api";
 import OrderItem from "../components/OrderItem";
-// eslint-disable-next-line
-import { ICartItem } from "../components/ICartItem";
+import React, { useState } from "react";
 
 type Props = {
-    orders:IOrder[];
-    getUserOrders: (orders:IOrder[], webId:string) => void;
-  };
+  orders: IOrder[];
+  getUserOrders: (orders: IOrder[], webId: string) => void;
+};
 
-const UserOrders = ({orders, getUserOrders}:Props) => {
-    //SOLID STUFF TO GET THE WEB ID
-    getUserOrders(orders, "WebId");
-    return (
-        <Wrapper>
-          <h2>Your Orders</h2>
-          {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
-          {orders.map((order:IOrder) => (
-               <OrderItem
-               key={order._id.toString()}
-               item={order}
-               />
-          ))}
-        </Wrapper>
-      );
+const UserOrders = ({ orders, getUserOrders }: Props) => {
+  const [webId, setWebId] = useState('');
+ 
+  const computeWebId = async () => {
+      const res:string = await getSolidWebId();
+  
+      console.log(res);
+  
+      setWebId(res);
+  };
+  
+  React.useEffect(() => {
+      computeWebId();
+    }, []);
+  
+
+  getUserOrders(orders, webId);
+  return (
+    <Wrapper>
+      <h2>Your Orders</h2>
+      {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+      {orders.map((order: IOrder) => (
+        <OrderItem
+          key={order._id.toString()}
+          item={order}
+        //TODO: ADD METHOD TO NAVIGATE TO THE INDIVIDUAL ORDER VIEW
+        />
+      ))}
+    </Wrapper>
+  );
 };
 
 export default UserOrders;

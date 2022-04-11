@@ -1,5 +1,5 @@
-// eslint-disable-next-line
-import { Box, Button } from "@material-ui/core";
+
+import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getSolidAddress } from "../api/api";
@@ -32,7 +32,8 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
     React.useEffect(() => {
         computeShippingCosts();
         console.log(shippingCosts);
-    }, // eslint-disable-next-line
+    }, 
+    // eslint-disable-next-line
     []);
 
     // This function will be triggered when a radio button is selected

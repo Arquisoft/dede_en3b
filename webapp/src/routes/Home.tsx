@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from "react";
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
@@ -148,7 +149,7 @@ export default function Home() {
                         width: imageOrders.width,
                     }}
                     >
-                    <Link to="/orders">
+                    <Link to="/orders/find">
                     <ImageSrc style={{ backgroundImage: `url(${imageOrders.url})` }} />
                     <ImageBackdrop className="MuiImageBackdrop-root" />
                     <Image>
