@@ -1,5 +1,5 @@
 import CartItem from "../components/CartItem";
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';

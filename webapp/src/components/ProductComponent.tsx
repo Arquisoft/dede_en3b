@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { IProduct } from '../shared/shareddtypes';
-import { ICartItem } from "./ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import { useNavigate } from 'react-router-dom';
 import {getProduct} from '../api/api';
 

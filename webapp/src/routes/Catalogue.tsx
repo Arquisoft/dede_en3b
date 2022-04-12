@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { IProduct } from '../shared/shareddtypes';
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import ProductComponent from "../components/ProductComponent";
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select from '@mui/material/Select';

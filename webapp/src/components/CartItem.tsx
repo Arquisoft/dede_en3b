@@ -1,5 +1,5 @@
 import { Wrapper } from "./CartItem.styles";
-import { ICartItem } from "./ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import {  StyledButton } from '../routes/Product.styles';
 
 type Props = {

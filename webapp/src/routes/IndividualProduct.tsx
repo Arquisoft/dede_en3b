@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
 import NumberPicker from "react-widgets/NumberPicker";
 

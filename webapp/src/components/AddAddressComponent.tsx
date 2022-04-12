@@ -3,7 +3,7 @@ import { FormControl, FormHelperText } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import {Address} from '../shared/shareddtypes';
-import { ICartItem } from "./ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 
 const defaultValues = {
     country: '',

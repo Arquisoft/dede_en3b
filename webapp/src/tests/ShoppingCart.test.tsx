@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Cart from '../routes/Cart';
 import { BrowserRouter } from "react-router-dom";
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 let mongoose = require('mongoose');
 
 test ('an empty shopping cart is rendered', async () => {

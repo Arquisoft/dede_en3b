@@ -1,5 +1,5 @@
 
-import { ICartItem } from '../components/ICartItem';
+import { ICartItem } from '../shared/shareddtypes';
 import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
 
 
