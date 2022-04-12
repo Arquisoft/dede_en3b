@@ -4,8 +4,7 @@ import  {findProductsByName, getProducts, filterProducts, findOrdersByUser, addO
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import { ICartItem } from './components/ICartItem';
-import {IProduct, IOrder, Address} from './shared/shareddtypes';
+import {IProduct, IOrder, Address, ICartItem} from './shared/shareddtypes';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
@@ -15,6 +14,9 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './redux/store';
+import { addItem, removeItem } from './slices/cartSlice';
 
 function App(): JSX.Element {
 
@@ -42,6 +44,9 @@ function App(): JSX.Element {
     setProducts(productsResult);
   }
 
+  const cart = useSelector((state: RootState) => state.cart.value);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     refreshProductList();
     loadCartFromLocalStorage();
@@ -63,9 +68,9 @@ function App(): JSX.Element {
    * Loads the data on the cart if there was something in the local storage, if not it creates a new list and sets it to the shopping cart
    */
   const loadCartFromLocalStorage = () => {
-    let str = sessionStorage.getItem('cart');
-    let cart:ICartItem[] = str!== null ? JSON.parse(str) : [];
-    setShoppingCart(cart);
+    // let str = sessionStorage.getItem('cart');
+    // let cart:ICartItem[] = str!== null ? JSON.parse(str) : [];
+    // dispatch(reloadCart(cart));
   };
 
   /**
@@ -84,57 +89,22 @@ function App(): JSX.Element {
    * @param clickedItem 
    */
   const onAddToCart = (clickedItem: ICartItem) => {
-    setShoppingCart((prev) => {
-      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
-
-      let cart: ICartItem[];
-      if (isItemInCart) {
-        cart = prev.map((item) =>
-          item.product === clickedItem.product
-            ? { ...item, units: item.units + 1 }
-            : item
-        );
-        sessionStorage.setItem('cart', JSON.stringify(cart));
-        return cart;
-      }
-      cart = [...prev, { ...clickedItem, units: clickedItem.units }];
-      sessionStorage.setItem('cart',JSON.stringify(cart))
-      return cart;
-    });
+    dispatch(addItem(clickedItem));
   };
 
   /**
-   * Function to remove a product from the cart
    * 
    * @param clickedItem 
    */
-   const onRemoveFromCart = (clickedItem : ICartItem) => {
-     setShoppingCart((prev) => 
-      prev.reduce((acc, item) => {
-      let cart:ICartItem[];
-      if (item.product._id === clickedItem.product._id) {
-          if (item.units === 1) {
-            sessionStorage.setItem('cart',JSON.stringify(acc));
-            return acc;
-          } else {
-            item.units = item.units - 1;
-          }
-        }
-        cart = [...acc, item];
-        sessionStorage.setItem('cart', JSON.stringify(cart));
-        return cart;
-      }, [] as ICartItem[])
-
-    );
+  const onRemoveFromCart = (clickedItem : ICartItem) => {
+    dispatch(removeItem(clickedItem));
   };
 
   /**
   * Function to empty the shopping cart
   */
   const emptyCart = () => {
-    let empty: ICartItem[] = [];
-    setShoppingCart(empty);
-    sessionStorage.setItem('cart',JSON.stringify(empty));
+    dispatch(emptyCart());
   };
 
 
@@ -161,7 +131,7 @@ function App(): JSX.Element {
     setProducts(filteredProducts);
     setValue(type);
   };
-   
+
   const restoreDefaults = () => {
     emptyCart();
   }
@@ -175,32 +145,32 @@ function App(): JSX.Element {
 
     console.log('webId' + webId);
     console.log(address);
-    console.log(shoppingCart);
-    addOrder(shoppingCart, webId, address, computeTotalPrice(shoppingCart), new Date());
+    console.log(cart);
+    addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
     restoreDefaults();
 
   }
 
      //Orders
-   const [orders, setOrders] = useState<IOrder[]>([]);
+  const [orders, setOrders] = useState<IOrder[]>([]);
 
-   const getUserOrders = async (orders:IOrder[], WebId:string) =>{
-     var ordersFound : IOrder[];
-     ordersFound = await findOrdersByUser(WebId);
-     setOrders(ordersFound);
-   }
+  const getUserOrders = async (orders:IOrder[], WebId:string) =>{
+    var ordersFound : IOrder[];
+    ordersFound = await findOrdersByUser(WebId);
+    setOrders(ordersFound);
+  }
 
 
   return (
 
     <BrowserRouter>
 
-      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
+      <NavigationBar numberOfProductsInCart={cart.length} />
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
+        <Route path="cart" element={<Cart cartItems={cart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
         <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
         <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
         <Route path="products/:id" 
@@ -210,7 +180,7 @@ function App(): JSX.Element {
         />
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
-          totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
+          totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
