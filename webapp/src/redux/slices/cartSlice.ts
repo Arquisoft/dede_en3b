@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICartItem } from '../shared/shareddtypes'
+import { ICartItem } from '../../shared/shareddtypes'
 
 interface CartState {
     value: ICartItem[];

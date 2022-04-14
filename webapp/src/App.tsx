@@ -16,17 +16,13 @@ import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
-import { addItem, removeItem } from './slices/cartSlice';
+import { addItem, removeItem } from './redux/slices/cartSlice';
+import { loadProducts } from './redux/slices/productSlice';
 
 function App(): JSX.Element {
 
-  //Products showed in the catalogue
-  const [products, setProducts] = useState<IProduct[]>([]);
 // eslint-disable-next-line
   const [value, setValue] = useState('');
-
-  //Cart
-  const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
   //Address
   // eslint-disable-next-line
   const [address, setAddress] = useState<Address>();
@@ -41,15 +37,16 @@ function App(): JSX.Element {
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
 
-    setProducts(productsResult);
+    // setProducts(productsResult);
   }
 
+  //Cart
   const cart = useSelector((state: RootState) => state.cart.value);
+  const products = useSelector((state: RootState) => state.product.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
     refreshProductList();
-    loadCartFromLocalStorage();
   },[]);
 
   /**
@@ -65,40 +62,14 @@ function App(): JSX.Element {
   };
 
   /**
-   * Loads the data on the cart if there was something in the local storage, if not it creates a new list and sets it to the shopping cart
-   */
-  const loadCartFromLocalStorage = () => {
-    // let str = sessionStorage.getItem('cart');
-    // let cart:ICartItem[] = str!== null ? JSON.parse(str) : [];
-    // dispatch(reloadCart(cart));
-  };
-
-  /**
    * Updates the list of products
    * @param input 
    */
   const updateProductList = async (input: HTMLInputElement) => {
     const filteredProducts: IProduct[] = await findProductsByName(input.value);
-    setProducts(filteredProducts);
+    dispatch(loadProducts(filteredProducts));
     input.value = '';
-  }  
-
-  /**
-   * Function to add a product to the cart
-   * 
-   * @param clickedItem 
-   */
-  const onAddToCart = (clickedItem: ICartItem) => {
-    dispatch(addItem(clickedItem));
-  };
-
-  /**
-   * 
-   * @param clickedItem 
-   */
-  const onRemoveFromCart = (clickedItem : ICartItem) => {
-    dispatch(removeItem(clickedItem));
-  };
+  }
 
   /**
   * Function to empty the shopping cart
@@ -128,7 +99,7 @@ function App(): JSX.Element {
     else {
       filteredProducts = await filterProduct(type);
     }
-    setProducts(filteredProducts);
+    dispatch(loadProducts(filteredProducts));
     setValue(type);
   };
 
@@ -170,12 +141,12 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cartItems={cart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} />} />
-        <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+        <Route path="cart" element={<Cart />} />
+        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} handleChange={handleChange} />} />
+        <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} handleChange={handleChange} /> } />
         <Route path="products/:id" 
           element={
-            <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
+            <IndividualProduct product={null as any} />
           }
         />
         

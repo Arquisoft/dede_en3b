@@ -7,10 +7,10 @@ import Select from '@mui/material/Select';
 
 interface CatalogueProps {
     products: IProduct[];
-    addToCart: (clickedItem: ICartItem) => void;
     searchForProducts: (event: FormEvent<HTMLFormElement>) => void;
     handleChange: (event: { target: { value: string } }) => void;
 }
+
 
 const CatalogueComponent = (props: CatalogueProps) => {
 
@@ -47,7 +47,7 @@ const CatalogueComponent = (props: CatalogueProps) => {
 
         {props.products.map((product, i) => {
           return (
-            <ProductComponent key={i} product={product} onAddToCart={props.addToCart}></ProductComponent>
+            <ProductComponent key={i} product={product}></ProductComponent>
 
           );
         })}

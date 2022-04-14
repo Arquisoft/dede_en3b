@@ -8,11 +8,20 @@ import { IProduct } from '../shared/shareddtypes';
 import { ICartItem } from "../shared/shareddtypes";
 import { useNavigate } from 'react-router-dom';
 import {getProduct} from '../api/api';
+import {useDispatch} from 'react-redux';
+import {addItem} from '../redux/slices/cartSlice';
+
+const dispatch = useDispatch();
 
 type ProductComponentProps = {
   product: IProduct;
-  onAddToCart: (clickedproduct: ICartItem) => void;
 }
+
+const onAddToCart = (clickedItem: ICartItem) => {
+  dispatch(addItem(clickedItem));
+}
+
+
 // eslint-disable-next-line
 const findProductById = async (id: string) => {
   console.log(id);
@@ -46,7 +55,7 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>
-          <Button onClick={event => props.onAddToCart(productToItem(props.product))}>Add to cart</Button>
+          <Button onClick={event => onAddToCart(productToItem(props.product))}>Add to cart</Button>
           <Button onClick={event => navigate(`/products/${props.product._id}`)}>See more</Button>
       </CardActions>
     </Card>
