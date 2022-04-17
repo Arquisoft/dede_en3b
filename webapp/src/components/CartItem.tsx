@@ -8,7 +8,12 @@ type Props = {
   item: ICartItem;
 };
 
-const dispatch = useDispatch();
+
+
+function CartItem(props: Props): JSX.Element {
+
+  let imageRef: string = require("../static/images/" + props.item.product._id + ".png");
+  const dispatch = useDispatch();
 
 /**
    * Function to add a product to the cart
@@ -26,12 +31,6 @@ const dispatch = useDispatch();
   const removeFromCart = (clickedItem : ICartItem) => {
   dispatch(removeItem(clickedItem));
 };
-
-
-
-function CartItem(props: Props): JSX.Element {
-
-  let imageRef: string = require("../static/images/" + props.item.product._id + ".png");
 
   return (
     <Wrapper className="cart-item-product">

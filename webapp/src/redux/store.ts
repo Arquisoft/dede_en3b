@@ -7,6 +7,7 @@ import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
 const persistConfig = {
     key: 'cart',
+    blacklist: ['product'],
     storage
 };
 

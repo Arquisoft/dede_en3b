@@ -14,9 +14,11 @@ type IndividualProductProps = {
     product: IProduct;
 }
 
-const dispatch = useDispatch();
+
 
 const IndividualProduct = (props: IndividualProductProps) => {
+
+    const dispatch = useDispatch();
 
     //Id
     const { id } = useParams();

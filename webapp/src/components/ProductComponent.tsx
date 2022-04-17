@@ -11,16 +11,11 @@ import {getProduct} from '../api/api';
 import {useDispatch} from 'react-redux';
 import {addItem} from '../redux/slices/cartSlice';
 
-const dispatch = useDispatch();
+
 
 type ProductComponentProps = {
   product: IProduct;
 }
-
-const onAddToCart = (clickedItem: ICartItem) => {
-  dispatch(addItem(clickedItem));
-}
-
 
 // eslint-disable-next-line
 const findProductById = async (id: string) => {
@@ -32,6 +27,12 @@ const findProductById = async (id: string) => {
 function ProductComponent(props: ProductComponentProps): JSX.Element {
 
   const productToItem = (prod: IProduct) => ({ product: prod, units: 1 });
+
+  const dispatch = useDispatch();
+
+  const onAddToCart = (clickedItem: ICartItem) => {
+    dispatch(addItem(clickedItem));
+  }
   let imageRef: string = require("../static/images/" + props.product._id + ".png");
   const navigate = useNavigate();
     return (

@@ -38,10 +38,13 @@ export const cartSlice = createSlice({
         } ,
         emptyCart: (state) => {
             state.value = [];
+        } , 
+        loadCart: (state, action:PayloadAction<ICartItem[]>) => {
+            state.value = action.payload;
         }
     }
 });
 
-export const { addItem, removeItem, emptyCart } = cartSlice.actions;
+export const { addItem, removeItem, emptyCart, loadCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

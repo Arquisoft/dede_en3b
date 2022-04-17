@@ -9,9 +9,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
 
-const cart = useSelector((state: RootState) => state.cart.value);
+
 
 const Cart = () => {
+
+  const cart = useSelector((state: RootState) => state.cart.value);
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
