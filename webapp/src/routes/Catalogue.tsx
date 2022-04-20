@@ -8,11 +8,7 @@ import { RootState } from '../redux/store';
 import  {findProductsByName, getProducts, filterProducts} from '../api/api';
 import { loadProducts } from '../redux/slices/productSlice';
 
-type CatalogueProps = {
-  products: IProduct[];
-}
-
-const CatalogueComponent = (props: CatalogueProps) => {
+const CatalogueComponent = () => {
 
   useEffect(() => {
     refreshProductList();
@@ -64,7 +60,6 @@ const CatalogueComponent = (props: CatalogueProps) => {
 
 
   let products:IProduct[] = useSelector((state: RootState) => state.product.value);
-  products = props.products;
 
   return (
     <div className="App">
