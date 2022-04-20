@@ -5,21 +5,15 @@ import { ICartItem } from "../shared/shareddtypes";
 let mongoose = require('mongoose');
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-import {useDispatch} from 'react-redux';
-import {loadCart} from '../redux/slices/cartSlice';
 
 //TODO: Make the tests work again
 
 test ('an empty shopping cart is rendered', async () => {
-    const dispatch = useDispatch();
-
-    const emptyCart:ICartItem[] = [];
-    dispatch(loadCart(emptyCart));
     render(
         <Provider store = {store}>
-            <Cart/>
+            <BrowserRouter>
+                <Cart cart = {[]}/>
+            </BrowserRouter>
         </Provider>);
 
     
@@ -32,7 +26,6 @@ test ('an empty shopping cart is rendered', async () => {
 });
 
 test ('a shopping cart with some products is rendered', async () => {
-    const dispatch = useDispatch();
     const productsInCart: ICartItem[] = [
         {
             product: {
@@ -57,10 +50,13 @@ test ('a shopping cart with some products is rendered', async () => {
             units: 1
         }
     ];
-
-    dispatch(loadCart(productsInCart));
     render(
-        <Cart/>, {wrapper: BrowserRouter});
+        <Provider store = {store}>
+            <BrowserRouter> 
+                <Cart cart={productsInCart}/>
+            </BrowserRouter>
+        </Provider>
+    );
 
         expect(screen.getByText('Your Cart')).toBeInTheDocument();
 
@@ -68,7 +64,6 @@ test ('a shopping cart with some products is rendered', async () => {
 });
 
 test ('a shopping cart with a product contains total price of product and total', async () => {
-    const dispatch = useDispatch();
     const productsInCart: ICartItem[] = [
         {
             product: {
@@ -83,10 +78,12 @@ test ('a shopping cart with a product contains total price of product and total'
         }
     ];
 
-    dispatch(loadCart(productsInCart));
-
     render(
-        <Cart/>, {wrapper: BrowserRouter});
+    <Provider store = {store}>
+        <BrowserRouter> 
+            <Cart cart={productsInCart}/>
+        </BrowserRouter>
+    </Provider>);
 
     //price of a single unit is 30
     expect(screen.getByText("Price: 30 €")).toBeInTheDocument();
@@ -99,7 +96,6 @@ test ('a shopping cart with a product contains total price of product and total'
 });
 
 test ('a shopping cart with products will let you add or remove products', async () => {
-    const dispatch = useDispatch();
     const productsInCart: ICartItem[] = [
         {
             product: {
@@ -114,10 +110,12 @@ test ('a shopping cart with products will let you add or remove products', async
         }
     ];
 
-    dispatch(loadCart(productsInCart));
-
-    const { getByRole } =render(
-        <Cart/>, {wrapper: BrowserRouter});
+    const { getByRole } = render(
+    <Provider store = {store}>
+        <BrowserRouter> 
+            <Cart cart={productsInCart}/>
+        </BrowserRouter>
+    </Provider>);
 
     //button to add is on the screen
     expect(getByRole('button', {name: '+'})).toBeInTheDocument();
