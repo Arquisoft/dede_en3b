@@ -12,7 +12,7 @@ const CatalogueComponent = () => {
 
   useEffect(() => {
     refreshProductList();
-  },[]);
+  });
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();

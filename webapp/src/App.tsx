@@ -4,7 +4,7 @@ import  {findOrdersByUser, addOrder, getSolidWebId, getSolidAddress} from './api
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import {IProduct, IOrder, Address} from './shared/shareddtypes';
+import {IOrder, Address} from './shared/shareddtypes';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
