@@ -88,8 +88,8 @@ function App(): JSX.Element {
         <Route path="/" element={ <Home />} ></Route>
         <Route path="login" element={<Login></Login>}> </Route>
         <Route path="cart" element={<Cart cart={cart}/>} />
-        <Route path="/" element={<Catalogue />} />
-        <Route path="shop" element={<Catalogue /> } />
+        <Route path="/" element={<Catalogue products={[]}/>} />
+        <Route path="shop" element={<Catalogue products={[]}/> } />
         <Route path="products/:id" 
           element={
             <IndividualProduct product={null as any} />

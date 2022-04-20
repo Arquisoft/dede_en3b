@@ -9,7 +9,17 @@ test ('catalogue is rendered correctly', () => {
     const {getByRole} = render(
         <BrowserRouter>
             <Provider store = {store}>
-                <Catalogue/>
+                <Catalogue products = {[
+                        {
+                            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+                            name: "pants",
+                            photo: "",
+                            type: "",
+                            description: "description of pants",
+                            price: 30
+                        }
+                    ]
+                }/>
             </Provider>
         </BrowserRouter>
         );
@@ -22,7 +32,7 @@ test ('catalogue is rendered correctly', () => {
 
     expect(getByRole('button', {name: 'Search'})).toBeInTheDocument();
     //type with the arrow since it is an option selector
-    expect(getByRole('button', {name: 'Type' })).toBeInTheDocument();
+    expect(screen.getByText('Type')).toBeInTheDocument();
 
     expect(getByRole('button', {name: 'Add to cart'})).toBeInTheDocument();
     expect(getByRole('button', {name: 'See more'})).toBeInTheDocument();
