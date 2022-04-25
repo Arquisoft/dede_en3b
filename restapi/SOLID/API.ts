@@ -9,12 +9,20 @@ import {
 import {
 	getFile, getUrl,
 	overwriteFile,
-	getSolidDataset, SolidDataset,
-	getThing, Thing,
+	getSolidDataset, saveSolidDatasetAt, SolidDataset,
+	getThing, setThing, Thing,
+	buildThing, ThingBuilder,
 	getStringNoLocale
 } from "@inrupt/solid-client";
 
+
 export class LogInError extends Error {
+	constructor(message?: string) {
+		super(message);
+	}
+}
+
+export class DatasetNotFoundError extends Error {
 	constructor(message?: string) {
 		super(message);
 	}
@@ -142,7 +150,9 @@ export class SolidConnection {
 
 	public fetchDatasetFromRawUrl(datasetUrl: string): DatasetBrowser {
 		return new DatasetBrowser(
-			getSolidDataset(datasetUrl, { fetch: this._session.fetch })
+			getSolidDataset(datasetUrl, { fetch: this._session.fetch }),
+			datasetUrl,
+			this
 		);
 	}
 
@@ -150,6 +160,10 @@ export class SolidConnection {
 		return this.fetchDatasetFromRawUrl(
 			this.convertToLoggedUserUrl(datasetUrl)
 		);
+	}
+
+	public async saveDataset(dataset: DatasetBrowser) {
+		saveSolidDatasetAt(dataset.getUrl(), await dataset.getInsides(), { fetch : this._session.fetch });
 	}
 
 	/**
@@ -189,8 +203,11 @@ export class DatasetBrowser {
 	private readonly _datasetPromise: Promise<SolidDataset>;
 	private _dataset: SolidDataset | undefined;
 
-	constructor(datasetPromise: Promise<SolidDataset>) {
+	private _origin: { connection: SolidConnection, url: string };
+
+	constructor(datasetPromise: Promise<SolidDataset>, url: string, connection: SolidConnection) {
 		this._datasetPromise = datasetPromise;
+		this._origin = { connection: connection, url: url };
 
 		this._datasetPromise.then(dataset => this._dataset = dataset);
 	}
@@ -211,7 +228,31 @@ export class DatasetBrowser {
 		if(insideThing === null)
 			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
-		return new ThingBrowser(insideThing);
+		return new ThingBrowser(insideThing, this);
+	}
+
+	public async saveThing(thing: ThingBrowser) {
+		this._dataset = setThing(await this.getInsides(), thing.getInsides());
+	}
+
+	public async save() {
+		await this._origin.connection.saveDataset(this);
+	}
+
+	/**
+	 * WARNING: Do NOT use this if you don't know what you are doing
+	 */
+	public async getInsides(): Promise<SolidDataset> {
+		await this._waitForDataset();
+
+		if(this._dataset === undefined)
+			throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
+
+		return this._dataset;
+	}
+
+	public getUrl(): string {
+		return this._origin.url;
 	}
 
 	private async _waitForDataset() {
@@ -221,9 +262,12 @@ export class DatasetBrowser {
 
 export class ThingBrowser {
 	private _thing: Thing;
+	private _origin: DatasetBrowser;
+	private _builder: ThingBuilder<Thing> | undefined;
 
-	constructor(thing: Thing) {
+	constructor(thing: Thing, origin: DatasetBrowser) {
 		this._thing = thing;
+		this._origin = origin;
 	}
 
 	public getString(url: string): string | null {
@@ -232,5 +276,30 @@ export class ThingBrowser {
 
 	public getUrl(url: string): string | null {
 		return getUrl(this._thing, url);
+	}
+
+	public setString(url: string, data: string): ThingBrowser {
+		if(this._builder === undefined) this._builder = buildThing(this._thing);
+
+		this._builder?.setStringNoLocale(url, data);
+		return this;
+	}
+
+	public setUrl(url: string, data: string): ThingBrowser {
+		if(this._builder === undefined) this._builder = buildThing(this._thing);
+
+		this._builder?.setUrl(url, data);
+		return this;
+	}
+
+	public save() {
+		this._origin.saveThing(this);
+	}
+
+	/**
+	 * WARNING: Do NOT use this if you don't know what you are doing
+	 */
+	public getInsides(): Thing {
+		return this._thing;
 	}
 }
