@@ -2,14 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
-import api from "./api";
-import solid from "./solid";
+import api from "./routers/api";
+import solid from "./routers/solid";
+import ensurer from "./routers/solidEnsurer";
+import { SolidConnection } from "./SOLID/API";
 const mongoose =  require('mongoose');
 import { Application } from "express";
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 const port: number = (process.env.PORT!==undefined? +process.env.PORT : 5000) || 5000;
+
+declare module 'express-session' {
+	interface SessionData {
+		connection?: SolidConnection;
+	}
+}
 
 async function connect() {
 	const app = express();
@@ -59,6 +67,7 @@ function restapi(app: Application) {
 };
 
 function solidapi(app: Application) {
+	app.use("/solid/", ensurer);
 	app.use("/solid", solid);
 }
 
