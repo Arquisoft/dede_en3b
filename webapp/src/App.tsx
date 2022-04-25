@@ -17,6 +17,8 @@ import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
 import { AnyRecord } from 'dns';
 import { getShippingCosts } from './api/ShippingApi';
+import AddressForm from './components/checkout/AddressForm';
+import Checkout from './components/checkout/Checkout';
 
 function App(): JSX.Element {
 
@@ -206,9 +208,10 @@ function App(): JSX.Element {
             <IndividualProduct product={null as any} onAddToCart={onAddToCart} />
           }
         />
-        
-        <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
-          totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
+
+        <Route path="shipping/payment" element={<Checkout cart={shoppingCart}></Checkout>}/>
+        {/* <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
+        totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>       */}
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
