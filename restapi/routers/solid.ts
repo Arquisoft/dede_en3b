@@ -32,24 +32,28 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 			{ message: "User not logged in" }
 		);
 
-	let url = await req.session.connection
+	let urls = await req.session.connection
 		?.fetchDatasetFromUser("profile/card")
 		.getThingAsync(req.session.connection?.getWebId().href)
-		.then(thing => thing.getUrl(VCARD.hasAddress));
+		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
-	let address = await req.session.connection
+	let addresses = urls.map(async url => 
+		await req.session.connection
 		?.fetchDatasetFromUser("profile/card")
-		.getThingAsync(url ?? "")
+		.getThingAsync(url)
 		.then(thing => ({
 			country_name: thing.getString(VCARD.country_name),
 			locality: thing.getString(VCARD.locality),
 			postal_code: thing.getString(VCARD.postal_code),
 			region: thing.getString(VCARD.region),
 			street_address: thing.getString(VCARD.street_address),
-		}));
+		}))
+	);
 
-	if(address !== null) return res.status(200).json(address);
-	else return res.status(404).json({ message: "Address not found" });
+	if(addresses.length !== 0) return res.status(200).json(addresses);
+	else return res.status(404).json({ 
+		message: "User has no addresses" 
+	});
 });
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {

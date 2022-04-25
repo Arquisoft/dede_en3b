@@ -7,11 +7,12 @@ import {
 } from "@inrupt/solid-client-authn-node";
 
 import {
-	getFile, getUrl,
 	overwriteFile,
 	getSolidDataset, SolidDataset,
 	getThing, Thing,
-	getStringNoLocale
+	getFile,
+	getUrl, getUrlAll,
+	getStringNoLocale, getStringNoLocaleAll
 } from "@inrupt/solid-client";
 
 export class LogInError extends Error {
@@ -195,8 +196,10 @@ export class DatasetBrowser {
 		this._datasetPromise.then(dataset => this._dataset = dataset);
 	}
 
-	public getThing(thingUrl: string, callback: (cbParam: ThingBrowser) => void)
-		: DatasetBrowser 
+	public getThing(
+		thingUrl: string,
+		callback: (cbParam: ThingBrowser) => void
+	): DatasetBrowser 
 	{
 		this.getThingAsync(thingUrl).then(callback);
 		return this;
@@ -230,7 +233,15 @@ export class ThingBrowser {
 		return getStringNoLocale(this._thing, url);
 	}
 
+	public getStringAll(url: string): string[] {
+		return getStringNoLocaleAll(this._thing, url);
+	}
+
 	public getUrl(url: string): string | null {
 		return getUrl(this._thing, url);
+	}
+
+	public getUrlAll(url: string): string[] {
+		return getUrlAll(this._thing, url);
 	}
 }
