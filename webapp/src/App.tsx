@@ -209,25 +209,27 @@ function App(): JSX.Element {
             buttonhover: '#81c9f2'
           },
           text: {
-            default: '#fff',
+            primary: '#000',
+            default: '#000',
             secondary: '#454545',
             dark: '#000'
           }
         }
         : {
-          primary: {main: '#fff'},
-          secondary: {main: '#212121'},
+          primary: {main: '#ebebeb'},
+          secondary: {main: '#e0dcd8'},
           background: {
-            default: '#272a40',
+            default: '#6b6b6b',
             card: '#454545',
-            dark: '#0e0e1a',
+            dark: '#121212',
             button: '#9681f2',
             buttonhover: '#81c9f2'
           },
           text: {
-            default: '#fff',
-            secondary: '#454545',
-            dark: '#000'
+            primary: '#ebebeb',
+            default: '#ebebeb',
+            secondary: '#e0dcd8',
+            dark: '#121212'
           }
         }
       )
@@ -281,7 +283,7 @@ function App(): JSX.Element {
       </Routes>
 
     </BrowserRouter>
-
+    </ThemeProvider>
 
   );
 }

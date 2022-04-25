@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from '../App';
 
 test ('clicking on the account button lets user go to login', async () => {
-    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} />, {wrapper: BrowserRouter});
+    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} changeTheme={()=>{}} themeState={true}/>, {wrapper: BrowserRouter});
 
     fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
         bubbles: true,
@@ -16,7 +16,7 @@ test ('clicking on the account button lets user go to login', async () => {
 });
 
 test ('clicking on the account button lets user go to his orders', async () => {
-    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} />, {wrapper: BrowserRouter});
+    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} changeTheme={()=>{}} themeState={true}/>, {wrapper: BrowserRouter});
 
     fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
         bubbles: true,

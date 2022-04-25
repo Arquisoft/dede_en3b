@@ -185,7 +185,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#272a40'}}> 
+      <AppBar position="static" sx={{ backgroundColor: "background.dark"}}> 
         <Toolbar>
           {/* <IconButton
             size="large"

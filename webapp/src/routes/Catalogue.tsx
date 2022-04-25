@@ -4,6 +4,8 @@ import { ICartItem } from "../components/ICartItem";
 import ProductComponent from "../components/ProductComponent";
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select from '@mui/material/Select';
+import Grid from "@mui/material/Grid";
+import Typography from '@mui/material/Typography';
 
 interface CatalogueProps {
     products: IProduct[];
@@ -17,33 +19,57 @@ const CatalogueComponent = (props: CatalogueProps) => {
   const [value,setValue] = useState('');
 
   return (
-    <div className="App">
-      <h1>Welcome to DeDe</h1>
-      <div className="search-container">
-      <h2>Product search</h2>
-      <form className="searchForm" onSubmit={event => props.searchForProducts(event)}>
-        <input id="searchText" type="text" />
-        <button>Search</button>
-        <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
-          <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
-          <Select
-            labelId="demo-simple-select-filled-label"
-            id="demo-simple-select-filled"
-            value={value}
-            label="Type"
-            onChange={event => { setValue(event.target.value); props.handleChange(event); }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
-            <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
-            <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
-          </Select>
-        </FormControl>
-      </form>
-      </div>
-      <div className="products-container">
+    <Grid container 
+        className="App" 
+        sx={{bgcolor:'background.default'}}
+        justifyContent='center'
+        alignItems='center'>
+      
+      <Grid item sx={{pt:4}}>
+        <Typography 
+            variant="h2"
+            align="center"
+            sx={{color:"text.primary"}}
+            >
+                Welcome to DeDe
+        </Typography>
+      </Grid>
+
+      <Grid container 
+            className="search-container"
+            alignItems="center"
+            sx={{pt:8}}>
+        <Typography 
+            variant="h4"
+            align="center"
+            sx={{color:"text.primary"}}
+            >
+                Product search
+        </Typography>
+        <form className="searchForm" onSubmit={event => props.searchForProducts(event)}>
+          <input id="searchText" type="text" />
+          <button>Search</button>
+          <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
+            <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              value={value}
+              label="Type"
+              onChange={event => { setValue(event.target.value); props.handleChange(event); }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
+              <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
+              <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
+            </Select>
+          </FormControl>
+        </form>
+      </Grid>
+      
+      <Grid container className="products-container">
 
         {props.products.map((product, i) => {
           return (
@@ -52,9 +78,9 @@ const CatalogueComponent = (props: CatalogueProps) => {
           );
         })}
 
-      </div>
+      </Grid>
 
-    </div>
+    </Grid>
   )
     
 }
