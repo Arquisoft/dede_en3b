@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
@@ -7,10 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import { SolidConnection } from '../SOLID/API';
-
-
-
+import { doSolidLogin, getSolidWebId } from '../api/api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,14 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type State = {
-  identityPovider: string
+  identityProvider: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
 
 const initialState:State = {
-  identityPovider: '',
+  identityProvider: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false
@@ -60,7 +57,7 @@ const reducer = (state: State, action: Action): State => {
     case 'setIdentityProvider': 
       return {
         ...state,
-        identityPovider: action.payload
+        identityProvider: action.payload
       };
     case 'setIsButtonDisabled': 
       return {
@@ -87,12 +84,12 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const Login = () => {
+export function Login(): JSX.Element {
   const classes = useStyles();
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (state.identityPovider.trim()) {
+    if (state.identityProvider.trim()) {
      dispatch({
        type: 'setIsButtonDisabled',
        payload: false
@@ -103,24 +100,25 @@ const Login = () => {
         payload: true
       });
     }
-  }, [state.identityPovider]);
+  }, [state.identityProvider]);
 
-  const handleLogin = () => {
-    if (state.identityPovider.trim().length != 0) {
-      dispatch({
-        type: 'loginSuccess',
-        payload: 'Login Successfully'
-      });
+  const handleLogin = async () => {
+    console.log(state.identityProvider);
+    await doSolidLogin(state.identityProvider);
+    console.log(getSolidWebId());
+    console.log("xfavor")
+    // if (state.identityPovider.trim().length != 0) {
+    //   dispatch({
+    //     type: 'loginSuccess',
+    //     payload: 'Login Successfully'
+    //   });
     
-    let connection = new SolidConnection(state.identityPovider);
-    connection.login('cart');
-
-    } else {
-      dispatch({
-        type: 'loginFailed',
-        payload: 'Incorrect username or password'
-      });
-    }
+    // } else {
+    //   dispatch({
+    //     type: 'loginFailed',
+    //     payload: 'Incorrect username or password'
+    //   });
+    // }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {

@@ -1,7 +1,5 @@
-import  mongoose, {Document, Types} from 'mongoose';
-import internal from 'stream';
-import {IProduct} from './Products';
-
+const mongoose = require('mongoose');
+import {Document, Types} from 'mongoose';
 
 export interface IOrder extends Document {
     _id: Types.ObjectId;
@@ -9,6 +7,7 @@ export interface IOrder extends Document {
     orderProducts: OrderProduct[];
     address: Address;
     totalPrice: number;
+    date: Date
 }
 
 const orderSchema = new mongoose.Schema({
@@ -22,6 +21,7 @@ const orderSchema = new mongoose.Schema({
         street:String,
     },
     totalPrice: Number,
+    date: Date
 });
 
 export interface OrderProduct{
@@ -35,6 +35,6 @@ export type Address = {
     postal_code:string;
     region:string;
     street:string;
-  }  
+}  
 
 module.exports = mongoose.model("Orders", orderSchema);
