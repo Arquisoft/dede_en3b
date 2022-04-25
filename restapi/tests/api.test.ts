@@ -3,7 +3,7 @@ import express, { Application } from 'express';
 const server = require("./test.server");
 import bp from 'body-parser';
 import cors from 'cors';
-import api from '../api';
+import api from '../routers/api';
 import { IProduct } from '../model/Products';
 import {Types} from 'mongoose';
 
