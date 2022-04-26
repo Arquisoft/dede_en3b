@@ -6,8 +6,9 @@ import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { ICartItem } from "../components/ICartItem";
-import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
+import { StyledButton, StyledImg } from './Product.styles';
 import NumberPicker from "react-widgets/NumberPicker";
+import Box from '@mui/material/Box';
 
 type IndividualProductProps = {
     product: IProduct;
@@ -42,9 +43,14 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
     if (typeof product === "undefined"){
         return (
-            <React.Fragment>
-                <h2>No such product exists</h2>
-            </React.Fragment>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
+                <Typography
+                    variant='h4'
+                    sx={{color:'text.default', padding: 4}}>
+                    No such product exists
+                </Typography>
+                
+            </Box>
         );
     } else {
 
@@ -56,9 +62,9 @@ const IndividualProduct = (props: IndividualProductProps) => {
         let imageRef: string = require("../static/images/" + product._id + ".png");
 
         return (
-            <React.Fragment>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
                 
-                <StyledOuterGrid container>
+                <Box sx={{margin: '1em', borderRadius: 25, alignItems: "center", justifyContent: "center"}}>
 
                     <Grid item >
                         <div className="product-pic">
@@ -83,8 +89,8 @@ const IndividualProduct = (props: IndividualProductProps) => {
                             <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
                         </div>
                     </Grid>
-                </StyledOuterGrid>
-            </React.Fragment>
+                </Box>
+            </Box>
         );
     }
 }
