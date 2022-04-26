@@ -1,12 +1,13 @@
-import express, { Request, Response, Router } from 'express';
+const express = require('express');
 import {check, Schema} from 'express-validator';
-import { IUser } from './model/User';
-import { IProduct } from './model/Products';
-import { IOrder } from './model/Order';
-import { computeTotalPrice } from '../restapi/util/utils';
-const User = require('./model/User');
-const Products = require('./model/Products');
-const Order = require('./model/Order');
+import { IUser } from '../model/User';
+import { IProduct } from '../model/Products';
+import { IOrder } from '../model/Order';
+// import { computeTotalPrice } from './util/utils';
+import { Request, Response, Router } from 'express';
+const User = require('../model/User');
+const Products = require('../model/Products');
+const Order = require('../model/Order');
 var mongoose = require('mongoose');
 const api: Router = express.Router();
 
@@ -16,7 +17,7 @@ interface User {
 }
 
 //This is not a restapi as it mantains state but it is here for
-//simplicity. A database should be used instead.
+//simplicity. A database should be used instead. This is just to test the workflows.
 let users: Array<User> = [];
 
 
@@ -111,13 +112,16 @@ api.post(
 /**
  * Response for finding order for a client
  */
- api.get("/orders/:id", async (req: Request, res: Response): Promise<Response> => {
+ api.get("/orders/find", async (req: Request, res: Response): Promise<Response> => {
+  if(req.query.webId === undefined)
+    return res.status(404).json({message: 'WebId is undefined!'});
+  let webId = decodeURIComponent(req.query.webId.toString());
   const orders: IOrder[] = await Order.find({
-    webId: req.params.id
+    webId: webId
   });
   
   if(!orders) {
-    return res.status(404).json({message: 'No orders for user '+ req.params.webId +' found!'});
+    return res.status(404).json({message: 'No orders for user '+ req.query.webId +' found!'});
   }
   return res.status(200).send(orders);
  });

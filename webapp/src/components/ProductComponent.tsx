@@ -1,12 +1,10 @@
-import { render } from "@testing-library/react";
-import React from "react";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { IProduct } from "../../../restapi/model/Products";
+import { IProduct } from '../shared/shareddtypes';
 import { ICartItem } from "./ICartItem";
 import { useNavigate } from 'react-router-dom';
 import {getProduct} from '../api/api';
@@ -15,7 +13,7 @@ type ProductComponentProps = {
   product: IProduct;
   onAddToCart: (clickedproduct: ICartItem) => void;
 }
-
+// eslint-disable-next-line
 const findProductById = async (id: string) => {
   console.log(id);
   let prod:IProduct = await getProduct(id);

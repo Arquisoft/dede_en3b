@@ -1,4 +1,5 @@
-import mongoose, {Schema, Model} from "mongoose";
+import {Schema, Model} from "mongoose";
+const mongoose = require('mongoose');
 
 export interface IUser {
     name: string;
@@ -14,4 +15,4 @@ const userSchema = new mongoose.Schema({
     age: Number
 });
 
-module.exports = mongoose.model<IUser>('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

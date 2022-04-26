@@ -1,4 +1,3 @@
-import { IProduct } from "../../../restapi/model/Products";
 import { Wrapper } from "./CartItem.styles";
 import { ICartItem } from "./ICartItem";
 import {  StyledButton } from '../routes/Product.styles';

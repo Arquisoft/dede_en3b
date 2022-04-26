@@ -69,3 +69,15 @@ test ('clicking on the magnifier icon takes you to the catalogue', async () => {
     const newScreen = screen.getByText('Product search');
     expect(newScreen).toBeInTheDocument();
 });
+
+test ('clicking on the cart button takes you to the shopping cart', async () => {
+  const { getByRole } = render(<App/>);
+
+  fireEvent( getByRole('button', {name: "show 0new notifications"}), new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    }));
+
+    const newScreen = screen.getByText('Your Cart');
+    expect(newScreen).toBeInTheDocument();
+});

@@ -3,12 +3,8 @@ import { ICartItem } from "../components/ICartItem";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
-import { addOrder, isLoggedIn} from "../api/api";
-import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
-import { Address } from "../../../restapi/model/Order";
-import { useNavigate, Link } from "react-router-dom";
-import { Switch } from "@mui/material";
-import React from "react";
+import { isLoggedIn} from "../api/api";
+import { Link } from "react-router-dom";
 
 type Props = {
   cartItems: ICartItem[];
@@ -21,14 +17,14 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const checkOut = async () => {
   
       var obj = await isLoggedIn();
       console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (!obj.isLoggedIn) {
-        navigate('/login');
+        //navigate('/login'); //Careful navigate is commented.
       } 
     
   };

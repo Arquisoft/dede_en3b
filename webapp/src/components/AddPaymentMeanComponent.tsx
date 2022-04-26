@@ -1,5 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import { color } from "@mui/system";
+import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getSolidAddress } from "../api/api";
@@ -16,6 +17,7 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
     // The selected paymentmean
     const [payment, setPayment] = useState('');
     //Discount code
+    // eslint-disable-next-line
     const [discountCode, setDiscountCode] = useState('');
     //Shipping costs
     const [shippingCosts, setShippingCosts] = useState(0);
@@ -27,11 +29,13 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
 
         setShippingCosts(Number((res * 0.10).toFixed(2)));
     };
-
+    // eslint-disable-next-line
     React.useEffect(() => {
         computeShippingCosts();
         console.log(shippingCosts);
-    }, []);
+    }, 
+    // eslint-disable-next-line
+    []);
 
     // This function will be triggered when a radio button is selected
     const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -15,11 +15,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
-import { createTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 
-
+// eslint-disable-next-line
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -29,7 +28,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
+// eslint-disable-next-line
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -92,7 +91,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
 
   const goToOrders = () => {
     handleMenuClose();
-    navigate('/orders');
+    navigate('/orders/find');
   }
 
   const menuId = 'primary-search-account-menu';
