@@ -33,10 +33,10 @@ function Copyright() {
 }
 
 export interface PaymentData {
-    cardName: string,
-    cardNumber: string,
-    expDate: string,
-    cvv: string
+  cardName: string,
+  cardNumber: string,
+  expDate: string,
+  cvv: string
 }
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
@@ -44,50 +44,50 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 interface CheckoutProps {
-    cart: ICartItem[],
-    makeOrder: () => void
-        
+  cart: ICartItem[],
+  makeOrder: () => void
+
 }
 
 const theme = createTheme();
 
 export default function Checkout(props: CheckoutProps): JSX.Element {
-    
+
   const [activeStep, setActiveStep] = React.useState(0);
 
-    const handleNext = () => {
-        if (activeStep === steps.length) {
-            props.makeOrder();
-            console.log("Pedidu realizau. ")
-        }
+  const handleNext = () => {
     setActiveStep(activeStep + 1);
+    if (activeStep == steps.length - 1) {
+      props.makeOrder();
+      console.log("Pediu realizau. ")
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
-    };
+  };
 
-    const defaultPaymentData : PaymentData = {
-        cardName: "",
-        cardNumber: "",
-        cvv: "",
-        expDate: ""
+  const defaultPaymentData: PaymentData = {
+    cardName: "",
+    cardNumber: "",
+    cvv: "",
+    expDate: ""
+  }
+
+  const [paymentData, setPaymentData] = useState(defaultPaymentData);
+
+  function getStepContent(step: number) {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
+      case 2:
+        return <Review cart={props.cart} paymentData={paymentData} />;
+      default:
+        throw new Error('Unknown step');
     }
-
-    const [paymentData, setPaymentData] = useState(defaultPaymentData);
-    
-    function getStepContent(step: number) {
-        switch (step) {
-          case 0:
-            return <AddressForm />;
-          case 1:
-            return <PaymentForm data={paymentData} setPayData={setPaymentData}/>;
-          case 2:
-                return <Review cart={props.cart} paymentData={paymentData}/>;
-          default:
-            throw new Error('Unknown step');
-        }
-      }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -116,6 +116,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
           </Stepper>
           <React.Fragment>
             {activeStep === steps.length ? (
+
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
