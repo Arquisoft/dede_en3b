@@ -13,11 +13,11 @@ const orderSchema = new mongoose.Schema({
     webId: String,
     orderProducts: {type: Array, default: []},
     address: {
-        country:String,
+        country_name:String,
         locality:String,
         postal_code:String,
         region:String,
-        street:String,
+        street_address:String,
     },
     totalPrice: Number,
     date: Date
