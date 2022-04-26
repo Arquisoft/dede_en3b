@@ -5,6 +5,8 @@ import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 
 const solid: Router = express.Router();
 
+let connection: SolidConnection = new SolidConnection();
+
 /**
  * TODO: Deshardcodear esto.
  */
@@ -15,8 +17,8 @@ solid.get("/login", async (req: Request, res: Response) => {
 		req.session.connection =
 			new SolidConnection(req.query.provider as string);
 
-	if(!req.session.connection?.isLoggedIn())
-		req.session.connection?.login(`${apiEndPoint}/redirect`, res);
+	if(!connection.isLoggedIn())
+		connection.login(`${apiEndPoint}/redirect`, res);
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
@@ -27,14 +29,14 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
-	if(!req.session.connection?.isLoggedIn()) 
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
 	let url = await req.session.connection
 		?.fetchDatasetFromUser("profile/card")
-		.getThingAsync(req.session.connection?.getWebId().href)
+		.getThingAsync(connection.getWebId().href)
 		.then(thing => thing.getUrl(VCARD.hasAddress));
 
 	let address = await req.session.connection
@@ -53,31 +55,31 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 });
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
-	if(!req.session.connection?.isLoggedIn()) 
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
 	return res.status(200).json({ 
-		webId: req.session.connection?.getWebId() 
+		webId: connection.getWebId() 
 	});
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({
-		isLoggedIn: req.session.connection?.isLoggedIn() 
+		isLoggedIn: connection.isLoggedIn() 
 	});
 });
 
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
-	if(!req.session.connection?.isLoggedIn()) 
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
 	let name = await req.session.connection
 		?.fetchDatasetFromUser("profile/card")
-		.getThingAsync(req.session.connection?.getWebId().href)
+		.getThingAsync(connection.getWebId().href)
 		.then(thing => thing.getString(FOAF.name));
 	return res.status(200).json({ name: name });
 });
