@@ -21,9 +21,8 @@ const CatalogueComponent = (props: CatalogueProps) => {
   return (
     <Grid container 
         className="App" 
-        sx={{bgcolor:'background.default'}}
-        justifyContent='center'
-        alignItems='center'>
+        sx={{bgcolor:'background.default', height: '100vh', display: 'flex', flexDirection: 'column'}}
+        >
       
       <Grid item sx={{pt:4}}>
         <Typography 
