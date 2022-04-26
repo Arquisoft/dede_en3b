@@ -11,10 +11,11 @@ let connection: SolidConnection = new SolidConnection();
  * TODO: Deshardcodear esto.
  */
 const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
-		req.session.connection =
+		connection =
 			new SolidConnection(req.query.provider as string);
 
 	if(!connection.isLoggedIn())
@@ -22,9 +23,10 @@ solid.get("/login", async (req: Request, res: Response) => {
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
-	await req.session.connection
-		?.tryHandleRedirect(`${apiEndPoint}${req.url}`);
+	await connection
+		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
+	console.log("logged in " + connection.getWebId());
 	res.redirect(`https://dedeen3b.herokuapp.com/`);
 });
 
@@ -34,13 +36,13 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 			{ message: "User not logged in" }
 		);
 
-	let url = await req.session.connection
-		?.fetchDatasetFromUser("profile/card")
+	let url = await connection
+		.fetchDatasetFromUser("profile/card")
 		.getThingAsync(connection.getWebId().href)
 		.then(thing => thing.getUrl(VCARD.hasAddress));
 
-	let address = await req.session.connection
-		?.fetchDatasetFromUser("profile/card")
+	let address = await connection
+		.fetchDatasetFromUser("profile/card")
 		.getThingAsync(url ?? "")
 		.then(thing => ({
 			country_name: thing.getString(VCARD.country_name),
@@ -77,8 +79,8 @@ solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
 			{ message: "User not logged in" }
 		);
 
-	let name = await req.session.connection
-		?.fetchDatasetFromUser("profile/card")
+	let name = await connection
+		.fetchDatasetFromUser("profile/card")
 		.getThingAsync(connection.getWebId().href)
 		.then(thing => thing.getString(FOAF.name));
 	return res.status(200).json({ name: name });
