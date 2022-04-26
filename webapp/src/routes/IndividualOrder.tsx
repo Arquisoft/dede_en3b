@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import { IProduct, OrderProduct } from '../shared/shareddtypes';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../api/api';
+import { getOrder } from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { IOrder } from '../shared/shareddtypes';
@@ -23,7 +24,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
     const [order, setOrder] = useState<IOrder>();
 
     const selectOrder = async () => {
-        if (props.order == null) navigate(`/`); //or getOrder or sth
+        if (props.order == null) setOrder( await getOrder(id!));//navigate(`/`); //or getOrder or sth
         else setOrder(props.order);
     }
     // eslint-disable-next-line

@@ -89,6 +89,13 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
   return response.json();
 }
 
+export async function getOrder(id:string):Promise<IOrder> {
+  var str:string = apiEndPoint+'/orders/'+id;
+  console.log(str);
+  let response = await fetch(str);
+  return response.json();
+}
+
 /**
  * Function to get solid name
  */
