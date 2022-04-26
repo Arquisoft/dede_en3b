@@ -1,4 +1,5 @@
-import express,{Application} from 'express'; 
+import express,{Application} from 'express';
+const path = require('path');
 //for using an import here we need to configure the tsconfig.json
 //setting the option module to commonjs
 
@@ -12,3 +13,7 @@ app.listen(port, ():void => {
 }).on("error",(error:Error)=>{
     console.error('Error occured: ' + error.message);
 });
+
+app.get('*' , (req, res) => {
+	res.sendFile(path.join(__dirname,'build','index.tsx'));
+	});
