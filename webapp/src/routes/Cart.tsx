@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
 import { Link } from "react-router-dom";
+import Box from '@mui/material/Box';
 
 type Props = {
   cartItems: ICartItem[];
@@ -30,7 +31,7 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   };
         
   return (
-    <Wrapper>
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <h2>Your Cart</h2>
       {cartItems.length === 0 ? <p>No items in cart.</p> : null}
       {cartItems.map((item) => (
@@ -41,13 +42,15 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
           removeFromCart={removeFromCart}
         />
       ))}
-      <Grid>
+        <Grid>
         <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
         
-        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
+        <Link to="/shipping/payment">
+          <StyledButton onClick={checkOut}>Check out</StyledButton>
+          </Link>
          
-      </Grid>
-          </Wrapper>
+        </Grid>
+      </Box>
   );
 };
 
