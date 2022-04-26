@@ -209,9 +209,7 @@ function App(): JSX.Element {
           }
         />
 
-        <Route path="shipping/payment" element={<Checkout cart={shoppingCart}></Checkout>}/>
-        {/* <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
-        totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>       */}
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={shoppingCart}></Checkout>}/>
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
       </Routes>
