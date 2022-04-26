@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -19,31 +18,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-
-// eslint-disable-next-line
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-// eslint-disable-next-line
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   '&':{
@@ -61,7 +35,7 @@ interface NavigationBarProps {
 function ToggleColorMode(props: any) {
   return (
    <IconButton sx={{ ml: 1 }} onClick={props.changeTheme} color="inherit">
-        {props.themeState === false ? <Brightness7Icon /> : <Brightness4Icon />}
+        {props.themeState === false ? <Brightness7Icon sx={{color: 'white'}} /> : <Brightness4Icon />}
     </IconButton>
   )
 };
@@ -144,28 +118,34 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={() =>
+          { navigate('shop');
+          handleMobileMenuClose();
+          }
+        }>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
             <SearchIcon />
-          </Badge>
         </IconButton>
+        <p>Catalogue</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() =>{ 
+          navigate('cart');
+          handleMobileMenuClose();
+          }}>
         <IconButton
           size="large"
           aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
           color="inherit"
         >
           
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={props.numberOfProductsInCart} color="error">
             
             <ShoppingCartIcon />  
           
             </Badge>
             
           </IconButton>
-        <p>Notifications</p>
+        <p>Shopping cart</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
