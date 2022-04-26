@@ -15,6 +15,7 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import IndividualOrder from './routes/IndividualOrder';
 
 function App(): JSX.Element {
 
@@ -213,6 +214,9 @@ function App(): JSX.Element {
           totalCost={computeTotalPrice(shoppingCart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
+        <Route path="orders/:id" element={
+            <IndividualOrder order={null as any}/>
+          } />
       </Routes>
 
     </BrowserRouter>

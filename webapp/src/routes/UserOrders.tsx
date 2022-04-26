@@ -34,7 +34,6 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
         <OrderItem
           key={order._id.toString()}
           item={order}
-        //TODO: ADD METHOD TO NAVIGATE TO THE INDIVIDUAL ORDER VIEW
         />
       ))}
     </Wrapper>

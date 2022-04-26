@@ -7,7 +7,7 @@ export interface IUser {
 };
 
 export interface OrderProduct{
-  id: String;
+  id: string;
   quantity: number;
 }
 

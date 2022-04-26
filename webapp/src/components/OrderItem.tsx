@@ -1,14 +1,14 @@
 import { Wrapper } from "./CartItem.styles";
 import { IOrder } from '../shared/shareddtypes';
 import { StyledButton } from '../routes/Product.styles';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   item: IOrder;
-  //seeOrder: (SelectedOrder: IOrder) => void;
 };
 
 function OrderItem(props: Props): JSX.Element {
-
+  const navigate = useNavigate();
   return (
     <Wrapper className="order-item">
       <div>
@@ -22,7 +22,7 @@ function OrderItem(props: Props): JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            //onClick={() => props.seeOrder(props.item)}
+            onClick={event => navigate(`/products/${props.item._id}`)}
           >
             See Order
           </StyledButton>
