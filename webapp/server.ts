@@ -15,5 +15,5 @@ app.listen(port, ():void => {
 });
 
 app.get('*' , (req, res) => {
-	res.sendFile(path.join(__dirname,'build','index.tsx'));
+	res.sendFile(path.join(__dirname,'build','index.html'));
 	});
