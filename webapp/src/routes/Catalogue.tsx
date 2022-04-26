@@ -69,12 +69,13 @@ const CatalogueComponent = (props: CatalogueProps) => {
         </form>
       </Grid>
       
-      <Grid container className="products-container">
+      <Grid container spacing={2} sx={{pt:4}}>
 
         {props.products.map((product, i) => {
           return (
-            <ProductComponent key={i} product={product} onAddToCart={props.addToCart}></ProductComponent>
-
+            <Grid item xs={12} sm={6} md={4}>
+              <ProductComponent key={i} product={product} onAddToCart={props.addToCart}></ProductComponent>
+            </Grid>
           );
         })}
 
