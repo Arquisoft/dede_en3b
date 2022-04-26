@@ -203,7 +203,7 @@ function App(): JSX.Element {
           secondary: {main: '#212121'},
           background: {
             default: '#697689',
-            card: '#000',
+            card: '#fff',
             dark: '#272a40',
             button: '#9681f2',
             buttonhover: '#81c9f2'
@@ -212,7 +212,8 @@ function App(): JSX.Element {
             primary: '#000',
             default: '#000',
             secondary: '#454545',
-            dark: '#000'
+            dark: '#000',
+            light: '#ebebeb'
           }
         }
         : {
@@ -229,7 +230,8 @@ function App(): JSX.Element {
             primary: '#ebebeb',
             default: '#ebebeb',
             secondary: '#e0dcd8',
-            dark: '#121212'
+            dark: '#121212',
+            light: '#ebebeb'
           }
         }
       )

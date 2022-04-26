@@ -1,36 +1,11 @@
 import React, { useReducer, useEffect } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import { doSolidLogin, getSolidWebId } from '../api/api';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: 400,
-      margin: `${theme.spacing(0)} auto`
-    },
-    loginBtn: {
-      marginTop: theme.spacing(2),
-      flexGrow: 1
-    },
-    header: {
-      textAlign: 'center',
-      background: '#212121',
-      color: '#fff'
-    },
-    card: {
-      marginTop: theme.spacing(10)
-    }
-  })
-);
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 type State = {
   identityProvider: string
@@ -85,7 +60,6 @@ const reducer = (state: State, action: Action): State => {
 }
 
 export function Login(): JSX.Element {
-  const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -136,9 +110,15 @@ export function Login(): JSX.Element {
     };
 
   return (
-    <form className={classes.container} noValidate autoComplete="off">
-      <Card className={classes.card}>
-        <CardHeader className={classes.header} title="POD Service Provider" />
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column'}}>
+      <form noValidate autoComplete="off">
+      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: 400, margin: 'auto', marginTop: 0, bgcolor: 'background.card'}}>
+        <Box sx={{textAlign: 'center', bgcolor: 'background.dark', color: 'text.light', padding: 4}}>
+          <Typography
+            variant='h5'>
+          POD Service Provider
+          </Typography>
+          </Box> 
         <CardContent>
           <div>
             <TextField
@@ -154,19 +134,19 @@ export function Login(): JSX.Element {
             />
           </div>
         </CardContent>
-        <CardActions>
+        <Box sx={{paddingBottom: 2, paddingTop: 2, alignSelf: 'center'}}>
           <Button
             variant="contained"
             size="large"
             color="secondary"
-            className={classes.loginBtn}
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
             Go to the service
           </Button>
-        </CardActions>
-      </Card>
+        </Box>
+        </Box>
     </form>
+    </Box>
   );
 }
 

@@ -1,6 +1,5 @@
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../components/ICartItem";
-import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
