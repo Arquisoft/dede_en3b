@@ -12,3 +12,7 @@ app.listen(port, ():void => {
 }).on("error",(error:Error)=>{
     console.error('Error occured: ' + error.message);
 });
+
+app.get('*' , (req, res) => {
+	res.sendFile(path.join(__dirname,'build','index.tsx'));
+	});
