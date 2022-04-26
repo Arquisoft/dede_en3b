@@ -117,16 +117,30 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      color='background.default'
     >
+      <MenuItem>
+      <ToggleColorMode
+              changeTheme={props.changeTheme}
+              themeState={props.themeState}
+          />
+          <Typography
+            sx={{ color:'text.dark'}}>
+            Lights out
+          </Typography>
+      </MenuItem>
       <MenuItem onClick={() =>
           { navigate('shop');
           handleMobileMenuClose();
           }
         }>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton size="large" aria-label="show 4 new mails" color="default">
             <SearchIcon />
         </IconButton>
-        <p>Catalogue</p>
+        <Typography
+            sx={{ color:'text.dark'}}>
+              Catalogue
+          </Typography>
       </MenuItem>
       <MenuItem onClick={() =>{ 
           navigate('cart');
@@ -135,7 +149,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
         <IconButton
           size="large"
           aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
-          color="inherit"
+          color="default"
         >
           
           <Badge badgeContent={props.numberOfProductsInCart} color="error">
@@ -145,7 +159,10 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             </Badge>
             
           </IconButton>
-        <p>Shopping cart</p>
+          <Typography
+            sx={{ color:'text.dark'}}>
+            Shopping cart
+          </Typography>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -153,11 +170,14 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          color="inherit"
+          color="default"
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <Typography
+            sx={{ color:'text.dark'}}>
+            Profile
+          </Typography>
       </MenuItem>
     </Menu>
   );
