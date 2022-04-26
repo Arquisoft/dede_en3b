@@ -1,6 +1,5 @@
 import { Box, Button } from "@material-ui/core";
 import { color } from "@mui/system";
-import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { getSolidAddress } from "../api/api";
