@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import Grid from "@mui/material/Grid";
 import {IProduct} from '../shared/shareddtypes';
 import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
@@ -10,11 +9,36 @@ import NumberPicker from "react-widgets/NumberPicker";
 import Box from '@mui/material/Box';
 import { addItem } from "../redux/slices/cartSlice";
 import {useDispatch} from 'react-redux';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 type IndividualProductProps = {
     product: IProduct;
 }
 
+function BreadcrumbsProduct(props:any) {
+    return(
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" href="/" >
+          <Typography
+          variant='h6'
+          sx={{color: 'text.secondary'}}>
+              Home
+          </Typography>
+        </Link>
+        <Link underline="hover" href="/shop" >
+        <Typography variant='h6'
+          sx={{color: 'text.secondary'}}>
+              Catalogue
+          </Typography>
+          </Link>
+          <Typography variant='h6'
+          sx={{color: 'text.secondary'}}>
+              {props.product}
+          </Typography>
+      </Breadcrumbs>
+    );
+  }
 
 
 const IndividualProduct = (props: IndividualProductProps) => {
@@ -47,6 +71,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     if (typeof product === "undefined"){
         return (
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
+                
                 <Typography
                     variant='h4'
                     sx={{color:'text.default', padding: 4}}>
@@ -68,6 +93,10 @@ const IndividualProduct = (props: IndividualProductProps) => {
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
                         height: '100vh', justifyContent: 'center'}}>
                 
+                <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
+                    <BreadcrumbsProduct product={product.name}/>
+                                
+
                 <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
                             display: 'flex',  flexDirection: 'row'}}>
 
@@ -109,6 +138,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                             </Box>
                             
                         </div>
+                    </Box>
                     </Box>
                 </Box>
             </Box>

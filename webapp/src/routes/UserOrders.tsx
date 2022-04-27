@@ -4,12 +4,32 @@ import OrderItem from "../components/OrderItem";
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
 
 type Props = {
   orders: IOrder[];
   getUserOrders: (orders: IOrder[], webId: string) => void;
 };
+
+function BreadcrumbsOrders() {
+  return(
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/" >
+        <Typography
+        variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Home
+        </Typography>
+      </Link>
+      <Typography variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Orders
+        </Typography>
+    </Breadcrumbs>
+  );
+}
 
 const UserOrders = ({ orders, getUserOrders }: Props) => {
   const [webId, setWebId] = useState('');
@@ -29,13 +49,16 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
 
   getUserOrders(orders, webId);
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Typography
-        variant="h4"
-        align="left"
-        sx={{ color: "text.primary", padding: 2 }}
-      >
-        Your Orders
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      
+      <BreadcrumbsOrders />
+      
+      <Typography 
+          variant="h4"
+          align="left"
+          sx={{color:"text.primary", padding: 2}}
+          >
+              Your Orders
       </Typography>
       {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
       <Grid container justifyContent='space-evenly'

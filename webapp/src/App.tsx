@@ -100,7 +100,8 @@ function App(): JSX.Element {
             card: '#fff',
             dark: '#272a40',
             button: '#9681f2',
-            buttonhover: '#81c9f2'
+            buttonhover: '#81c9f2',
+            light: '#fff'
           },
           text: {
             primary: '#000',
@@ -118,7 +119,8 @@ function App(): JSX.Element {
             card: '#454545',
             dark: '#121212',
             button: '#9681f2',
-            buttonhover: '#81c9f2'
+            buttonhover: '#81c9f2',
+            light: '#fff'
           },
           text: {
             primary: '#ebebeb',
