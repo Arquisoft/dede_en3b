@@ -7,12 +7,33 @@ import { doSolidLogin, getSolidWebId } from '../api/api';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
 type State = {
   identityProvider: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
+
+function BreadcrumbsLogin() {
+  return(
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/" >
+        <Typography
+        variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Home
+        </Typography>
+      </Link>
+      <Typography variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Connect to your POD
+        </Typography>
+    </Breadcrumbs>
+  );
+}
 
 const initialState:State = {
   identityProvider: '',
@@ -111,8 +132,10 @@ export function Login(): JSX.Element {
 
   return (
     <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column'}}>
+      <BreadcrumbsLogin />
       <form noValidate autoComplete="off">
-      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: 400, margin: 'auto', marginTop: 0, bgcolor: 'background.card'}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: 400, margin: 'auto',
+       marginTop: 0, bgcolor: 'background.light'}}>
         <Box sx={{textAlign: 'center', bgcolor: 'background.dark', color: 'text.light', padding: 4}}>
           <Typography
             variant='h5'>
