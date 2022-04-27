@@ -1,8 +1,9 @@
-import { Wrapper } from "./Cart.styles";
 import { IOrder } from '../shared/shareddtypes';
 import { getSolidWebId } from "../api/api";
 import OrderItem from "../components/OrderItem";
 import React, { useState } from "react";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   orders: IOrder[];
@@ -27,16 +28,26 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
 
   getUserOrders(orders, webId);
   return (
-    <Wrapper>
-      <h2>Your Orders</h2>
-      {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Typography 
+          variant="h4"
+          align="left"
+          sx={{color:"text.primary", padding: 2}}
+          >
+              Your Orders
+      </Typography>
+      <Typography 
+          variant="h6"
+          sx={{color:"text.primary", padding: 2}}>
+        {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+      </Typography>
       {orders.map((order: IOrder) => (
         <OrderItem
           key={order._id.toString()}
           item={order}
         />
       ))}
-    </Wrapper>
+    </Box>
   );
 };
 

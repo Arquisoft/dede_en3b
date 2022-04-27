@@ -1,47 +1,26 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { useNavigate } from 'react-router-dom';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
-
-// eslint-disable-next-line
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-// eslint-disable-next-line
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   '&':{
@@ -51,12 +30,24 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 
 interface NavigationBarProps {
-  numberOfProductsInCart: number;
+  changeTheme: Function;
+  themeState: boolean;
 }
 
-
+function ToggleColorMode(props: any) {
+  return (
+   <IconButton sx={{ ml: 1 }} onClick={props.changeTheme} color="inherit">
+        {props.themeState === false ? <Brightness7Icon sx={{color: 'white'}} /> : <Brightness4Icon />}
+    </IconButton>
+  )
+};
 
 export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
+  
+  var units = 0;
+  const cart = useSelector((state:RootState) => state.cart.value);
+  cart.forEach((item) => units += item.units);
+  
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -111,8 +102,18 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={goToLogin}>Profile</MenuItem>
-      <MenuItem onClick={goToOrders}>My orders</MenuItem>
+      <MenuItem onClick={goToLogin}>
+      <Typography
+            sx={{ color:'text.dark'}}>
+            Profile
+          </Typography>
+        </MenuItem>
+      <MenuItem onClick={goToOrders}>
+      <Typography
+            sx={{ color:'text.dark'}}>
+            My orders
+          </Typography>
+      </MenuItem>
     </Menu>
   );
 
@@ -132,29 +133,52 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      color='background.default'
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <SearchIcon />
-          </Badge>
-        </IconButton>
+      <ToggleColorMode
+              changeTheme={props.changeTheme}
+              themeState={props.themeState}
+          />
+          <Typography
+            sx={{ color:'text.dark'}}>
+            Lights out
+          </Typography>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() =>
+          { navigate('shop');
+          handleMobileMenuClose();
+          }
+        }>
+        <IconButton size="large" aria-label="show 4 new mails" color="default">
+            <SearchIcon />
+        </IconButton>
+        <Typography
+            sx={{ color:'text.dark'}}>
+              Catalogue
+          </Typography>
+      </MenuItem>
+      <MenuItem onClick={() =>{ 
+          navigate('cart');
+          handleMobileMenuClose();
+          }}>
         <IconButton
           size="large"
-          aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
-          color="inherit"
+          aria-label={"show " + cart.forEach  + "new notifications"}
+          color="default"
         >
           
-          <Badge badgeContent={17} color="error">
-          
+          <Badge badgeContent={cart.forEach} color="error">
+            
             <ShoppingCartIcon />  
           
             </Badge>
             
           </IconButton>
-        <p>Notifications</p>
+          <Typography
+            sx={{ color:'text.dark'}}>
+            Shopping cart
+          </Typography>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -162,11 +186,14 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          color="inherit"
+          color="default"
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <Typography
+            sx={{ color:'text.dark'}}>
+            Profile
+          </Typography>
       </MenuItem>
     </Menu>
   );
@@ -174,17 +201,9 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
   return (
     <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#272a40'}}> 
+      <AppBar position="static" sx={{ backgroundColor: "background.dark", opacity: 0.95 }}> 
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
+          
           <Link to="/">
             <IconButton>
               <img src={logo} alt="logo" id="app-logo"/>
@@ -195,61 +214,93 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' }, marginLeft: 1 }}
           >
-            DeDe_en3B
+            DeDe
           </StyledTypography>
-          
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
+          <Link to="shop" style={{ color: '#FFF', textDecoration:'none' }}>
+            <IconButton size="large" aria-label="go to shop" color="inherit">
+                <Typography
+                  variant='h5'
+                  color='text.light'
+                >
+                  Catalogue
+                </Typography>              
+            </IconButton>
+          </Link>
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
+          <Link to="cart" style={{ color: '#FFF', textDecoration:'none' }}>
+          <IconButton size="large" 
+            aria-label={"show " + cart.forEach  + "new notifications"} 
+            color="inherit">                
+              <Badge badgeContent={cart.forEach} color="error">
+                <Typography
+                  variant='h5'
+                  color='text.light'
+                >
+                  Cart
+                </Typography>
+                  {//<ShoppingCartIcon />
+}
+              </Badge>              
+            </IconButton>
+          </Link>
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Link to="shop" style={{ color: '#FFF' }}>
-            <IconButton size="large" aria-label="go to shop" color="inherit">
-              <Badge color="error">
-              
-            <SearchIcon />  
-          
-              </Badge>
-              </IconButton>
-              </Link>
-            <Link to="cart" style={{ color: '#FFF' }}>
-            <IconButton
-              size="large"
-              aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
-              color="inherit"
-              >
-                
-              <Badge badgeContent={props.numberOfProductsInCart} color="error">
-              
-            <ShoppingCartIcon />  
-                 
-              </Badge>
-              </IconButton>
-              </Link>
-              
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-                  color=
-                  "inherit"
-            >
-              <AccountCircle />
-                </IconButton>
-                
+          <a href= "https://arquisoft.github.io/dede_en3b/"
+          target="_blank"
+          style={{ color: '#FFF', textDecoration:'none' }}>
+            <IconButton size="large" aria-label="about us" color="inherit">
+                <Typography
+                  variant='h5'
+                  color='text.light'
+                >
+                  About us
+                </Typography>              
+            </IconButton>
+          </a>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
+            <IconButton size="large"
+            edge="end" 
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit">
+                <Typography
+                  variant='h5'
+                  color='text.light'
+                >
+                  Profile
+                </Typography>   
+                           
+            </IconButton>
+      
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <ToggleColorMode
+              changeTheme={props.changeTheme}
+              themeState={props.themeState}
+          />   
+          </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'right' }}>
             <IconButton
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="primary"
             >
-              <MoreIcon />
+              <MenuIcon />
                 </IconButton>
           </Box>
         </Toolbar>
