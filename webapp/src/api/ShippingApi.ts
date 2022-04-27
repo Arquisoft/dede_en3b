@@ -22,7 +22,7 @@ async function geocodeAddress(address: Address) : Promise<string> {
     var url = "http://dev.virtualearth.net/REST/v1/Locations?countryRegion=" + address.region
         + "&locality=" + address.locality
         + "&postalCode=" + address.postal_code
-        + "&addressLine=" + address.street
+        + "&addressLine=" + address.street_address
         + "&maxResults=1&key=AsxEiJLEKsTRnwiuhBCOaXeqAtwTcUG - 9NsEBfhO - ZbOeu2yvGxvncrXdbKQ2UYO";
         console.log(url);
     
