@@ -24,8 +24,9 @@ export function AddPaymentMeanComponent(props: AddPaymentMeanComponentProps): JS
     const [shippingCosts, setShippingCosts] = useState(0);
 
     const computeShippingCosts = async () => {
-        const res = await getShippingCosts(await getSolidAddress());
+        //const res = await getShippingCosts(await getSolidAddress());
 
+        const res = 0;
         console.log(res);
 
         setShippingCosts(Number((res * 0.10).toFixed(2)));
