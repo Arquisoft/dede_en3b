@@ -45,7 +45,6 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 interface CheckoutProps {
   makeOrder: () => void
-
 }
 
 const theme = createTheme();
@@ -73,16 +72,26 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
     expDate: ""
   }
 
+  const defaultAddress = {
+    country_name: "string",
+    locality: "string",
+    postal_code: "string",
+    region: "string",
+    street_address: "string",
+
+};
+
   const [paymentData, setPaymentData] = useState(defaultPaymentData);
+  const [shippingAddress, setShippingAddress] = useState(defaultAddress);
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
         return <AddressForm />;
       case 1:
-        return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
+        return <PaymentForm data={paymentData} setShippingAddress={setShippingAddress} setPayData={setPaymentData} />;
       case 2:
-        return <Review paymentData={paymentData} />;
+        return <Review address={shippingAddress} paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }
