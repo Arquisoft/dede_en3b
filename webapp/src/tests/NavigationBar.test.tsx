@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, getByText, render, screen } from '@testing-library/react';
 import NavigationBar from '../components/NavigationBar';
 import { BrowserRouter } from "react-router-dom";
 import App from '../App';
@@ -111,3 +111,26 @@ test ('clicking on the cart button takes you to the shopping cart', async () => 
     const newScreen = screen.getByText('Your Cart');
     expect(newScreen).toBeInTheDocument();
 });
+
+test('clicking on the profile icon allows you to go to see your orders', async() => {
+  const { getByRole } = render(
+    <Provider store = {store}>
+      <App/>
+    </Provider>
+  );
+
+  fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+  }));
+
+  const orders = getByRole('menuitem', {name: 'My orders'});
+    expect(orders).toBeInTheDocument();
+
+    fireEvent( orders, new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }));
+
+    expect(screen.getByText("Your Orders")).toBeInTheDocument();
+})

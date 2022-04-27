@@ -167,7 +167,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           color="default"
         >
           
-          <Badge badgeContent={cart.forEach} color="error">
+          <Badge badgeContent={units} color="error">
             
             <ShoppingCartIcon />  
           
@@ -234,9 +234,9 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
           <Link to="cart" style={{ color: '#FFF', textDecoration:'none' }}>
           <IconButton size="large" 
-            aria-label={"show " + cart.forEach  + "new notifications"} 
+            aria-label={"show " + units  + "new notifications"} 
             color="inherit">                
-              <Badge badgeContent={cart.forEach} color="error">
+              <Badge badgeContent={units} color="error">
                 <Typography
                   variant='h5'
                   color='text.light'
