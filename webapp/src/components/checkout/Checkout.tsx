@@ -3,6 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+// eslint-disable-next-line
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
@@ -15,8 +16,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { ICartItem } from '../ICartItem';
-import { produceWithPatches } from 'immer';
 import { useState } from 'react';
 
 function Copyright() {
@@ -44,7 +43,6 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 interface CheckoutProps {
-  cart: ICartItem[],
   makeOrder: () => void
 
 }
@@ -57,7 +55,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-    if (activeStep == steps.length - 1) {
+    if (activeStep === steps.length - 1) {
       props.makeOrder();
       console.log("Pediu realizau. ")
     }
@@ -83,7 +81,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       case 1:
         return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
       case 2:
-        return <Review cart={props.cart} paymentData={paymentData} />;
+        return <Review paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }

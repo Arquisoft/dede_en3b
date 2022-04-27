@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,6 +16,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+
 
 
 // eslint-disable-next-line
@@ -50,13 +53,16 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 })) as typeof Typography;
 
 
-interface NavigationBarProps {
-  numberOfProductsInCart: number;
-}
 
+export default function PrimarySearchAppBar() : JSX.Element {
+  
+  var units = 0;
+  const cart = useSelector((state:RootState) => state.cart.value);
+  cart.forEach((item) => units += item.units);
 
+    
 
-export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
+  
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -143,7 +149,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       <MenuItem>
         <IconButton
           size="large"
-          aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
+          aria-label={"show " + cart.forEach  + "new notifications"}
           color="inherit"
         >
           
@@ -214,11 +220,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             <Link to="cart" style={{ color: '#FFF' }}>
             <IconButton
               size="large"
-              aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
+              aria-label={"show " + units  + "new notifications"}
               color="inherit"
               >
                 
-              <Badge badgeContent={props.numberOfProductsInCart} color="error">
+              <Badge badgeContent={units} color="error">
               
             <ShoppingCartIcon />  
                  

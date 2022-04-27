@@ -4,21 +4,25 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import { ICartItem } from '../ICartItem';
 import { computeTotalPrice } from '../../utils/utils';
 import { getShippingCosts } from '../../api/ShippingApi';
 import { getSolidAddress } from '../../api/api';
 import { useState } from 'react';
+// eslint-disable-next-line
 import { Address } from '../../../../restapi/model/Order';
+// eslint-disable-next-line
 import { AnalyticsOutlined } from '@mui/icons-material';
 import { PaymentData } from './Checkout';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 interface ReviewProps {
-    cart: ICartItem[],
     paymentData: PaymentData
 }
 
 export default function Review(props: ReviewProps): JSX.Element {
+
+    const cart = useSelector((state:RootState) => state.cart.value);
 
     const defaultAddress = {
         country_name: "string",
@@ -47,7 +51,9 @@ export default function Review(props: ReviewProps): JSX.Element {
     React.useEffect(() => {
         computeShippingCosts();
         console.log(shippingCosts);
-    }, []);
+    }, 
+    // eslint-disable-next-line
+    []);
 
     return (
         <React.Fragment>
@@ -55,7 +61,7 @@ export default function Review(props: ReviewProps): JSX.Element {
                 Order summary
             </Typography>
             <List disablePadding>
-                {props.cart.map((product) => (
+                {cart.map((product) => (
                     <ListItem key={product.product.name} sx={{ py: 1, px: 0 }}>
                         <ListItemText primary={product.product.name} secondary={"x" + product.units + " units"} />
                         <Typography variant="body2">{product.product.price * product.units} €</Typography>
@@ -64,19 +70,19 @@ export default function Review(props: ReviewProps): JSX.Element {
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Subtotal" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        {computeTotalPrice(props.cart)} €
+                        {computeTotalPrice(cart)} €
                     </Typography>
                 </ListItem>
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Shipping Costs" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        {shippingCosts == 0 ? "Loading..." : shippingCosts + "€"}
+                        {shippingCosts === 0 ? "Loading..." : shippingCosts + "€"}
                     </Typography>
                 </ListItem>
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        {computeTotalPrice(props.cart) + shippingCosts} €
+                        {computeTotalPrice(cart) + shippingCosts} €
                     </Typography>
                 </ListItem>
             </List>
@@ -87,16 +93,16 @@ export default function Review(props: ReviewProps): JSX.Element {
                     </Typography>
                     <Typography gutterBottom>Mario Alfombras</Typography>
                     <Typography gutterBottom>
-                        {solidAddress.street_address == defaultAddress.street_address ? "Loading..." : solidAddress.street_address}
+                        {solidAddress.street_address === defaultAddress.street_address ? "Loading..." : solidAddress.street_address}
                     </Typography>
                     <Typography gutterBottom>
-                        {solidAddress.street_address == defaultAddress.street_address ? "Loading..." : solidAddress.locality + " " + solidAddress.postal_code}
+                        {solidAddress.street_address === defaultAddress.street_address ? "Loading..." : solidAddress.locality + " " + solidAddress.postal_code}
                     </Typography>
                     <Typography gutterBottom>
-                        {solidAddress.street_address == defaultAddress.street_address ? "Loading..." : solidAddress.region}
+                        {solidAddress.street_address === defaultAddress.street_address ? "Loading..." : solidAddress.region}
                     </Typography>
                     <Typography gutterBottom>
-                        {solidAddress.street_address == defaultAddress.street_address ? "Loading..." : solidAddress.country_name}
+                        {solidAddress.street_address === defaultAddress.street_address ? "Loading..." : solidAddress.country_name}
                     </Typography>
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>

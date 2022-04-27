@@ -14,12 +14,16 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+// eslint-disable-next-line
 import { AnyRecord } from 'dns';
+// eslint-disable-next-line
 import { getShippingCosts } from './api/ShippingApi';
+// eslint-disable-next-line
 import AddressForm from './components/checkout/AddressForm';
 import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
+import {emptyCart} from "./redux/slices/cartSlice"
 
 function App(): JSX.Element {
 
@@ -44,18 +48,16 @@ function App(): JSX.Element {
 
   
 
-  /**
-  * Function to empty the shopping cart
-  */
-  const emptyCart = () => {
-    dispatch(emptyCart());
-  };
+
+    
 
   
-
+  /**
+  * Function to restore the default values of the cart.
+  */
   const restoreDefaults = () => {
-    emptyCart();
-  }
+    dispatch(emptyCart());
+  };
 
 
   const makeOrder = async () => {
@@ -86,7 +88,7 @@ function App(): JSX.Element {
 
     <BrowserRouter>
 
-      <NavigationBar numberOfProductsInCart={cart.length} />
+      <NavigationBar/>
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>
@@ -100,7 +102,7 @@ function App(): JSX.Element {
           }
         />
 
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={shoppingCart}></Checkout>}/>
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
