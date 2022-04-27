@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, getByRole} from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import IndividualProduct from '../routes/IndividualProduct';
 import NavigationBar from '../components/NavigationBar';
 import { BrowserRouter } from "react-router-dom";

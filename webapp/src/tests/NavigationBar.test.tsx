@@ -1,4 +1,4 @@
-import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import NavigationBar from '../components/NavigationBar';
 import { BrowserRouter } from "react-router-dom";
 import App from '../App';
