@@ -11,7 +11,7 @@ import {
 	overwriteFile,
 	getSolidDataset, saveSolidDatasetAt, SolidDataset,
 	getThing, setThing, Thing,
-	buildThing, ThingBuilder,
+	createThing, buildThing, ThingBuilder,
 	getStringNoLocale
 } from "@inrupt/solid-client";
 
@@ -162,8 +162,13 @@ export class SolidConnection {
 		);
 	}
 
-	public async saveDataset(dataset: DatasetBrowser) {
-		saveSolidDatasetAt(dataset.getUrl(), await dataset.getInsides(), { fetch : this._session.fetch });
+	public async saveDataset(dataset: DatasetBrowser)
+		: Promise<SolidDataset> 
+	{
+		return await saveSolidDatasetAt(
+			dataset.getUrl(),
+			await dataset.getInsides(), { fetch : this._session.fetch }
+		);
 	}
 
 	/**
@@ -231,12 +236,19 @@ export class DatasetBrowser {
 		return new ThingBrowser(insideThing, this);
 	}
 
+	public addThing(name: string): ThingBrowser {
+		let thing = createThing({ name: name });
+		return new ThingBrowser(thing, this);
+	}
+
 	public async saveThing(thing: ThingBrowser) {
+		await this._waitForDataset();
 		this._dataset = setThing(await this.getInsides(), thing.getInsides());
 	}
 
 	public async save() {
-		await this._origin.connection.saveDataset(this);
+		await this._waitForDataset();
+		this._dataset = await this._origin.connection.saveDataset(this);
 	}
 
 	/**
@@ -292,8 +304,26 @@ export class ThingBrowser {
 		return this;
 	}
 
-	public save() {
-		this._origin.saveThing(this);
+	public addString(url: string, data: string): ThingBrowser {
+		if(this._builder === undefined) this._builder = buildThing(this._thing);
+
+		this._builder?.addStringNoLocale(url, data);
+		return this;
+	}
+
+	public addUrl(url: string, data: string): ThingBrowser {
+		if(this._builder === undefined) this._builder = buildThing(this._thing);
+
+		this._builder?.addUrl(url, data);
+		return this;
+	}
+
+	public async save(): Promise<DatasetBrowser> {
+		if(this._builder !== undefined)
+			this._thing = this._builder.build();
+
+		await this._origin.saveThing(this);
+		return this._origin;
 	}
 
 	/**
