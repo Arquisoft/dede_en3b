@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import {emptyCart} from "./redux/slices/cartSlice"
 
+import {ThemeProvider, PaletteMode, createTheme} from '@mui/material';
 function App(): JSX.Element {
 
 // eslint-disable-next-line
@@ -84,26 +85,93 @@ function App(): JSX.Element {
   }
 
 
-  return (
+  const themeOptions = (b: boolean) => (b ? "dark" : "light");
 
-    <BrowserRouter>
-
-      <NavigationBar/>
-
-      <Routes>
-        <Route path="/" element={ <Home />} ></Route>
-        <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cart={cart}/>} />
-        <Route path="/" element={<Catalogue />} />
-        <Route path="shop" element={<Catalogue /> } />
-        <Route path="products/:id" 
-          element={
-            <IndividualProduct product={null as any} />
+  //palettes for both theme options
+  const getPaletteForTheme = (mode : PaletteMode) => ({
+    palette: {
+      ...(mode === "light"
+        ? {
+          primary: {main: '#fff'},
+          secondary: {main: '#212121'},
+          background: {
+            default: '#697689',
+            card: '#fff',
+            dark: '#272a40',
+            button: '#9681f2',
+            buttonhover: '#81c9f2'
+          },
+          text: {
+            primary: '#000',
+            default: '#000',
+            secondary: '#454545',
+            dark: '#000',
+            light: '#ebebeb'
           }
-        />
+        }
+        : {
+          primary: {main: '#ebebeb'},
+          secondary: {main: '#e0dcd8'},
+          background: {
+            default: '#6b6b6b',
+            card: '#454545',
+            dark: '#121212',
+            button: '#9681f2',
+            buttonhover: '#81c9f2'
+          },
+          text: {
+            primary: '#ebebeb',
+            default: '#ebebeb',
+            secondary: '#e0dcd8',
+            dark: '#121212',
+            light: '#ebebeb'
+          }
+        }
+      )
+    }
+  });
 
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
+  let chosenTheme: boolean = true;
+
+  if (localStorage.getItem("theme") === null){
+    localStorage.setItem("theme", String(chosenTheme));
+  } else {
+    chosenTheme = localStorage.getItem("theme") === "true";
+  }
+
+  const [mode, setMode] = React.useState<PaletteMode>(
+      themeOptions(!chosenTheme)
+  );
+  
+  const theme = React.useMemo(() => createTheme(getPaletteForTheme(mode)), [mode]);
+  
+  /**
+   * Function to change the theme mode
+   */
+  const changeThemeMode = () => {
+      setMode(themeOptions(mode === "light"));
+      localStorage.setItem("theme", String(mode === "dark"));
+  };
+
+  return (
+  
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
         
+        <NavigationBar changeTheme={changeThemeMode} themeState={chosenTheme}/>
+
+        <Routes>
+          <Route path="/" element={ <Home />} ></Route>
+          <Route path="login" element={<Login></Login>}> </Route>
+          <Route path="cart" element={<Cart cart={cart} />} />
+          <Route path="shop" element={<Catalogue /> } />
+          <Route path="products/:id" 
+            element={
+              <IndividualProduct product={ null as any } /> 
+            } 
+          />
+        
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
@@ -111,7 +179,7 @@ function App(): JSX.Element {
       </Routes>
 
     </BrowserRouter>
-
+    </ThemeProvider>
 
   );
 }

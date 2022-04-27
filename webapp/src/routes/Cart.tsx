@@ -1,10 +1,10 @@
 import CartItem from "../components/CartItem";
 import { ICartItem } from "../shared/shareddtypes";
-import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
 import { Link } from "react-router-dom";
+import Box from '@mui/material/Box';
 
 type CartProps = {
   cart: ICartItem[];
@@ -28,7 +28,7 @@ const Cart = (props:CartProps) => {
   };
         
   return (
-    <Wrapper>
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <h2>Your Cart</h2>
       {props.cart.length === 0 ? <p>No items in cart.</p> : null}
       {props.cart.map((item) => (
@@ -37,12 +37,15 @@ const Cart = (props:CartProps) => {
           item={item}
         />
       ))}
-      <Grid>
+        <Grid>
         <h2 className="total-text">Total:  {calculateTotal(props.cart).toFixed(2)} €</h2>
         
-        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
-      </Grid>
-          </Wrapper>
+        <Link to="/shipping/payment">
+          <StyledButton onClick={checkOut}>Check out</StyledButton>
+          </Link>
+         
+        </Grid>
+      </Box>
   );
 };
 
