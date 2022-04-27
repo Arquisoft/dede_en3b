@@ -10,13 +10,8 @@ let connection: SolidConnection = new SolidConnection();
 /**
  * TODO: Deshardcodear esto.
  */
-<<<<<<< HEAD
 //const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
 const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
-=======
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-// const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
->>>>>>> master
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
@@ -44,25 +39,6 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 	let urls = await connection
 		.fetchDatasetFromUser("profile/card")
 		.getThingAsync(connection.getWebId().href)
-<<<<<<< HEAD
-		.then(thing => thing.getUrl(VCARD.hasAddress));
-
-	console.log(url);
-
-	let address = await connection
-		.fetchDatasetFromUser("profile/card")
-		.getThingAsync(url ?? "")
-		.then(thing => ({
-			country_name: thing.getString(VCARD.country_name),
-			locality: thing.getString(VCARD.locality),
-			postal_code: thing.getString(VCARD.postal_code),
-			region: thing.getString(VCARD.region),
-			street_address: thing.getString(VCARD.street_address),
-		}));
-
-	if(address !== null) return res.status(200).json(address);
-	else return res.status(404).json({ message: "Address not found" });
-=======
 		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
 	let addresses = await Promise.all(
@@ -84,7 +60,6 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 	else return res.status(404).json({ 
 		message: "User has no addresses" 
 	});
->>>>>>> master
 });
 
 solid.post(
@@ -105,16 +80,22 @@ solid.post(
 
 		let id = `id${Math.floor(Math.random() * 1e14)}`;
 		let webId = connection.getWebId();
-		webId.hash = "";
-		let urlId = `${webId}${id}`;
+		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
 		let urlDataset = await connection
 			.fetchDatasetFromUser("profile/card");
-		(await urlDataset.getThingAsync(connection.getWebId().href))
+		let urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+		await urlThing
 			.addUrl(VCARD.hasAddress, urlId)
 			.save();
 
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+
 		await urlDataset.save();
+
+		urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
 
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
@@ -128,7 +109,7 @@ solid.post(
 
 		await dataset.save();
 
-		return res.sendStatus(200);
+		return res.status(200).json(await dataset.getInsides());
 	}
 );
 

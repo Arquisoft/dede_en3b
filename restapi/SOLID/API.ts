@@ -8,18 +8,12 @@ import {
 
 import {
 	overwriteFile,
-<<<<<<< HEAD
 	getSolidDataset, saveSolidDatasetAt, SolidDataset,
 	getThing, setThing, Thing,
-	createThing, buildThing, ThingBuilder,
-	getStringNoLocale
-=======
-	getSolidDataset, SolidDataset,
-	getThing, Thing,
 	getFile,
 	getUrl, getUrlAll,
+	createThing, buildThing, ThingBuilder,
 	getStringNoLocale, getStringNoLocaleAll
->>>>>>> master
 } from "@inrupt/solid-client";
 
 
