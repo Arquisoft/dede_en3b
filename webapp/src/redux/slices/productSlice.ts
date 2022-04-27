@@ -3,8 +3,9 @@ import { IProduct } from '../../shared/shareddtypes'
 
 interface ProductState {
     value: IProduct[];
-
 }
+
+
 
 const initialState: ProductState = {
     value: []
