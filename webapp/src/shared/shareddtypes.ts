@@ -11,6 +11,11 @@ export interface OrderProduct{
   quantity: number;
 }
 
+export interface ICartItem {
+  product: IProduct,
+  units: number,
+}
+
 export type Address = {
   country_name:string;
   locality:string;

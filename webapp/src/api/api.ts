@@ -1,6 +1,7 @@
 
-import { ICartItem } from '../components/ICartItem';
+import { ICartItem } from '../shared/shareddtypes';
 import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
+
 
 
 const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'

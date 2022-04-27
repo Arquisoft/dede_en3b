@@ -2,9 +2,17 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import NavigationBar from '../components/NavigationBar';
 import { BrowserRouter } from "react-router-dom";
 import App from '../App';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 test ('clicking on the account button lets user go to login', async () => {
-    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} />, {wrapper: BrowserRouter});
+    const { getByRole } = render(
+      <BrowserRouter>
+        <Provider store = {store}>
+          <NavigationBar numberOfProductsInCart={0} />
+        </Provider>
+      </BrowserRouter>
+      );
 
     fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
         bubbles: true,
@@ -16,7 +24,13 @@ test ('clicking on the account button lets user go to login', async () => {
 });
 
 test ('clicking on the account button lets user go to his orders', async () => {
-    const { getByRole } = render(<NavigationBar numberOfProductsInCart={0} />, {wrapper: BrowserRouter});
+    const { getByRole } = render(
+    <BrowserRouter>
+      <Provider store = {store}>
+        <NavigationBar numberOfProductsInCart={0} />
+      </Provider>
+    </BrowserRouter>
+    );
 
     fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
         bubbles: true,
@@ -28,7 +42,11 @@ test ('clicking on the account button lets user go to his orders', async () => {
 });
 
 test ('clicking on the profile menuitem takes the user to login page', async () => {
-    const { getByRole } = render(<App />);
+    const { getByRole } = render(
+      <Provider store = {store}>
+        <App />
+      </Provider>
+    );
 
     fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
         bubbles: true,
@@ -47,7 +65,11 @@ test ('clicking on the profile menuitem takes the user to login page', async () 
 });
 
 test ('clicking on the logo takes you to the home page', async () => {
-    const { getByAltText } = render(<App />);
+    const { getByAltText } = render(
+      <Provider store = {store}>
+        <App />
+      </Provider>
+    );
 
     fireEvent( getByAltText('logo'), new MouseEvent('click', {
         bubbles: true,
@@ -59,7 +81,11 @@ test ('clicking on the logo takes you to the home page', async () => {
 });
 
 test ('clicking on the magnifier icon takes you to the catalogue', async () => {
-    const { getByRole } = render(<App />);
+    const { getByRole } = render(
+      <Provider store = {store}>
+        <App />
+      </Provider>
+    );
 
     fireEvent( getByRole('button', {name: 'go to shop'}), new MouseEvent('click', {
         bubbles: true,
@@ -71,7 +97,11 @@ test ('clicking on the magnifier icon takes you to the catalogue', async () => {
 });
 
 test ('clicking on the cart button takes you to the shopping cart', async () => {
-  const { getByRole } = render(<App/>);
+  const { getByRole } = render(
+    <Provider store = {store}>
+      <App/>
+    </Provider>
+  );
 
   fireEvent( getByRole('button', {name: "show 0new notifications"}), new MouseEvent('click', {
       bubbles: true,

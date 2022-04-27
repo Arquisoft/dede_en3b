@@ -5,17 +5,20 @@ import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import { ICartItem } from "../components/ICartItem";
 import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
 import NumberPicker from "react-widgets/NumberPicker";
+import { addItem } from "../redux/slices/cartSlice";
+import {useDispatch} from 'react-redux';
 
 type IndividualProductProps = {
     product: IProduct;
-    onAddToCart: (clickedproduct: ICartItem) => void;
 }
 
 
+
 const IndividualProduct = (props: IndividualProductProps) => {
+
+    const dispatch = useDispatch();
 
     //Id
     const { id } = useParams();
@@ -49,7 +52,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     } else {
 
         const addProductToCart = () => {
-            props.onAddToCart(productToItem(product));
+            dispatch(addItem(productToItem(product)));
             setValue(1);
         }
 
