@@ -147,4 +147,15 @@ api.post(
     return res.sendStatus(200);
  });
 
+ api.get("/orders/:id",async (req: Request, res:Response): Promise<Response> => {
+  var  id = req.params.id;
+  var objID = mongoose.Types.ObjectId(id);
+  console.log(objID);
+  const order:IOrder = await Order.findOne({_id: objID});
+  if(!order) {
+    return res.status(404).json({message: 'Order with id "${objID}" not found'});
+  }
+  return res.status(200).send(order);
+});
+
 export default api;

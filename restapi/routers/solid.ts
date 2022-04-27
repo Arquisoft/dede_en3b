@@ -10,8 +10,8 @@ let connection: SolidConnection = new SolidConnection();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-// const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
@@ -27,7 +27,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
 	console.log("logged in " + connection.getWebId());
-	res.redirect(`https://dedeen3b.herokuapp.com/`);
+	//res.redirect(`https://dedeen3b.herokuapp.com/`);
+	res.redirect(`http://localhost:3000/`);
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
@@ -36,24 +37,30 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 			{ message: "User not logged in" }
 		);
 
-	let url = await connection
+	let urls = await connection
 		.fetchDatasetFromUser("profile/card")
 		.getThingAsync(connection.getWebId().href)
-		.then(thing => thing.getUrl(VCARD.hasAddress));
+		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
-	let address = await connection
-		.fetchDatasetFromUser("profile/card")
-		.getThingAsync(url ?? "")
-		.then(thing => ({
-			country_name: thing.getString(VCARD.country_name),
-			locality: thing.getString(VCARD.locality),
-			postal_code: thing.getString(VCARD.postal_code),
-			region: thing.getString(VCARD.region),
-			street_address: thing.getString(VCARD.street_address),
-		}));
+	let addresses = await Promise.all(
+		urls.map(url => 
+			connection
+			.fetchDatasetFromUser("profile/card")
+			.getThingAsync(url)
+			.then(thing => ({
+				country_name: thing.getString(VCARD.country_name),
+				locality: thing.getString(VCARD.locality),
+				postal_code: thing.getString(VCARD.postal_code),
+				region: thing.getString(VCARD.region),
+				street_address: thing.getString(VCARD.street_address),
+			}))
+		)
+	);
 
-	if(address !== null) return res.status(200).json(address);
-	else return res.status(404).json({ message: "Address not found" });
+	if(addresses.length !== 0) return res.status(200).json(addresses);
+	else return res.status(404).json({ 
+		message: "User has no addresses" 
+	});
 });
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
