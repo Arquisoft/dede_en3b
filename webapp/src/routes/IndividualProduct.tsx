@@ -65,31 +65,49 @@ const IndividualProduct = (props: IndividualProductProps) => {
         let imageRef: string = require("../static/images/" + product._id + ".png");
 
         return (
-            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', height: '100vh'}}>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
+                        height: '100vh', justifyContent: 'center'}}>
                 
-                <Box sx={{margin: '1em', borderRadius: 25, alignItems: "center", justifyContent: "center", 
+                <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
                             display: 'flex',  flexDirection: 'row'}}>
 
-                    <Box sx={{}}>
+                    <Box >
                         <div className="product-pic">
                             <StyledImg
                                 src={imageRef}
-                                alt="Product"
+                                alt={product.name}
                             />
                         </div>
                     </Box>
 
 
-                    <Box  >
+                    <Box sx={{ height: '500px', width: '100%'}} >
                         <div className="product-info">
-                            <h2>{product.name}</h2>
-                            <Card sx={{maxWidth: 550}}>
-                                <Typography>{product.description}</Typography>
+                            <Typography
+                                variant='h3'
+                                sx={{color: 'text.default', pt: 4, pb: 4}}
+                            >
+                                {product.name}
+                            </Typography>
+                            <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light'}}>
+                                <Typography sx={{color: 'text.dark'}}>{product.description}</Typography>
                             </Card>
-                            <h3>Price: {product.price}€</h3>
-                            <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}}></NumberPicker>
+                            <Typography
+                                variant='h5'
+                                sx={{pt: 4, pb:4, color: 'text.default'}}
+                            >
+                                Price: {product.price}€
+                            </Typography>
+                            <Box
+                                sx={{ display: 'flex', flexDirection: 'row', p: 2, alignItems: 'center', justifyContent: 'space-between'}}
+                            >
+                                <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}} 
+                                style={{ }}
+                                ></NumberPicker>
                         
-                            <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
+                                <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
+                            </Box>
+                            
                         </div>
                     </Box>
                 </Box>
