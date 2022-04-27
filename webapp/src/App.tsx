@@ -157,9 +157,8 @@ function App(): JSX.Element {
   
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         
-        <NavigationBar numberOfProductsInCart={cart.length} changeTheme={changeThemeMode} themeState={chosenTheme}/>
+        <NavigationBar changeTheme={changeThemeMode} themeState={chosenTheme}/>
 
         <Routes>
           <Route path="/" element={ <Home />} ></Route>
@@ -172,6 +171,7 @@ function App(): JSX.Element {
             } 
           />
         
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>

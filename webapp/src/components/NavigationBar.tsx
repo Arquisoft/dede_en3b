@@ -30,7 +30,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 
 interface NavigationBarProps {
-  numberOfProductsInCart: number;
   changeTheme: Function;
   themeState: boolean;
 }
@@ -42,14 +41,12 @@ function ToggleColorMode(props: any) {
     </IconButton>
   )
 };
-export default function PrimarySearchAppBar() : JSX.Element {
+
+export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
   
   var units = 0;
   const cart = useSelector((state:RootState) => state.cart.value);
   cart.forEach((item) => units += item.units);
-
-    
-
   
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -167,13 +164,11 @@ export default function PrimarySearchAppBar() : JSX.Element {
           }}>
         <IconButton
           size="large"
-          aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
-          color="default"
           aria-label={"show " + cart.forEach  + "new notifications"}
-          color="inherit"
+          color="default"
         >
           
-          <Badge badgeContent={props.numberOfProductsInCart} color="error">
+          <Badge badgeContent={cart.forEach} color="error">
             
             <ShoppingCartIcon />  
           
@@ -240,19 +235,18 @@ export default function PrimarySearchAppBar() : JSX.Element {
           <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
           <Link to="cart" style={{ color: '#FFF', textDecoration:'none' }}>
           <IconButton size="large" 
-            aria-label={"show " + props.numberOfProductsInCart  + "new notifications"} 
-            color="inherit">
+            aria-label={"show " + cart.forEach  + "new notifications"} 
+            color="inherit">                
+              <Badge badgeContent={cart.forEach} color="error">
                 <Typography
                   variant='h5'
                   color='text.light'
                 >
                   Cart
                 </Typography>
-                <Badge badgeContent={props.numberOfProductsInCart} color="error">
-              
                   {//<ShoppingCartIcon />
 }
-                </Badge>              
+              </Badge>              
             </IconButton>
           </Link>
           </Box>

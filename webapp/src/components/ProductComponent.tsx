@@ -36,10 +36,10 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
   let imageRef: string = require("../static/images/" + props.product._id + ".png");
   const navigate = useNavigate();
     return (
-      <Card sx={{ maxWidth: 345, minWidth: 345, height:500, bgcolor:"background.card" }}>
+      <Card sx={{ maxWidth: 345, minWidth: 345, height:500, bgcolor:"background.card", borderRadius: 8}}>
       <CardMedia
         component="img"
-        height="350"
+        height="300"
           image={imageRef}
         alt={props.product.description}
       />
@@ -55,9 +55,10 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-          <Button onClick={event => onAddToCart(productToItem(props.product))}>Add to cart</Button>
-          <Button onClick={event => navigate(`/products/${props.product._id}`)}>See more</Button>
+        {//<Button size="small">Share</Button>
+}
+        <Button onClick={event => onAddToCart(productToItem(props.product))}>Add to cart</Button>
+        <Button onClick={event => navigate(`/products/${props.product._id}`)}>See more</Button>
       </CardActions>
     </Card>
     )

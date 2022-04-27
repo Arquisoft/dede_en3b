@@ -16,8 +16,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { ICartItem } from '../ICartItem';
-import { produceWithPatches } from 'immer';
 import { useState } from 'react';
 
 function Copyright() {

@@ -121,7 +121,7 @@ const CatalogueComponent = () => {
 
         {products.map((product, i) => {
           return (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item>
               <ProductComponent key={i} product={product}></ProductComponent>
             </Grid>
           );
