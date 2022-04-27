@@ -1,6 +1,6 @@
-import { Wrapper } from "./CartItem.styles";
 import { IOrder } from '../shared/shareddtypes';
 import { StyledButton } from '../routes/Product.styles';
+import Box from '@mui/material/Box';
 
 type Props = {
   item: IOrder;
@@ -10,7 +10,7 @@ type Props = {
 function OrderItem(props: Props): JSX.Element {
 
   return (
-    <Wrapper className="order-item">
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <div>
         <h3>{new Date(props.item.date).toUTCString()}</h3>
         <div className="information">
@@ -29,7 +29,7 @@ function OrderItem(props: Props): JSX.Element {
           </StyledButton>
         </div>
       </div>
-    </Wrapper>
+    </Box>
   );
 };
 

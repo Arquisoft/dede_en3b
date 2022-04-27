@@ -9,7 +9,7 @@ test ('clicking on the account button lets user go to login', async () => {
     const { getByRole } = render(
       <BrowserRouter>
         <Provider store = {store}>
-          <NavigationBar />
+          <NavigationBar changeTheme={() => {}} themeState={false} />
         </Provider>
       </BrowserRouter>
       );
@@ -27,7 +27,7 @@ test ('clicking on the account button lets user go to his orders', async () => {
     const { getByRole } = render(
     <BrowserRouter>
       <Provider store = {store}>
-        <NavigationBar />
+        <NavigationBar changeTheme={() => {}} themeState={false} />
       </Provider>
     </BrowserRouter>
     );
