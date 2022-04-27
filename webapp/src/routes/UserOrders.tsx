@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import Grid from "@mui/material/Grid";
 
 type Props = {
   orders: IOrder[];
@@ -32,19 +33,19 @@ function BreadcrumbsOrders() {
 
 const UserOrders = ({ orders, getUserOrders }: Props) => {
   const [webId, setWebId] = useState('');
- 
+
   const computeWebId = async () => {
-      const res:string = await getSolidWebId();
-  
-      console.log(res);
-  
-      setWebId(res);
+    const res: string = await getSolidWebId();
+
+    console.log(res);
+
+    setWebId(res);
   };
-  
+
   React.useEffect(() => {
-      computeWebId();
-    }, []);
-  
+    computeWebId();
+  }, []);
+
 
   getUserOrders(orders, webId);
   return (
@@ -59,19 +60,23 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
           >
               Your Orders
       </Typography>
-      <Typography 
-          variant="h6"
-          sx={{color:"text.primary", padding: 2}}>
-        {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
-      </Typography>
-      {orders.map((order: IOrder) => (
-        <OrderItem
-          key={order._id.toString()}
-          item={order}
-        //TODO: ADD METHOD TO NAVIGATE TO THE INDIVIDUAL ORDER VIEW
-        />
-      ))}
-    </Box>
+      {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+      <Grid container justifyContent='space-evenly'
+        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
+        {orders.map((order: IOrder) => {
+          return (
+            <Grid item xs={6} sm={3}>
+              <OrderItem
+                key={order._id.toString()}
+                item={order}
+              /></Grid>);
+        }
+        )}
+
+      </Grid>
+
+
+    </Box >
   );
 };
 
