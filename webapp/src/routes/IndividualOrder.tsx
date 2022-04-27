@@ -23,6 +23,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
     useEffect(() => {
         selectOrder();
     },
+      // eslint-disable-next-line
         []);
 
 
