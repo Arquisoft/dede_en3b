@@ -94,7 +94,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
                         height: '100vh', justifyContent: 'center'}}>
                 
-                <Box sx={{flexDirection: 'column', pt:2}}>
+                <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
                     <BreadcrumbsProduct product={product.name}/>
                                 
 
