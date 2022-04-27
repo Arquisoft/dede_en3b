@@ -9,8 +9,6 @@ import { getShippingCosts } from '../../api/ShippingApi';
 import { getSolidAddress } from '../../api/api';
 import { useState } from 'react';
 // eslint-disable-next-line
-import { Address } from '../../../../restapi/model/Order';
-// eslint-disable-next-line
 import { AnalyticsOutlined } from '@mui/icons-material';
 import { PaymentData } from './Checkout';
 import { useSelector } from 'react-redux';
