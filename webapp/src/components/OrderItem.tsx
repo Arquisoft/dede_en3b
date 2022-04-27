@@ -1,4 +1,3 @@
-import { Wrapper } from "./CartItem.styles";
 import { IOrder } from '../shared/shareddtypes';
 import { StyledButton } from '../routes/Product.styles';
 import Box from '@mui/material/Box';
