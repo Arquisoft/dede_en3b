@@ -70,7 +70,7 @@ const CatalogueComponent = () => {
   return (
     <Grid container 
         className="App" 
-        sx={{bgcolor:'background.default', height: '100vh', display: 'flex', flexDirection: 'column'}}
+        sx={{bgcolor:'background.default', width: '100%', height: '100vh', display: 'grid'}}
         >
       
       <Grid item sx={{pt:4}}>
@@ -85,43 +85,54 @@ const CatalogueComponent = () => {
 
       <Grid container 
             className="search-container"
-            alignItems="center"
-            sx={{pt:8}}>
-        <Typography 
-            variant="h4"
-            align="center"
-            sx={{color:"text.primary"}}
-            >
-                Product search
-        </Typography>
-        <form className="searchForm" onSubmit={event => searchForProducts(event)}>
-          <input id="searchText" type="text" />
-          <button>Search</button>
-          <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
-            <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
-            <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
-              value={value}
-              label="Type"
-              onChange={event => { setValue(event.target.value); handleChange(event); }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
-              <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
-              <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
-            </Select>
-          </FormControl>
-        </form>
+            alignItems="stretch"
+            sx={{pt:0}}>
+              <Grid item xs={8} sm={2}>
+                <Typography 
+                    variant="h4"
+                    align="center"
+                    sx={{color:"text.primary"}}
+                    >
+                        Product search
+                </Typography>
+            </Grid>
+            <Grid item xs={8} sm={10}>
+              <form className="searchForm" onSubmit={event => searchForProducts(event)}>
+                <Grid container justifyContent="right">
+                  <Grid item xs={8} sm={10}>
+                    <input id="searchText" type="text" />
+                    <button>Search</button>
+                  </Grid>
+                  <Grid item xs={8} sm={2}>
+                     <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
+                      <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                        value={value}
+                        label="Type"
+                        onChange={event => { setValue(event.target.value); handleChange(event); }}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
+                        <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
+                        <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>              
+              </form>
+          </Grid>
       </Grid>
       
-      <Grid container spacing={2} sx={{pt:4}}>
+      <Grid container justifyContent='space-evenly'
+            sx={{pt:0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%'}}>
 
         {products.map((product, i) => {
           return (
-            <Grid item>
+            <Grid item xs={8} sm={3}>
               <ProductComponent key={i} product={product}></ProductComponent>
             </Grid>
           );

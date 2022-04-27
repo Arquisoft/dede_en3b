@@ -65,22 +65,22 @@ const IndividualProduct = (props: IndividualProductProps) => {
         let imageRef: string = require("../static/images/" + product._id + ".png");
 
         return (
-            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', height: '100vh'}}>
                 
-                <Box sx={{margin: '1em', borderRadius: 25, alignItems: "center", justifyContent: "center"}}>
+                <Box sx={{margin: '1em', borderRadius: 25, alignItems: "center", justifyContent: "center", 
+                            display: 'flex',  flexDirection: 'row'}}>
 
-                    <Grid item >
+                    <Box sx={{}}>
                         <div className="product-pic">
                             <StyledImg
                                 src={imageRef}
                                 alt="Product"
                             />
                         </div>
-                    </Grid>
+                    </Box>
 
-                    <Grid item sm={1}/>
 
-                    <Grid item >
+                    <Box  >
                         <div className="product-info">
                             <h2>{product.name}</h2>
                             <Card sx={{maxWidth: 550}}>
@@ -91,7 +91,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         
                             <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
                         </div>
-                    </Grid>
+                    </Box>
                 </Box>
             </Box>
         );
