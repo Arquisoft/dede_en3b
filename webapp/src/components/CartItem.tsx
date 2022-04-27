@@ -1,16 +1,36 @@
 import { Wrapper } from "./CartItem.styles";
-import { ICartItem } from "./ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import {  StyledButton } from '../routes/Product.styles';
+import {useDispatch} from 'react-redux';
+import {addItem, removeItem} from '../redux/slices/cartSlice';
 
 type Props = {
   item: ICartItem;
-  addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (clickedItem: ICartItem) => void;
 };
+
+
 
 function CartItem(props: Props): JSX.Element {
 
   let imageRef: string = require("../static/images/" + props.item.product._id + ".png");
+  const dispatch = useDispatch();
+
+/**
+   * Function to add a product to the cart
+   * 
+   * @param clickedItem 
+   */
+  const addToCart = (clickedItem: ICartItem) => {
+  dispatch(addItem(clickedItem));
+};
+
+/**
+   * 
+   * @param clickedItem 
+   */
+  const removeFromCart = (clickedItem : ICartItem) => {
+  dispatch(removeItem(clickedItem));
+};
 
   return (
     <Wrapper className="cart-item-product">
@@ -25,7 +45,7 @@ function CartItem(props: Props): JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => props.removeFromCart(props.item)}
+            onClick={() => removeFromCart(props.item)}
           >
             -
           </StyledButton>
@@ -34,7 +54,7 @@ function CartItem(props: Props): JSX.Element {
             size="small"
             disableElevation
             variant="contained"
-            onClick={() => props.addToCart(props.item)}
+            onClick={() => addToCart(props.item)}
           >
             +
           </StyledButton>

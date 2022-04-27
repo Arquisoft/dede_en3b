@@ -1,22 +1,67 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { IProduct } from '../shared/shareddtypes';
-import { ICartItem } from "../components/ICartItem";
 import ProductComponent from "../components/ProductComponent";
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import  {findProductsByName, getProducts, filterProducts} from '../api/api';
+import { loadProducts } from '../redux/slices/productSlice';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 
-interface CatalogueProps {
-    products: IProduct[];
-    addToCart: (clickedItem: ICartItem) => void;
-    searchForProducts: (event: FormEvent<HTMLFormElement>) => void;
-    handleChange: (event: { target: { value: string } }) => void;
-}
+const CatalogueComponent = () => {
 
-const CatalogueComponent = (props: CatalogueProps) => {
+  useEffect(() => {
+    refreshProductList();
+  });
+  
+  const refreshProductList = async () => {
+    const productsResult: IProduct[] = await getProducts();
+    dispatch(loadProducts(productsResult));
+  }
+
+  /**
+   * Updates the list of products
+   * @param input 
+   */
+  const updateProductList = async (input: HTMLInputElement) => {
+    const filteredProducts: IProduct[] = await findProductsByName(input.value);
+    dispatch(loadProducts(filteredProducts));
+    input.value = '';
+  }
+
+  /**
+   * Filters the products by name
+   * @param event 
+   */
+  const searchForProducts = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('#searchText') as HTMLInputElement;
+    if(input.value.trim() !== "")
+      updateProductList(input);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleChange = async (event: { target: { value: string } }) => {
+    var type = event.target.value;
+    var filteredProducts: IProduct[];
+    if (!type) {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    dispatch(loadProducts(filteredProducts));
+    setValue(type);
+  };
 
   const [value,setValue] = useState('');
+
+
+  let products:IProduct[] = useSelector((state: RootState) => state.product.value);
 
   return (
     <Grid container 

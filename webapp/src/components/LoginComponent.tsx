@@ -29,33 +29,33 @@ type Action = { type: 'setIdentityProvider', payload: string }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'setIdentityProvider': 
+   case 'setIdentityProvider': 
       return {
         ...state,
-        identityProvider: action.payload
-      };
-    case 'setIsButtonDisabled': 
-      return {
-        ...state,
+         identityProvider: action.payload
+       };
+  case 'setIsButtonDisabled': 
+       return {
+       ...state,
         isButtonDisabled: action.payload
-      };
-    case 'loginSuccess': 
-      return {
-        ...state,
+       };
+     case 'loginSuccess': 
+       return {
+      ...state,
         helperText: action.payload,
         isError: false
-      };
-    case 'loginFailed': 
-      return {
-        ...state,
+       };
+  case 'loginFailed': 
+     return {
+       ...state,
         helperText: action.payload,
-        isError: true
+       isError: true
       };
-    case 'setIsError': 
-      return {
-        ...state,
-        isError: action.payload
-      };
+   case 'setIsError': 
+       return {
+         ...state,
+     isError: action.payload
+    };
   }
 }
 

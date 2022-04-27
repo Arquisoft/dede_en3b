@@ -12,11 +12,13 @@ import Box from '@mui/material/Box';
 
 type IndividualProductProps = {
     product: IProduct;
-    onAddToCart: (clickedproduct: ICartItem) => void;
 }
 
 
+
 const IndividualProduct = (props: IndividualProductProps) => {
+
+    const dispatch = useDispatch();
 
     //Id
     const { id } = useParams();
@@ -55,7 +57,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     } else {
 
         const addProductToCart = () => {
-            props.onAddToCart(productToItem(product));
+            dispatch(addItem(productToItem(product)));
             setValue(1);
         }
 

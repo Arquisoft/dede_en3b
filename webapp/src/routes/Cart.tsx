@@ -6,14 +6,12 @@ import { isLoggedIn} from "../api/api";
 import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 
-type Props = {
-  cartItems: ICartItem[];
-  addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (clickedItem: ICartItem) => void;
-  emptyCart: () => void;
-};
+type CartProps = {
+  cart: ICartItem[];
+}
 
-const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
+
+const Cart = (props:CartProps) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
@@ -32,13 +30,11 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   return (
     <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <h2>Your Cart</h2>
-      {cartItems.length === 0 ? <p>No items in cart.</p> : null}
-      {cartItems.map((item) => (
+      {props.cart.length === 0 ? <p>No items in cart.</p> : null}
+      {props.cart.map((item) => (
         <CartItem
           key={item.product._id.toString()}
           item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
         />
       ))}
         <Grid>

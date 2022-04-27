@@ -52,15 +52,15 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "dedeen3b"
-          heroku_email: ${{secrets.HEROKU_USER}}
+          heroku_app_name: "dede-webapp-jesus"
+          heroku_email: "jesus.ag00@gmail.com"
           usedocker: true
           dontuseforce : 1
           appdir: "webapp"
           docker_build_args: |
             API_URI
         env:
-          API_URI: "https://dedeen3b-restapi.herokuapp.com/api"
+          API_URI: "https://dede-restapi-jesus.herokuapp.com/api"
   deploy-restapi:
     needs: [unit-test-restapi]
     runs-on: ubuntu-latest
@@ -69,8 +69,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "dedeen3b-restapi"
-          heroku_email: ${{secrets.HEROKU_USER}}
+          heroku_app_name: "dede-restapi-jesus"
+          heroku_email: "jesus.ag00@gmail.com"
           usedocker: true
           appdir: "restapi"
           docker_build_args: |
