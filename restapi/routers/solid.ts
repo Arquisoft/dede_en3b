@@ -10,8 +10,8 @@ let connection: SolidConnection = new SolidConnection();
 /**
  * TODO: Deshardcodear esto.
  */
-// const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+// const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
@@ -27,7 +27,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
 	console.log("logged in " + connection.getWebId());
-	res.redirect(`http://localhost:3000/`);
+	res.redirect(`https://dedeen3b.herokuapp.com/`);
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
