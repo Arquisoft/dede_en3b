@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { useParams } from 'react-router-dom';
 import { getOrder } from '../api/api';
 import { IOrder } from '../shared/shareddtypes';
-import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
+import { StyledOuterGrid } from './Product.styles';
 import IndividualOrderProduct from "../components/IndividualOrderProduct";
 
 
@@ -20,7 +20,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
         if (props.order == null) setOrder(await getOrder(id!));
         else setOrder(props.order);
     }
-    React.useEffect(() => {
+    useEffect(() => {
         selectOrder();
     },
         []);
