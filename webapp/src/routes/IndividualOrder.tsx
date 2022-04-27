@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { useParams } from 'react-router-dom';
 import { getOrder } from '../api/api';
