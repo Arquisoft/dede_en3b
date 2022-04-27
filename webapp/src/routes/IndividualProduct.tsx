@@ -12,6 +12,7 @@ import {useDispatch} from 'react-redux';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
+import ProductReviewList from '../components/reviews/ProductReviewList';
 
 type IndividualProductProps = {
     product: IProduct;
@@ -50,7 +51,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     const { id } = useParams();
     const [product, setProduct] =useState<IProduct>();
     const [rating, setRating] = useState<number | null>(3);
-    const [reviews, setReviews] = useState<Review[]>();
+    const [reviews, setReviews] = useState<Review[]>([]);
     
     const selectProduct = async () => {
         if (props.product == null) setProduct( await getProduct(id!));
@@ -96,7 +97,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
         return (
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
-                        height: '100vh', justifyContent: 'center'}}>
+                        height: '120vh', justifyContent: 'center'}}>
                 
                 <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
                 <BreadcrumbsProduct product={product.name}/>           
@@ -147,14 +148,8 @@ const IndividualProduct = (props: IndividualProductProps) => {
                             
                         </div>
                     </Box>
-                    </Box>
-                    <div>
-                        {reviews?.map((review) =>{
-                            return(
-                                <p>{review.comment}</p>
-                            )
-                        })}
-                    </div>
+                    </Box>                    
+                    <ProductReviewList reviewList={reviews} />
                 </Box>
             </Box>
         );
