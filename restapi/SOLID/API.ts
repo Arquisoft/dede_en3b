@@ -7,12 +7,19 @@ import {
 } from "@inrupt/solid-client-authn-node";
 
 import {
-	getFile, getUrl,
 	overwriteFile,
+<<<<<<< HEAD
 	getSolidDataset, saveSolidDatasetAt, SolidDataset,
 	getThing, setThing, Thing,
 	createThing, buildThing, ThingBuilder,
 	getStringNoLocale
+=======
+	getSolidDataset, SolidDataset,
+	getThing, Thing,
+	getFile,
+	getUrl, getUrlAll,
+	getStringNoLocale, getStringNoLocaleAll
+>>>>>>> master
 } from "@inrupt/solid-client";
 
 
@@ -217,8 +224,10 @@ export class DatasetBrowser {
 		this._datasetPromise.then(dataset => this._dataset = dataset);
 	}
 
-	public getThing(thingUrl: string, callback: (cbParam: ThingBrowser) => void)
-		: DatasetBrowser 
+	public getThing(
+		thingUrl: string,
+		callback: (cbParam: ThingBrowser) => void
+	): DatasetBrowser 
 	{
 		this.getThingAsync(thingUrl).then(callback);
 		return this;
@@ -286,10 +295,18 @@ export class ThingBrowser {
 		return getStringNoLocale(this._thing, url);
 	}
 
+	public getStringAll(url: string): string[] {
+		return getStringNoLocaleAll(this._thing, url);
+	}
+
 	public getUrl(url: string): string | null {
 		return getUrl(this._thing, url);
 	}
 
+	public getUrlAll(url: string): string[] {
+		return getUrlAll(this._thing, url);
+	}
+	
 	public setString(url: string, data: string): ThingBrowser {
 		if(this._builder === undefined) this._builder = buildThing(this._thing);
 
@@ -332,4 +349,5 @@ export class ThingBrowser {
 	public getInsides(): Thing {
 		return this._thing;
 	}
+
 }

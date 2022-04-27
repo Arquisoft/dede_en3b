@@ -1,21 +1,49 @@
 import React, {useState, useEffect} from "react";
-import Grid from "@mui/material/Grid";
 import {IProduct} from '../shared/shareddtypes';
 import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import { ICartItem } from "../components/ICartItem";
-import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
+import { StyledButton, StyledImg } from './Product.styles';
 import NumberPicker from "react-widgets/NumberPicker";
+import Box from '@mui/material/Box';
+import { addItem } from "../redux/slices/cartSlice";
+import {useDispatch} from 'react-redux';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 type IndividualProductProps = {
     product: IProduct;
-    onAddToCart: (clickedproduct: ICartItem) => void;
 }
+
+function BreadcrumbsProduct(props:any) {
+    return(
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" href="/" >
+          <Typography
+          variant='h6'
+          sx={{color: 'text.secondary'}}>
+              Home
+          </Typography>
+        </Link>
+        <Link underline="hover" href="/shop" >
+        <Typography variant='h6'
+          sx={{color: 'text.secondary'}}>
+              Catalogue
+          </Typography>
+          </Link>
+          <Typography variant='h6'
+          sx={{color: 'text.secondary'}}>
+              {props.product}
+          </Typography>
+      </Breadcrumbs>
+    );
+  }
 
 
 const IndividualProduct = (props: IndividualProductProps) => {
+
+    const dispatch = useDispatch();
 
     //Id
     const { id } = useParams();
@@ -42,49 +70,78 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
     if (typeof product === "undefined"){
         return (
-            <React.Fragment>
-                <h2>No such product exists</h2>
-            </React.Fragment>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
+                
+                <Typography
+                    variant='h4'
+                    sx={{color:'text.default', padding: 4}}>
+                    No such product exists
+                </Typography>
+                
+            </Box>
         );
     } else {
 
         const addProductToCart = () => {
-            props.onAddToCart(productToItem(product));
+            dispatch(addItem(productToItem(product)));
             setValue(1);
         }
 
         let imageRef: string = require("../static/images/" + product._id + ".png");
 
         return (
-            <React.Fragment>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
+                        height: '100vh', justifyContent: 'center'}}>
                 
-                <StyledOuterGrid container>
+                <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
+                    <BreadcrumbsProduct product={product.name}/>
+                                
 
-                    <Grid item >
+                <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
+                            display: 'flex',  flexDirection: 'row'}}>
+
+                    <Box >
                         <div className="product-pic">
                             <StyledImg
                                 src={imageRef}
-                                alt="Product"
+                                alt={product.name}
                             />
                         </div>
-                    </Grid>
+                    </Box>
 
-                    <Grid item sm={1}/>
 
-                    <Grid item >
+                    <Box sx={{ height: '500px', width: '100%'}} >
                         <div className="product-info">
-                            <h2>{product.name}</h2>
-                            <Card sx={{maxWidth: 550}}>
-                                <Typography>{product.description}</Typography>
+                            <Typography
+                                variant='h3'
+                                sx={{color: 'text.default', pt: 4, pb: 4}}
+                            >
+                                {product.name}
+                            </Typography>
+                            <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light'}}>
+                                <Typography sx={{color: 'text.dark'}}>{product.description}</Typography>
                             </Card>
-                            <h3>Price: {product.price}€</h3>
-                            <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}}></NumberPicker>
+                            <Typography
+                                variant='h5'
+                                sx={{pt: 4, pb:4, color: 'text.default'}}
+                            >
+                                Price: {product.price}€
+                            </Typography>
+                            <Box
+                                sx={{ display: 'flex', flexDirection: 'row', p: 2, alignItems: 'center', justifyContent: 'space-between'}}
+                            >
+                                <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}} 
+                                style={{ }}
+                                ></NumberPicker>
                         
-                            <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
+                                <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
+                            </Box>
+                            
                         </div>
-                    </Grid>
-                </StyledOuterGrid>
-            </React.Fragment>
+                    </Box>
+                    </Box>
+                </Box>
+            </Box>
         );
     }
 }

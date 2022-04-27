@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 import {Types} from 'mongoose';
-import api from '../api';
+import api from '../routers/api';
 const productSchema = require('../model/Products');
 
 export const prods:IProduct[] = [

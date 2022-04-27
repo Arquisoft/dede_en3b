@@ -1,4 +1,4 @@
-import { ICartItem } from '../components/ICartItem';
+import { ICartItem } from '../shared/shareddtypes';
  
 export function computeTotalPrice(cart: ICartItem[]) {
 
