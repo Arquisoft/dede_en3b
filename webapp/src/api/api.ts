@@ -70,7 +70,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address': address, 'price':price, 'date':date})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), name : item.product.name, quantity:item.units })), 'address': address, 'price':price, 'date':date})
     });
   if (response.status===200)
     return true;
@@ -85,6 +85,13 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
   var str: string = apiEndPoint + '/orders/find?webId=' + encodeURIComponent(webId);
+  let response = await fetch(str);
+  return response.json();
+}
+
+export async function getOrder(id:string):Promise<IOrder> {
+  var str:string = apiEndPoint+'/orders/'+id;
+  console.log(str);
   let response = await fetch(str);
   return response.json();
 }

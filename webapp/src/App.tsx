@@ -14,6 +14,7 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import IndividualOrder from './routes/IndividualOrder';
 // eslint-disable-next-line
 import { AnyRecord } from 'dns';
 // eslint-disable-next-line
@@ -178,6 +179,9 @@ function App(): JSX.Element {
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
         <Route path="shipping/confirmation" element={<ConfirmationComponent ></ConfirmationComponent>}></Route>
         <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
+        <Route path="orders/:id" element={
+            <IndividualOrder order={null as any}/>
+          } />
       </Routes>
 
     </BrowserRouter>
