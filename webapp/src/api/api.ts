@@ -1,7 +1,7 @@
 
 import { ICartItem } from '../shared/shareddtypes';
-import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
-
+import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
+import {Types} from 'mongoose'; 
 
 
 // const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
@@ -129,6 +129,15 @@ export async function getSolidName(): Promise<any> {
 
 export async function isLoggedIn(): Promise<any> {
   var str: string = solidEndPoint + '/isLoggedIn';
+  let response = await fetch(str);
+  return response.json();
+}
+
+/**
+ * Return a list of reviews of a product
+ */
+export async function getReviewsOfProduct(id : string) : Promise<Review[]> {
+  var str: string = apiEndPoint + '/reviews/list/' + id;
   let response = await fetch(str);
   return response.json();
 }

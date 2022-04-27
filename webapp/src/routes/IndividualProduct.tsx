@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import {IProduct} from '../shared/shareddtypes';
+import {IProduct, Review} from '../shared/shareddtypes';
 import {useParams} from 'react-router-dom';
-import {getProduct} from '../api/api';
+import {getProduct, getReviewsOfProduct} from '../api/api';
 import { Card } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import { StyledButton, StyledImg } from './Product.styles';
@@ -11,6 +11,7 @@ import { addItem } from "../redux/slices/cartSlice";
 import {useDispatch} from 'react-redux';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import Rating from '@mui/material/Rating';
 
 type IndividualProductProps = {
     product: IProduct;
@@ -48,10 +49,14 @@ const IndividualProduct = (props: IndividualProductProps) => {
     //Id
     const { id } = useParams();
     const [product, setProduct] =useState<IProduct>();
+    const [rating, setRating] = useState<number | null>(3);
+    const [reviews, setReviews] = useState<Review[]>();
     
     const selectProduct = async () => {
         if (props.product == null) setProduct( await getProduct(id!));
         else setProduct(props.product);
+
+        setReviews(await getReviewsOfProduct(id!));
     }
     // eslint-disable-next-line
     useEffect(() =>{ 
@@ -70,7 +75,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
     if (typeof product === "undefined"){
         return (
-            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '100vh'}}>
+            <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', height: '150vh'}}>
                 
                 <Typography
                     variant='h4'
@@ -94,12 +99,11 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         height: '100vh', justifyContent: 'center'}}>
                 
                 <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
-                    <BreadcrumbsProduct product={product.name}/>
-                                
+                <BreadcrumbsProduct product={product.name}/>           
 
                 <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
                             display: 'flex',  flexDirection: 'row'}}>
-
+     
                     <Box >
                         <div className="product-pic">
                             <StyledImg
@@ -118,6 +122,10 @@ const IndividualProduct = (props: IndividualProductProps) => {
                             >
                                 {product.name}
                             </Typography>
+                            <Rating value={rating} onChange={(event, newValue) => {
+                                setRating(newValue);
+                            }}
+                            sx={{pb:2}}/>
                             <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light'}}>
                                 <Typography sx={{color: 'text.dark'}}>{product.description}</Typography>
                             </Card>
@@ -140,6 +148,13 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         </div>
                     </Box>
                     </Box>
+                    <div>
+                        {reviews?.map((review) =>{
+                            return(
+                                <p>{review.comment}</p>
+                            )
+                        })}
+                    </div>
                 </Box>
             </Box>
         );

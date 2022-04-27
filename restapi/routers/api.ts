@@ -3,11 +3,13 @@ import {check, Schema} from 'express-validator';
 import { IUser } from '../model/User';
 import { IProduct } from '../model/Products';
 import { IOrder } from '../model/Order';
+import { IReview } from '../model/Review';
 // import { computeTotalPrice } from './util/utils';
 import { Request, Response, Router } from 'express';
 const User = require('../model/User');
 const Products = require('../model/Products');
 const Order = require('../model/Order');
+const Review = require('../model/Review');
 var mongoose = require('mongoose');
 const api: Router = express.Router();
 
@@ -124,6 +126,25 @@ api.post(
     return res.status(404).json({message: 'No orders for user '+ req.query.webId +' found!'});
   }
   return res.status(200).send(orders);
+ });
+
+ /**
+  * Get the list of reviews of a product
+  */
+ api.get("/reviews/list/:id", async (req: Request, res: Response) : Promise<Response> => {
+    var id = req.params.id;
+    var objID = mongoose.Types.ObjectId(id);
+    const reviews : IReview[] = await Review.find({productId: objID});
+    return res.status(200).send(reviews);
+ });
+
+ /**
+  * Add a review
+  */
+ api.post("/reviews/add", async (req: Request, res: Response): Promise<Response> => {
+    const review = new Review({productId: req.body.productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
+    await review.save();
+    return res.sendStatus(200);
  });
 
 export default api;

@@ -42,3 +42,10 @@ export interface IProduct {
   price: number;
   __v?: number;
 }
+
+export type Review = {
+  productId: Types.ObjectId;
+  name: string;
+  rating: number;
+  comment: string;
+}
