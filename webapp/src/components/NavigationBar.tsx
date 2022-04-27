@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,6 +16,8 @@ import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { useNavigate } from 'react-router-dom';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -40,9 +42,15 @@ function ToggleColorMode(props: any) {
     </IconButton>
   )
 };
+export default function PrimarySearchAppBar() : JSX.Element {
+  
+  var units = 0;
+  const cart = useSelector((state:RootState) => state.cart.value);
+  cart.forEach((item) => units += item.units);
 
+    
 
-export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Element {
+  
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -161,6 +169,8 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           size="large"
           aria-label={"show " + props.numberOfProductsInCart  + "new notifications"}
           color="default"
+          aria-label={"show " + cart.forEach  + "new notifications"}
+          color="inherit"
         >
           
           <Badge badgeContent={props.numberOfProductsInCart} color="error">

@@ -14,12 +14,16 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+// eslint-disable-next-line
 import { AnyRecord } from 'dns';
+// eslint-disable-next-line
 import { getShippingCosts } from './api/ShippingApi';
+// eslint-disable-next-line
 import AddressForm from './components/checkout/AddressForm';
 import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
+import {emptyCart} from "./redux/slices/cartSlice"
 
 import {ThemeProvider, PaletteMode, createTheme} from '@mui/material';
 function App(): JSX.Element {
@@ -45,18 +49,16 @@ function App(): JSX.Element {
 
   
 
-  /**
-  * Function to empty the shopping cart
-  */
-  const emptyCart = () => {
-    dispatch(emptyCart());
-  };
+
+    
 
   
-
+  /**
+  * Function to restore the default values of the cart.
+  */
   const restoreDefaults = () => {
-    emptyCart();
-  }
+    dispatch(emptyCart());
+  };
 
 
   const makeOrder = async () => {
@@ -155,6 +157,7 @@ function App(): JSX.Element {
   
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         
         <NavigationBar numberOfProductsInCart={cart.length} changeTheme={changeThemeMode} themeState={chosenTheme}/>
 

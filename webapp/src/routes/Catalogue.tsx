@@ -12,9 +12,13 @@ import Typography from '@mui/material/Typography';
 
 const CatalogueComponent = () => {
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     refreshProductList();
-  });
+  },
+  // eslint-disable-next-line
+  []);
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
@@ -43,7 +47,7 @@ const CatalogueComponent = () => {
       updateProductList(input);
   };
 
-  const dispatch = useDispatch();
+  
 
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;
