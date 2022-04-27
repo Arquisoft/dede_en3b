@@ -8,10 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-
-type CartProps = {
-  cart: ICartItem[];
-}
+import {useSelector} from 'react-redux';
+import { RootState } from '../redux/store';
 
 function BreadcrumbsCart() {
   return(
@@ -31,9 +29,12 @@ function BreadcrumbsCart() {
   );
 }
 
-const Cart = (props:CartProps) => {
-  const calculateTotal = (items: ICartItem[]) =>
+const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
+
+const Cart = () => {
+
+  let cart = useSelector((state:RootState) => state.cart.value);
   
   let navigate = useNavigate();
 
@@ -60,15 +61,15 @@ const Cart = (props:CartProps) => {
         Your Cart
       </Typography>
       
-      {props.cart.length === 0 ? <p>No items in cart.</p> : null}
-      {props.cart.map((item) => (
+      {cart.length === 0 ? <p>No items in cart.</p> : null}
+      {cart.map((item) => (
         <CartItem
           key={item.product._id.toString()}
           item={item}
         />
       ))}
         <Grid>
-        <h2 className="total-text">Total:  {calculateTotal(props.cart).toFixed(2)} €</h2>
+        <h2 className="total-text">Total:  {calculateTotal(cart).toFixed(2)} €</h2>
         
        
           <StyledButton onClick={checkOut}>Check out</StyledButton>
