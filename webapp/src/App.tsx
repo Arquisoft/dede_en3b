@@ -156,16 +156,16 @@ function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         
-        <NavigationBar numberOfProductsInCart={shoppingCart.length} changeTheme={changeThemeMode} themeState={chosenTheme}/>
+        <NavigationBar numberOfProductsInCart={cart.length} changeTheme={changeThemeMode} themeState={chosenTheme}/>
 
         <Routes>
           <Route path="/" element={ <Home />} ></Route>
           <Route path="login" element={<Login></Login>}> </Route>
-          <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-          <Route path="shop" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
+          <Route path="cart" element={<Cart cart={cart} />} />
+          <Route path="shop" element={<Catalogue /> } />
           <Route path="products/:id" 
             element={
-              <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
+              <IndividualProduct product={ null as any } /> 
             } 
           />
         

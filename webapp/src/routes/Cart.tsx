@@ -1,5 +1,5 @@
 import CartItem from "../components/CartItem";
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
@@ -38,7 +38,7 @@ const Cart = (props:CartProps) => {
         />
       ))}
         <Grid>
-        <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+        <h2 className="total-text">Total:  {calculateTotal(props.cart).toFixed(2)} €</h2>
         
         <Link to="/shipping/payment">
           <StyledButton onClick={checkOut}>Check out</StyledButton>

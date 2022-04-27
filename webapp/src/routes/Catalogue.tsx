@@ -90,7 +90,7 @@ const CatalogueComponent = () => {
             >
                 Product search
         </Typography>
-        <form className="searchForm" onSubmit={event => props.searchForProducts(event)}>
+        <form className="searchForm" onSubmit={event => searchForProducts(event)}>
           <input id="searchText" type="text" />
           <button>Search</button>
           <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
@@ -100,7 +100,7 @@ const CatalogueComponent = () => {
               id="demo-simple-select-filled"
               value={value}
               label="Type"
-              onChange={event => { setValue(event.target.value); props.handleChange(event); }}
+              onChange={event => { setValue(event.target.value); handleChange(event); }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -115,10 +115,10 @@ const CatalogueComponent = () => {
       
       <Grid container spacing={2} sx={{pt:4}}>
 
-        {props.products.map((product, i) => {
+        {products.map((product, i) => {
           return (
             <Grid item xs={12} sm={6} md={4}>
-              <ProductComponent key={i} product={product} onAddToCart={props.addToCart}></ProductComponent>
+              <ProductComponent key={i} product={product}></ProductComponent>
             </Grid>
           );
         })}

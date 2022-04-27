@@ -4,7 +4,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import { ICartItem } from '../ICartItem';
+import { ICartItem } from '../../shared/shareddtypes';
 import { computeTotalPrice } from '../../utils/utils';
 import { getShippingCosts } from '../../api/ShippingApi';
 import { getSolidAddress } from '../../api/api';
