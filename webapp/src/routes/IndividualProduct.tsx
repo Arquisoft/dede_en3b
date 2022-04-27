@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import Grid from "@mui/material/Grid";
 import {IProduct} from '../shared/shareddtypes';
 import {useParams} from 'react-router-dom';
 import {getProduct} from '../api/api';

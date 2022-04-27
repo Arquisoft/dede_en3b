@@ -252,7 +252,6 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <a href= "https://arquisoft.github.io/dede_en3b/"
-          target="_blank"
           style={{ color: '#FFF', textDecoration:'none' }}>
             <IconButton size="large" aria-label="about us" color="inherit">
                 <Typography
