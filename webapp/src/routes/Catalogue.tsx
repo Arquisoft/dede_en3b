@@ -9,6 +9,26 @@ import  {findProductsByName, getProducts, filterProducts} from '../api/api';
 import { loadProducts } from '../redux/slices/productSlice';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
+function BreadcrumbsCatalogue() {
+  return(
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/" >
+        <Typography
+        variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Home
+        </Typography>
+      </Link>
+      <Typography variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Catalogue
+        </Typography>
+    </Breadcrumbs>
+  );
+}
 
 const CatalogueComponent = () => {
 
@@ -82,6 +102,8 @@ const CatalogueComponent = () => {
                 Welcome to DeDe
         </Typography>
       </Grid>
+
+      <BreadcrumbsCatalogue/>
 
       <Grid container 
             className="search-container"
