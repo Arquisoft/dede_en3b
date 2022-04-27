@@ -10,9 +10,11 @@ import { loadProducts } from '../redux/slices/productSlice';
 
 const CatalogueComponent = () => {
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     refreshProductList();
-  });
+  },[]);
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();
@@ -41,7 +43,7 @@ const CatalogueComponent = () => {
       updateProductList(input);
   };
 
-  const dispatch = useDispatch();
+  
 
   const handleChange = async (event: { target: { value: string } }) => {
     var type = event.target.value;

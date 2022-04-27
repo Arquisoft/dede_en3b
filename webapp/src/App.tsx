@@ -20,6 +20,7 @@ import AddressForm from './components/checkout/AddressForm';
 import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
+import {emptyCart} from "./redux/slices/cartSlice"
 
 function App(): JSX.Element {
 
@@ -44,18 +45,16 @@ function App(): JSX.Element {
 
   
 
-  /**
-  * Function to empty the shopping cart
-  */
-  const emptyCart = () => {
-    dispatch(emptyCart());
-  };
+
+    
 
   
-
+  /**
+  * Function to restore the default values of the cart.
+  */
   const restoreDefaults = () => {
-    emptyCart();
-  }
+    dispatch(emptyCart());
+  };
 
 
   const makeOrder = async () => {
@@ -100,7 +99,7 @@ function App(): JSX.Element {
           }
         />
 
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={shoppingCart}></Checkout>}/>
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      

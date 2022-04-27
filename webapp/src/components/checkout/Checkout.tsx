@@ -15,9 +15,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { ICartItem } from '../ICartItem';
+import { ICartItem } from '../../shared/shareddtypes';
 import { produceWithPatches } from 'immer';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 function Copyright() {
   return (
@@ -44,7 +46,6 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 interface CheckoutProps {
-  cart: ICartItem[],
   makeOrder: () => void
 
 }
@@ -52,6 +53,8 @@ interface CheckoutProps {
 const theme = createTheme();
 
 export default function Checkout(props: CheckoutProps): JSX.Element {
+
+  const cart = useSelector((state:RootState) => state.cart.value)
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -83,7 +86,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       case 1:
         return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
       case 2:
-        return <Review cart={props.cart} paymentData={paymentData} />;
+        return <Review cart={cart} paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }
