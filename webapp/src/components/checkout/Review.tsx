@@ -11,17 +11,18 @@ import { useState } from 'react';
 // eslint-disable-next-line
 import { AnalyticsOutlined } from '@mui/icons-material';
 import { PaymentData } from './Checkout';
-import { ICartItem } from '../../shared/shareddtypes';
+import { Address, ICartItem } from '../../shared/shareddtypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 interface ReviewProps {
-    paymentData: PaymentData
+    paymentData: PaymentData,
+    address: Address
 }
 
 export default function Review(props: ReviewProps): JSX.Element {
 
-    const cart = useSelector((state:RootState) => state.cart.value);
+    const cart = useSelector((state: RootState) => state.cart.value);
 
     const defaultAddress = {
         country_name: "string",
@@ -34,14 +35,21 @@ export default function Review(props: ReviewProps): JSX.Element {
 
     //Shipping costs
     const [shippingCosts, setShippingCosts] = useState(0);
-    //Solid Address
-    const [solidAddress, setSolidAddress] = useState(defaultAddress);
+    // //Solid Address
+    // const [solidAddress, setSolidAddress] = useState(defaultAddress);
+
+    // const computeShippingCosts = async () => {
+    //     const address = await getSolidAddress();
+    //     // setSolidAddress(address);
+
+    //     // const res = await getShippingCosts(address);
+    //     console.log(res);
+
+    //     setShippingCosts(Number((res * 0.10).toFixed(2)));
+    // };
 
     const computeShippingCosts = async () => {
-        const address = await getSolidAddress();
-        setSolidAddress(address);
-
-        const res = await getShippingCosts(address);
+        const res = await getShippingCosts(props.address);
         console.log(res);
 
         setShippingCosts(Number((res * 0.10).toFixed(2)));
@@ -50,9 +58,9 @@ export default function Review(props: ReviewProps): JSX.Element {
     React.useEffect(() => {
         computeShippingCosts();
         console.log(shippingCosts);
-    }, 
-    // eslint-disable-next-line
-    []);
+    },
+        // eslint-disable-next-line
+        []);
 
     return (
         <React.Fragment>
@@ -87,7 +95,7 @@ export default function Review(props: ReviewProps): JSX.Element {
             </List>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                    {/* <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                         Shipping
                     </Typography>
                     <Typography gutterBottom>Mario Alfombras</Typography>
@@ -102,7 +110,23 @@ export default function Review(props: ReviewProps): JSX.Element {
                     </Typography>
                     <Typography gutterBottom>
                         {solidAddress.street_address === defaultAddress.street_address ? "Loading..." : solidAddress.country_name}
+                    </Typography> */}
+                    <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+                        Shipping
                     </Typography>
+                    <Typography gutterBottom>
+                        {props.address.street_address === defaultAddress.street_address ? "Loading..." : props.address.street_address}
+                    </Typography>
+                    <Typography gutterBottom>
+                        {props.address.street_address === defaultAddress.street_address ? "Loading..." : props.address.locality + " " + props.address.postal_code}
+                    </Typography>
+                    <Typography gutterBottom>
+                        {props.address.street_address === defaultAddress.street_address ? "Loading..." : props.address.region}
+                    </Typography>
+                    <Typography gutterBottom>
+                        {props.address.street_address === defaultAddress.street_address ? "Loading..." : props.address.country_name}
+                    </Typography>
+
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
@@ -115,7 +139,7 @@ export default function Review(props: ReviewProps): JSX.Element {
                                     <Typography gutterBottom>Card name: {props.paymentData.cardName}</Typography>
                                 </Grid>
                                 <Grid item xs={6} md={8}>
-                                    <Typography gutterBottom>Card number: ****-****-****-{props.paymentData.cardNumber.substring(props.paymentData.cardNumber.length-4)}</Typography>
+                                    <Typography gutterBottom>Card number: ****-****-****-{props.paymentData.cardNumber.substring(props.paymentData.cardNumber.length - 4)}</Typography>
                                 </Grid>
                                 <Grid item xs={6} md={8}>
                                     <Typography gutterBottom>Expiry date: {props.paymentData.expDate}</Typography>
