@@ -108,7 +108,8 @@ function App(): JSX.Element {
             default: '#000',
             secondary: '#454545',
             dark: '#000',
-            light: '#ebebeb'
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b',
           }
         }
         : {
@@ -127,7 +128,8 @@ function App(): JSX.Element {
             default: '#ebebeb',
             secondary: '#e0dcd8',
             dark: '#121212',
-            light: '#ebebeb'
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b'
           }
         }
       )
