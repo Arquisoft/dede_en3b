@@ -4,7 +4,7 @@ const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
 import api from "./routers/api";
 import solid from "./routers/solid";
-import ensurer from "./routers/solidEnsurer";
+//import ensurer from "./routers/solidEnsurer";
 import { SolidConnection } from "./SOLID/API";
 const mongoose =  require('mongoose');
 import { Application } from "express";
@@ -66,7 +66,7 @@ function restapi(app: Application) {
 };
 
 function solidapi(app: Application) {
-	app.use("/solid/", ensurer);
+//	app.use("/solid/", ensurer);
 	app.use("/solid", solid);
 }
 

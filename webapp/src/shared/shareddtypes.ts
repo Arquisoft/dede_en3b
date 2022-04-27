@@ -17,11 +17,11 @@ export interface ICartItem {
 }
 
 export type Address = {
-  country:string;
+  country_name:string;
   locality:string;
   postal_code:string;
   region:string;
-  street:string;
+  street_address:string;
 }  
 
 export interface IOrder {

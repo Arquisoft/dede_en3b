@@ -6,10 +6,10 @@ import {Address} from '../shared/shareddtypes';
 import { ICartItem } from "../shared/shareddtypes";
 
 const defaultValues = {
-    country: '',
+    country_name: '',
     locality: '',
     postal_code: '',
-    street: '',
+    street_address: '',
     region: ''
 };
         

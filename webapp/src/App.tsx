@@ -14,6 +14,10 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import { AnyRecord } from 'dns';
+import { getShippingCosts } from './api/ShippingApi';
+import AddressForm from './components/checkout/AddressForm';
+import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 
@@ -95,6 +99,8 @@ function App(): JSX.Element {
             <IndividualProduct product={null as any} />
           }
         />
+
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={shoppingCart}></Checkout>}/>
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
