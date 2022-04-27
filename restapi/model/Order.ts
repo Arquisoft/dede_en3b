@@ -26,6 +26,7 @@ const orderSchema = new mongoose.Schema({
 
 export interface OrderProduct{
     id: string;
+    name : string
     quantity: number;
 }
 

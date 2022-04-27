@@ -4,6 +4,7 @@ import OrderItem from "../components/OrderItem";
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid";
 
 type Props = {
   orders: IOrder[];
@@ -12,42 +13,47 @@ type Props = {
 
 const UserOrders = ({ orders, getUserOrders }: Props) => {
   const [webId, setWebId] = useState('');
- 
+
   const computeWebId = async () => {
-      const res:string = await getSolidWebId();
-  
-      console.log(res);
-  
-      setWebId(res);
+    const res: string = await getSolidWebId();
+
+    console.log(res);
+
+    setWebId(res);
   };
-  
+
   React.useEffect(() => {
-      computeWebId();
-    }, []);
-  
+    computeWebId();
+  }, []);
+
 
   getUserOrders(orders, webId);
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Typography 
-          variant="h4"
-          align="left"
-          sx={{color:"text.primary", padding: 2}}
-          >
-              Your Orders
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Typography
+        variant="h4"
+        align="left"
+        sx={{ color: "text.primary", padding: 2 }}
+      >
+        Your Orders
       </Typography>
-      <Typography 
-          variant="h6"
-          sx={{color:"text.primary", padding: 2}}>
-        {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
-      </Typography>
-      {orders.map((order: IOrder) => (
-        <OrderItem
-          key={order._id.toString()}
-          item={order}
-        />
-      ))}
-    </Box>
+      {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+      <Grid container justifyContent='space-evenly'
+        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
+        {orders.map((order: IOrder) => {
+          return (
+            <Grid item xs={6} sm={3}>
+              <OrderItem
+                key={order._id.toString()}
+                item={order}
+              /></Grid>);
+        }
+        )}
+
+      </Grid>
+
+
+    </Box >
   );
 };
 
