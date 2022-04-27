@@ -112,9 +112,10 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to get solid address
  */
- export async function getSolidAddress(): Promise<Address> {
+ export async function getSolidAddress(): Promise<Address[]> {
    var str: string = solidEndPoint + '/address';
-  let response = await fetch(str);
+   let response = await fetch(str);
+   console.log(response);
   return response.json();
 }
 
