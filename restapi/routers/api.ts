@@ -48,6 +48,7 @@ api.post(
     // let email = req.body.email;
     //We create a new User, simple, kinda like java, since we are using mongodb we can have empty fields only needed the required fields
     const user = new User({name: req.body.name,email:req.body.email});
+	  console.log(user);
     //We add the user to the database
     await user.save();
     //We answer that its all ok.
