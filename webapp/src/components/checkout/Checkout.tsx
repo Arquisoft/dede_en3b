@@ -3,6 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+// eslint-disable-next-line
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
@@ -15,11 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { ICartItem } from '../../shared/shareddtypes';
-import { produceWithPatches } from 'immer';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 
 function Copyright() {
   return (
@@ -54,13 +51,11 @@ const theme = createTheme();
 
 export default function Checkout(props: CheckoutProps): JSX.Element {
 
-  const cart = useSelector((state:RootState) => state.cart.value)
-
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-    if (activeStep == steps.length - 1) {
+    if (activeStep === steps.length - 1) {
       props.makeOrder();
       console.log("Pediu realizau. ")
     }
@@ -86,7 +81,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       case 1:
         return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
       case 2:
-        return <Review cart={cart} paymentData={paymentData} />;
+        return <Review paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }

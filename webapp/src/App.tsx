@@ -14,8 +14,11 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+// eslint-disable-next-line
 import { AnyRecord } from 'dns';
+// eslint-disable-next-line
 import { getShippingCosts } from './api/ShippingApi';
+// eslint-disable-next-line
 import AddressForm from './components/checkout/AddressForm';
 import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
@@ -85,7 +88,7 @@ function App(): JSX.Element {
 
     <BrowserRouter>
 
-      <NavigationBar numberOfProductsInCart={cart.length} />
+      <NavigationBar/>
 
       <Routes>
         <Route path="/" element={ <Home />} ></Route>

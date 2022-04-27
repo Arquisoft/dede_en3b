@@ -14,7 +14,9 @@ const CatalogueComponent = () => {
 
   useEffect(() => {
     refreshProductList();
-  },[]);
+  },
+  // eslint-disable-next-line
+  []);
   
   const refreshProductList = async () => {
     const productsResult: IProduct[] = await getProducts();

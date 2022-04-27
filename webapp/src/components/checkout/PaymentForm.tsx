@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { PaymentData } from './Checkout';
-import { useState } from 'react';
 
 interface PaymentProps {
   data: PaymentData,
@@ -16,6 +15,7 @@ interface PaymentProps {
 
 export default function PaymentForm(props: PaymentProps): JSX.Element {
   
+  // eslint-disable-next-line
   const defaultPaymentData : PaymentData = {
     cardName: "",
     cardNumber: "",
