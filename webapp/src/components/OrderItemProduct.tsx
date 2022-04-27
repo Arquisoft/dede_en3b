@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { IProduct } from "../shared/shareddtypes";
 import { Wrapper } from "./CartItem.styles";
-import { ICartItem } from "./ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 // eslint-disable-next-line
 import { StyledButton } from '../routes/Product.styles';
 

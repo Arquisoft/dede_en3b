@@ -1,19 +1,17 @@
 import CartItem from "../components/CartItem";
-import { ICartItem } from "../components/ICartItem";
+import { ICartItem } from "../shared/shareddtypes";
 import { Wrapper } from "./Cart.styles";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
 import { Link } from "react-router-dom";
 
-type Props = {
-  cartItems: ICartItem[];
-  addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (clickedItem: ICartItem) => void;
-  emptyCart: () => void;
-};
+type CartProps = {
+  cart: ICartItem[];
+}
 
-const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
+
+const Cart = (props:CartProps) => {
   const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
   
@@ -32,20 +30,17 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
   return (
     <Wrapper>
       <h2>Your Cart</h2>
-      {cartItems.length === 0 ? <p>No items in cart.</p> : null}
-      {cartItems.map((item) => (
+      {props.cart.length === 0 ? <p>No items in cart.</p> : null}
+      {props.cart.map((item) => (
         <CartItem
           key={item.product._id.toString()}
           item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
         />
       ))}
       <Grid>
-        <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+        <h2 className="total-text">Total:  {calculateTotal(props.cart).toFixed(2)} €</h2>
         
         <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
-         
       </Grid>
           </Wrapper>
   );

@@ -1,27 +1,72 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { IProduct } from '../shared/shareddtypes';
-import { ICartItem } from "../components/ICartItem";
 import ProductComponent from "../components/ProductComponent";
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import  {findProductsByName, getProducts, filterProducts} from '../api/api';
+import { loadProducts } from '../redux/slices/productSlice';
 
-interface CatalogueProps {
-    products: IProduct[];
-    addToCart: (clickedItem: ICartItem) => void;
-    searchForProducts: (event: FormEvent<HTMLFormElement>) => void;
-    handleChange: (event: { target: { value: string } }) => void;
-}
+const CatalogueComponent = () => {
 
-const CatalogueComponent = (props: CatalogueProps) => {
+  useEffect(() => {
+    refreshProductList();
+  });
+  
+  const refreshProductList = async () => {
+    const productsResult: IProduct[] = await getProducts();
+    dispatch(loadProducts(productsResult));
+  }
+
+  /**
+   * Updates the list of products
+   * @param input 
+   */
+  const updateProductList = async (input: HTMLInputElement) => {
+    const filteredProducts: IProduct[] = await findProductsByName(input.value);
+    dispatch(loadProducts(filteredProducts));
+    input.value = '';
+  }
+
+  /**
+   * Filters the products by name
+   * @param event 
+   */
+  const searchForProducts = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('#searchText') as HTMLInputElement;
+    if(input.value.trim() !== "")
+      updateProductList(input);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleChange = async (event: { target: { value: string } }) => {
+    var type = event.target.value;
+    var filteredProducts: IProduct[];
+    if (!type) {
+      filteredProducts = await getProducts();
+    }
+    else {
+      filteredProducts = await filterProducts(type);
+    }
+    dispatch(loadProducts(filteredProducts));
+    setValue(type);
+  };
 
   const [value,setValue] = useState('');
+
+
+  let products:IProduct[] = useSelector((state: RootState) => state.product.value);
 
   return (
     <div className="App">
       <h1>Welcome to DeDe</h1>
       <div className="search-container">
       <h2>Product search</h2>
-      <form className="searchForm" onSubmit={event => props.searchForProducts(event)}>
+      <form className="searchForm" onSubmit={event => searchForProducts(event)}>
         <input id="searchText" type="text" />
         <button>Search</button>
         <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
@@ -31,7 +76,7 @@ const CatalogueComponent = (props: CatalogueProps) => {
             id="demo-simple-select-filled"
             value={value}
             label="Type"
-            onChange={event => { setValue(event.target.value); props.handleChange(event); }}
+            onChange={event => { setValue(event.target.value); handleChange(event); }}
           >
             <MenuItem value="">
               <em>None</em>
@@ -45,9 +90,9 @@ const CatalogueComponent = (props: CatalogueProps) => {
       </div>
       <div className="products-container">
 
-        {props.products.map((product, i) => {
+        {products.map((product, i) => {
           return (
-            <ProductComponent key={i} product={product} onAddToCart={props.addToCart}></ProductComponent>
+            <ProductComponent key={i} product={product}></ProductComponent>
 
           );
         })}
