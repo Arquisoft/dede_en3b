@@ -63,6 +63,57 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 	});
 });
 
+solid.post(
+	"/address",
+	async (req: Request, res:Response): Promise<Response> => {
+		if(!connection.isLoggedIn()) 
+			return res.status(403).json(
+				{ message: "User not logged in" }
+			);
+
+		const address = {
+			street: req.body.street,
+			locality: req.body.locality,
+			postal_code: req.body.postal_code,
+			region: req.body.region,
+			country_name: req.body.country_name,
+		};
+
+		let id = `id${Math.floor(Math.random() * 1e14)}`;
+		let webId = connection.getWebId();
+		let urlId = `${webId.origin}${webId.pathname}#${id}`;
+
+		let urlDataset = await connection
+			.fetchDatasetFromUser("profile/card");
+		let urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+		await urlThing
+			.addUrl(VCARD.hasAddress, urlId)
+			.save();
+
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+
+		await urlDataset.save();
+
+		urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
+		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+
+		let dataset = connection.fetchDatasetFromUser("profile/card");
+		await dataset
+			.addThing(id)
+			.addString(VCARD.street_address, req.body.street)
+			.addString(VCARD.locality, req.body.locality)
+			.addString(VCARD.postal_code, req.body.postal_code)
+			.addString(VCARD.region, req.body.region)
+			.addString(VCARD.country_name, req.body.country_name)
+			.save();
+
+		await dataset.save();
+
+		return res.status(200).json(await dataset.getInsides());
+	}
+);
+
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
