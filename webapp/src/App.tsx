@@ -100,7 +100,7 @@ function App(): JSX.Element {
           }
         />
 
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={shoppingCart}></Checkout>}/>
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} cart={cart}></Checkout>}/>
         
         <Route path="shipping/payment" element={<AddPaymentMeanComponent  setPaymentMean={setPaymentMean}
           totalCost={computeTotalPrice(cart)} makeOrder={makeOrder} ></AddPaymentMeanComponent>} ></Route>      
