@@ -14,6 +14,7 @@ import { computeTotalPrice } from './utils/utils';
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
+import IndividualOrder from './routes/IndividualOrder';
 // eslint-disable-next-line
 import { AnyRecord } from 'dns';
 // eslint-disable-next-line
@@ -107,7 +108,8 @@ function App(): JSX.Element {
             default: '#000',
             secondary: '#454545',
             dark: '#000',
-            light: '#ebebeb'
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b',
           }
         }
         : {
@@ -126,7 +128,8 @@ function App(): JSX.Element {
             default: '#ebebeb',
             secondary: '#e0dcd8',
             dark: '#121212',
-            light: '#ebebeb'
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b'
           }
         }
       )
@@ -165,16 +168,20 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Home />} ></Route>
           <Route path="login" element={<Login></Login>}> </Route>
-          <Route path="cart" element={<Cart cart={cart} />} />
-          <Route path="shop" element={<Catalogue />} />
-          <Route path="products/:id"
+          <Route path="cart" element={<Cart />} />
+          <Route path="shop" element={<Catalogue /> } />
+          <Route path="products/:id" 
             element={
               <IndividualProduct product={null as any} />
             }
           />
-
-          <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>} />
-          <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
+        
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>   
+        <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
+        <Route path="orders/:id" element={
+            <IndividualOrder order={null as any}/>
+          } />
+      </Routes>
         </Routes>
 
       </BrowserRouter>

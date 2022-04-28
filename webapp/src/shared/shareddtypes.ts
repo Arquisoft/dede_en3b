@@ -7,7 +7,8 @@ export interface IUser {
 };
 
 export interface OrderProduct{
-  id: String;
+  id: string;
+  name : string;
   quantity: number;
 }
 
@@ -41,4 +42,11 @@ export interface IProduct {
   type?: string;
   price: number;
   __v?: number;
+}
+
+export type Review = {
+  productId: Types.ObjectId;
+  name: string;
+  rating: number;
+  comment: string;
 }
