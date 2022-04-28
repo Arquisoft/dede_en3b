@@ -7,16 +7,22 @@ export interface IUser {
 };
 
 export interface OrderProduct{
-  id: String;
+  id: string;
+  name : string;
   quantity: number;
 }
 
+export interface ICartItem {
+  product: IProduct,
+  units: number,
+}
+
 export type Address = {
-  country:string;
+  country_name:string;
   locality:string;
   postal_code:string;
   region:string;
-  street:string;
+  street_address:string;
 }  
 
 export interface IOrder {
@@ -36,4 +42,11 @@ export interface IProduct {
   type?: string;
   price: number;
   __v?: number;
+}
+
+export type Review = {
+  productId: Types.ObjectId;
+  name: string;
+  rating: number;
+  comment: string;
 }

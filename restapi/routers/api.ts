@@ -3,11 +3,13 @@ import {check, Schema} from 'express-validator';
 import { IUser } from '../model/User';
 import { IProduct } from '../model/Products';
 import { IOrder } from '../model/Order';
+import { IReview } from '../model/Review';
 // import { computeTotalPrice } from './util/utils';
 import { Request, Response, Router } from 'express';
 const User = require('../model/User');
 const Products = require('../model/Products');
 const Order = require('../model/Order');
+const Review = require('../model/Review');
 var mongoose = require('mongoose');
 const api: Router = express.Router();
 
@@ -46,6 +48,7 @@ api.post(
     // let email = req.body.email;
     //We create a new User, simple, kinda like java, since we are using mongodb we can have empty fields only needed the required fields
     const user = new User({name: req.body.name,email:req.body.email});
+	  console.log(user);
     //We add the user to the database
     await user.save();
     //We answer that its all ok.
@@ -125,5 +128,35 @@ api.post(
   }
   return res.status(200).send(orders);
  });
+
+ /**
+  * Get the list of reviews of a product
+  */
+ api.get("/reviews/list/:id", async (req: Request, res: Response) : Promise<Response> => {
+    var id = req.params.id;
+    var objID = mongoose.Types.ObjectId(id);
+    const reviews : IReview[] = await Review.find({productId: objID});
+    return res.status(200).send(reviews);
+ });
+
+ /**
+  * Add a review
+  */
+ api.post("/reviews/add", async (req: Request, res: Response): Promise<Response> => {
+    const review = new Review({productId: req.body.productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
+    await review.save();
+    return res.sendStatus(200);
+ });
+
+ api.get("/orders/:id",async (req: Request, res:Response): Promise<Response> => {
+  var  id = req.params.id;
+  var objID = mongoose.Types.ObjectId(id);
+  console.log(objID);
+  const order:IOrder = await Order.findOne({_id: objID});
+  if(!order) {
+    return res.status(404).json({message: 'Order with id "${objID}" not found'});
+  }
+  return res.status(200).send(order);
+});
 
 export default api;

@@ -1,7 +1,6 @@
 
-import { ICartItem } from '../components/ICartItem';
-import {IUser, IProduct, IOrder, Address} from '../shared/shareddtypes';
-
+import { ICartItem } from '../shared/shareddtypes';
+import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
 
 const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
 //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
@@ -70,7 +69,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
   let response = await fetch(apiEndPoint+'/orders/add', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), quantity:item.units })), 'address': address, 'price':price, 'date':date})
+      body: JSON.stringify({'webId':webId, products:orders.map((item) => ({ id: item.product._id.toString(), name : item.product.name, quantity:item.units })), 'address': address, 'price':price, 'date':date})
     });
   if (response.status===200)
     return true;
@@ -85,6 +84,13 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  */
  export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
   var str: string = apiEndPoint + '/orders/find?webId=' + encodeURIComponent(webId);
+  let response = await fetch(str);
+  return response.json();
+}
+
+export async function getOrder(id:string):Promise<IOrder> {
+  var str:string = apiEndPoint+'/orders/'+id;
+  console.log(str);
   let response = await fetch(str);
   return response.json();
 }
@@ -128,6 +134,15 @@ export async function getSolidName(): Promise<any> {
 
 export async function isLoggedIn(): Promise<any> {
   var str: string = solidEndPoint + '/isLoggedIn';
+  let response = await fetch(str);
+  return response.json();
+}
+
+/**
+ * Return a list of reviews of a product
+ */
+export async function getReviewsOfProduct(id : string) : Promise<Review[]> {
+  var str: string = apiEndPoint + '/reviews/list/' + id;
   let response = await fetch(str);
   return response.json();
 }

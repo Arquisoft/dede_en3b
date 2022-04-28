@@ -30,16 +30,14 @@ async function connect() {
 	}));
 
 	const options = {
-		origin: ["http://localhost:3000"],
 	};
 
-	console.log("Application started: " + options.origin);
+	console.log("Application started: " + port);
 
 	const metricsMiddleware = promBundle({
 		includeMethod: true,
 	});
 	app.use(metricsMiddleware);
-
 	app.use(cors());
 	app.use(bp.json());
 

@@ -14,27 +14,29 @@ const orderSchema = new mongoose.Schema({
     webId: String,
     orderProducts: {type: Array, default: []},
     address: {
-        country:String,
+        country_name:String,
         locality:String,
         postal_code:String,
         region:String,
-        street:String,
+        street_address:String,
     },
     totalPrice: Number,
     date: Date
 });
 
 export interface OrderProduct{
-    id: String;
+    id: string;
+    name : string
     quantity: number;
 }
 
 export type Address = {
-    country:string;
+    country_name:string;
     locality:string;
     postal_code:string;
     region:string;
-    street:string;
+    street_address:string;
 }  
+
 
 module.exports = mongoose.model("Orders", orderSchema);

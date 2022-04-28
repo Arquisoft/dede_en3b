@@ -1,23 +1,42 @@
 import CartItem from "../components/CartItem";
-import { ICartItem } from "../components/ICartItem";
-import { Wrapper } from "./Cart.styles";
+import { ICartItem } from "../shared/shareddtypes";
 import Grid from "@mui/material/Grid";
 import { StyledButton } from './Product.styles';
 import { isLoggedIn} from "../api/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import {useSelector} from 'react-redux';
+import { RootState } from '../redux/store';
 
-type Props = {
-  cartItems: ICartItem[];
-  addToCart: (clickedItem: ICartItem) => void;
-  removeFromCart: (clickedItem: ICartItem) => void;
-  emptyCart: () => void;
-};
+function BreadcrumbsCart() {
+  return(
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/" >
+        <Typography
+        variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Home
+        </Typography>
+      </Link>
+      <Typography variant='h6'
+        sx={{color: 'text.secondary'}}>
+            Cart
+        </Typography>
+    </Breadcrumbs>
+  );
+}
 
-const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
-  const calculateTotal = (items: ICartItem[]) =>
+const calculateTotal = (items: ICartItem[]) =>
     items.reduce((acc, item) => acc + item.units * item.product.price, 0);
+
+const Cart = () => {
+
+  let cart = useSelector((state:RootState) => state.cart.value);
   
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   const checkOut = async () => {
   
@@ -25,29 +44,39 @@ const Cart = ({ cartItems, addToCart, removeFromCart, emptyCart }: Props) => {
       console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (!obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
+        navigate("/shipping/payment");
       } 
     
   };
         
   return (
-    <Wrapper>
-      <h2>Your Cart</h2>
-      {cartItems.length === 0 ? <p>No items in cart.</p> : null}
-      {cartItems.map((item) => (
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      
+      <BreadcrumbsCart />
+      
+      <Typography
+        variant='h3'
+        sx={{color: 'text.default', pt: 4, pb:2}}
+      >
+        Your Cart
+      </Typography>
+      
+      {cart.length === 0 ? <p>No items in cart.</p> : null}
+      {cart.map((item) => (
         <CartItem
           key={item.product._id.toString()}
           item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
         />
       ))}
-      <Grid>
-        <h2 className="total-text">Total:  {calculateTotal(cartItems).toFixed(2)} €</h2>
+        <Grid>
+        <h2 className="total-text">Total:  {calculateTotal(cart).toFixed(2)} €</h2>
         
-        <Link to="/shipping/payment"><StyledButton onClick={checkOut}>Check out</StyledButton></Link>
+       
+          <StyledButton onClick={checkOut}>Check out</StyledButton>
+          
          
-      </Grid>
-          </Wrapper>
+        </Grid>
+      </Box>
   );
 };
 

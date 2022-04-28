@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
-
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 import Home from '../routes/Home';
 import App from '../App';
 import { BrowserRouter } from "react-router-dom";
@@ -11,17 +12,29 @@ import { BrowserRouter } from "react-router-dom";
  */
 test('home page is rendered correctly', () => {
     act(() => {
-        render(<Home />, {wrapper: BrowserRouter});
+        render(
+        <BrowserRouter>
+            <Provider store = {store}>
+                <Home />
+            </Provider>
+        </BrowserRouter>
+        );
     });
     expect(screen.getByText("Welcome to DeDe")).toBeInTheDocument();
 });
 
- test('home page shows buttons to go to shop and orders', async () => {
+test('home page shows buttons to go to shop and orders', async () => {
 
-  const { getByRole } = render(<Home />, {wrapper: BrowserRouter});
-  
-  expect(getByRole('button', {name: "Start shopping"})).toBeInTheDocument();
-  expect(getByRole('button', {name: "Check your orders"})).toBeInTheDocument();
+    const { getByRole } = render(
+    <BrowserRouter>
+        <Provider store = {store}>
+            <Home />
+        </Provider>
+    </BrowserRouter>
+    );
+
+    expect(getByRole('button', {name: "Start shopping"})).toBeInTheDocument();
+    expect(getByRole('button', {name: "Check your orders"})).toBeInTheDocument();
 });
 
 /**
@@ -29,7 +42,11 @@ test('home page is rendered correctly', () => {
  */
 test('clicking on the button to shop takes you to the shop page', async () => {
 
-    const { getByRole, getByAltText } = render(<App />);
+    const { getByRole, getByAltText } = render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+    );
 
     fireEvent.click(getByAltText('logo')); //go back home
 
@@ -46,7 +63,11 @@ test('clicking on the button to shop takes you to the shop page', async () => {
  */
  test('clicking on the button to check orders takes you to your orders page', async () => {
 
-  const { getByRole, getByAltText } = render(<App />);
+    const { getByRole, getByAltText } = render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+    );
 
   fireEvent.click(getByAltText('logo')); //go back home
   
