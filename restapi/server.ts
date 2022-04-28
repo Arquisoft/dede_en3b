@@ -1,10 +1,12 @@
 const express = require('express');
+const session = require('express-session');
+import 'express-session';
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
 import api from "./routers/api";
 import solid from "./routers/solid";
-//import ensurer from "./routers/solidEnsurer";
+import ensurer from "./routers/solidEnsurer";
 import { SolidConnection } from "./SOLID/API";
 const mongoose =  require('mongoose');
 import { Application } from "express";
@@ -21,7 +23,11 @@ declare module 'express-session' {
 
 async function connect() {
 	const app = express();
-	
+	app.use(session({
+		secret: "mysecret420",
+		saveUnitialized: true,
+		resave: false,
+	}));
 
 	const options = {
 		origin: ["http://localhost:3000"],
@@ -67,7 +73,7 @@ function restapi(app: Application) {
 };
 
 function solidapi(app: Application) {
-//	app.use("/solid/", ensurer);
+	app.use("/solid/", ensurer);
 	app.use("/solid", solid);
 }
 

@@ -1,11 +1,10 @@
 const express = require('express'); 
+import "express-session";
 import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 
 const solid: Router = express.Router();
-
-let connection: SolidConnection = new SolidConnection();
 
 /**
  * TODO: Deshardcodear esto.
@@ -15,34 +14,36 @@ const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.h
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if(req.query.provider !== null)
-		connection =
+		req.session.connection =
 			new SolidConnection(req.query.provider as string);
 
-	if(!connection.isLoggedIn())
-		connection.login(`${apiEndPoint}/redirect`, res);
+	if(!req.session.connection?.isLoggedIn())
+		req.session.connection?.login(`${apiEndPoint}/redirect`, res);
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
-	await connection
-		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
+	await req.session.connection
+		?.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
-	console.log("logged in " + connection.getWebId());
+	console.log("logged in " + req.session.connection?.getWebId());
 	res.redirect(`https://dedeen3b.herokuapp.com/`);
 });
 
-solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+solid.get("/address", async (req: Request, res: Response)
+	: Promise<Response> => 
+{
+	if(!req.session.connection?.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
-	let url = await connection
-		.fetchDatasetFromUser("profile/card")
-		.getThingAsync(connection.getWebId().href)
+	let url = await req.session.connection
+		?.fetchDatasetFromUser("profile/card")
+		.getThingAsync(req.session.connection?.getWebId().href)
 		.then(thing => thing.getUrl(VCARD.hasAddress));
 
-	let address = await connection
-		.fetchDatasetFromUser("profile/card")
+	let address = await req.session.connection
+		?.fetchDatasetFromUser("profile/card")
 		.getThingAsync(url ?? "")
 		.then(thing => ({
 			country_name: thing.getString(VCARD.country_name),
@@ -57,31 +58,31 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 });
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+	if(!req.session.connection?.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
 	return res.status(200).json({ 
-		webId: connection.getWebId() 
+		webId: req.session.connection?.getWebId() 
 	});
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({
-		isLoggedIn: connection.isLoggedIn() 
+		isLoggedIn: req.session.connection?.isLoggedIn() 
 	});
 });
 
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+	if(!req.session.connection?.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
-	let name = await connection
-		.fetchDatasetFromUser("profile/card")
-		.getThingAsync(connection.getWebId().href)
+	let name = await req.session.connection
+		?.fetchDatasetFromUser("profile/card")
+		.getThingAsync(req.session.connection?.getWebId().href)
 		.then(thing => thing.getString(FOAF.name));
 	return res.status(200).json({ name: name });
 });
