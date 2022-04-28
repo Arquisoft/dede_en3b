@@ -41,10 +41,12 @@ const Cart = (props:CartProps) => {
   
       var obj = await isLoggedIn();
       console.log("¿Is user logged in? " + obj.isLoggedIn);
-      if (!obj.isLoggedIn) {
+      if (obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
         navigate("/shipping/payment");
-      } 
+      } else {
+        navigate("/login");
+      }
     
   };
         
@@ -71,7 +73,7 @@ const Cart = (props:CartProps) => {
         <h2 className="total-text">Total:  {calculateTotal(props.cart).toFixed(2)} €</h2>
         
        
-          <StyledButton onClick={checkOut}>Check out</StyledButton>
+          <StyledButton onClick={checkOut}>Check out</StyledButton> 
           
          
         </Grid>
