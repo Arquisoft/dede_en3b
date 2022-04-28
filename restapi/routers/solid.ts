@@ -38,7 +38,7 @@ solid.get("/address", async (req: Request, res: Response)
 			{ message: "User not logged in" }
 		);
 
-	let urls = await connection
+	let urls = await req.session.connection
 		?.fetchDatasetFromUser("profile/card")
 		.getThingAsync(req.session.connection?.getWebId().href)
 		.then(thing => thing.getUrlAll(VCARD.hasAddress));
@@ -67,7 +67,7 @@ solid.get("/address", async (req: Request, res: Response)
 solid.post(
 	"/address",
 	async (req: Request, res:Response): Promise<Response> => {
-		if(!req.sesion.connection?.isLoggedIn()) 
+		if(!req.session.connection?.isLoggedIn()) 
 			return res.status(403).json(
 				{ message: "User not logged in" }
 			);
@@ -81,33 +81,29 @@ solid.post(
 		};
 
 		let id = `id${Math.floor(Math.random() * 1e14)}`;
-		let webId = req.session.connection?.getWebId();
+		let webId = req.session.connection?.getWebId() ?? "";
 		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
 		let urlDataset = await req.session.connection
 			?.fetchDatasetFromUser("profile/card");
-		let urlThing = await urlDataset.getThingAsync(req.session.connection?.getWebId().href);
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+		let urlThing = await urlDataset?.getThingAsync(req.session.connection?.getWebId().href);
 		await urlThing
-			.addUrl(VCARD.hasAddress, urlId)
-			.save();
+			?.addUrl(VCARD.hasAddress, urlId)
+			?.save();
 
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+		await urlDataset?.save();
 
-		await urlDataset.save();
-
-		urlThing = await urlDataset.getThingAsync(req.session.connection?.getWebId().href);
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+		urlThing = await urlDataset.getThingAsync(req.session.connection?.getWebId()?.href ?? "");
 
 		let dataset = req.session.connection?.fetchDatasetFromUser("profile/card");
 		await dataset
-			.addThing(id)
-			.addString(VCARD.street_address, req.body.street)
-			.addString(VCARD.locality, req.body.locality)
-			.addString(VCARD.postal_code, req.body.postal_code)
-			.addString(VCARD.region, req.body.region)
-			.addString(VCARD.country_name, req.body.country_name)
-			.save();
+			?.addThing(id)
+			?.addString(VCARD.street_address, req.body.street)
+			?.addString(VCARD.locality, req.body.locality)
+			?.addString(VCARD.postal_code, req.body.postal_code)
+			?.addString(VCARD.region, req.body.region)
+			?.addString(VCARD.country_name, req.body.country_name)
+			?.save();
 
 		await dataset.save();
 
