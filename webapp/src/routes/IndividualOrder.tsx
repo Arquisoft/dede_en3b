@@ -7,6 +7,8 @@ import { StyledOuterGrid } from './Product.styles';
 import IndividualOrderProduct from "../components/IndividualOrderProduct";
 import { getSolidWebId } from "../api/api";
 import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 type IndividualOrderProps = {
@@ -55,34 +57,44 @@ const IndividualProduct = (props: IndividualOrderProps) => {
         if (order.webId === webId) {
 
             return (
+                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+                    <Typography
+                        variant='h3'
+                        sx={{ color: 'text.default', pt: 3, pb: 2 }}
+                    >
+                        Order made on : {new Date(order.date).toUTCString()}
+                    </Typography>
 
-                <StyledOuterGrid container>
+                    <StyledOuterGrid container justifyContent='space-evenly'
+                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
+                        <Grid item xs={8} sm={3}>
+                            <h2>Products Ordered</h2>
+                            {order.orderProducts.map(product => {
+                                return (
+                                    <IndividualOrderProduct
+                                        key={product.id}
+                                        id={product.id}
+                                        name={product.name}
+                                        units={product.quantity}
+                                    />)
+                            })
+                            }
+                        </Grid>
+                    </StyledOuterGrid>
 
-                    <Grid item >
-                        <div className="order-date">
-                            <h2>{new Date(order.date).toUTCString()}</h2>
-                        </div>
-                    </Grid>
-                    <Grid item >
-                        <h2>Products Ordered</h2>
-                        {order.orderProducts.map(product => {
-                            return (
-                                <IndividualOrderProduct
-                                    key={product.id}
-                                    id={product.id}
-                                    name={product.name}
-                                    units={product.quantity}
-                                />);
-                        })
-                        };
-                    </Grid>
-                    <Grid item >
-                        <div className="information">
-                            <p>Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}</p>
-                            <p>Total: {(order.totalPrice).toFixed(2)} € </p>
-                        </div>
-                    </Grid>
-                </StyledOuterGrid>
+                    <Typography
+                        variant='h5'
+                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                    >
+                        Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}
+                    </Typography>
+                    <Typography
+                        variant='h5'
+                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                    >
+                        Total: {(order.totalPrice).toFixed(2)} €
+                    </Typography>
+                </Box>
             );
         } else {
             return (
