@@ -57,30 +57,29 @@ const IndividualProduct = (props: IndividualOrderProps) => {
         if (order.webId === webId) {
 
             return (
-                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '90vh', display: 'flex', flexDirection: 'column' }}>
                     <Typography
                         variant='h3'
                         sx={{ color: 'text.default', pt: 3, pb: 2 }}
                     >
-                        Order made on : {new Date(order.date).toUTCString()}
+                        Order made on: {new Date(order.date).toUTCString()}
                     </Typography>
 
-                    <StyledOuterGrid container justifyContent='space-evenly'
-                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
-                        <Grid item xs={8} sm={3}>
-                            <h2>Products Ordered</h2>
-                            {order.orderProducts.map(product => {
-                                return (
+                    <h2>Products Ordered</h2>
+                    <Grid container justifyContent='space-evenly' columns={4}
+                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'column', width: '80%', height:'50%' }}>
+                        {order.orderProducts.map(product => {
+                            return (
+                                <Grid item xs={8} sm={3}>
                                     <IndividualOrderProduct
                                         key={product.id}
                                         id={product.id}
                                         name={product.name}
-                                        units={product.quantity}
-                                    />)
-                            })
-                            }
-                        </Grid>
-                    </StyledOuterGrid>
+                                        units={product.quantity}></IndividualOrderProduct>
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
 
                     <Typography
                         variant='h5'
