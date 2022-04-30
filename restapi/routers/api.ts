@@ -4,7 +4,6 @@ import { IUser } from '../model/User';
 import { IProduct } from '../model/Products';
 import { IOrder } from '../model/Order';
 import { IReview } from '../model/Review';
-// import { computeTotalPrice } from './util/utils';
 import { Request, Response, Router } from 'express';
 const User = require('../model/User');
 const Products = require('../model/Products');

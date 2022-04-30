@@ -6,24 +6,6 @@ import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
 const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
 const solidEndPoint = apiEndPoint.replace('/api', '/solid');
 
-export async function addUser(user:IUser):Promise<boolean>{
-    let response = await fetch(apiEndPoint+'/users/add', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({'name':user.name, 'email':user.email})
-      });
-    if (response.status===200)
-      return true;
-    else
-      return false;
-}
-
-export async function getUsers():Promise<IUser[]>{
-    let response = await fetch(apiEndPoint+'/users/list');
-    //The objects returned by the api are directly convertible to User objects
-    return response.json()
-}
-
 /**
  * This fucntion returns the productst that are currently stored in the databse.
  * First we get the api endpoint that we are going to be listening on.
@@ -82,7 +64,7 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
  * @param id 
  * @returns 
  */
- export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
+export async function findOrdersByUser(webId: string): Promise<IOrder[]> {
   var str: string = apiEndPoint + '/orders/find?webId=' + encodeURIComponent(webId);
   let response = await fetch(str);
   return response.json();
@@ -107,7 +89,7 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to get webId
  */
- export async function getSolidWebId(): Promise<string> {
+export async function getSolidWebId(): Promise<string> {
   var str: string = solidEndPoint + '/webId';
   let response = await fetch(str);
   let webId = await response.json();
