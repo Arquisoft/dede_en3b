@@ -37,7 +37,6 @@ export async function getProducts():Promise<IProduct[]> {
 
 export async function getProduct(id:string):Promise<IProduct> {
   var str:string = apiEndPoint+'/products/'+id;
-  console.log(str);
   let response = await fetch(str);
   return response.json();
 }
@@ -90,7 +89,6 @@ export async function addOrder(orders:ICartItem[], webId:string, address:Address
 
 export async function getOrder(id:string):Promise<IOrder> {
   var str:string = apiEndPoint+'/orders/'+id;
-  console.log(str);
   let response = await fetch(str);
   return response.json();
 }

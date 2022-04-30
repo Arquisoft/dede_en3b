@@ -14,10 +14,10 @@ function IndividualOrderProduct(props: Props): JSX.Element {
   let imageRef: string = require("../static/images/" + props.id + ".png");
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 345, height: 500, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
+    <Card sx={{ maxWidth: 345, minWidth: 345, height: 300, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
       <CardMedia
         component="img"
-        height="300"
+        height="200"
         image={imageRef}
         alt={props.name}
       />
