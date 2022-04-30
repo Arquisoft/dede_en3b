@@ -182,7 +182,6 @@ function App(): JSX.Element {
             <IndividualOrder order={null as any}/>
           } />
       </Routes>
-        </Routes>
 
       </BrowserRouter>
     </ThemeProvider>
