@@ -44,9 +44,9 @@ const Cart = () => {
       console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
-        navigate("/shipping/payment");
+        navigate("../shipping/payment");
       } else {
-        navigate("/login");
+        navigate("../login");
       }
     
   };
