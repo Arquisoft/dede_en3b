@@ -6,7 +6,6 @@ type ProductProps = {
 }
 
 function Product(props: ProductProps): JSX.Element {
-    console.log(props.product);
     return (
         <>
             <p>{props.product.name}</p>

@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { IProduct } from '../shared/shareddtypes';
 import { ICartItem } from "../shared/shareddtypes";
 import { useNavigate } from 'react-router-dom';
-import {getProduct} from '../api/api';
 import {useDispatch} from 'react-redux';
 import {addItem} from '../redux/slices/cartSlice';
 
@@ -15,13 +14,6 @@ import {addItem} from '../redux/slices/cartSlice';
 
 type ProductComponentProps = {
   product: IProduct;
-}
-
-// eslint-disable-next-line
-const findProductById = async (id: string) => {
-  console.log(id);
-  let prod:IProduct = await getProduct(id);
-  console.log(prod);
 }
 
 function ProductComponent(props: ProductComponentProps): JSX.Element {

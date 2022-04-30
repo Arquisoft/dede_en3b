@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://localhost:3000/home">
+      <Link color="inherit" href="https://dedeen3b.herokuapp.com/">
         DEDE_EN3b
       </Link>{' '}
       {new Date().getFullYear()}

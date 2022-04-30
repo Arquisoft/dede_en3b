@@ -68,9 +68,6 @@ function App(): JSX.Element {
 
     setAddress(address);
 
-    console.log('webId' + webId);
-    console.log(address);
-    console.log(cart);
     addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
     restoreDefaults();
 
