@@ -1,7 +1,8 @@
-const express = require('express'); 
+const express = require('express');
 import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+const crypto = require('crypto');
 
 const solid: Router = express.Router();
 
@@ -10,15 +11,15 @@ let connection: SolidConnection = new SolidConnection();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
-	if(req.query.provider !== null)
+	if (req.query.provider !== null)
 		connection =
 			new SolidConnection(req.query.provider as string);
 
-	if(!connection.isLoggedIn())
+	if (!connection.isLoggedIn())
 		connection.login(`${apiEndPoint}/redirect`, res);
 });
 
@@ -32,7 +33,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+	if (!connection.isLoggedIn())
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
@@ -43,30 +44,30 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
 	let addresses = await Promise.all(
-		urls.map(url => 
+		urls.map(url =>
 			connection
-			.fetchDatasetFromUser("profile/card")
-			.getThingAsync(url)
-			.then(thing => ({
-				country_name: thing.getString(VCARD.country_name),
-				locality: thing.getString(VCARD.locality),
-				postal_code: thing.getString(VCARD.postal_code),
-				region: thing.getString(VCARD.region),
-				street_address: thing.getString(VCARD.street_address),
-			}))
+				.fetchDatasetFromUser("profile/card")
+				.getThingAsync(url)
+				.then(thing => ({
+					country_name: thing.getString(VCARD.country_name),
+					locality: thing.getString(VCARD.locality),
+					postal_code: thing.getString(VCARD.postal_code),
+					region: thing.getString(VCARD.region),
+					street_address: thing.getString(VCARD.street_address),
+				}))
 		)
 	);
 
-	if(addresses.length !== 0) return res.status(200).json(addresses);
-	else return res.status(404).json({ 
-		message: "User has no addresses" 
+	if (addresses.length !== 0) return res.status(200).json(addresses);
+	else return res.status(404).json({
+		message: "User has no addresses"
 	});
 });
 
 solid.post(
 	"/address",
-	async (req: Request, res:Response): Promise<Response> => {
-		if(!connection.isLoggedIn()) 
+	async (req: Request, res: Response): Promise<Response> => {
+		if (!connection.isLoggedIn())
 			return res.status(403).json(
 				{ message: "User not logged in" }
 			);
@@ -79,7 +80,10 @@ solid.post(
 			country_name: req.body.country_name,
 		};
 
-		let id = `id${Math.floor(Math.random() * 1e14)}`;
+
+
+		let id = `id${crypto.randomBytes(1)}`;
+		console.log(id);
 		let webId = connection.getWebId();
 		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
@@ -115,24 +119,24 @@ solid.post(
 );
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+	if (!connection.isLoggedIn())
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
 
-	return res.status(200).json({ 
-		webId: connection.getWebId() 
+	return res.status(200).json({
+		webId: connection.getWebId()
 	});
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	return res.status(200).json({
-		isLoggedIn: connection.isLoggedIn() 
+		isLoggedIn: connection.isLoggedIn()
 	});
 });
 
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
-	if(!connection.isLoggedIn()) 
+	if (!connection.isLoggedIn())
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
