@@ -47,6 +47,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
 	
+	console.log("logged in " + connection.getWebId());
 	//res.redirect(`https://dedeen3b.herokuapp.com/`);
 	res.redirect(`http://localhost:3000/`);
 });
@@ -106,7 +107,7 @@ solid.post(
 			);
 
 		const address = {
-			street: req.body.street,
+			street: req.body.street_address,
 			locality: req.body.locality,
 			postal_code: req.body.postal_code,
 			region: req.body.region,
