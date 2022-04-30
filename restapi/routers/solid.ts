@@ -121,8 +121,8 @@ solid.post(
 			.fetchDatasetFromUser("profile/card");
 		let urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
 		await urlThing
-			.addUrl(VCARD.hasAddress, urlId)
-			.save();
+			?.addUrl(VCARD.hasAddress, urlId)
+			?.save();
 
 		await urlDataset.save();
 
@@ -130,13 +130,13 @@ solid.post(
 
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
-			.addThing(id)
-			.addString(VCARD.street_address, req.body.street)
-			.addString(VCARD.locality, req.body.locality)
-			.addString(VCARD.postal_code, req.body.postal_code)
-			.addString(VCARD.region, req.body.region)
-			.addString(VCARD.country_name, req.body.country_name)
-			.save();
+			?.addThing(id)
+			?.addString(VCARD.street_address, req.body.street)
+			?.addString(VCARD.locality, req.body.locality)
+			?.addString(VCARD.postal_code, req.body.postal_code)
+			?.addString(VCARD.region, req.body.region)
+			?.addString(VCARD.country_name, req.body.country_name)
+			?.save();
 
 		await dataset.save();
 
