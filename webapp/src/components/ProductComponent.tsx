@@ -17,11 +17,6 @@ type ProductComponentProps = {
   product: IProduct;
 }
 
-// eslint-disable-next-line
-const findProductById = async (id: string) => {
-  let prod:IProduct = await getProduct(id);
-}
-
 function ProductComponent(props: ProductComponentProps): JSX.Element {
 
   const productToItem = (prod: IProduct) => ({ product: prod, units: 1 });
