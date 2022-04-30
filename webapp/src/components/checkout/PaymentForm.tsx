@@ -24,13 +24,27 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
 
   const [selectedAddress, setSelectedAddress] = useState<String>("");
 
-  let addresses: Address[] = [];
+  const [addresses, setAddresses] = useState<Address[]>([]);
 
   // This function will be triggered when a radio button is selected
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedAddress(event.target.value);
-    props.setShippingAddress(stringToAddress(selectedAddress));
+    console.log(selectedAddress);
+    var newAddress = event.target.value;
+    setSelectedAddress(newAddress);
+    props.setShippingAddress(stringToAddress(newAddress));
+    console.log(selectedAddress);
+    
   };
+
+
+  const getAddresses = async () => {
+    var solidAddresses: Address[] = await getSolidAddress();
+    console.log(solidAddresses);
+
+    setAddresses(solidAddresses);
+    console.log(addresses);
+    return solidAddresses
+  }
 
   React.useEffect(() => {
     getAddresses();
@@ -38,12 +52,6 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
   },
     // eslint-disable-next-line
     []);
-
-  const getAddresses = async () => {
-    var solidAddresses: Address[] = await getSolidAddress();
-
-    addresses = solidAddresses;
-  }
 
   // eslint-disable-next-line
   const defaultPaymentData: PaymentData = {
@@ -61,27 +69,34 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
     });
   };
 
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment data
+        Address selection
       </Typography>
 
-      <Grid container spacing={2}>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Choose an address between your POD adressese: </FormLabel>
-          <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Choose an address between your POD addresses: </FormLabel>
+            <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
 
-            {addresses.map(a => {
-              <FormControlLabel label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                control={<Radio />} />
-            })}
+              {
+                addresses.length == 0 ? "Loading..." : addresses.map((a) => (
+                <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                  value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                  control={<Radio />}/>))
+              }
 
-          </RadioGroup>
-        </FormControl>
-
+            </RadioGroup>
+          </FormControl>
+        </Grid>
       </Grid>
+
+      <Typography variant="h6" gutterBottom>
+        Payment data
+      </Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
