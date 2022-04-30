@@ -26,9 +26,6 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
     const computeWebId = async () => {
         const res: string = await getSolidWebId();
-
-        console.log(res);
-
         setWebId(res);
     };
 

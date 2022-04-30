@@ -101,7 +101,6 @@ export function Login(): JSX.Element {
     console.log(state.identityProvider);
     await doSolidLogin(state.identityProvider);
     console.log(getSolidWebId());
-    console.log("xfavor")
     // if (state.identityPovider.trim().length != 0) {
     //   dispatch({
     //     type: 'loginSuccess',
