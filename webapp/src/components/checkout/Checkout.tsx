@@ -174,9 +174,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Congratulations for making an order! The products will be send from our store as soon as we can. You can check your orders in the profile menu.
                 </Typography>
               </React.Fragment>
             ) : (
