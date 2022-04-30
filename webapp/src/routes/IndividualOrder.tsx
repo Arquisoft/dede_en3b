@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { useParams } from 'react-router-dom';
 import { getOrder } from '../api/api';
 import { IOrder } from '../shared/shareddtypes';
-import { StyledOuterGrid, StyledButton, StyledImg } from './Product.styles';
 import IndividualOrderProduct from "../components/IndividualOrderProduct";
+import { getSolidWebId } from "../api/api";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 type IndividualOrderProps = {
@@ -12,7 +14,6 @@ type IndividualOrderProps = {
 }
 
 const IndividualProduct = (props: IndividualOrderProps) => {
-    //Id
     const { id } = useParams();
     const [order, setOrder] = useState<IOrder>();
 
@@ -20,10 +21,23 @@ const IndividualProduct = (props: IndividualOrderProps) => {
         if (props.order == null) setOrder(await getOrder(id!));
         else setOrder(props.order);
     }
-    React.useEffect(() => {
+
+    const [webId, setWebId] = useState('');
+
+    const computeWebId = async () => {
+        const res: string = await getSolidWebId();
+        setWebId(res);
+    };
+
+
+    useEffect(() => {
         selectOrder();
+        computeWebId();
     },
+        // eslint-disable-next-line
         []);
+
+
 
 
     if (typeof order === "undefined") {
@@ -33,36 +47,53 @@ const IndividualProduct = (props: IndividualOrderProps) => {
             </React.Fragment>
         );
     } else {
-        return (
+        if (order.webId === webId) {
 
-            <StyledOuterGrid container>
+            return (
+                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '90vh', display: 'flex', flexDirection: 'column' }}>
+                    <Typography
+                        variant='h3'
+                        sx={{ color: 'text.default', pt: 3, pb: 2 }}
+                    >
+                        Order made on: {new Date(order.date).toUTCString()}
+                    </Typography>
 
-                <Grid item >
-                    <div className="order-date">
-                        <h2>{new Date(order.date).toUTCString()}</h2>
-                    </div>
-                </Grid>
-                <Grid item >
                     <h2>Products Ordered</h2>
-                    {order.orderProducts.map(product => {
-                        return (
-                            <IndividualOrderProduct
-                                key={product.id}
-                                id={product.id}
-                                name={product.name}
-                                units={product.quantity}
-                            />);
-                    })
-                    };
-                </Grid>
-                <Grid item >
-                    <div className="information">
-                        <p>Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}</p>
-                        <p>Total: {(order.totalPrice).toFixed(2)} € </p>
-                    </div>
-                </Grid>
-            </StyledOuterGrid>
-        );
+                    <Grid container justifyContent='space-evenly' columns={4}
+                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'column', width: '80%', height:'50%' }}>
+                        {order.orderProducts.map(product => {
+                            return (
+                                <Grid item xs={8} sm={3}>
+                                    <IndividualOrderProduct
+                                        key={product.id}
+                                        id={product.id}
+                                        name={product.name}
+                                        units={product.quantity}></IndividualOrderProduct>
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
+
+                    <Typography
+                        variant='h5'
+                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                    >
+                        Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}
+                    </Typography>
+                    <Typography
+                        variant='h5'
+                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                    >
+                        Total: {(order.totalPrice).toFixed(2)} €
+                    </Typography>
+                </Box>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <h2>You don't have permission to view this order!</h2>
+                </React.Fragment>);
+        }
     }
 }
 

@@ -68,9 +68,6 @@ function App(): JSX.Element {
 
     setAddress(address);
 
-    console.log('webId' + webId);
-    console.log(address);
-    console.log(cart);
     addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
     restoreDefaults();
 
@@ -168,7 +165,7 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={ <Home />} ></Route>
           <Route path="login" element={<Login></Login>}> </Route>
-          <Route path="cart" element={<Cart cart={cart} />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="shop" element={<Catalogue /> } />
           <Route path="products/:id" 
             element={

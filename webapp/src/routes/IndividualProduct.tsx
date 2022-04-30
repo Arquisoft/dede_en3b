@@ -63,8 +63,6 @@ const IndividualProduct = (props: IndividualProductProps) => {
     useEffect(() =>{ 
         // eslint-disable-next-line
         selectProduct();
-        // console.log(product?.name);
-        // console.log(product?._id);
     },
     // eslint-disable-next-line
     []);
