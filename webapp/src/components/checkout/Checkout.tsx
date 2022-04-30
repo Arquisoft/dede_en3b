@@ -77,12 +77,16 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
   const [paymentAlert, setPaymentAlert] = useState(false);
   const [shippingAlert, setShippingAlert] = useState(false);
   const [wrongCardNumberFormatAlert, setWrongCardNumberFormatAlert] = useState(false);
+  const [isShippingPossible, setShippingPossible] = useState(false);
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      setActiveStep(activeStep + 1);
-      props.makeOrder();
-      console.log("Pediu realizau. ")
+      if (isShippingPossible) {
+        setActiveStep(activeStep + 1);
+        props.makeOrder();
+        console.log("Pediu realizau. ")
+      }
+
     } else if (activeStep === 1) {
       console.log(paymentData);
       console.log(defaultPaymentData)
@@ -128,7 +132,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       case 1:
         return <PaymentForm data={paymentData} setShippingAddress={setShippingAddress} setPayData={setPaymentData} />;
       case 2:
-        return <Review address={shippingAddress} paymentData={paymentData} />;
+        return <Review setShippingPossible={setShippingPossible} address={shippingAddress} paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }
@@ -170,9 +174,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Congratulations for making an order! The products will be send from our store as soon as we can. You can check your orders in the profile menu.
                 </Typography>
               </React.Fragment>
             ) : (
