@@ -3,8 +3,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-// eslint-disable-next-line
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -17,6 +15,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useState } from 'react';
+import { Alert } from '@mui/material';
 
 function Copyright() {
   return (
@@ -44,7 +43,6 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 interface CheckoutProps {
   makeOrder: () => void
-
 }
 
 const theme = createTheme();
@@ -53,13 +51,6 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
 
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-    if (activeStep === steps.length - 1) {
-      props.makeOrder();
-      console.log("Pediu realizau. ")
-    }
-  };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -72,16 +63,72 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
     expDate: ""
   }
 
+  const defaultAddress = {
+    country_name: "",
+    locality: "",
+    postal_code: "",
+    region: "",
+    street_address: "",
+
+  };
+
   const [paymentData, setPaymentData] = useState(defaultPaymentData);
+  const [shippingAddress, setShippingAddress] = useState(defaultAddress);
+  const [paymentAlert, setPaymentAlert] = useState(false);
+  const [shippingAlert, setShippingAlert] = useState(false);
+  const [wrongCardNumberFormatAlert, setWrongCardNumberFormatAlert] = useState(false);
+
+  const handleNext = () => {
+    if (activeStep === steps.length - 1) {
+      setActiveStep(activeStep + 1);
+      props.makeOrder();
+      console.log("Pediu realizau. ")
+    } else if (activeStep === 1) {
+      console.log(paymentData);
+      console.log(defaultPaymentData)
+
+      if (paymentData.cardName != defaultPaymentData.cardName
+        && paymentData.cardNumber != defaultPaymentData.cardNumber
+        && paymentData.cvv != defaultPaymentData.cvv
+        && paymentData.expDate != defaultPaymentData.expDate) {
+        if (/^[A-Z0-9]{4}(-[A-Z0-9]{4}){3}/.test(paymentData.cardNumber)) {
+          if ((shippingAddress.street_address == defaultAddress.street_address)
+            && (shippingAddress.country_name == defaultAddress.country_name)
+            && (shippingAddress.locality == defaultAddress.locality)
+            && (shippingAddress.region == defaultAddress.region)) {
+            setPaymentAlert(false);
+            setWrongCardNumberFormatAlert(false);
+            setShippingAlert(true);
+          } else {
+
+            setActiveStep(activeStep + 1);
+            setShippingAlert(false);
+            setPaymentAlert(false);
+            setWrongCardNumberFormatAlert(false);
+          }
+        } else {
+          setPaymentAlert(false);
+          setWrongCardNumberFormatAlert(true);
+        }
+      } else {
+        setPaymentAlert(true);
+      }
+
+
+    } else {
+      setActiveStep(activeStep + 1);
+    }
+  };
+
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
         return <AddressForm />;
       case 1:
-        return <PaymentForm data={paymentData} setPayData={setPaymentData} />;
+        return <PaymentForm data={paymentData} setShippingAddress={setShippingAddress} setPayData={setPaymentData} />;
       case 2:
-        return <Review paymentData={paymentData} />;
+        return <Review address={shippingAddress} paymentData={paymentData} />;
       default:
         throw new Error('Unknown step');
     }
@@ -105,6 +152,9 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
+          {shippingAlert && <Alert severity="error">You must select your Shipping Address. </Alert>}
+          {paymentAlert && <Alert severity="error">You must add your payment data. </Alert>}
+          {wrongCardNumberFormatAlert && <Alert severity="error">Wrong card number format: ****-****-****-**** </Alert>}
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
