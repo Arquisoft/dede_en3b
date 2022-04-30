@@ -3,20 +3,24 @@ import {useState} from 'react';
 import {Review} from '../../shared/shareddtypes';
 import ProductReview from './ProductReview';
 import { StyledButton } from '../../routes/Product.styles';
+import TextField from '@mui/material/TextField';
+import Rating from '@mui/material/Rating';
 
 type ProductReviewListProps = {
     reviewList: Review[];
 };
 
 export default function ProductReviewList( props: ProductReviewListProps ) {
-    let [rating, setRating] = useState<boolean>(false);
+    let [reviewing, setReviewing] = useState<boolean>(false);
+    let [comment, setComment] = useState();
+    let [rating, setRating] = useState<number>(3);
 
     const startReviewing = () => {
-        setRating(true);
+        setReviewing(true);
     }
 
     return (
-        <Paper elevation={4} >
+        <Paper elevation={4} sx={{bgcolor: 'background.light'}}>
             <Typography
                 variant='h5'
                 sx={{color: 'text.dark', m:3, p:2}}    
@@ -24,15 +28,34 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
                 See what other users thought
             </Typography>
             <Box sx={{display: 'flex'}}>
-                {!rating && (<StyledButton
+                {!reviewing && (<StyledButton
                 sx={{marginLeft:'auto', marginRight:4}}
                 onClick={startReviewing}
                 >
                     Add review
                 </StyledButton>)}
-                {rating && (
-                    <Box sx={{}}>
-                        
+                {reviewing && (
+                    <Box sx={{display: 'flex', flex: 1, flexDirection: 'column'}}>
+                        <Box sx={{marginLeft:4}}>
+                            <Rating value={rating}></Rating>
+                        </Box>
+                    <Box sx={{m:4, bgcolor: 'background.light', display: 'flex', flex: 1}}>
+                        <TextField 
+                        sx={{ input: { color: 'text.dark'} }}
+                        label='What did you think?' 
+                        multiline 
+                        rows={4} 
+                        fullWidth                        
+                        value={comment}
+                        >
+                        </TextField>
+                    </Box>
+                    <Box sx={{marginLeft: 'auto', marginRight: 4}}>
+                        <StyledButton>
+                            Send
+                        </StyledButton>
+                    </Box>
+                    
                     </Box>
                 )}
             </Box>
