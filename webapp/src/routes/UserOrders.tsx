@@ -36,9 +36,6 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
 
   const computeWebId = async () => {
     const res: string = await getSolidWebId();
-
-    console.log(res);
-
     setWebId(res);
   };
 

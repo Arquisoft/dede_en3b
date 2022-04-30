@@ -3,10 +3,8 @@ import Grid from "@mui/material/Grid";
 import { useParams } from 'react-router-dom';
 import { getOrder } from '../api/api';
 import { IOrder } from '../shared/shareddtypes';
-import { StyledOuterGrid } from './Product.styles';
 import IndividualOrderProduct from "../components/IndividualOrderProduct";
 import { getSolidWebId } from "../api/api";
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -16,8 +14,6 @@ type IndividualOrderProps = {
 }
 
 const IndividualProduct = (props: IndividualOrderProps) => {
-    const navigate = useNavigate();
-
     const { id } = useParams();
     const [order, setOrder] = useState<IOrder>();
 
@@ -30,9 +26,6 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
     const computeWebId = async () => {
         const res: string = await getSolidWebId();
-
-        console.log(res);
-
         setWebId(res);
     };
 

@@ -9,7 +9,7 @@ const storeGeolocation = "43.53544 -6.71935"; // Our Store, located in Navia
 */
 export async function getShippingCosts(address: Address): Promise<any> {
     console.log(address);
-    var url = "http://dev.virtualearth.net/REST/v1/Routes?key=AsxEiJLEKsTRnwiuhBCOaXeqAtwTcUG - 9NsEBfhO - ZbOeu2yvGxvncrXdbKQ2UYO&waypoint.2="
+    var url = "https://dev.virtualearth.net/REST/v1/Routes?key=AsxEiJLEKsTRnwiuhBCOaXeqAtwTcUG - 9NsEBfhO - ZbOeu2yvGxvncrXdbKQ2UYO&waypoint.2="
         + (await geocodeAddress(address))
         + "&waypoint.1=" + storeGeolocation;
     console.log(url);
@@ -19,7 +19,7 @@ export async function getShippingCosts(address: Address): Promise<any> {
 } 
   
 async function geocodeAddress(address: Address) : Promise<string> {
-    var url = "http://dev.virtualearth.net/REST/v1/Locations?countryRegion=" + address.region
+    var url = "https://dev.virtualearth.net/REST/v1/Locations?countryRegion=" + address.region
         + "&locality=" + address.locality
         + "&postalCode=" + address.postal_code
         + "&addressLine=" + address.street_address
