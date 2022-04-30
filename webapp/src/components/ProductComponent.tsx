@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { IProduct } from '../shared/shareddtypes';
 import { ICartItem } from "../shared/shareddtypes";
 import { useNavigate } from 'react-router-dom';
-import {getProduct} from '../api/api';
 import {useDispatch} from 'react-redux';
 import {addItem} from '../redux/slices/cartSlice';
 
