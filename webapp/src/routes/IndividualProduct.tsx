@@ -101,7 +101,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                 <BreadcrumbsProduct product={product.name}/>           
 
                 <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
-                            display: 'flex',  flexDirection: 'row'}}>
+                            display: 'flex',  flexDirection: {xs: 'column', sm: 'column', md: 'column', lg: 'row'}}}>
      
                     <Box >
                         <div className="product-pic">
@@ -135,7 +135,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 Price: {product.price}€
                             </Typography>
                             <Box
-                                sx={{ display: 'flex', flexDirection: 'row', p: 2, alignItems: 'center', justifyContent: 'space-between'}}
+                                sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'column', lg: 'row'}, p: 2, alignItems: 'center', justifyContent: 'space-between'}}
                             >
                                 <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}} 
                                 style={{ }}

@@ -19,16 +19,21 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
         setReviewing(true);
     }
 
+    const endReviewing = () => {
+
+    }
+
     return (
-        <Paper elevation={4} sx={{bgcolor: 'background.light'}}>
+        <Paper elevation={4} sx={{bgcolor: 'background.card'}}>
             <Typography
                 variant='h5'
-                sx={{color: 'text.dark', m:3, p:2}}    
+                sx={{color: 'text.default', m:3, p:2}}    
             >
                 See what other users thought
             </Typography>
             <Box sx={{display: 'flex'}}>
-                {!reviewing && (<StyledButton
+                {!reviewing && (
+                <StyledButton
                 sx={{marginLeft:'auto', marginRight:4}}
                 onClick={startReviewing}
                 >
@@ -39,9 +44,12 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
                         <Box sx={{marginLeft:4}}>
                             <Rating value={rating}></Rating>
                         </Box>
-                    <Box sx={{m:4, bgcolor: 'background.light', display: 'flex', flex: 1}}>
+                        <Box sx={{marginLeft:4}}>
+                            <Rating value={rating}></Rating>
+                        </Box>
+                    <Box sx={{m:4, display: 'flex', flex: 1}}>
                         <TextField 
-                        sx={{ input: { color: 'text.dark'} }}
+                        sx={{ input: { color: 'text.dark'}}}
                         label='What did you think?' 
                         multiline 
                         rows={4} 
@@ -51,7 +59,8 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
                         </TextField>
                     </Box>
                     <Box sx={{marginLeft: 'auto', marginRight: 4}}>
-                        <StyledButton>
+                        <StyledButton
+                        onClick={endReviewing}>
                             Send
                         </StyledButton>
                     </Box>
