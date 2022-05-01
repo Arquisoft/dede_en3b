@@ -11,8 +11,8 @@ let connection: SolidConnection = new SolidConnection();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	if (req.query.provider !== null)
@@ -28,8 +28,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
 	console.log("logged in " + connection.getWebId());
-	res.redirect(`https://dedeen3b.herokuapp.com/`);
-	//res.redirect(`http://localhost:3000/`);
+	//res.redirect(`https://dedeen3b.herokuapp.com/`);
+	res.redirect(`http://localhost:3000/`);
 });
 
 solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
@@ -73,7 +73,7 @@ solid.post(
 			);
 
 		const address = {
-			street: req.body.street,
+			street: req.body.street_address,
 			locality: req.body.locality,
 			postal_code: req.body.postal_code,
 			region: req.body.region,
@@ -105,7 +105,7 @@ solid.post(
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
 			.addThing(id)
-			.addString(VCARD.street_address, req.body.street)
+			.addString(VCARD.street_address, req.body.street_address)
 			.addString(VCARD.locality, req.body.locality)
 			.addString(VCARD.postal_code, req.body.postal_code)
 			.addString(VCARD.region, req.body.region)
