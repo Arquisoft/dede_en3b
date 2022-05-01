@@ -91,15 +91,15 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       console.log(paymentData);
       console.log(defaultPaymentData)
 
-      if (paymentData.cardName != defaultPaymentData.cardName
-        && paymentData.cardNumber != defaultPaymentData.cardNumber
-        && paymentData.cvv != defaultPaymentData.cvv
-        && paymentData.expDate != defaultPaymentData.expDate) {
+      if (paymentData.cardName !== defaultPaymentData.cardName
+        && paymentData.cardNumber !== defaultPaymentData.cardNumber
+        && paymentData.cvv !== defaultPaymentData.cvv
+        && paymentData.expDate !== defaultPaymentData.expDate) {
         if (/^[A-Z0-9]{4}(-[A-Z0-9]{4}){3}/.test(paymentData.cardNumber)) {
-          if ((shippingAddress.street_address == defaultAddress.street_address)
-            && (shippingAddress.country_name == defaultAddress.country_name)
-            && (shippingAddress.locality == defaultAddress.locality)
-            && (shippingAddress.region == defaultAddress.region)) {
+          if ((shippingAddress.street_address === defaultAddress.street_address)
+            && (shippingAddress.country_name === defaultAddress.country_name)
+            && (shippingAddress.locality === defaultAddress.locality)
+            && (shippingAddress.region === defaultAddress.region)) {
             setPaymentAlert(false);
             setWrongCardNumberFormatAlert(false);
             setShippingAlert(true);

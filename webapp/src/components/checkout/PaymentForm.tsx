@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { PaymentData } from './Checkout';
-import { FormControl, FormLabel, getFormLabelUtilityClasses, Radio, RadioGroup } from '@mui/material';
+import { FormControl, FormLabel, Radio, RadioGroup } from '@mui/material';
 import { useState } from 'react';
 import { getSolidAddress } from '../../api/api';
 import { Address } from '../../shared/shareddtypes';
@@ -83,7 +83,7 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
             <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
 
               {
-                addresses.length == 0 ? "Loading..." : addresses.map((a) => (
+                addresses.length === 0 ? "Loading..." : addresses.map((a) => (
                 <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
                   value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
                   control={<Radio />}/>))
@@ -159,6 +159,7 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
   );
 }
 
+// eslint-disable-next-line
 function tbody(arg0: void) {
   throw new Error('Function not implemented.');
 }

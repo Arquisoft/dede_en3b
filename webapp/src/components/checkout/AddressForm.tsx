@@ -69,15 +69,15 @@ export default function AddressForm() {
 
   const submitForm = () => {
     var actualErrors = {
-      country_name: formValues.country_name.trim() == "" ? "Country name required." : "",
-      locality: formValues.locality.trim() == "" ? "Locality is required." : "",
-      region: formValues.region.trim() == "" ? "Region is required." : "",
-      postal_code: formValues.postal_code.trim() == "" ? "Postal code required." : "",
-      street_address: formValues.street_address.trim() == "" ? "Address line is required." : ""
+      country_name: formValues.country_name.trim() === "" ? "Country name required." : "",
+      locality: formValues.locality.trim() === "" ? "Locality is required." : "",
+      region: formValues.region.trim() === "" ? "Region is required." : "",
+      postal_code: formValues.postal_code.trim() === "" ? "Postal code required." : "",
+      street_address: formValues.street_address.trim() === "" ? "Address line is required." : ""
     }
     setErrors(actualErrors);
 
-    if ((actualErrors.street_address == "") && (actualErrors.country_name == "") && (actualErrors.locality == "") && (actualErrors.postal_code == "") && (actualErrors.region == "")) {
+    if ((actualErrors.street_address === "") && (actualErrors.country_name === "") && (actualErrors.locality === "") && (actualErrors.postal_code === "") && (actualErrors.region === "")) {
       setIsOpen(true);
     }
   }
