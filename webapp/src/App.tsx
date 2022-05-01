@@ -9,8 +9,10 @@ import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
+// eslint-disable-next-line
 import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
 import { computeTotalPrice } from './utils/utils';
+// eslint-disable-next-line
 import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
