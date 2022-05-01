@@ -142,7 +142,9 @@ api.post(
   * Add a review
   */
  api.post("/reviews/add", async (req: Request, res: Response): Promise<Response> => {
-    const review = new Review({productId: req.body.productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
+    var id = req.body.productId;
+    var productId = mongoose.Types.ObjectId(id);
+    const review = new Review({productId: productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
     await review.save();
     return res.sendStatus(200);
  });

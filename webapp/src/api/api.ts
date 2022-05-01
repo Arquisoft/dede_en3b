@@ -2,8 +2,8 @@
 import { ICartItem } from '../shared/shareddtypes';
 import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
 
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
-const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
 const solidEndPoint = apiEndPoint.replace('/api', '/solid');
 
 export async function addUser(user:IUser):Promise<boolean>{
@@ -144,6 +144,22 @@ export async function getReviewsOfProduct(id : string) : Promise<Review[]> {
   var str: string = apiEndPoint + '/reviews/list/' + id;
   let response = await fetch(str);
   return response.json();
+}
+
+/**
+ * Add a new review of a product
+ */
+export async function addReview(productId : string, name: string, rating: number, comment: string) : Promise<boolean> {
+  let response = await fetch(apiEndPoint + '/reviews/add',
+  {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({'productId': productId, 'name': name, 'rating':rating, 'comment':comment})
+  });
+  if (response.status===200)
+      return true;
+    else
+      return false;
 }
 
 /**
