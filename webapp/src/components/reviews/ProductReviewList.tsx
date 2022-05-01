@@ -7,16 +7,18 @@ import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import {addReview} from '../../api/api';
 
 type ProductReviewListProps = {
+    productId: string;
     reviewList: Review[];
 };
 
 export default function ProductReviewList( props: ProductReviewListProps ) {
     let [reviewing, setReviewing] = useState<boolean>(false);
-    let [comment, setComment] = useState<string>();
+    let [comment, setComment] = useState<string>('');
     let [rating, setRating] = useState<number>(3);
-    let [name, setName] = useState<string>();
+    let [name, setName] = useState<string>('anonymous');
     let [addName, setAddName] = useState<boolean>(false);
 
     const startReviewing = () => {
@@ -25,10 +27,8 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
 
     const endReviewing = () => {
 
-        console.log(comment);
-        console.log(rating);
-        console.log(name);
 
+        addReview(props.productId, name, rating, comment);
 
         setReviewing(false);
         setAddName(false);
@@ -38,6 +38,7 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
     }
 
     const handleNameChange = () => {
+        setName('');
         setAddName(!addName);
     }
 

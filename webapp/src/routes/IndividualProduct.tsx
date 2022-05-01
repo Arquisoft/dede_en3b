@@ -147,7 +147,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         </div>
                     </Box>
                     </Box>                    
-                    <ProductReviewList reviewList={reviews} />
+                    <ProductReviewList productId={product._id.toString()} reviewList={reviews} />
                 </Box>
             </Box>
         );
