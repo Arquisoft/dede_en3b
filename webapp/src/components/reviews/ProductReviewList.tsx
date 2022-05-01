@@ -1,10 +1,12 @@
-import {Paper, Typography, Grid, Box} from '@mui/material';
+import {Paper, Typography, Grid, Box, FormControlLabel} from '@mui/material';
 import {useState} from 'react';
 import {Review} from '../../shared/shareddtypes';
 import ProductReview from './ProductReview';
 import { StyledButton } from '../../routes/Product.styles';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 
 type ProductReviewListProps = {
     reviewList: Review[];
@@ -12,8 +14,10 @@ type ProductReviewListProps = {
 
 export default function ProductReviewList( props: ProductReviewListProps ) {
     let [reviewing, setReviewing] = useState<boolean>(false);
-    let [comment, setComment] = useState();
+    let [comment, setComment] = useState<string>();
     let [rating, setRating] = useState<number>(3);
+    let [name, setName] = useState<string>();
+    let [addName, setAddName] = useState<boolean>(false);
 
     const startReviewing = () => {
         setReviewing(true);
@@ -21,6 +25,20 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
 
     const endReviewing = () => {
 
+        console.log(comment);
+        console.log(rating);
+        console.log(name);
+
+
+        setReviewing(false);
+        setAddName(false);
+        setComment('');
+        setName('');
+        setRating(3);
+    }
+
+    const handleNameChange = () => {
+        setAddName(!addName);
     }
 
     return (
@@ -45,7 +63,25 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
                             <Rating value={rating}></Rating>
                         </Box>
                         <Box sx={{marginLeft:4}}>
-                            <Rating value={rating}></Rating>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="anon"
+                            onChange={handleNameChange}
+                            name="radio-buttons-group"
+                            sx={{display: 'flex', flexDirection: 'row'}}
+                        >
+                            <FormControlLabel value="anon" control={<Radio />} label="Anonymous" />
+                            <FormControlLabel value="write" control={<Radio />} label="Write your name" />
+                            {addName && (
+                                 <TextField 
+                                sx={{ input: { color: 'text.default'}}}
+                                label='Name'             
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                            >
+                            </TextField>
+                            )}                           
+                        </RadioGroup>
                         </Box>
                     <Box sx={{m:4, display: 'flex', flex: 1}}>
                         <TextField 
@@ -55,6 +91,7 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
                         rows={4} 
                         fullWidth                        
                         value={comment}
+                        onChange={e => setComment(e.target.value)}
                         >
                         </TextField>
                     </Box>

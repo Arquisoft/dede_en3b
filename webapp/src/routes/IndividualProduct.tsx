@@ -135,7 +135,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 Price: {product.price}€
                             </Typography>
                             <Box
-                                sx={{ display: 'flex', flexDirection: {xs: 'column', sm: 'column', md: 'column', lg: 'row'}, p: 2, alignItems: 'center', justifyContent: 'space-between'}}
+                                sx={{ display: 'flex', flexDirection: {xs: 'column', sm:  'row'}, p: 2, alignItems: 'center', justifyContent: 'space-between'}}
                             >
                                 <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}} 
                                 style={{ }}
