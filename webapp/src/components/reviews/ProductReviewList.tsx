@@ -26,8 +26,6 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
     }
 
     const endReviewing = () => {
-
-
         addReview(props.productId, name, rating, comment);
 
         setReviewing(false);
