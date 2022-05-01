@@ -3,7 +3,7 @@ import { SolidConnection } from "./API";
 export class SessionStorage {
 	private static _instance: SessionStorage;
 
-	private _connections: Map<URL, SolidConnection>;
+	private _connections: Map<string, SolidConnection>;
 
 	private constructor() {
 		this._connections = new Map();
@@ -20,15 +20,14 @@ export class SessionStorage {
 		if(!con.isLoggedIn())
 			throw new Error("Solid not logged in, cannot store");
 
-		console.log("storing");
-		this._connections.set(con.getWebId(), con);
+		this._connections.set(con.getWebId().href, con);
 	}
 
 	public get(webId: URL | undefined): SolidConnection {
 		if(webId === undefined)
 			throw new Error("Webid not in connections");
 
-		let res = this._connections.get(webId);
+		let res = this._connections.get(webId + "");
 		if(res === undefined)
 			throw new Error("Webid not in connections");
 
@@ -37,6 +36,7 @@ export class SessionStorage {
 
 	public has(webId: URL | undefined): boolean {
 		if(webId === undefined) return false;
-		return this._connections.has(webId);
+		//this is some nasty code we have here
+		return this._connections.has(webId + "");
 	}
 }

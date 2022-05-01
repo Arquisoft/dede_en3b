@@ -43,10 +43,13 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
 	SessionStorage.instance.set(connection);
+	console.log("logged in?" + connection.isLoggedIn());
 	req.session.webId = connection.getWebId();
 	req.session.save();
 	
 	console.log("logged in " + connection.getWebId());
+	console.log(SessionStorage.instance.get(connection.getWebId()));
+	console.log(req.session.webId);
 	//res.redirect(`https://dedeen3b.herokuapp.com/`);
 	res.redirect(`http://localhost:3000/`);
 });
@@ -154,16 +157,24 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 			{ message: "User not logged in" }
 		);
 
+	console.log("asked for id");
 	return res.status(200).json({ 
 		webId: connection.getWebId() 
 	});
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	console.log("is logged in?");
+	console.log("webId stored in session: " + req.session.webId);
+	console.log(SessionStorage.instance.t());
+	console.log(SessionStorage.instance.t().contains(req.session.webId));
+	console.log(SessionStorage.instance.has(req.session.webId));
+	console.log(SessionStorage.instance.get(req.session.webId));
 	if(!SessionStorage.instance.has(req.session.webId))
 		return res.status(403).json({ message: "Connection not initialized" });
 	let connection = SessionStorage.instance.get(req.session.webId);
 
+	console.log("Is logged in " + connection.isLoggedIn());
 	return res.status(200).json({
 		isLoggedIn: connection.isLoggedIn() 
 	});
