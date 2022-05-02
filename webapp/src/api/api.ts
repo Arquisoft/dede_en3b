@@ -6,24 +6,6 @@ import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
 const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
 const solidEndPoint = apiEndPoint.replace('/api', '/solid');
 
-export async function addUser(user:IUser):Promise<boolean>{
-	let response = await fetch(apiEndPoint+'/users/add', {
-		method: 'POST',
-		headers: {'Content-Type':'application/json'},
-		body: JSON.stringify({'name':user.name, 'email':user.email}),
-	});
-	if (response.status===200)
-	return true;
-	else
-	return false;
-}
-
-export async function getUsers():Promise<IUser[]>{
-	let response = await fetch(apiEndPoint+'/users/list');
-	//The objects returned by the api are directly convertible to User objects
-	return response.json()
-}
-
 /**
  * This fucntion returns the productst that are currently stored in the databse.
  * First we get the api endpoint that we are going to be listening on.
