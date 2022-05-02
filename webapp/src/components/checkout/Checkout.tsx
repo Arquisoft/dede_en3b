@@ -16,6 +16,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useState } from 'react';
 import { Alert } from '@mui/material';
+import { Address } from '../../shared/shareddtypes';
 
 function Copyright() {
   return (
@@ -42,7 +43,8 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 interface CheckoutProps {
-  makeOrder: () => void
+  makeOrder: () => void;
+  setAddress: (a: Address) => void;
 }
 
 const theme = createTheme();
@@ -83,6 +85,8 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
     if (activeStep === steps.length - 1) {
       if (isShippingPossible) {
         setActiveStep(activeStep + 1);
+        var a: Address = shippingAddress;
+        props.setAddress(a);
         props.makeOrder();
         console.log("Pediu realizau. ")
       }
