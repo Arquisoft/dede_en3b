@@ -10,8 +10,8 @@ const solid: Router = express.Router();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	let connection;
@@ -47,16 +47,22 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	req.session.save();
 	
 	console.log("logged in " + connection.getWebId());
-	res.redirect(`https://dedeen3b.herokuapp.com/`);
-	//res.redirect(`http://localhost:3000/`);
+	//res.redirect(`https://dedeen3b.herokuapp.com/`);
+	res.redirect(`http://localhost:3000/`);
 });
 
 solid.get("/address", async (req: Request, res: Response)
 	: Promise<Response> => 
 {
 	if(!SessionStorage.instance.has(req.session.webId))
-		return res.status(403).json({ message: "Connection not initialized" });
+		return res.status(403).json({
+			message: "Connection not initialized" 
+		});
 	let connection = SessionStorage.instance.get(req.session.webId);
+	if(connection === undefined)
+		return res.status(403).json({
+			message: "Connection not initialized" 
+		});
 
 	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
@@ -69,21 +75,21 @@ solid.get("/address", async (req: Request, res: Response)
 		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
 	let addresses = await Promise.all(
-		urls.map(url => {
-			if(connection === undefined)
-				return res.status(403).json({ message: "Connection not initialized" });
-
+		urls.map(url => 
 			connection
 			.fetchDatasetFromUser("profile/card")
 			.getThingAsync(url)
-			.then(thing => ({
-				country_name: thing.getString(VCARD.country_name),
-				locality: thing.getString(VCARD.locality),
-				postal_code: thing.getString(VCARD.postal_code),
-				region: thing.getString(VCARD.region),
-				street_address: thing.getString(VCARD.street_address),
-			}))
-		})
+			.then(thing => {
+				let res = {
+					country_name: thing.getString(VCARD.country_name),
+					locality: thing.getString(VCARD.locality),
+					postal_code: thing.getString(VCARD.postal_code),
+					region: thing.getString(VCARD.region),
+					street_address: thing.getString(VCARD.street_address),
+				};
+				return res;
+			})
+		)
 	);
 
 	if(addresses.length !== 0) return res.status(200).json(addresses);
