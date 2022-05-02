@@ -41,7 +41,7 @@ export default function ProductReviewList( props: ProductReviewListProps ) {
     }
 
     return (
-        <Paper elevation={4} sx={{bgcolor: 'background.card'}}>
+        <Paper elevation={4} sx={{bgcolor: 'background.card', ml: 0, mr: 4}}>
             <Typography
                 variant='h5'
                 sx={{color: 'text.default', m:3, p:2}}    

@@ -90,7 +90,7 @@ const CatalogueComponent = () => {
   return (
     <Grid container 
         className="App" 
-        sx={{bgcolor:'background.default', width: '100%', height: '100%', display: 'grid', pb: 20}}
+        sx={{bgcolor:'background.default', width: '100%', height: '100%', display: 'grid', pb: {xs: 20, xl:50}}}
         >
       
       <Grid item sx={{pt:4}}>
@@ -113,7 +113,7 @@ const CatalogueComponent = () => {
                 <Typography 
                     variant="h4"
                     align="center"
-                    sx={{color:"text.primary",  typography: { md: 'h4', xs: 'h5' }}}
+                    sx={{color:"text.primary",  typography: { md: 'h4', xs: 'h6' }}}
                     >
                         Product search
                 </Typography>
