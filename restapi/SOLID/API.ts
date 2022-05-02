@@ -84,6 +84,7 @@ export class SolidConnection {
 	}
 
 	public async tryHandleRedirect(url: string) {
+		console.log("handle");
 		//Try to reload session
 		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
 		if(possibleNewSession !== undefined)
