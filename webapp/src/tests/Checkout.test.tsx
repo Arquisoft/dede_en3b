@@ -6,7 +6,7 @@ import Checkout from '../components/checkout/Checkout';
 test('The checkout is rendered properly.', async() => {
     render(
         <Provider store={store}>
-            <Checkout makeOrder={() => {}}/>
+            <Checkout setAddress={()=>{}} makeOrder={() => {}}/>
         </Provider>
     )
 })
