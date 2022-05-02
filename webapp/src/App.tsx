@@ -9,20 +9,10 @@ import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
-// eslint-disable-next-line
-import { AddPaymentMeanComponent } from './components/AddPaymentMeanComponent';
 import { computeTotalPrice } from './utils/utils';
-// eslint-disable-next-line
-import { ConfirmationComponent } from './components/ConfirmationComponent';
 import Home from './routes/Home';
 import UserOrders from './routes/UserOrders';
 import IndividualOrder from './routes/IndividualOrder';
-// eslint-disable-next-line
-import { AnyRecord } from 'dns';
-// eslint-disable-next-line
-import { getShippingCosts } from './api/ShippingApi';
-// eslint-disable-next-line
-import AddressForm from './components/checkout/AddressForm';
 import Checkout from './components/checkout/Checkout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';

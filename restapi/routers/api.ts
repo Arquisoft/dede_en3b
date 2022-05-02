@@ -120,10 +120,6 @@ api.post(
   const orders: IOrder[] = await Order.find({
     webId: webId
   });
-  
-  if(!orders) {
-    return res.status(404).json({message: 'No orders for user '+ req.query.webId +' found!'});
-  }
   return res.status(200).send(orders);
  });
 
