@@ -117,7 +117,7 @@ export function Login(): JSX.Element {
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       state.isButtonDisabled || handleLogin();
     }
@@ -168,7 +168,10 @@ export function Login(): JSX.Element {
             Go to the service
           </Button>
         </Box>
-        </Box>
+      </Box>
+      <Box sx={{paddingBottom: 2, paddingTop: 2, alignSelf: 'center'}}>
+        <p style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>Don't know what a SOLID POD is? check out the&nbsp;<a href="https://solidproject.org/">SOLID project</a></p>
+      </Box>
     </form>
     </Box>
   );
