@@ -50,7 +50,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     //Id
     const { id } = useParams();
     const [product, setProduct] =useState<IProduct>();
-    const [rating, setRating] = useState<number | null>(3);
+    const rating = 3;
     const [reviews, setReviews] = useState<Review[]>([]);
     
     const selectProduct = async () => {
@@ -95,17 +95,18 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
         return (
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
-                        height: '100%', justifyContent: 'center'}}>
+                        height: '100%', justifyContent: 'center', pb: 5}}>
                 
                 <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
                 <BreadcrumbsProduct product={product.name}/>           
 
                 <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
-                            display: 'flex',  flexDirection: {xs: 'column', sm: 'column', md: 'column', lg: 'row'}}}>
+                            display: 'flex',  flexDirection: {xs: 'column', lg: 'row'} }}>
      
                     <Box >
                         <div className="product-pic">
                             <StyledImg
+                                sx={{ height: {xs: 500, md: 600} }}
                                 src={imageRef}
                                 alt={product.name}
                             />
@@ -121,10 +122,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                             >
                                 {product.name}
                             </Typography>
-                            <Rating value={rating} onChange={(event, newValue) => {
-                                setRating(newValue);
-                            }}
-                            sx={{pb:2}}/>
+                            <Rating value={rating} readOnly sx={{pb:2}}/>
                             <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light'}}>
                                 <Typography sx={{color: 'text.dark'}}>{product.description}</Typography>
                             </Card>
