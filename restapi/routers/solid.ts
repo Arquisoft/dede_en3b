@@ -32,6 +32,21 @@ solid.get("/login", async (req: Request, res: Response) => {
 	}
 });
 
+solid.get("/logout", async (req: Request, res: Response) => {
+	let connection;
+	if(SessionStorage.instance.has(req.session.webId))
+		connection = SessionStorage.instance.get(req.session.webId);
+
+	if(connection === undefined || !connection.isLoggedIn())
+		return res.status(403).json({ message: "User not logged in" });
+
+	await connection.logout();
+
+	//Now, eliminate connection from storage
+	SessionStorage.instance.remove(req.session.webId);
+	return res.status(200);
+});
+
 solid.get("/redirect", async (req: Request, res: Response) => {
 	let connection;
 	if(SessionStorage.instance.has(req.session.webId))
@@ -161,7 +176,7 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	if(!SessionStorage.instance.has(req.session.webId))
-		return res.status(403).json({ message: "Connection not initialized" });
+		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
 
 	return res.status(200).json({

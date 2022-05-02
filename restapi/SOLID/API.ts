@@ -83,6 +83,25 @@ export class SolidConnection {
 		else throw new LogInError("Already logged in");
 	}
 
+	public async tryHandleRedirect(url: string) {
+		//Try to reload session
+		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
+		if(possibleNewSession !== undefined) this._session = possibleNewSession;
+
+		await this._session.handleIncomingRedirect(url);
+
+		this._isInitialized = true;
+		return this;
+	}
+
+	public async logout() {
+		if(!this.isLoggedIn())
+			throw new LogInError("Cannot logout if its not logged in");
+
+		await this._session.logout();
+		this._isInitialized = false;
+	}
+
 	/**
 	 * Converts an URL to the same url but the base is
 	 * now the base of user's webID
@@ -183,17 +202,6 @@ export class SolidConnection {
 		if(!this.isLoggedIn() || this._session.info.webId === undefined)
 			throw new LogInError("Not logged in");
 		return new URL(this._session.info.webId);
-	}
-
-	public async tryHandleRedirect(url: string) {
-		//Try to reload session
-		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
-		if(possibleNewSession !== undefined) this._session = possibleNewSession;
-
-		await this._session.handleIncomingRedirect(url);
-
-		this._isInitialized = true;
-		return this;
 	}
 
 	//Note: This WILL logout the current user
