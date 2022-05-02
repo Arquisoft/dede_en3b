@@ -4,7 +4,6 @@ import { store } from "../redux/store";
 import ProductReviewList from "../components/reviews/ProductReviewList";
 import { Review } from "../shared/shareddtypes";
 import { Types } from "mongoose";
-import { act } from "react-dom/test-utils";
 
 test("The list of reviews is rendered properly", () => {
   const review: Review[] = [
@@ -61,7 +60,7 @@ test("We make public review", async () => {
         comment: "comment",
       },
     ];
-    const { container, getByText } = render(
+    const { getByText } = render(
       <Provider store={store}>
         <ProductReviewList
           productId={review[0].productId.toString()}

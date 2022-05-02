@@ -180,7 +180,7 @@ test('get a product by filtering the type.', async () => {
 });
 
 test('add an order.', async () => {
-    const mockOrders:IOrder[] = [
+    const mockOrder:IOrder[] = [
         {
             _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             webId: "test",
@@ -200,7 +200,7 @@ test('add an order.', async () => {
         date: new Date(Date.now())
     }
 
-    const expectedLength = mockOrders.push(addedProduct)
+    const expectedLength = mockOrder.push(addedProduct)
 
     global.fetch = jest.fn(() => 
         Promise.resolve({
@@ -223,29 +223,10 @@ test('add an order.', async () => {
         new Date(Date.now())
     );
 
-    expect(expectedLength).toBe(mockOrders.length);
+    expect(expectedLength).toBe(mockOrder.length);
 });
 
 test('get an order by searching by the webId.', async () => {
-    const testDate = new Date(Date.now());
-    const mockOrders:IOrder[] = [
-        {
-            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
-            webId: "test",
-            orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
-            address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
-            totalPrice: 30,
-            date: testDate
-        },
-        {
-            _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
-            webId: "test2",
-            orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
-            address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
-            totalPrice: 30,
-            date: new Date(Date.now())
-        }
-    ];
 
     const expectedLength = mockOrders.filter(order => order.webId === "test");
 

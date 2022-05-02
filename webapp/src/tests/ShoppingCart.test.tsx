@@ -1,15 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import Cart from '../routes/Cart';
 import { BrowserRouter } from "react-router-dom";
-import {Types} from 'mongoose';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 
 
 const redux = require('react-redux');
 redux.useSelector = jest.fn();
-
-//TODO: Make the tests work again
 
 test ('an empty shopping cart is rendered', async () => {
 

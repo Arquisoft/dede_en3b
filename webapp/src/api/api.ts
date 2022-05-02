@@ -1,5 +1,4 @@
-import { ICartItem } from '../shared/shareddtypes';
-import {IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
+import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
 const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
 //const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
