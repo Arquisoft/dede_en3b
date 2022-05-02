@@ -4,6 +4,7 @@ import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
 import { SessionStorage } from "../SOLID/SessionStorage";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+const crypto = require('crypto');
 
 const solid: Router = express.Router();
 
@@ -30,6 +31,21 @@ solid.get("/login", async (req: Request, res: Response) => {
 		req.session.webId = connection.getWebId();
 		return res.status(200);
 	}
+});
+
+solid.get("/logout", async (req: Request, res: Response) => {
+	let connection;
+	if(SessionStorage.instance.has(req.session.webId))
+		connection = SessionStorage.instance.get(req.session.webId);
+
+	if(connection === undefined || !connection.isLoggedIn())
+		return res.status(403).json({ message: "User not logged in" });
+
+	await connection.logout();
+
+	//Now, eliminate connection from storage
+	SessionStorage.instance.remove(req.session.webId);
+	return res.status(200);
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
@@ -86,9 +102,9 @@ solid.get("/address", async (req: Request, res: Response)
 		})
 	);
 
-	if(addresses.length !== 0) return res.status(200).json(addresses);
-	else return res.status(404).json({ 
-		message: "User has no addresses" 
+	if (addresses.length !== 0) return res.status(200).json(addresses);
+	else return res.status(404).json({
+		message: "User has no addresses"
 	});
 });
 
@@ -113,7 +129,10 @@ solid.post(
 			country_name: req.body.country_name,
 		};
 
-		let id = `id${Math.floor(Math.random() * 1e14)}`;
+
+
+		let id = `id${crypto.randomBytes(1)}`;
+		console.log(id);
 		let webId = connection.getWebId();
 		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
@@ -154,18 +173,18 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 			{ message: "User not logged in" }
 		);
 
-	return res.status(200).json({ 
-		webId: connection.getWebId() 
+	return res.status(200).json({
+		webId: connection.getWebId()
 	});
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	if(!SessionStorage.instance.has(req.session.webId))
-		return res.status(403).json({ message: "Connection not initialized" });
+		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
 
 	return res.status(200).json({
-		isLoggedIn: connection.isLoggedIn() 
+		isLoggedIn: connection.isLoggedIn()
 	});
 });
 
