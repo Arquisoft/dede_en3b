@@ -66,13 +66,13 @@ function App(): JSX.Element {
 
   const makeOrder = async () => {
     var webId: any = await getSolidWebId();
-    var address: any = await getSolidAddress();
 
-    setAddress(address);
-
-    addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
+    if (address != undefined) {
+      addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
     restoreDefaults();
-
+    } else {
+      console.log("Ni olvido ni perdon. ")
+    }
   }
 
   //Orders
@@ -175,7 +175,7 @@ function App(): JSX.Element {
             }
           />
         
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder}></Checkout>}/>   
+        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>}/>   
         <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
         <Route path="orders/:id" element={
             <IndividualOrder order={null as any}/>
