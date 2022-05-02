@@ -20,6 +20,7 @@ export class SessionStorage {
 		if(!con.isLoggedIn())
 			throw new Error("Solid not logged in, cannot store");
 
+		//TODO: check if it works changing this also
 		this._connections.set(con.getWebId().href, con);
 	}
 
@@ -27,7 +28,7 @@ export class SessionStorage {
 		if(webId === undefined)
 			throw new Error("Webid not in connections");
 
-		let res = this._connections.get(webId + "");
+		let res = this._connections.get(this.convertWebId(webId));
 		if(res === undefined)
 			throw new Error("Webid not in connections");
 
@@ -37,6 +38,16 @@ export class SessionStorage {
 	public has(webId: URL | undefined): boolean {
 		if(webId === undefined) return false;
 		//this is some nasty code we have here
-		return this._connections.has(webId + "");
+		return this._connections.has(this.convertWebId(webId));
+	}
+
+	public remove(webId: URL | undefined) {
+		let converted = this.convertWebId(webId);
+		if(webId === undefined || !this._connections.has(converted))
+			this._connections.delete(converted);
+	}
+
+	private convertWebId(webId: URL | undefined): string {
+		return webId + "";
 	}
 }

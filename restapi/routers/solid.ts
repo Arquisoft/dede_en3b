@@ -41,6 +41,9 @@ solid.get("/logout", async (req: Request, res: Response) => {
 		return res.status(403).json({ message: "User not logged in" });
 
 	await connection.logout();
+
+	//Now, eliminate connection from storage
+	SessionStorage.instance.remove(req.session.webId);
 	return res.status(200);
 });
 
