@@ -65,7 +65,7 @@ export default function ProductReviewList(props: ProductReviewListProps) {
                 {reviewing && (
                     <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
                         <Box sx={{ marginLeft: 4 }}>
-                            <Rating value={rating} onChange={(event, newValue) => {
+                            <Rating value={rating} onChange={(_event, newValue) => {
                                 setRating(newValue);
                             }} sx={{ pb: 2 }} />
                         </Box>
