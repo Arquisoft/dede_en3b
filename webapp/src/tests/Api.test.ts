@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/extend-expect"
-const mongoose = require('mongoose');
-import {getProducts,getProduct,findProductsByName,filterProducts,addOrder,findOrdersByUser,getOrder,getReviewsOfProduct, getSolidName, getSolidWebId, getSolidAddress, doSolidLogin, isLoggedIn} from '../api/api';
-import { IOrder, Review } from "../shared/shareddtypes";
+import {Types} from 'mongoose';
+import {getProducts,getProduct,findProductsByName,filterProducts,addOrder,findOrdersByUser,getOrder,getReviewsOfProduct, getSolidName, getSolidWebId, getSolidAddress, doSolidLogin, isLoggedIn, addReview, addAddressToSolid} from '../api/api';
+import { Address, IOrder, Review } from "../shared/shareddtypes";
 
 global.fetch = jest.fn();
 
@@ -10,7 +10,7 @@ global.fetch = jest.fn();
 test('get products.', async () => {
     const mockProducts = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "pants",
             photo: "",
             type: "",
@@ -32,7 +32,7 @@ test('get products.', async () => {
 test('get a single product.', async () => {
     var mockProducts = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "Sudadera negra",
             photo: "",
             type: "Sudadera",
@@ -40,7 +40,7 @@ test('get a single product.', async () => {
             price: 15
         },
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -50,7 +50,7 @@ test('get a single product.', async () => {
     ];
 
     const epxectedResult = [{
-        _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
         name: "Sudadera negra",
         photo: "",
         type: "Sudadera",
@@ -76,7 +76,7 @@ test('get a single product.', async () => {
 test('get a product by searching by the name.', async () => {
     const mockProducts = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "Sudadera negra",
             photo: "",
             type: "Sudadera",
@@ -84,7 +84,7 @@ test('get a product by searching by the name.', async () => {
             price: 15
         },
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -97,7 +97,7 @@ test('get a product by searching by the name.', async () => {
 
     const res = [
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -120,7 +120,7 @@ test('get a product by searching by the name.', async () => {
 test('get a product by filtering the type.', async () => {
     const mockProducts = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "Sudadera negra",
             photo: "",
             type: "Sudadera",
@@ -128,7 +128,7 @@ test('get a product by filtering the type.', async () => {
             price: 15
         },
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -141,7 +141,7 @@ test('get a product by filtering the type.', async () => {
 
     const res = [
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -164,7 +164,7 @@ test('get a product by filtering the type.', async () => {
 test('add an order.', async () => {
     const mockOrders:IOrder[] = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             webId: "test",
             orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
             address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -174,7 +174,7 @@ test('add an order.', async () => {
     ];
 
     const addedProduct:IOrder = {
-        _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927a'),
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
         webId: "test2",
         orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
         address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -192,7 +192,7 @@ test('add an order.', async () => {
 
     await addOrder([{
         product:{
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
@@ -212,7 +212,7 @@ test('get an order by searching by the webId.', async () => {
     const testDate = new Date(Date.now());
     const mockOrders:IOrder[] = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             webId: "test",
             orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
             address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -220,7 +220,7 @@ test('get an order by searching by the webId.', async () => {
             date: testDate
         },
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927a'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
             webId: "test2",
             orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
             address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -240,7 +240,7 @@ test('get an order by searching by the webId.', async () => {
     const result = await findOrdersByUser("test")
 
     expect(result).toStrictEqual([{
-        _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
         webId: "test",
         orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
         address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -253,7 +253,7 @@ test('get an order by searching by the id.', async () => {
     const testDate = new Date(Date.now());
     const mockOrders:IOrder[] = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             webId: "test",
             orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
             address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -261,7 +261,7 @@ test('get an order by searching by the id.', async () => {
             date: testDate
         },
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927a'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
             webId: "test2",
             orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
             address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -281,7 +281,7 @@ test('get an order by searching by the id.', async () => {
     const result = await getOrder("6227ae61e18344de6a6f927c")
 
     expect(result).toStrictEqual([{
-        _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
         webId: "test",
         orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
         address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
@@ -348,13 +348,13 @@ test('Get reviews of a product.', async () => {
 
     const reviews:Review[] = [
         {
-            productId: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            productId: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "Name",
             rating: 3,
             comment: "Coment"
         },
         {
-            productId: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            productId: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name: "Name",
             rating: 4,
             comment: "Coment"
@@ -373,4 +373,29 @@ test('Get reviews of a product.', async () => {
 
     expect(result).toStrictEqual([reviews[0]])
 });
+
+test('Add a review to a product', async() => {
+
+    global.fetch = jest.fn(() => 
+        Promise.resolve(true)
+    ) as jest.Mock;
+    const res = await addReview("str","str",0,"str");
+    expect(res).toBeTruthy
+})
+
+// test('Add an address to solid', async() => {
+
+//     const address:Address = {
+//         country_name: "España",
+//         locality:"Posada de Llanera",
+//         postal_code:"33424",
+//         region:"Asturias",
+//         street_address: "Avenida Arzobispo Franciso Alvarez Martinez"
+//     }
+    
+//     global.fetch = jest.fn(() => 
+//         Promise.resolve(true)
+//     ) as jest.Mock;
+//     await addAddressToSolid(address);
+// })
 
