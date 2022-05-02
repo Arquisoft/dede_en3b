@@ -69,8 +69,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	console.log(req.session.webId);
 
 	console.log("logged in " + connection.getWebId());
-	//res.redirect(`https://dedeen3b.herokuapp.com/`);
-	res.redirect(`http://localhost:3000/`);
+	res.redirect(`https://dedeen3b.herokuapp.com/`);
+	//res.redirect(`http://localhost:3000/`);
 });
 
 solid.get("/address", async (req: Request, res: Response)
