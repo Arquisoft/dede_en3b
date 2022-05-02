@@ -74,16 +74,17 @@ export class SolidConnection {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
 		if(!this.isLoggedIn()) 
-			await this._session.login({
-				redirectUrl: redirect,
-				oidcIssuer: this._identityProvider,
-				clientName: this.SOLID_CLIENT_NAME,
-				handleRedirect: (url) => res.redirect(url)
-			});
+		await this._session.login({
+			redirectUrl: redirect,
+			oidcIssuer: this._identityProvider,
+			clientName: this.SOLID_CLIENT_NAME,
+			handleRedirect: (url) => res.redirect(url)
+		});
 		else throw new LogInError("Already logged in");
 	}
 
 	public async tryHandleRedirect(url: string) {
+		console.log("handle");
 		//Try to reload session
 		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
 		if(possibleNewSession !== undefined)

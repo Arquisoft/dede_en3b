@@ -25,9 +25,13 @@ solid.get("/login", async (req: Request, res: Response) => {
 	if(connection === undefined)
 		connection = new SolidConnection();
 
-	if(!connection.isLoggedIn())
-		connection.login(`${apiEndPoint}/redirect`, res);
-	else {
+	if(!connection.isLoggedIn()) {
+		try {
+			await connection.login(`${apiEndPoint}/redirect`, res);
+		} catch(error: unknown) {
+			return res.status(400).json({ cause: error });
+		}
+	} else {
 		req.session.webId = connection.getWebId();
 		return res.status(200);
 	}
