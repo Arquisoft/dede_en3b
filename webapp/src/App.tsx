@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, FormEvent } from 'react';
+// eslint-disable-next-line
 import { findOrdersByUser, addOrder, getSolidWebId, getSolidAddress } from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -67,7 +68,7 @@ function App(): JSX.Element {
   const makeOrder = async () => {
     var webId: any = await getSolidWebId();
 
-    if (address != undefined) {
+    if (address !== undefined) {
       addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
     restoreDefaults();
     } else {

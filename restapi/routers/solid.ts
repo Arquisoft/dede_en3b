@@ -156,7 +156,7 @@ solid.post(
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
 			?.addThing(id)
-			?.addString(VCARD.street_address, req.body.street)
+			?.addString(VCARD.street_address, req.body.street_address)
 			?.addString(VCARD.locality, req.body.locality)
 			?.addString(VCARD.postal_code, req.body.postal_code)
 			?.addString(VCARD.region, req.body.region)
