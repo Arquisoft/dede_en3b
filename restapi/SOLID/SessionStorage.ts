@@ -1,12 +1,17 @@
 import { SolidConnection } from "./API";
 
 export class SessionStorage {
+	//Time until a session goes out, refreshed each time
+	private static readonly TIMEOUT = 30 * 60 * 1000;
+
 	private static _instance: SessionStorage;
 
 	private _connections: Map<string, SolidConnection>;
+	private _timeouts: Map<string, ReturnType<typeof setTimeout>>;
 
 	private constructor() {
 		this._connections = new Map();
+		this._timeouts = new Map();
 	}
 
 	public static get instance(): SessionStorage {
@@ -22,6 +27,7 @@ export class SessionStorage {
 
 		//TODO: check if it works changing this also
 		this._connections.set(con.getWebId().href, con);
+		this.resetTimeout(con.getWebId());
 	}
 
 	public get(webId: URL | undefined): SolidConnection {
@@ -31,6 +37,8 @@ export class SessionStorage {
 		let res = this._connections.get(this.convertWebId(webId));
 		if(res === undefined)
 			throw new Error("Webid not in connections");
+
+		this.resetTimeout(webId);
 
 		return res;
 	}
@@ -42,8 +50,23 @@ export class SessionStorage {
 	}
 
 	public remove(webId: URL | undefined) {
-		if(this.has(webId))
-			this._connections.delete(this.convertWebId(webId));
+		let converted = this.convertWebId(webId);
+		if(this.has(webId)) {
+			this._connections.delete(converted);
+			this._timeouts.delete(converted);
+		}
+	}
+	
+	private resetTimeout(webId: URL | undefined) {
+		let converted = this.convertWebId(webId);
+
+		let id = this._timeouts.get(converted);
+		if(id !== undefined) clearTimeout(id);
+		id = setTimeout(
+			this.remove.bind(this, webId),
+			SessionStorage.TIMEOUT
+		);
+		this._timeouts.set(converted, id);
 	}
 
 	private convertWebId(webId: URL | undefined): string {
