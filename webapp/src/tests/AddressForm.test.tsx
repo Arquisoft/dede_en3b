@@ -11,7 +11,7 @@ test('The address form is rendered properly.', () => {
     )
 })
 
-//Make tests for the inputs later.
+// Make tests for the inputs later.
 // test('The address form is rendered properly.', () => {
 //     render(
 //         <Provider store={store}>

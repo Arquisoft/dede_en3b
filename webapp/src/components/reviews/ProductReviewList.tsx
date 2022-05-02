@@ -94,6 +94,7 @@ export default function ProductReviewList(props: ProductReviewListProps) {
                             <TextField
                                 sx={{ input: { color: 'text.dark' } }}
                                 label='What did you think?'
+                                inputProps={{ "data-testid": "comment" }}
                                 multiline
                                 rows={4}
                                 fullWidth

@@ -134,3 +134,23 @@ test('clicking on the profile icon allows you to go to see your orders', async()
 
     expect(screen.getByText("Your Orders")).toBeInTheDocument();
 })
+
+test('clicking on the profile icon allows you to logout.', async() => {
+  const { getByRole } = render(
+    <Provider store = {store}>
+      <App/>
+    </Provider>
+  );
+
+  fireEvent( getByRole('button', {name: "account of current user"}), new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+  }));
+
+  const orders = getByRole('menuitem', {name: 'Logout'});
+
+    fireEvent( orders, new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }));
+})
