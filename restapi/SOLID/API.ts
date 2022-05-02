@@ -94,7 +94,7 @@ export class SolidConnection {
 		return this;
 	}
 
-	public logout() {
+	public async logout() {
 		if(!this.isLoggedIn())
 			throw new LogInError("Cannot logout if its not logged in");
 
