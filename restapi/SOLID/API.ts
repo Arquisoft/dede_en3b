@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { 
+import {
 	Session,
 	ISessionInfo,
 	getSessionFromStorage,
@@ -73,20 +73,20 @@ export class SolidConnection {
 	public async login(redirect: string, res: Response): Promise<void> {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
-		if(!this.isLoggedIn()) 
-		await this._session.login({
-			redirectUrl: redirect,
-			oidcIssuer: this._identityProvider,
-			clientName: this.SOLID_CLIENT_NAME,
-			handleRedirect: (url) => res.redirect(url)
-		});
+		if (!this.isLoggedIn())
+			await this._session.login({
+				redirectUrl: redirect,
+				oidcIssuer: this._identityProvider,
+				clientName: this.SOLID_CLIENT_NAME,
+				handleRedirect: (url) => res.redirect(url)
+			});
 		else throw new LogInError("Already logged in");
 	}
 
 	public async tryHandleRedirect(url: string) {
 		//Try to reload session
 		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
-		if(possibleNewSession !== undefined) this._session = possibleNewSession;
+		if (possibleNewSession !== undefined) this._session = possibleNewSession;
 
 		await this._session.handleIncomingRedirect(url);
 
@@ -95,7 +95,7 @@ export class SolidConnection {
 	}
 
 	public async logout() {
-		if(!this.isLoggedIn())
+		if (!this.isLoggedIn())
 			throw new LogInError("Cannot logout if its not logged in");
 
 		await this._session.logout();
@@ -107,10 +107,10 @@ export class SolidConnection {
 	 * now the base of user's webID
 	 */
 	public convertToLoggedUserUrl(fileUrl: string): string {
-		if(!this.isLoggedIn())
+		if (!this.isLoggedIn())
 			throw new LogInError("Not logged in");
 
-		let webIdUrl = this.getWebId(); 
+		let webIdUrl = this.getWebId();
 		return `${webIdUrl.origin}/${fileUrl}`;
 	}
 
@@ -118,41 +118,38 @@ export class SolidConnection {
 	 * Returns specified url.
 	 */
 	public async getFileFromRawUrl(fileUrl: string)
-		: Promise<Blob> 
-		{
-			let result = await getFile(
-				fileUrl,
-				{ fetch: this._session.fetch }
-			);
-			return result;
-		}
+		: Promise<Blob> {
+		let result = await getFile(
+			fileUrl,
+			{ fetch: this._session.fetch }
+		);
+		return result;
+	}
 
 	/**
 	 * Returns specified url.
 	 * This method converts the passed in url to a url with the
 	 * base of the webID of the user.
 	 */
-	public async getFileFromLoggedUser(fileUrl: string) 
-		: Promise<Blob>
-		{
-			return this.getFileFromRawUrl(
-				this.convertToLoggedUserUrl(fileUrl)
-			);
-		}
+	public async getFileFromLoggedUser(fileUrl: string)
+		: Promise<Blob> {
+		return this.getFileFromRawUrl(
+			this.convertToLoggedUserUrl(fileUrl)
+		);
+	}
 
 	/**
 	 * Overwrites the specified file (or creates it, if it doesnt exist)
 	 * with the passed in file. 
 	 */
 	public async overwriteFileInRawUrl(fileUrl: string, file: File)
-		: Promise<void>
-		{
-			await overwriteFile(
-				fileUrl,
-				file,
-				{ contentType: file.type, fetch: this._session.fetch }
-			);
-		}
+		: Promise<void> {
+		await overwriteFile(
+			fileUrl,
+			file,
+			{ contentType: file.type, fetch: this._session.fetch }
+		);
+	}
 
 	/**
 	 * Overwrites the specified file (or creates it, if it doesnt exist)
@@ -160,13 +157,12 @@ export class SolidConnection {
 	 * This method converts the passed in url to a url with the
 	 * base of the webID of the user.
 	 */
-	public async overwriteFileInLoggedUserUrl(fileUrl: string, file: File) 
-		: Promise<void>
-		{
-			return this.overwriteFileInRawUrl(
-				this.convertToLoggedUserUrl(fileUrl), file
-			);
-		}
+	public async overwriteFileInLoggedUserUrl(fileUrl: string, file: File)
+		: Promise<void> {
+		return this.overwriteFileInRawUrl(
+			this.convertToLoggedUserUrl(fileUrl), file
+		);
+	}
 
 	public fetchDatasetFromRawUrl(datasetUrl: string): DatasetBrowser {
 		return new DatasetBrowser(
@@ -183,13 +179,12 @@ export class SolidConnection {
 	}
 
 	public async saveDataset(dataset: DatasetBrowser)
-		: Promise<SolidDataset> 
-		{
-			return await saveSolidDatasetAt(
-				dataset.getUrl(),
-				await dataset.getInsides(), { fetch : this._session.fetch }
-			);
-		}
+		: Promise<SolidDataset> {
+		return await saveSolidDatasetAt(
+			dataset.getUrl(),
+			await dataset.getInsides(), { fetch: this._session.fetch }
+		);
+	}
 
 	/**
 	 * Returns wether the user is logged in or not
@@ -199,14 +194,14 @@ export class SolidConnection {
 	}
 
 	public getWebId(): URL {
-		if(!this.isLoggedIn() || this._session.info.webId === undefined)
+		if (!this.isLoggedIn() || this._session.info.webId === undefined)
 			throw new LogInError("Not logged in");
 		return new URL(this._session.info.webId);
 	}
 
 	//Note: This WILL logout the current user
 	public setIdentityProvider(provider: string) {
-		if(this.isLoggedIn())
+		if (this.isLoggedIn())
 			this._session.logout();
 
 		this._identityProvider = provider;
@@ -229,20 +224,19 @@ export class DatasetBrowser {
 	public getThing(
 		thingUrl: string,
 		callback: (cbParam: ThingBrowser) => void
-	): DatasetBrowser 
-	{
+	): DatasetBrowser {
 		this.getThingAsync(thingUrl).then(callback);
 		return this;
 	}
 
 	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
-		if(this._dataset === undefined)
-		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+		if (this._dataset === undefined)
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		let insideThing = getThing(this._dataset, thingUrl);
-		if(insideThing === null)
-		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+		if (insideThing === null)
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		return new ThingBrowser(insideThing, this);
 	}
@@ -268,8 +262,8 @@ export class DatasetBrowser {
 	public async getInsides(): Promise<SolidDataset> {
 		await this._waitForDataset();
 
-		if(this._dataset === undefined)
-		throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
+		if (this._dataset === undefined)
+			throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
 
 		return this._dataset;
 	}
@@ -310,36 +304,36 @@ export class ThingBrowser {
 	}
 
 	public setString(url: string, data: string): ThingBrowser {
-		if(this._builder === undefined) this._builder = buildThing(this._thing);
+		if (this._builder === undefined) this._builder = buildThing(this._thing);
 
 		this._builder?.setStringNoLocale(url, data);
 		return this;
 	}
 
 	public setUrl(url: string, data: string): ThingBrowser {
-		if(this._builder === undefined) this._builder = buildThing(this._thing);
+		if (this._builder === undefined) this._builder = buildThing(this._thing);
 
 		this._builder?.setUrl(url, data);
 		return this;
 	}
 
 	public addString(url: string, data: string): ThingBrowser {
-		if(this._builder === undefined) this._builder = buildThing(this._thing);
+		if (this._builder === undefined) this._builder = buildThing(this._thing);
 
 		this._builder?.addStringNoLocale(url, data);
 		return this;
 	}
 
 	public addUrl(url: string, data: string): ThingBrowser {
-		if(this._builder === undefined) this._builder = buildThing(this._thing);
+		if (this._builder === undefined) this._builder = buildThing(this._thing);
 
 		this._builder?.addUrl(url, data);
 		return this;
 	}
 
 	public async save(): Promise<DatasetBrowser> {
-		if(this._builder !== undefined)
-		this._thing = this._builder.build();
+		if (this._builder !== undefined)
+			this._thing = this._builder.build();
 
 		await this._origin.saveThing(this);
 		return this._origin;
