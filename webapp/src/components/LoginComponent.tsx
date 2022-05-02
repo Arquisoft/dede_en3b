@@ -117,7 +117,7 @@ export function Login(): JSX.Element {
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       state.isButtonDisabled || handleLogin();
     }
