@@ -69,7 +69,6 @@ api.get(
 api.get("/products/:id",async (req: Request, res:Response): Promise<Response> => {
     var  id = req.params.id;
     var objID = mongoose.Types.ObjectId(id);
-    console.log(objID);
     const products:IProduct = await Products.findOne({_id: objID});
     if(!products) {
       return res.status(404).json({message: 'Product with name "${objID}" not found'});
@@ -142,7 +141,9 @@ api.post(
   * Add a review
   */
  api.post("/reviews/add", async (req: Request, res: Response): Promise<Response> => {
-    const review = new Review({productId: req.body.productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
+    var id = req.body.productId;
+    var productId = mongoose.Types.ObjectId(id);
+    const review = new Review({productId: productId, name: req.body.name, rating: req.body.rating, comment: req.body.comment});
     await review.save();
     return res.sendStatus(200);
  });
@@ -150,7 +151,6 @@ api.post(
  api.get("/orders/:id",async (req: Request, res:Response): Promise<Response> => {
   var  id = req.params.id;
   var objID = mongoose.Types.ObjectId(id);
-  console.log(objID);
   const order:IOrder = await Order.findOne({_id: objID});
   if(!order) {
     return res.status(404).json({message: 'Order with id "${objID}" not found'});

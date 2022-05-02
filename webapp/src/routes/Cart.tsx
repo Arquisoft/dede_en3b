@@ -42,10 +42,12 @@ const Cart = () => {
   
       var obj = await isLoggedIn();
       console.log("¿Is user logged in? " + obj.isLoggedIn);
-      if (!obj.isLoggedIn) {
+      if (obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
-        navigate("/shipping/payment");
-      } 
+        navigate("../shipping/payment");
+      } else {
+        navigate("../login");
+      }
     
   };
         
@@ -72,7 +74,7 @@ const Cart = () => {
         <h2 className="total-text">Total:  {calculateTotal(cart).toFixed(2)} €</h2>
         
        
-          <StyledButton onClick={checkOut}>Check out</StyledButton>
+          <StyledButton onClick={checkOut}>Check out</StyledButton> 
           
          
         </Grid>

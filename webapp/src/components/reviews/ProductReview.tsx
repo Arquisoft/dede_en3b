@@ -9,7 +9,7 @@ type ProductReviewProps = {
 
 export default function ProductReview(props: ProductReviewProps) {
     return(
-        <Paper elevation={2} sx={{p: 1}}>
+        <Paper elevation={2} sx={{p: 1, bgcolor: 'background.light'}}>
             <Grid container direction="row" sx={{minHeight: '15vh'}}>
                 <Grid item xs={12}>
                     <Box sx={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
