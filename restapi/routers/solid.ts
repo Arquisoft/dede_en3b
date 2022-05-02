@@ -49,6 +49,7 @@ solid.get("/logout", async (req: Request, res: Response) => {
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
+	console.log("login redirect");
 	let connection;
 	if(SessionStorage.instance.has(req.session.webId))
 		connection = SessionStorage.instance.get(req.session.webId);
@@ -61,6 +62,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
 	req.session.save();
+	console.log(req.session.webId);
 
 	console.log("logged in " + connection.getWebId());
 	res.redirect(`https://dedeen3b.herokuapp.com/`);
@@ -183,6 +185,8 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	console.log("is logged in");
+	console.log(req.session.webId);
 	if(!SessionStorage.instance.has(req.session.webId))
 		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
