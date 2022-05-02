@@ -122,7 +122,7 @@ const CatalogueComponent = () => {
               <form className="searchForm" onSubmit={event => searchForProducts(event)}>
                 <Grid container justifyContent="right">
                   <Grid item xs={8} sm={10}>
-                    <input id="searchText" type="text" />
+                    <input data-testid="search" id="searchText" type="text" />
                     <button>Search</button>
                   </Grid>
                   <Grid item xs={8} sm={2}>
@@ -130,6 +130,7 @@ const CatalogueComponent = () => {
                       <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
                       <Select
                         labelId="demo-simple-select-filled-label"
+                        data-testid="Type"
                         id="demo-simple-select-filled"
                         value={value}
                         label="Type"

@@ -4,7 +4,6 @@ import { IUser } from '../model/User';
 import { IProduct } from '../model/Products';
 import { IOrder } from '../model/Order';
 import { IReview } from '../model/Review';
-// import { computeTotalPrice } from './util/utils';
 import { Request, Response, Router } from 'express';
 const User = require('../model/User');
 const Products = require('../model/Products');
@@ -121,10 +120,6 @@ api.post(
   const orders: IOrder[] = await Order.find({
     webId: webId
   });
-  
-  if(!orders) {
-    return res.status(404).json({message: 'No orders for user '+ req.query.webId +' found!'});
-  }
   return res.status(200).send(orders);
  });
 
