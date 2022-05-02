@@ -4,7 +4,7 @@ import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
 import { SessionStorage } from "../SOLID/SessionStorage";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
-const crypto = require('crypto');
+const { v4: uuidv4 } = require('uuid');
 
 const solid: Router = express.Router();
 
@@ -137,8 +137,7 @@ solid.post(
 
 
 
-		let id = `id${crypto.randomBytes(1)}`;
-		console.log(id);
+		let id = `id${uuidv4()}`;
 		let webId = connection.getWebId();
 		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
