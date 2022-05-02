@@ -74,19 +74,20 @@ export class SolidConnection {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
 		if(!this.isLoggedIn()) 
-		await this._session.login({
-			redirectUrl: redirect,
-			oidcIssuer: this._identityProvider,
-			clientName: this.SOLID_CLIENT_NAME,
-			handleRedirect: (url) => res.redirect(url)
-		});
+			await this._session.login({
+				redirectUrl: redirect,
+				oidcIssuer: this._identityProvider,
+				clientName: this.SOLID_CLIENT_NAME,
+				handleRedirect: (url) => res.redirect(url)
+			});
 		else throw new LogInError("Already logged in");
 	}
 
 	public async tryHandleRedirect(url: string) {
 		//Try to reload session
 		const possibleNewSession = await getSessionFromStorage(this._session.info.sessionId);
-		if(possibleNewSession !== undefined) this._session = possibleNewSession;
+		if(possibleNewSession !== undefined)
+			this._session = possibleNewSession;
 
 		await this._session.handleIncomingRedirect(url);
 
@@ -238,11 +239,11 @@ export class DatasetBrowser {
 	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
 		if(this._dataset === undefined)
-		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		let insideThing = getThing(this._dataset, thingUrl);
 		if(insideThing === null)
-		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		return new ThingBrowser(insideThing, this);
 	}
@@ -269,7 +270,7 @@ export class DatasetBrowser {
 		await this._waitForDataset();
 
 		if(this._dataset === undefined)
-		throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
+			throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
 
 		return this._dataset;
 	}
@@ -339,7 +340,7 @@ export class ThingBrowser {
 
 	public async save(): Promise<DatasetBrowser> {
 		if(this._builder !== undefined)
-		this._thing = this._builder.build();
+			this._thing = this._builder.build();
 
 		await this._origin.saveThing(this);
 		return this._origin;

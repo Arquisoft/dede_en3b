@@ -61,7 +61,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
 	req.session.save();
-	
+
 	console.log("logged in " + connection.getWebId());
 	res.redirect(`https://dedeen3b.herokuapp.com/`);
 	//res.redirect(`http://localhost:3000/`);
@@ -69,50 +69,50 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 solid.get("/address", async (req: Request, res: Response)
 	: Promise<Response> => 
-{
-	if(!SessionStorage.instance.has(req.session.webId))
-		return res.status(403).json({
-			message: "Connection not initialized" 
-		});
-	let connection = SessionStorage.instance.get(req.session.webId);
-	if(connection === undefined)
-		return res.status(403).json({
-			message: "Connection not initialized" 
-		});
+	{
+		if(!SessionStorage.instance.has(req.session.webId))
+			return res.status(403).json({
+				message: "Connection not initialized" 
+			});
+		let connection = SessionStorage.instance.get(req.session.webId);
+		if(connection === undefined)
+			return res.status(403).json({
+				message: "Connection not initialized" 
+			});
 
-	if(!connection.isLoggedIn()) 
-		return res.status(403).json(
-			{ message: "User not logged in" }
+		if(!connection.isLoggedIn()) 
+			return res.status(403).json(
+				{ message: "User not logged in" }
+			);
+
+		let urls = await connection
+			.fetchDatasetFromUser("profile/card")
+			.getThingAsync(connection.getWebId().href)
+			.then(thing => thing.getUrlAll(VCARD.hasAddress));
+
+		let addresses = await Promise.all(
+			urls.map(url => 
+				connection
+				.fetchDatasetFromUser("profile/card")
+				.getThingAsync(url)
+				.then(thing => {
+					let res = {
+						country_name: thing.getString(VCARD.country_name),
+						locality: thing.getString(VCARD.locality),
+						postal_code: thing.getString(VCARD.postal_code),
+						region: thing.getString(VCARD.region),
+						street_address: thing.getString(VCARD.street_address),
+					};
+					return res;
+				})
+			)
 		);
 
-	let urls = await connection
-		.fetchDatasetFromUser("profile/card")
-		.getThingAsync(connection.getWebId().href)
-		.then(thing => thing.getUrlAll(VCARD.hasAddress));
-
-	let addresses = await Promise.all(
-		urls.map(url => 
-			connection
-			.fetchDatasetFromUser("profile/card")
-			.getThingAsync(url)
-			.then(thing => {
-				let res = {
-					country_name: thing.getString(VCARD.country_name),
-					locality: thing.getString(VCARD.locality),
-					postal_code: thing.getString(VCARD.postal_code),
-					region: thing.getString(VCARD.region),
-					street_address: thing.getString(VCARD.street_address),
-				};
-				return res;
-			})
-		)
-	);
-
-	if (addresses.length !== 0) return res.status(200).json(addresses);
-	else return res.status(404).json({
-		message: "User has no addresses"
+		if (addresses.length !== 0) return res.status(200).json(addresses);
+		else return res.status(404).json({
+			message: "User has no addresses"
+		});
 	});
-});
 
 solid.post(
 	"/address",
@@ -134,8 +134,6 @@ solid.post(
 			region: req.body.region,
 			country_name: req.body.country_name,
 		};
-
-
 
 		let id = `id${crypto.randomBytes(1)}`;
 		console.log(id);
