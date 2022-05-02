@@ -83,7 +83,7 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
             <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
 
               {
-                addresses.length === 0 ? "Loading..." : addresses.map((a) => (
+                addresses.length === 0 ? "Loading..." : addresses.filter(l => l != (null || undefined)).map((a) => (
                 <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
                   value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
                   control={<Radio />}/>))
