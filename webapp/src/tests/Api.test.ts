@@ -1,11 +1,29 @@
 import "@testing-library/jest-dom/extend-expect"
 import {Types} from 'mongoose';
-import {getProducts,getProduct,findProductsByName,filterProducts,addOrder,findOrdersByUser,getOrder,getReviewsOfProduct, getSolidName, getSolidWebId, getSolidAddress, doSolidLogin, isLoggedIn, addReview, addAddressToSolid} from '../api/api';
-import { Address, IOrder, Review } from "../shared/shareddtypes";
+import {getProducts,getProduct,findProductsByName,filterProducts,addOrder,findOrdersByUser,getOrder,getReviewsOfProduct, getSolidName, getSolidWebId, getSolidAddress, isLoggedIn, addReview} from '../api/api';
+import { IOrder, Review } from "../shared/shareddtypes";
 
 global.fetch = jest.fn();
 
-
+const testDate = new Date(Date.now());
+const mockOrders:IOrder[] = [
+    {
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
+        webId: "test",
+        orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
+        address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
+        totalPrice: 30,
+        date: testDate
+    },
+    {
+        _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
+        webId: "test2",
+        orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
+        address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
+        totalPrice: 30,
+        date: new Date(Date.now())
+    }
+];
 
 test('get products.', async () => {
     const mockProducts = [
@@ -250,26 +268,6 @@ test('get an order by searching by the webId.', async () => {
 });
 
 test('get an order by searching by the id.', async () => {
-    const testDate = new Date(Date.now());
-    const mockOrders:IOrder[] = [
-        {
-            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
-            webId: "test",
-            orderProducts: [{id:"6227ae62e18344de6a6f927e",name:"Pantalon",quantity:2}],
-            address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
-            totalPrice: 30,
-            date: testDate
-        },
-        {
-            _id: new Types.ObjectId('6227ae61e18344de6a6f927a'),
-            webId: "test2",
-            orderProducts: [{id:"6227ae62e18344de6a6f924e",name:"Camiseta",quantity:1}],
-            address: {country_name: "España",locality:"Asturias",postal_code: "11111",region:"test",street_address:"address test"},
-            totalPrice: 30,
-            date: new Date(Date.now())
-        }
-    ];
-
     const expectedLength = mockOrders.filter(order => order._id.toString() === "6227ae61e18344de6a6f927c");
 
     global.fetch = jest.fn(() => 
@@ -382,20 +380,3 @@ test('Add a review to a product', async() => {
     const res = await addReview("str","str",0,"str");
     expect(res).toBeTruthy
 })
-
-// test('Add an address to solid', async() => {
-
-//     const address:Address = {
-//         country_name: "España",
-//         locality:"Posada de Llanera",
-//         postal_code:"33424",
-//         region:"Asturias",
-//         street_address: "Avenida Arzobispo Franciso Alvarez Martinez"
-//     }
-    
-//     global.fetch = jest.fn(() => 
-//         Promise.resolve(true)
-//     ) as jest.Mock;
-//     await addAddressToSolid(address);
-// })
-
