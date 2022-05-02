@@ -42,9 +42,8 @@ export class SessionStorage {
 	}
 
 	public remove(webId: URL | undefined) {
-		let converted = this.convertWebId(webId);
-		if(webId === undefined || !this._connections.has(converted))
-			this._connections.delete(converted);
+		if(this.has(webId))
+			this._connections.delete(this.convertWebId(webId));
 	}
 
 	private convertWebId(webId: URL | undefined): string {
