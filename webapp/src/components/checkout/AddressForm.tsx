@@ -6,6 +6,7 @@ import { Alert, Button, Dialog } from '@mui/material';
 import {useState } from 'react';
 import { addAddressToSolid, isLoggedIn } from '../../api/api';
 import Box from '@mui/material/Box';
+import { Address } from '../../shared/shareddtypes';
 
 export default function AddressForm() {
 
@@ -42,7 +43,8 @@ export default function AddressForm() {
     let isLogged = await isLoggedIn();
 
     if (isLogged) {
-      addAddressToSolid(formValues);
+      var add: Address = formValues;
+      addAddressToSolid(add);
       setFormValues({
         ...formValues,
         street_address: "",
@@ -128,7 +130,6 @@ export default function AddressForm() {
           variant="standard"
           onChange={handleInputChange}
           value={formValues.street_address}
-
         />
       </Grid>
       {errors.street_address && <Alert severity="error">{errors.street_address}</Alert>}

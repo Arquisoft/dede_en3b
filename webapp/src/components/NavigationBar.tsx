@@ -20,6 +20,7 @@ import { RootState } from '../redux/store';
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { doSolidLogout } from '../api/api';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   '&':{
@@ -84,6 +85,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
     navigate('/orders/find');
   }
 
+  const handleLogout = async () => {
+    handleMenuClose();
+    await doSolidLogout();
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -111,6 +117,12 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
       <Typography
             sx={{ color:'text.dark'}}>
             My orders
+          </Typography>
+      </MenuItem>
+      <MenuItem onClick={handleLogout}>
+      <Typography
+            sx={{ color:'text.dark'}}>
+            Logout
           </Typography>
       </MenuItem>
     </Menu>

@@ -11,8 +11,8 @@ const solid: Router = express.Router();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
 	let connection;
@@ -53,6 +53,7 @@ solid.get("/logout", async (req: Request, res: Response) => {
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
+	console.log("login redirect");
 	let connection;
 	if(SessionStorage.instance.has(req.session.webId))
 		connection = SessionStorage.instance.get(req.session.webId);
@@ -65,10 +66,11 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
 	req.session.save();
+	console.log(req.session.webId);
 
 	console.log("logged in " + connection.getWebId());
-	res.redirect(`https://dedeen3b.herokuapp.com/`);
-	//res.redirect(`http://localhost:3000/`);
+	//res.redirect(`https://dedeen3b.herokuapp.com/`);
+	res.redirect(`http://localhost:3000/`);
 });
 
 solid.get("/address", async (req: Request, res: Response)
@@ -132,7 +134,7 @@ solid.post(
 			);
 
 		const address = {
-			street: req.body.street_address,
+			street_address: req.body.street_address,
 			locality: req.body.locality,
 			postal_code: req.body.postal_code,
 			region: req.body.region,
@@ -158,7 +160,7 @@ solid.post(
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
 			?.addThing(id)
-			?.addString(VCARD.street_address, req.body.street)
+			?.addString(VCARD.street_address, req.body.street_address)
 			?.addString(VCARD.locality, req.body.locality)
 			?.addString(VCARD.postal_code, req.body.postal_code)
 			?.addString(VCARD.region, req.body.region)
@@ -187,6 +189,8 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	console.log("is logged in");
+	console.log(req.session.webId);
 	if(!SessionStorage.instance.has(req.session.webId))
 		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
