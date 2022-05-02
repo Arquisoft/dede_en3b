@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import Catalogue from '../routes/Catalogue';
 import { BrowserRouter } from "react-router-dom";
-const mongoose = require('mongoose')
+import {Types} from 'mongoose'
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 import { IProduct } from '../shared/shareddtypes';
@@ -19,7 +19,7 @@ test ('catalogue is rendered correctly', () => {
     redux.useSelector.mockImplementation(() => {
         return [
             {
-                _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+                _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
                 name: "pants",
                 photo: "",
                 type: "",
@@ -107,7 +107,7 @@ test ('catalogue is rendered correctly', () => {
 test('The proper products are rendered after searching.', async () => {
     const productList:IProduct[] = [
         {
-            _id: mongoose.Types.ObjectId('6227ae61e18344de6a6f927c'),
+            _id: new Types.ObjectId('6227ae61e18344de6a6f927c'),
             name: "Sudadera negra",
             photo: "",
             type: "Sudadera",
@@ -115,7 +115,7 @@ test('The proper products are rendered after searching.', async () => {
             price: 15
         },
         {
-            _id: mongoose.Types.ObjectId("6227ae62e18344de6a6f927e"),
+            _id: new Types.ObjectId("6227ae62e18344de6a6f927e"),
             name:"Pantalón vaquero",
             description:"vaquero anchote",
             photo:"",
