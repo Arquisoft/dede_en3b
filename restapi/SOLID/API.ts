@@ -74,12 +74,12 @@ export class SolidConnection {
 		//Log in to the session, wait for redirect,
 		//and return the promise.
 		if(!this.isLoggedIn()) 
-			await this._session.login({
-				redirectUrl: redirect,
-				oidcIssuer: this._identityProvider,
-				clientName: this.SOLID_CLIENT_NAME,
-				handleRedirect: (url) => res.redirect(url)
-			});
+		await this._session.login({
+			redirectUrl: redirect,
+			oidcIssuer: this._identityProvider,
+			clientName: this.SOLID_CLIENT_NAME,
+			handleRedirect: (url) => res.redirect(url)
+		});
 		else throw new LogInError("Already logged in");
 	}
 
@@ -100,13 +100,13 @@ export class SolidConnection {
 	 */
 	public async getFileFromRawUrl(fileUrl: string)
 		: Promise<Blob> 
-	{
-		let result = await getFile(
-			fileUrl,
-			{ fetch: this._session.fetch }
-		);
-		return result;
-	}
+		{
+			let result = await getFile(
+				fileUrl,
+				{ fetch: this._session.fetch }
+			);
+			return result;
+		}
 
 	/**
 	 * Returns specified url.
@@ -115,11 +115,11 @@ export class SolidConnection {
 	 */
 	public async getFileFromLoggedUser(fileUrl: string) 
 		: Promise<Blob>
-	{
-		return this.getFileFromRawUrl(
-			this.convertToLoggedUserUrl(fileUrl)
-		);
-	}
+		{
+			return this.getFileFromRawUrl(
+				this.convertToLoggedUserUrl(fileUrl)
+			);
+		}
 
 	/**
 	 * Overwrites the specified file (or creates it, if it doesnt exist)
@@ -127,13 +127,13 @@ export class SolidConnection {
 	 */
 	public async overwriteFileInRawUrl(fileUrl: string, file: File)
 		: Promise<void>
-	{
-		await overwriteFile(
-			fileUrl,
-			file,
-			{ contentType: file.type, fetch: this._session.fetch }
-		);
-	}
+		{
+			await overwriteFile(
+				fileUrl,
+				file,
+				{ contentType: file.type, fetch: this._session.fetch }
+			);
+		}
 
 	/**
 	 * Overwrites the specified file (or creates it, if it doesnt exist)
@@ -143,11 +143,11 @@ export class SolidConnection {
 	 */
 	public async overwriteFileInLoggedUserUrl(fileUrl: string, file: File) 
 		: Promise<void>
-	{
-		return this.overwriteFileInRawUrl(
-			this.convertToLoggedUserUrl(fileUrl), file
-		);
-	}
+		{
+			return this.overwriteFileInRawUrl(
+				this.convertToLoggedUserUrl(fileUrl), file
+			);
+		}
 
 	public fetchDatasetFromRawUrl(datasetUrl: string): DatasetBrowser {
 		return new DatasetBrowser(
@@ -165,12 +165,12 @@ export class SolidConnection {
 
 	public async saveDataset(dataset: DatasetBrowser)
 		: Promise<SolidDataset> 
-	{
-		return await saveSolidDatasetAt(
-			dataset.getUrl(),
-			await dataset.getInsides(), { fetch : this._session.fetch }
-		);
-	}
+		{
+			return await saveSolidDatasetAt(
+				dataset.getUrl(),
+				await dataset.getInsides(), { fetch : this._session.fetch }
+			);
+		}
 
 	/**
 	 * Returns wether the user is logged in or not
@@ -230,11 +230,11 @@ export class DatasetBrowser {
 	public async getThingAsync(thingUrl: string): Promise<ThingBrowser> {
 		await this._waitForDataset();
 		if(this._dataset === undefined)
-			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		let insideThing = getThing(this._dataset, thingUrl);
 		if(insideThing === null)
-			throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
+		throw new ThingNotFoundError(`Thing ${thingUrl} not found`);
 
 		return new ThingBrowser(insideThing, this);
 	}
@@ -261,7 +261,7 @@ export class DatasetBrowser {
 		await this._waitForDataset();
 
 		if(this._dataset === undefined)
-			throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
+		throw new DatasetNotFoundError(`Dataset ${this._origin.url} not found`);
 
 		return this._dataset;
 	}
@@ -300,7 +300,7 @@ export class ThingBrowser {
 	public getUrlAll(url: string): string[] {
 		return getUrlAll(this._thing, url);
 	}
-	
+
 	public setString(url: string, data: string): ThingBrowser {
 		if(this._builder === undefined) this._builder = buildThing(this._thing);
 
@@ -331,7 +331,7 @@ export class ThingBrowser {
 
 	public async save(): Promise<DatasetBrowser> {
 		if(this._builder !== undefined)
-			this._thing = this._builder.build();
+		this._thing = this._builder.build();
 
 		await this._origin.saveThing(this);
 		return this._origin;
