@@ -5,15 +5,17 @@ import ProductReviewList from "../components/reviews/ProductReviewList";
 import { Review } from "../shared/shareddtypes";
 import { Types } from "mongoose";
 
+const review: Review[] = [
+  {
+    productId: new Types.ObjectId("6227ae61e18344de6a6f927a"),
+    name: "name",
+    rating: 4,
+    comment: "comment",
+  },
+];
+
 test("The list of reviews is rendered properly", () => {
-  const review: Review[] = [
-    {
-      productId: new Types.ObjectId("6227ae61e18344de6a6f927a"),
-      name: "name",
-      rating: 4,
-      comment: "comment",
-    },
-  ];
+  
   render(
     <Provider store={store}>
       <ProductReviewList
@@ -25,14 +27,6 @@ test("The list of reviews is rendered properly", () => {
 });
 
 test("We make an anonimous review", async () => {
-  const review: Review[] = [
-    {
-      productId: new Types.ObjectId("6227ae61e18344de6a6f927a"),
-      name: "name",
-      rating: 4,
-      comment: "comment",
-    },
-  ];
   const { getByText } = render(
     <Provider store={store}>
       <ProductReviewList
@@ -52,14 +46,6 @@ test("We make an anonimous review", async () => {
 });
 
 test("We make public review", async () => {
-    const review: Review[] = [
-      {
-        productId: new Types.ObjectId("6227ae61e18344de6a6f927a"),
-        name: "name",
-        rating: 4,
-        comment: "comment",
-      },
-    ];
     const { getByText } = render(
       <Provider store={store}>
         <ProductReviewList
