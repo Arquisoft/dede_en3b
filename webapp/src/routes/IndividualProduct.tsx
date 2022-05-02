@@ -95,13 +95,13 @@ const IndividualProduct = (props: IndividualProductProps) => {
 
         return (
             <Box sx={{bgcolor: 'background.default', display: 'flex', flexWrap: 'wrap', 
-                        height: '120vh', justifyContent: 'center'}}>
+                        height: '100%', justifyContent: 'center'}}>
                 
                 <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
                 <BreadcrumbsProduct product={product.name}/>           
 
                 <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
-                            display: 'flex',  flexDirection: 'row'}}>
+                            display: 'flex',  flexDirection: {xs: 'column', sm: 'column', md: 'column', lg: 'row'}}}>
      
                     <Box >
                         <div className="product-pic">
@@ -135,7 +135,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 Price: {product.price}€
                             </Typography>
                             <Box
-                                sx={{ display: 'flex', flexDirection: 'row', p: 2, alignItems: 'center', justifyContent: 'space-between'}}
+                                sx={{ display: 'flex', flexDirection: {xs: 'column', sm:  'row'}, p: 2, alignItems: 'center', justifyContent: 'space-between'}}
                             >
                                 <NumberPicker min={1} value={value} onChange={value => { if (value !== null ) setValue(value)}} 
                                 style={{ }}
@@ -147,7 +147,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         </div>
                     </Box>
                     </Box>                    
-                    <ProductReviewList reviewList={reviews} />
+                    <ProductReviewList productId={product._id.toString()} reviewList={reviews} />
                 </Box>
             </Box>
         );

@@ -1,39 +1,65 @@
-const express = require('express');
+const express = require('express'); 
+import "express-session";
 import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
+import { SessionStorage } from "../SOLID/SessionStorage";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
 const crypto = require('crypto');
 
 const solid: Router = express.Router();
 
-let connection: SolidConnection = new SolidConnection();
-
 /**
  * TODO: Deshardcodear esto.
  */
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
+const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
-	if (req.query.provider !== null)
+	let connection;
+	if(req.query.provider !== null)
 		connection =
 			new SolidConnection(req.query.provider as string);
+	else if(SessionStorage.instance.has(req.session.webId))
+		connection = SessionStorage.instance.get(req.session.webId);
 
-	if (!connection.isLoggedIn())
+	if(connection === undefined)
+		connection = new SolidConnection();
+
+	if(!connection.isLoggedIn())
 		connection.login(`${apiEndPoint}/redirect`, res);
+	else {
+		req.session.webId = connection.getWebId();
+		return res.status(200);
+	}
 });
 
 solid.get("/redirect", async (req: Request, res: Response) => {
+	let connection;
+	if(SessionStorage.instance.has(req.session.webId))
+		connection = SessionStorage.instance.get(req.session.webId);
+	else 
+		connection = new SolidConnection();
+
 	await connection
 		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 
+	SessionStorage.instance.set(connection);
+	req.session.webId = connection.getWebId();
+	req.session.save();
+	
 	console.log("logged in " + connection.getWebId());
-	//res.redirect(`https://dedeen3b.herokuapp.com/`);
-	res.redirect(`http://localhost:3000/`);
+	res.redirect(`https://dedeen3b.herokuapp.com/`);
+	//res.redirect(`http://localhost:3000/`);
 });
 
-solid.get("/address", async (req: Request, res: Response): Promise<Response> => {
-	if (!connection.isLoggedIn())
+solid.get("/address", async (req: Request, res: Response)
+	: Promise<Response> => 
+{
+	if(!SessionStorage.instance.has(req.session.webId))
+		return res.status(403).json({ message: "Connection not initialized" });
+	let connection = SessionStorage.instance.get(req.session.webId);
+
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
@@ -44,18 +70,21 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 		.then(thing => thing.getUrlAll(VCARD.hasAddress));
 
 	let addresses = await Promise.all(
-		urls.map(url =>
+		urls.map(url => {
+			if(connection === undefined)
+				return res.status(403).json({ message: "Connection not initialized" });
+
 			connection
-				.fetchDatasetFromUser("profile/card")
-				.getThingAsync(url)
-				.then(thing => ({
-					country_name: thing.getString(VCARD.country_name),
-					locality: thing.getString(VCARD.locality),
-					postal_code: thing.getString(VCARD.postal_code),
-					region: thing.getString(VCARD.region),
-					street_address: thing.getString(VCARD.street_address),
-				}))
-		)
+			.fetchDatasetFromUser("profile/card")
+			.getThingAsync(url)
+			.then(thing => ({
+				country_name: thing.getString(VCARD.country_name),
+				locality: thing.getString(VCARD.locality),
+				postal_code: thing.getString(VCARD.postal_code),
+				region: thing.getString(VCARD.region),
+				street_address: thing.getString(VCARD.street_address),
+			}))
+		})
 	);
 
 	if (addresses.length !== 0) return res.status(200).json(addresses);
@@ -66,8 +95,13 @@ solid.get("/address", async (req: Request, res: Response): Promise<Response> => 
 
 solid.post(
 	"/address",
-	async (req: Request, res: Response): Promise<Response> => {
-		if (!connection.isLoggedIn())
+	async (req: Request, res:Response): Promise<Response> => 
+	{
+		if(!SessionStorage.instance.has(req.session.webId))
+			return res.status(403).json({ message: "Connection not initialized" });
+		let connection = SessionStorage.instance.get(req.session.webId);
+
+		if(!connection.isLoggedIn()) 
 			return res.status(403).json(
 				{ message: "User not logged in" }
 			);
@@ -90,27 +124,23 @@ solid.post(
 		let urlDataset = await connection
 			.fetchDatasetFromUser("profile/card");
 		let urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
 		await urlThing
-			.addUrl(VCARD.hasAddress, urlId)
-			.save();
-
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
+			?.addUrl(VCARD.hasAddress, urlId)
+			?.save();
 
 		await urlDataset.save();
 
 		urlThing = await urlDataset.getThingAsync(connection.getWebId().href);
-		console.log(urlThing.getUrlAll(VCARD.hasAddress));
 
 		let dataset = connection.fetchDatasetFromUser("profile/card");
 		await dataset
-			.addThing(id)
-			.addString(VCARD.street_address, req.body.street_address)
-			.addString(VCARD.locality, req.body.locality)
-			.addString(VCARD.postal_code, req.body.postal_code)
-			.addString(VCARD.region, req.body.region)
-			.addString(VCARD.country_name, req.body.country_name)
-			.save();
+			?.addThing(id)
+			?.addString(VCARD.street_address, req.body.street)
+			?.addString(VCARD.locality, req.body.locality)
+			?.addString(VCARD.postal_code, req.body.postal_code)
+			?.addString(VCARD.region, req.body.region)
+			?.addString(VCARD.country_name, req.body.country_name)
+			?.save();
 
 		await dataset.save();
 
@@ -119,7 +149,11 @@ solid.post(
 );
 
 solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
-	if (!connection.isLoggedIn())
+	if(!SessionStorage.instance.has(req.session.webId))
+		return res.status(403).json({ message: "Connection not initialized" });
+	let connection = SessionStorage.instance.get(req.session.webId);
+
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
@@ -130,13 +164,21 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	if(!SessionStorage.instance.has(req.session.webId))
+		return res.status(403).json({ message: "Connection not initialized" });
+	let connection = SessionStorage.instance.get(req.session.webId);
+
 	return res.status(200).json({
 		isLoggedIn: connection.isLoggedIn()
 	});
 });
 
 solid.get("/name", async (req: Request, res: Response): Promise<Response> => {
-	if (!connection.isLoggedIn())
+	if(!SessionStorage.instance.has(req.session.webId))
+		return res.status(403).json({ message: "Connection not initialized" });
+	let connection = SessionStorage.instance.get(req.session.webId);
+
+	if(!connection.isLoggedIn()) 
 		return res.status(403).json(
 			{ message: "User not logged in" }
 		);
