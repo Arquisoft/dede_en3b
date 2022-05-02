@@ -4,6 +4,7 @@ import { Request, Response, Router } from "express";
 import { SolidConnection } from "../SOLID/API";
 import { SessionStorage } from "../SOLID/SessionStorage";
 import { VCARD, FOAF } from "@inrupt/vocab-common-rdf";
+const crypto = require('crypto');
 
 const solid: Router = express.Router();
 
@@ -101,9 +102,9 @@ solid.get("/address", async (req: Request, res: Response)
 		})
 	);
 
-	if(addresses.length !== 0) return res.status(200).json(addresses);
-	else return res.status(404).json({ 
-		message: "User has no addresses" 
+	if (addresses.length !== 0) return res.status(200).json(addresses);
+	else return res.status(404).json({
+		message: "User has no addresses"
 	});
 });
 
@@ -128,7 +129,10 @@ solid.post(
 			country_name: req.body.country_name,
 		};
 
-		let id = `id${Math.floor(Math.random() * 1e14)}`;
+
+
+		let id = `id${crypto.randomBytes(1)}`;
+		console.log(id);
 		let webId = connection.getWebId();
 		let urlId = `${webId.origin}${webId.pathname}#${id}`;
 
@@ -169,8 +173,8 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 			{ message: "User not logged in" }
 		);
 
-	return res.status(200).json({ 
-		webId: connection.getWebId() 
+	return res.status(200).json({
+		webId: connection.getWebId()
 	});
 });
 
@@ -180,7 +184,7 @@ solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> 
 	let connection = SessionStorage.instance.get(req.session.webId);
 
 	return res.status(200).json({
-		isLoggedIn: connection.isLoggedIn() 
+		isLoggedIn: connection.isLoggedIn()
 	});
 });
 
