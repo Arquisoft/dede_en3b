@@ -1,16 +1,9 @@
-import { ICartItem } from "../shared/shareddtypes";
-import {
-	IUser,
-	IProduct,
-	IOrder,
-	Address,
-	Review,
-} from "../shared/shareddtypes";
+import { ICartItem } from '../shared/shareddtypes';
+import {IUser, IProduct, IOrder, Address, Review} from '../shared/shareddtypes';
 
 const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
-// const apiEndPoint =
-	// process.env.REACT_APP_API_URI || "http://localhost:5000/api";
-const solidEndPoint = apiEndPoint.replace("/api", "/solid");
+//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
+const solidEndPoint = apiEndPoint.replace('/api', '/solid');
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.

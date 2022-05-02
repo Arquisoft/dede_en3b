@@ -28,21 +28,21 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
   let imageRef: string = require("../static/images/" + props.product._id + ".png");
   const navigate = useNavigate();
     return (
-      <Card sx={{ maxWidth: 345, minWidth: 345, height:500, bgcolor:"background.card", borderRadius: 8, boxShadow:'10'}}>
+      <Card sx={{ width: { md: 345, xs: 250 }, height: { md:500, xs: 350}, bgcolor:"background.card", borderRadius: 8, boxShadow:'10'}}>
       <CardMedia
         component="img"
-        height="300"
+        sx={{height: { md:300, xs: 150}}}
           image={imageRef}
         alt={props.product.description}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardContent sx={{height: {xs:100, md: 110} }}>
+        <Typography gutterBottom variant="h5" component="div" sx={{ typography: { md: 'h5', xs: 'h6' }}}>
         {props.product.name}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" component="div" sx={{ typography: { md: 'h5', xs: 'h6' }}}>
         {props.product.price} €
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ typography: { md: 'body2', xs: 'body3' }}}>
         {props.product.description}
         </Typography>
       </CardContent>
