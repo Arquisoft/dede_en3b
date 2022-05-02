@@ -15,4 +15,18 @@ test("Getting the right amount of cost for our adress", async() => {
     const expectedResult = 96.872
     const result = await getShippingCosts(address)
     expect(result).toBe(expectedResult);
+});
+
+test("We get an error code for an invalid address", async () => {
+    const address:Address = {
+        country_name: "",
+        locality:"",
+        postal_code:"",
+        region:"",
+        street_address: ""
+    }
+
+    const expectedResult = -1;
+    const result = await getShippingCosts(address);
+    expect(result).toBe(expectedResult);
 })
