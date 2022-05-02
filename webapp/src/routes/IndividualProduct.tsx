@@ -50,8 +50,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     //Id
     const { id } = useParams();
     const [product, setProduct] =useState<IProduct>();
-    // eslint-disable-next-line
-    const [rating, setRating] = useState<number | null>(3);
+    const rating = 3;
     const [reviews, setReviews] = useState<Review[]>([]);
     
     const selectProduct = async () => {
