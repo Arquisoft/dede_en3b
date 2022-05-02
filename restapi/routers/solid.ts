@@ -176,7 +176,7 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
 	if(!SessionStorage.instance.has(req.session.webId))
-		return res.status(403).json({ message: "Connection not initialized" });
+		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
 
 	return res.status(200).json({
