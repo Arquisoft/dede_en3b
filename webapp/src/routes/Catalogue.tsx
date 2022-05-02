@@ -90,7 +90,7 @@ const CatalogueComponent = () => {
   return (
     <Grid container 
         className="App" 
-        sx={{bgcolor:'background.default', width: '100%', height: '100vh', display: 'grid'}}
+        sx={{bgcolor:'background.default', width: '100%', height: '100%', display: 'grid', pb: {xs: 20, xl:50}}}
         >
       
       <Grid item sx={{pt:4}}>
@@ -113,7 +113,7 @@ const CatalogueComponent = () => {
                 <Typography 
                     variant="h4"
                     align="center"
-                    sx={{color:"text.primary"}}
+                    sx={{color:"text.primary",  typography: { md: 'h4', xs: 'h6' }}}
                     >
                         Product search
                 </Typography>
@@ -135,12 +135,12 @@ const CatalogueComponent = () => {
                         label="Type"
                         onChange={event => { setValue(event.target.value); handleChange(event); }}
                       >
-                        <MenuItem value="">
+                        <MenuItem sx={{color: 'text.dark'}} value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={"Pantalon"}>Pantalon</MenuItem>
-                        <MenuItem value={"Camiseta"}>Camiseta</MenuItem>
-                        <MenuItem value={"Sudadera"}>Sudadera</MenuItem>
+                        <MenuItem sx={{color: 'text.dark'}} value={"Pantalon"}>Pantalon</MenuItem>
+                        <MenuItem sx={{color: 'text.dark'}} value={"Camiseta"}>Camiseta</MenuItem>
+                        <MenuItem sx={{color: 'text.dark'}} value={"Sudadera"}>Sudadera</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -149,12 +149,12 @@ const CatalogueComponent = () => {
           </Grid>
       </Grid>
       
-      <Grid container justifyContent='space-evenly'
-            sx={{pt:0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%'}}>
+      <Grid container spacing={2} justifyContent='center'
+            sx={{pt:4, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%'}}>
 
         {products.map((product, i) => {
           return (
-            <Grid item xs={8} sm={3}>
+            <Grid item xs={8} sm={6} md={6} lg={4} xl={3}>
               <ProductComponent key={i} product={product}></ProductComponent>
             </Grid>
           );

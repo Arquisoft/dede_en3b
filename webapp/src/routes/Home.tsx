@@ -99,14 +99,14 @@ export default function Home() {
                     <Typography 
                         variant="h1"
                         align="center"
-                        sx={{color:"text.primary"}}
+                        sx={{color:"text.primary", typography: { md: 'h1', xs: 'h2' }}}
                         >
                             Welcome to DeDe
                     </Typography>
                     <Typography 
                         variant="h5"
                         align="center"
-                        sx={{color:"text.secondary"}}
+                        sx={{color:"text.secondary",  typography: { md: 'h5', xs: 'h6' }}}
                         paragraph 
                         style={{ wordWrap: "break-word" }}
                         >

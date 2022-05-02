@@ -221,6 +221,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             </IconButton>
           </Link>
           
+          <Link to="/" style={{textDecoration: 'none'}}>
           <StyledTypography
             variant="h6"
             noWrap
@@ -229,6 +230,7 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
           >
             DeDe
           </StyledTypography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ mx: 'auto', display: { xs: 'none', md: 'flex'}, flexWrap: 'wrap' }} >
           <Link to="shop" style={{ color: '#FFF', textDecoration:'none' }}>
