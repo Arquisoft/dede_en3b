@@ -2,7 +2,10 @@ import "@testing-library/jest-dom/extend-expect"
 import { Address } from "../shared/shareddtypes"
 import {getShippingCosts} from "../api/ShippingApi";
 
+jest.setTimeout(10000)
+
 test("Getting the right amount of cost for our adress", async() => {
+    
     const address:Address = {
         country_name: "España",
         locality:"Posada de Llanera",
