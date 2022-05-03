@@ -139,7 +139,8 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 style={{ }}
                                 ></NumberPicker>
                         
-                                <StyledButton onClick={addProductToCart}>Add to cart</StyledButton>
+                                <StyledButton sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
+                                onClick={addProductToCart}>Add to cart</StyledButton>
                             </Box>
                             
                         </div>

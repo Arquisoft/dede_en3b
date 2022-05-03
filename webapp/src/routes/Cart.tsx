@@ -74,7 +74,10 @@ const Cart = () => {
         <h2 className="total-text">Total:  {calculateTotal(cart).toFixed(2)} €</h2>
         
        
-          <StyledButton onClick={checkOut}>Check out</StyledButton> 
+          <StyledButton 
+            sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
+            onClick={checkOut}>
+            Check out</StyledButton> 
           
          
         </Grid>
