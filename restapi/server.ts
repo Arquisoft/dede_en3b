@@ -25,6 +25,10 @@ async function connect() {
 	console.log(process.env);
 	const app = express();
 	app.set("trust proxy", 1);
+	app.use(cors({
+		credentials: true,
+		origin: "https://dedeen3b.herokuapp.com",
+	}));
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
@@ -46,11 +50,6 @@ async function connect() {
 		includeMethod: true,
 	});
 	app.use(metricsMiddleware);
-	app.use(cors({
-		credentials: true,
-		origin: (_: any, cb: (a: any, b: boolean) => void) =>
-			cb(null, true), 
-	}));
 	app.use(bp.json());
 
 	await restapi(app);
