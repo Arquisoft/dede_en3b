@@ -2,7 +2,7 @@ import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtyp
 
 //const apiendpoint = process.env.api_uri || 'http://localhost:5000/api';
 //const solidendpoint = process.env.solidapi_uri || 'http://localhost:5000/solid';
-const apiEndpoint = process.env.api_uri || 'https://dedeen3b-restapi.herokuapp.com/api';
+const apiEndPoint = process.env.api_uri || 'https://dedeen3b-restapi.herokuapp.com/api';
 const solidEndpoint = process.env.solidapi_uri || 'https://dedeen3b-restapi.herokuapp.com/solid';
 
 /**
