@@ -90,10 +90,10 @@ const CatalogueComponent = () => {
   return (
     <Grid container 
         className="App" 
-        sx={{bgcolor:'background.default', width: '100%', height: '100%', display: 'grid', pb: {xs: 20, xl:50}}}
+        sx={{bgcolor:'background.default', width: '100%', height: '100%', display: 'grid', pb: {xs: 20, xl:50}, pl: {xs:4, sm: 8, md:15}, pr: {xs:4, sm: 10, md:15}}}
         >
       
-      <Grid item sx={{pt:4}}>
+      <Grid item sx={{pt:4, pl: {xs:0, sm: 15}}}>
         <Typography 
             variant="h2"
             align="center"
@@ -109,23 +109,23 @@ const CatalogueComponent = () => {
             className="search-container"
             alignItems="stretch"
             sx={{pt:0}}>
-              <Grid item xs={8} sm={2}>
+              <Grid item xs={8} sm={4}>
                 <Typography 
                     variant="h4"
                     align="center"
-                    sx={{color:"text.primary",  typography: { md: 'h4', xs: 'h6' }}}
+                    sx={{color:"text.primary",  typography: { md: 'h4', xs: 'h5' }}}
                     >
                         Product search
                 </Typography>
             </Grid>
-            <Grid item xs={8} sm={10}>
+            <Grid item xs={5} sm={8}>
               <form className="searchForm" onSubmit={event => searchForProducts(event)}>
                 <Grid container justifyContent="right">
-                  <Grid item xs={8} sm={10}>
-                    <input data-testid="search" id="searchText" type="text" />
+                  <Grid item xs={10} sm={10} sx={{pt: {xs:2, sm:0}}}>
+                    <input id="searchText" type="text" />
                     <button>Search</button>
                   </Grid>
-                  <Grid item xs={8} sm={2}>
+                  <Grid item xs={12} sm={2} sx={{pt: {xs:2, sm:0}}}>
                      <FormControl variant="filled" sx={{marginLeft:2 ,minHeight: 40, minWidth: 120}}>
                       <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
                       <Select
@@ -155,7 +155,7 @@ const CatalogueComponent = () => {
 
         {products.map((product, i) => {
           return (
-            <Grid item xs={8} sm={6} md={6} lg={4} xl={3}>
+            <Grid item xs={11} sm={6} md={6} lg={4} xl={3} sx={{ pl: {xs:0}, pr:0}}>
               <ProductComponent key={i} product={product}></ProductComponent>
             </Grid>
           );
