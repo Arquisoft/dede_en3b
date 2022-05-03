@@ -26,6 +26,9 @@ Potentially more columns in case you need translations.
 [options="header"]
 |===
 | Term         | Definition
-| <Term-1>     | <definition-1>
-| <Term-2>     | <definition-2>
+| Solid        | A project for web decentralization based on the use of private data stores called Pods.
+| Solid Pod    | A Pod is a data storage unit in which a user can record information. The owner of the Pod can then choose who can access their data. 
+| Node.js      | A JavaScript runtime enviroment compiler that allows users to run the code outside web browsers.
+| TypeScript   | A programming laguage based on JavaScript, but with the addition of types, similar to Java and other Object Oriented Languages.
+| Heroku       | A cloud platform which allows their users to deploy and manage web applications based in a varied array of programming languages.
 |===
