@@ -26,7 +26,13 @@ async function connect() {
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
-		saveUninitialized: true
+		saveUninitialized: true,
+		cookie: {
+			secure: process.env.NODE_ENV &&
+				process.env.NODE_ENV === "production",
+			sameSite: "Lax",
+			maxAge: 30 * 60 * 1000
+		},
 	}));
 
 	const options = {
