@@ -50,8 +50,10 @@ function App(): JSX.Element {
   const makeOrder = async () => {
     var webId: any = await getSolidWebId();
 
-    if (address != undefined) {
-      addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
+    var currentAddress = address;
+
+    if (currentAddress != undefined) {
+      addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
       restoreDefaults();
     } else {
       console.log("Ni olvido ni perdon. ")
