@@ -11,7 +11,8 @@ const solid: Router = express.Router();
 /**
  * TODO: Deshardcodear esto.
  */
-const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+const apiEndPoint = "https://dedeen3b-restapi.herokuapp.com/solid";
 
 solid.get("/login", async (req: Request, res: Response) => {
 	console.log(apiEndPoint, process.env.SOLIDAPI_URI);
