@@ -11,6 +11,10 @@ RUN npm install --production
 
 ARG MONGO_URI="mongodb+srv://dedeAdmin:aswLosMejores_3b@DeDe-en3b-Cluster.iqslm.mongodb.net/Database?retryWrites=true&w=majority"
 ENV MONGO_URI=$MONGO_URI
+ENV APPLICATION_URI="https://dedeen3b.herokuapp.com"
+ENV API_URI="https://dedeen3b-restapi.herokuapp.com/api"
+ENV SOLIDAPI_URI="https://dedeen3b-restapi.herokuapp.com/solid"
+ENV NODE_ENV="production"
 
 RUN npm install
 # bundle app source

@@ -1,8 +1,9 @@
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
-const apiEndPoint = process.env.REACT_APP_API_URI || 'https://dedeen3b-restapi.herokuapp.com/api'
-//const apiEndPoint = process.env.REACT_APP_API_URI || 'http://localhost:5000/api';
-const solidEndPoint = apiEndPoint.replace('/api', '/solid');
+const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
+const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+//const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
+//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.
@@ -142,6 +143,7 @@ export async function doSolidLogin(provider: string): Promise<any> {
 
 export async function isLoggedIn(): Promise<any> {
 	var str: string = solidEndPoint + "/isLoggedIn";
+	console.log(str);
 	let response = await fetch(str, {
 		credentials: "include",
 	});

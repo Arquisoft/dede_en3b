@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
@@ -21,11 +21,20 @@ declare module 'express-session' {
 }
 
 async function connect() {
+	console.log(process.env.SOLIDAPI_URI);
+	console.log(process.env);
 	const app = express();
+	app.set("trust proxy", 1);
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
-		saveUninitialized: true
+		saveUninitialized: true,
+		cookie: {
+			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
+			secure: true,
+			sameSite: "Lax",
+			maxAge: 30 * 60 * 1000
+		},
 	}));
 
 	const options = {

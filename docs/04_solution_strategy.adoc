@@ -7,13 +7,20 @@ A summary of the technical decisions that we have taken so far:
 
     * **MongoDB**: The DMBS of our choice.
     * **Express**: Express is a framework to handle the backend of our application.
-    * **Redux**: Although it has not been implemented yet, we are considering it.
+    * **Redux**: It was used to keep the contents of user's carts.
     * **Heroku**: It will be where we will deploy our app.
 
 
 === Decisions about the the top-level decomposition of the system
 
-As of now we haven't really decided upon a selected pattern for the system. A few alternatives that we are considering at the moment are the redux pattern and the mvc pattern. But it would require a meeting for us to decide if it's really worth it to learn a pattern that we don't know but that might yield a better coding experience in the future.
+The system is mainly composed of two parts: The webapp and the REST API.
+
+The webapp is designed using React. It interfaces with the REST API to fetch
+data and to retrieve POD information.
+
+The REST API is made with express in nodejs. It is formed by two essential systems.
+The API as such, which interfaces with MongoDB to store and retrieve data.
+The SOLID API, which is a RESTful API which interfaces with a Facade of our own.
 
 === Decisions on how to achive key quality goals.
 
