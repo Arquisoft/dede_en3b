@@ -109,8 +109,8 @@ function App(): JSX.Element {
             default: '#6b6b6b',
             card: '#454545',
             dark: '#121212',
-            button: '#9681f2',
-            buttonhover: '#81c9f2',
+            button: '#cccce0',
+            buttonhover: '#fff',
             light: '#fff'
           },
           text: {

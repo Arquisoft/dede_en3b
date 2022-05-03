@@ -120,12 +120,12 @@ export function Login(): JSX.Element {
     };
 
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ bgcolor: 'background.default', padding: '1em', height: '20em', display: 'flex', flexDirection: 'column'}}>
       <BreadcrumbsLogin />
       <form noValidate autoComplete="off">
-      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: 400, margin: 'auto',
+      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: '20em', margin: 'auto',
        marginTop: 0, bgcolor: 'background.light'}}>
-        <Box sx={{textAlign: 'center', bgcolor: 'background.dark', color: 'text.light', padding: 4}}>
+        <Box sx={{textAlign: 'center', bgcolor: 'background.dark', color: 'text.light', padding: '4em', width: '12em'}}>
           <Typography
             variant='h5'>
           POD Service Provider

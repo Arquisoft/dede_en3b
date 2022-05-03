@@ -3,65 +3,13 @@
 
 == Building Block View
 
-[role="arc42help"]
-****
-.Content
-The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes,
-interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations,
-datas structures, ...) as well as their dependencies (relationships, associations, ...)
-
-This view is mandatory for every architecture documentation.
-In analogy to a house this is the _floor plan_.
-
-.Motivation
-Maintain an overview of your source code by making its structure understandable through
-abstraction.
-
-This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.
-
-.Form
-The building block view is a hierarchical collection of black boxes and white boxes
-(see figure below) and their descriptions.
-
-image:05_building_blocks-EN.png["Hierarchy of building blocks"]
-
-*Level 1* is the white box description of the overall system together with black
-box descriptions of all contained building blocks.
-
-*Level 2* zooms into some building blocks of level 1.
-Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.
-
-*Level 3* zooms into selected building blocks of level 2, and so on.
-****
-
 === Whitebox Overall System
-
-[role="arc42help"]
-****
-Here you describe the decomposition of the overall system using the following white box template. It contains
-
- * an overview diagram
- * a motivation for the decomposition
- * black box descriptions of the contained building blocks. For these we offer you alternatives:
-
-   ** use _one_ table for a short and pragmatic overview of all contained building blocks and their interfaces
-   ** use a list of black box descriptions of the building blocks according to the black box template (see below).
-   Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).
-
-
- * (optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
-Since there are so many ways to specify interfaces why do not provide a specific template for them.
- In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
- restrictions, versions, qualities, necessary compatibilities and many things more.
-In the best case you will get away with examples or simple signatures.
-
-****
 
 image:05_building_blocks_overview.png["Whitebox Overall System"]
 
 Motivation::
 
-Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in PODs.
+Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.
 
 
 Contained Building Blocks::
@@ -69,9 +17,9 @@ Contained Building Blocks::
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's POD.
-| POD Provider | System that stores the PODs of the users and will be used to access them.
-| User's POD | The user's information will be stored here in order to keep it decentralized.
+| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's Pod.
+| Pod Provider | System that stores the Pods of the users and will be used to access them.
+| User's Pod | The user's information will be stored here in order to keep it decentralized.
 | mongodb | In this database, the minimal information of the application will be stored.
 |===
 
@@ -79,51 +27,27 @@ Contained Building Blocks::
 
 === Level 1
 
-[role="arc42help"]
-****
-Here you describe <black box 1>
-according the the following black box template:
-
-* Purpose/Responsibility
-* Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.
-* (Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, ....
-* (Optional) directory/file location
-* (Optional) Fulfilled requirements (if you need traceability to requirements).
-* (Optional) Open issues/problems/risks
-
-****
-
-
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
 | User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
-| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
+| Data Access | The main task of this layer will be accessing data in both the database and the user's Pod.
 |===
 
 
 
 === Level 2
 
-[role="arc42help"]
-****
-Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
-
-You have to decide which building blocks of your system are important enough to justify such a detailed description.
-Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
-Leave out normal, simple, boring or standardized parts of your system
-****
-
-
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Log in | The user will be able to log in or register an account in the system.
-| Location | This will be the location the application will use in order to deliver the user's orders. The user will be able to edit it.
-| Orders done | The user will be able to see the orders they have done already.
-| Product | The user will be able to see the full information of a single product and will be able to choose to buy it.
-| Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
+| Log in | The user can log in to his Solid Pod in order to purchase from the page or see his previous orders.
+| Checkout | This is the view where the user can finish the process of purchasing products. The shipping costs are calculated with the location in the user's Pod, but the user can choose to edit it.
+| Home | This is the page that the user is first presented with.
+| Orders | The user can see the orders they have done already.
+| Product | The user can see the full information of a single product and can choose to buy it.
+| Products Catalogue | The user can see the full catalogue offered by the retail company and can choose what to buy.
 | Shopping cart | The user can check here the products they have selected to buy.
-| SOLID API | Provides the libraries to communicate between the user's POD and the POD provider.
+| Solid API | Provides the libraries to communicate between the user's Pod and the Pod provider.
 | RestApi | Provides communication between the database and the application.
 |===

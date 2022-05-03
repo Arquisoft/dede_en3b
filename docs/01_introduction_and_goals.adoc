@@ -10,12 +10,12 @@ The DeDe shopping simulator is the main application that our team will be develo
     * Óscar Pérez Arruñada
 
 
-DeDe will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
+DeDe is an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
 
 === Requirements Overview
 
-The application will be run online, either on Heroku or in a similar platform. Every user action will work using pods.
-Users will be able to browse the catalog and order things from their pods. Then, the app will calculate the price based on the location of the user.
+The application runs online, deployed on Heroku. Most of the actions taken by the users work using Solid Pods.
+Users are able to browse the catalog and order products. Then, the app calculates the price based on the delivery address selected by the user, which is stored in their Pod.
 
 === Quality Goals
 
@@ -25,7 +25,7 @@ The quality goals are the following:
 The system must make it easy for novice users or non-technical peaple to learn quickly. Also allows steady progression to expertise.
 
 ==== Decentralization: 
-The application will not store personal information from customers but will obtain that information from the user’s pods given that the users give the necessary permissions to the shopping system.
+The application will not store personal information from customers but will obtain that information from the user’s Pods given that the users give the necessary permissions to the shopping system.
 
 ==== Security/Privacy:
 The system will ask for permissionss in order to ensure security.It will not lead to any security problems by not storing personal information about the user.
@@ -46,6 +46,6 @@ The system should be ready for testing purposes: quality of test strategy and te
 | Developers | The students that are part of the development team | Everything related with design and development issues
 | Final users | The clients that will interact with the system | The aim of the application, the users that should be satisfied by the system's benefits
 | Classmates | Classmates from the other projects | Since it is not about a competition, the development team can obtain help from other development teams by solving doubts or teaching some techniques, for example.
-| SOLID community | The SOLID community | Users related with SOLID community that are interested on making the product better
+| Solid community | The Solid community | Users related with Solid community that are interested on making the product better
 | Inrupt and empathy | Those enterprises | Interested on knowing the skills of the students related with the project and the project itself
 |===
