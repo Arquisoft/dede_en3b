@@ -118,11 +118,12 @@ Leave out normal, simple, boring or standardized parts of your system
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Log in | The user will be able to log in or register an account in the system.
-| Location | This will be the location the application will use in order to deliver the user's orders. The user will be able to edit it.
-| Orders done | The user will be able to see the orders they have done already.
-| Product | The user will be able to see the full information of a single product and will be able to choose to buy it.
-| Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
+| Log in | The user can log in to his Solid Pod in order to purchase from the page or see his previous orders.
+| Checkout | This is the view where the user can finish the process of purchasing products. The shipping costs are calculated with the location in the user's Pod, but the user can choose to edit it.
+| Home | This is the page that the user is first presented with.
+| Orders | The user can see the orders they have done already.
+| Product | The user can see the full information of a single product and can choose to buy it.
+| Products Catalogue | The user can see the full catalogue offered by the retail company and can choose what to buy.
 | Shopping cart | The user can check here the products they have selected to buy.
 | Solid API | Provides the libraries to communicate between the user's Pod and the Pod provider.
 | RestApi | Provides communication between the database and the application.
