@@ -122,7 +122,7 @@ const CatalogueComponent = () => {
               <form className="searchForm" onSubmit={event => searchForProducts(event)}>
                 <Grid container justifyContent="right">
                   <Grid item xs={10} sm={10} sx={{pt: {xs:2, sm:0}}}>
-                    <input id="searchText" type="text" />
+                    <input id="searchText" data-testid="search" type="text" />
                     <button>Search</button>
                   </Grid>
                   <Grid item xs={12} sm={2} sx={{pt: {xs:2, sm:0}}}>
