@@ -2,12 +2,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
-const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
-const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
-//const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
-//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
+//const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
+const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
-let currentWebID = useSelector((state: RootState) => state.user.value);
+let currentWebID =
+	useSelector((state: RootState) => state.user.value);
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.
@@ -95,12 +96,12 @@ export async function getOrder(id: string): Promise<IOrder> {
 /**
  * Function to get solid name
  */
-export async function getSolidName(): Promise<any> {
+export async function getSolidName(webId: string): Promise<any> {
 	var str: string = solidEndPoint + "/name";
 	let response = await fetch(str, {
 		credentials: "include",
 		body: JSON.stringify({
-			webId: currentWebID
+			webId: webId
 		})
 	});
 	return response.json();
@@ -109,27 +110,27 @@ export async function getSolidName(): Promise<any> {
 /**
  * Function to get webId
  */
-export async function getSolidWebId(): Promise<string> {
+export async function getSolidWebId(webId: string): Promise<string> {
 	var str: string = solidEndPoint + "/webId";
 	let response = await fetch(str, {
 		credentials: "include",
 		body: JSON.stringify({
-			webId: currentWebID
+			webId: webId
 		})
 	});
-	let webId = await response.json();
-	return webId.webId;
+	let newWebId = await response.json();
+	return newWebId.webId;
 }
 
 /**
  * Function to get solid address
  */
-export async function getSolidAddress(): Promise<Address[]> {
+export async function getSolidAddress(webId: string): Promise<Address[]> {
 	var str: string = solidEndPoint + "/address";
 	let response = await fetch(str, {
 		credentials: "include",
 		body: JSON.stringify({
-			webId: currentWebID
+			webId: webId
 		})
 	});
 	console.log(response);
@@ -148,19 +149,19 @@ export async function doSolidLogin(provider: string): Promise<any> {
 /**
  * Function to solid logout
  */
- export async function doSolidLogout(): Promise<any> {
+ export async function doSolidLogout(webId: string): Promise<any> {
 	var str: string = solidEndPoint + '/logout';
 	 await fetch(str);
-	 console.log(isLoggedIn());
+	 console.log(isLoggedIn(webId));
 }
 
-export async function isLoggedIn(): Promise<any> {
+export async function isLoggedIn(webId: string): Promise<any> {
 	var str: string = solidEndPoint + "/isLoggedIn";
 	console.log(str);
 	let response = await fetch(str, {
 		credentials: "include",
 		body: JSON.stringify({
-			webId: currentWebID
+			webId: webId
 		})
 	});
 	return response.json();
@@ -202,7 +203,7 @@ export async function addReview(
 /**
  * Return a list of reviews of a product
  */
-export async function addAddressToSolid(address: Address) {
+export async function addAddressToSolid(webId: string, address: Address) {
 	var str: string = solidEndPoint + "/address";
 
 	let _data = {
@@ -211,7 +212,7 @@ export async function addAddressToSolid(address: Address) {
 		locality: address.locality,
 		street_address: address.street_address,
 		postal_code: address.postal_code,
-		webId: currentWebID
+		webId: webId
 	};
 
 	fetch(str, {

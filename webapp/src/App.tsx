@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, FormEvent } from 'react';
 // eslint-disable-next-line
-import { findOrdersByUser, addOrder, getSolidWebId, getSolidAddress } from './api/api';
+import { findOrdersByUser, addOrder, getSolidWebId } from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -23,153 +23,156 @@ import { ThemeProvider, PaletteMode, createTheme } from '@mui/material';
 import GreetingComponent from './components/GreetingComponent';
 function App(): JSX.Element {
 
-  // eslint-disable-next-line
-  const [value, setValue] = useState('');
-  //Address
-  // eslint-disable-next-line
-  const [address, setAddress] = useState<Address>();
-  //PaymentMean
-  // eslint-disable-next-line
-  const [paymentMean, setPaymentMean] = useState('');
+	// eslint-disable-next-line
+	const [value, setValue] = useState('');
+	//Address
+	// eslint-disable-next-line
+	const [address, setAddress] = useState<Address>();
+	//PaymentMean
+	// eslint-disable-next-line
+	const [paymentMean, setPaymentMean] = useState('');
 
-  //Shipping
-  // eslint-disable-next-line
-  const [shippingCosts, setShippingCosts] = useState(0);
+	//Shipping
+	// eslint-disable-next-line
+	const [shippingCosts, setShippingCosts] = useState(0);
 
-  //Cart
-  const cart = useSelector((state: RootState) => state.cart.value);
-  const dispatch = useDispatch();
+	//Cart
+	const cart = useSelector((state: RootState) => state.cart.value);
+	const dispatch = useDispatch();
 
-  /**
-  * Function to restore the default values of the cart.
-  */
-  const restoreDefaults = () => {
-    dispatch(emptyCart());
-  };
+	/**
+	 * Function to restore the default values of the cart.
+	 */
+	const restoreDefaults = () => {
+		dispatch(emptyCart());
+	};
 
 
-  const makeOrder = async () => {
-    var webId: any = await getSolidWebId();
+	const makeOrder = async () => {
 
-    if (address !== undefined) {
-      addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
-      restoreDefaults();
-    } else {
-      console.log("Ni olvido ni perdon. ")
-    }
-  }
+		let currentWebID =
+			useSelector((state: RootState) => state.user.value);
+		var webId: any = await getSolidWebId(currentWebID);
 
-  //Orders
-  const [orders, setOrders] = useState<IOrder[]>([]);
+		if (address !== undefined) {
+			addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
+			restoreDefaults();
+		} else {
+			console.log("Ni olvido ni perdon. ")
+		}
+	}
 
-  const getUserOrders = async (orders: IOrder[], WebId: string) => {
-    var ordersFound: IOrder[];
-    ordersFound = await findOrdersByUser(WebId);
-    setOrders(ordersFound);
-  }
+	//Orders
+	const [orders, setOrders] = useState<IOrder[]>([]);
 
-  const themeOptions = (b: boolean) => (b ? "dark" : "light");
+	const getUserOrders = async (orders: IOrder[], WebId: string) => {
+		var ordersFound: IOrder[];
+		ordersFound = await findOrdersByUser(WebId);
+		setOrders(ordersFound);
+	}
 
-  //palettes for both theme options
-  const getPaletteForTheme = (mode: PaletteMode) => ({
-    palette: {
-      ...(mode === "light"
-        ? {
-          primary: { main: '#fff' },
-          secondary: { main: '#212121' },
-          background: {
-            default: '#697689',
-            card: '#fff',
-            dark: '#272a40',
-            button: '#9681f2',
-            buttonhover: '#81c9f2',
-            light: '#fff'
-          },
-          text: {
-            primary: '#000',
-            default: '#000',
-            secondary: '#454545',
-            dark: '#000',
-            light: '#ebebeb',
-            lighterdark: '#6b6b6b',
-          }
-        }
-        : {
-          primary: { main: '#ebebeb' },
-          secondary: { main: '#e0dcd8' },
-          background: {
-            default: '#6b6b6b',
-            card: '#454545',
-            dark: '#121212',
-            button: '#cccce0',
-            buttonhover: '#fff',
-            light: '#fff'
-          },
-          text: {
-            primary: '#ebebeb',
-            default: '#ebebeb',
-            secondary: '#e0dcd8',
-            dark: '#121212',
-            light: '#ebebeb',
-            lighterdark: '#6b6b6b'
-          }
-        }
-      )
-    }
-  });
+	const themeOptions = (b: boolean) => (b ? "dark" : "light");
 
-  let chosenTheme: boolean = true;
+	//palettes for both theme options
+	const getPaletteForTheme = (mode: PaletteMode) => ({
+		palette: {
+			...(mode === "light"
+				? {
+					primary: { main: '#fff' },
+					secondary: { main: '#212121' },
+					background: {
+						default: '#697689',
+						card: '#fff',
+						dark: '#272a40',
+						button: '#9681f2',
+						buttonhover: '#81c9f2',
+						light: '#fff'
+					},
+					text: {
+						primary: '#000',
+						default: '#000',
+						secondary: '#454545',
+						dark: '#000',
+						light: '#ebebeb',
+						lighterdark: '#6b6b6b',
+					}
+				}
+				: {
+					primary: { main: '#ebebeb' },
+					secondary: { main: '#e0dcd8' },
+					background: {
+						default: '#6b6b6b',
+						card: '#454545',
+						dark: '#121212',
+						button: '#cccce0',
+						buttonhover: '#fff',
+						light: '#fff'
+					},
+					text: {
+						primary: '#ebebeb',
+						default: '#ebebeb',
+						secondary: '#e0dcd8',
+						dark: '#121212',
+						light: '#ebebeb',
+						lighterdark: '#6b6b6b'
+					}
+				}
+			)
+		}
+	});
 
-  if (localStorage.getItem("theme") === null) {
-    localStorage.setItem("theme", String(chosenTheme));
-  } else {
-    chosenTheme = localStorage.getItem("theme") === "true";
-  }
+	let chosenTheme: boolean = true;
 
-  const [mode, setMode] = React.useState<PaletteMode>(
-    themeOptions(!chosenTheme)
-  );
+	if (localStorage.getItem("theme") === null) {
+		localStorage.setItem("theme", String(chosenTheme));
+	} else {
+		chosenTheme = localStorage.getItem("theme") === "true";
+	}
 
-  const theme = React.useMemo(() => createTheme(getPaletteForTheme(mode)), [mode]);
+	const [mode, setMode] = React.useState<PaletteMode>(
+		themeOptions(!chosenTheme)
+	);
 
-  /**
-   * Function to change the theme mode
-   */
-  const changeThemeMode = () => {
-    setMode(themeOptions(mode === "light"));
-    localStorage.setItem("theme", String(mode === "dark"));
-  };
+	const theme = React.useMemo(() => createTheme(getPaletteForTheme(mode)), [mode]);
 
-  return (
+	/**
+	 * Function to change the theme mode
+	 */
+	const changeThemeMode = () => {
+		setMode(themeOptions(mode === "light"));
+		localStorage.setItem("theme", String(mode === "dark"));
+	};
 
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
+	return (
 
-        <NavigationBar changeTheme={changeThemeMode} themeState={chosenTheme} />
+		<ThemeProvider theme={theme}>
+		<BrowserRouter>
 
-        <Routes>
-          <Route path="/" element={<Home />} ></Route>
-          <Route path="login" element={<Login></Login>}></Route>
-          <Route path="cart" element={<Cart />} />
-          <Route path="shop" element={<Catalogue />} />
-          <Route path="products/:id"
-            element={
-              <IndividualProduct product={null as any} />
-            }
-          />
+		<NavigationBar changeTheme={changeThemeMode} themeState={chosenTheme} />
 
-          <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>} />
-          <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
-          <Route path="orders/:id" element={
-            <IndividualOrder order={null as any} />
-          } />
-          <Route path="solid/webId/:webId" element={<GreetingComponent />}></Route>
-        </Routes>
+		<Routes>
+		<Route path="/" element={<Home />} ></Route>
+		<Route path="login" element={<Login></Login>}></Route>
+		<Route path="cart" element={<Cart />} />
+		<Route path="shop" element={<Catalogue />} />
+		<Route path="products/:id"
+		element={
+			<IndividualProduct product={null as any} />
+		}
+		/>
 
-      </BrowserRouter>
-    </ThemeProvider>
+		<Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>} />
+		<Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
+		<Route path="orders/:id" element={
+			<IndividualOrder order={null as any} />
+		} />
+		<Route path="solid/webId/:webId" element={<GreetingComponent />}></Route>
+		</Routes>
 
-  );
+		</BrowserRouter>
+		</ThemeProvider>
+
+	);
 }
 
 export default App;

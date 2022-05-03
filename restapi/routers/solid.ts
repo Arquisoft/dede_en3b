@@ -11,14 +11,15 @@ const solid: Router = express.Router();
 /**
  * TODO: Deshardcodear esto.
  */
-//const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
-const apiEndPoint = "https://dedeen3b-restapi.herokuapp.com/solid";
-const applicationUri = "https://dedeen3b.herokuapp.com";
-//const applicationUri = "http://localhost:3000";
+const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+//const apiEndPoint = "https://dedeen3b-restapi.herokuapp.com/solid";
+//const applicationUri = "https://dedeen3b.herokuapp.com";
+const applicationUri = "http://localhost:3000";
 
 solid.get("/login", async (req: Request, res: Response) => {
 	console.log(apiEndPoint, process.env.SOLIDAPI_URI);
 	let connection;
+	let storedWebId = req.session.webId || req.body.webId;
 	if(req.query.provider !== null)
 		connection =
 			new SolidConnection(req.query.provider as string);
@@ -80,7 +81,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	console.log("Logged in " + storedWebId);
 
 	let url =
-		`${applicationUri}/webId/${encodeURIComponent(connection.getWebId())}`;
+		`${applicationUri}/webId/${encodeURIComponent(connection.getWebId().href)}`;
 	console.log(url);
 	res.redirect(url);
 });
@@ -204,8 +205,9 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
-	console.log("user " + storedWebId);
 	let storedWebId = req.session.webId || req.body.webId;
+	console.log(storedWebId, req.session.webId, req.body.webId);
+	console.log("user " + storedWebId);
 	if(!SessionStorage.instance.has(storedWebId))
 		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(storedWebId);
