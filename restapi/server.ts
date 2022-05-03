@@ -25,8 +25,7 @@ async function connect() {
 	app.set("trust proxy", 1);
 	app.use(cors({
 		credentials: true,
-		origin: (_: any, cb: (a: any, b: boolean) => void) =>
-			cb(null, true), 
+		origin: "https://dedeen3b.herokuapp.com/",
 	}));
 	app.use(session({
 		secret: "mysecret420",
