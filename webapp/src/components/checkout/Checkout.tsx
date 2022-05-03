@@ -53,26 +53,26 @@ const theme = createTheme();
 
 export default function Checkout(props: CheckoutProps): JSX.Element {
 
-  const [loggedIn, setLoggedIn] = useState(false);
-
   const isUserLoggedIn = async () => {
     const res: boolean = await isLoggedIn();
-    setLoggedIn(res);
+    return res;
   };
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    isUserLoggedIn();
-
-    if (loggedIn === false) {
-      navigate('/login');
-    }
+    isUserLoggedIn().then(isLoggedIn => {
+      if (isLoggedIn === false) {
+        navigate('/login');
+      }
+    });
   },
     // eslint-disable-next-line
     []);
 
-  
+
+
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleBack = () => {
