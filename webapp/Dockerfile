@@ -5,10 +5,14 @@ WORKDIR /app
 RUN npm install --production
 
 #Different in the heroku deployment
-ENV APPLICATION_URI="https://dedeen3b.herokuapp.com"
-ENV API_URI="https://dedeen3b-restapi.herokuapp.com/api"
-ENV SOLIDAPI_URI="https://dedeen3b-restapi.herokuapp.com/solid"
-ENV NODE_ENV="production"
+ARG APP_URI="https://dedeen3b.herokuapp.com"
+ARG API_ENDPOINT="https://dedeen3b-restapi.herokuapp.com/api" 
+ARG SOLID_ENDPOINT="https://dedeen3b-restapi.herokuapp.com/solid"
+ARG NODE_ENV_PROD="production"
+ENV APPLICATION_URI=$APP_URI
+ENV API_URI=$API_ENDPOINT
+ENV SOLIDAPI_URI=$SOLID_ENDPOINT
+ENV NODE_ENV=$NODE_ENV_PROD
 
 
 RUN npm install
