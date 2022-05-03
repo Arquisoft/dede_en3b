@@ -94,7 +94,7 @@ export async function getOrder(id: string): Promise<IOrder> {
 export async function getSolidName(): Promise<any> {
 	var str: string = solidEndPoint + "/name";
 	let response = await fetch(str, {
-		credentials: "same-origin",
+		credentials: "include",
 	});
 	return response.json();
 }
@@ -105,7 +105,7 @@ export async function getSolidName(): Promise<any> {
 export async function getSolidWebId(): Promise<string> {
 	var str: string = solidEndPoint + "/webId";
 	let response = await fetch(str, {
-		credentials: "same-origin",
+		credentials: "include",
 	});
 	let webId = await response.json();
 	return webId.webId;
@@ -117,7 +117,7 @@ export async function getSolidWebId(): Promise<string> {
 export async function getSolidAddress(): Promise<Address[]> {
 	var str: string = solidEndPoint + "/address";
 	let response = await fetch(str, {
-		credentials: "same-origin",
+		credentials: "include",
 	});
 	console.log(response);
 	return response.json();
@@ -145,7 +145,7 @@ export async function isLoggedIn(): Promise<any> {
 	var str: string = solidEndPoint + "/isLoggedIn";
 	console.log(str);
 	let response = await fetch(str, {
-		credentials: "same-origin",
+		credentials: "include",
 	});
 	return response.json();
 }
@@ -200,7 +200,7 @@ export async function addAddressToSolid(address: Address) {
 		method: "POST",
 		body: JSON.stringify(_data),
 		headers: { "Content-type": "application/json; charset=UTF-8" },
-		credentials: "same-origin",
+		credentials: "include",
 	})
 		.then((response) => response.json())
 		.then((json) => console.log(json));
