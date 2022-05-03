@@ -14,6 +14,7 @@ const solid: Router = express.Router();
 const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
 solid.get("/login", async (req: Request, res: Response) => {
+	console.log(apiEndPoint, process.env.SOLIDAPI_URI);
 	let connection;
 	if(req.query.provider !== null)
 		connection =
@@ -73,6 +74,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 	console.log("Logged in " + req.session.webId)
 
+	console.log(process.env.APPLICATION_URI || "http://localhost:3000");
 	res.redirect(process.env.APPLICATION_URI || "http://localhost:3000");
 });
 
