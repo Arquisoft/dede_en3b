@@ -1,9 +1,9 @@
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
-//const apiendpoint = process.env.api_uri || 'http://localhost:5000/api';
-//const solidendpoint = process.env.solidapi_uri || 'http://localhost:5000/solid';
-const apiendpoint = process.env.api_uri || 'https://dedeen3b-restapi.herokuapp.com/api';
-const solidendpoint = process.env.solidapi_uri || 'https://dedeen3b-restapi.herokuapp.com/solid';
+//const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
+//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
+const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.
