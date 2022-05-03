@@ -10,12 +10,12 @@ The DeDe shopping simulator is the main application that our team will be develo
     * Óscar Pérez Arruñada
 
 
-DeDe will be an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
+DeDe is an application to simulate the management of an online shop, including the customer view, the delivery of items and the visualization of the orders. 
 
 === Requirements Overview
 
-The application will be run online, either on Heroku or in a similar platform. Every user action will work using pods.
-Users will be able to browse the catalog and order things from their pods. Then, the app will calculate the price based on the location of the user.
+The application runs online, deployed on Heroku. Most of the actions taken by the users work using Solid Pods.
+Users are able to browse the catalog and order products. Then, the app calculates the price based on the delivery address selected by the user, which is stored in their pod.
 
 === Quality Goals
 
