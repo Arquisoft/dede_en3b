@@ -155,6 +155,7 @@ export function Login(): JSX.Element {
             disabled={state.isButtonDisabled}>
             Go to the service
           </Button>
+          </Box>
         </Box>
       </form>
     </Box>
