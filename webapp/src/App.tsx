@@ -163,7 +163,7 @@ function App(): JSX.Element {
           <Route path="orders/:id" element={
             <IndividualOrder order={null as any} />
           } />
-          <Route path="webId/:webId" element={<GreetingComponent />}></Route>
+          <Route path="solid/webId/:webId" element={<GreetingComponent />}></Route>
         </Routes>
 
       </BrowserRouter>
