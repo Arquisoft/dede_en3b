@@ -31,7 +31,7 @@ async function connect() {
 		saveUninitialized: true,
 		cookie: {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
-			secure: false,
+			secure: true,
 			sameSite: "Lax",
 			maxAge: 30 * 60 * 1000
 		},
