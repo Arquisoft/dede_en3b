@@ -5,11 +5,8 @@ WORKDIR /app
 RUN npm install --production
 
 #Different in the heroku deployment
-ENV APPLICATION_URI="https://dedeen3b.herokuapp.com"
-ENV API_URI="https://dedeen3b-restapi.herokuapp.com/api"
-ENV SOLIDAPI_URI="https://dedeen3b-restapi.herokuapp.com/solid"
-ENV NODE_ENV="production"
-
+ARG API_URI="http://localhost:5000/api"
+ENV REACT_APP_API_URI=$API_URI
 
 RUN npm install
 
