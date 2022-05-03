@@ -4,5 +4,5 @@ export default {
         "^.+\\.tsx?$": "ts-jest"
     },
     collectCoverage: true,
-    collectCoverageFrom:["api.ts", "SOLID/API.ts"]
+    collectCoverageFrom:["routers/api.ts", "SOLID/API.ts"]
 }

@@ -18,6 +18,5 @@ COPY server.ts ./
 COPY ./routers/api.ts ./routers/solid.ts  ./routers/
 ADD model ./model
 ADD SOLID ./SOLID
-ADD util ./util
 
 CMD [ "npm", "start" ]

@@ -36,7 +36,7 @@ interface NavigationBarProps {
 
 function ToggleColorMode(props: any) {
   return (
-   <IconButton sx={{ ml: 1 }} onClick={props.changeTheme} color="inherit">
+  <IconButton sx={{ ml: 1 }} onClick={props.changeTheme} color="inherit">
         {props.themeState === false ? <Brightness7Icon sx={{color: 'white'}} /> : <Brightness4Icon />}
     </IconButton>
   )

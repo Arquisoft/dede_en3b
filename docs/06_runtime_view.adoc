@@ -42,6 +42,4 @@ image:06-01_Nico_SequenceDiagram.png["Sequence diagram representing the buying p
 
 * A client tries to view an order.
 
-image:06-2_Oscar_SequenceDiagram.png["Sequence diagram representing the process"]
-
-=== <Runtime Scenario n>
+image:06-02_Nico_SequenceDiagram.png["Sequence diagram representing the process"]

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-import {Document, Types} from 'mongoose';
+import {Types} from 'mongoose';
 
-export interface IOrder extends Document {
+export interface IOrder {
     _id: Types.ObjectId;
     webId: string;
     orderProducts: OrderProduct[];

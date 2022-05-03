@@ -130,6 +130,7 @@ const CatalogueComponent = () => {
                       <InputLabel id="demo-simple-select-filled-label">Type</InputLabel>
                       <Select
                         labelId="demo-simple-select-filled-label"
+                        data-testid="Type"
                         id="demo-simple-select-filled"
                         value={value}
                         label="Type"

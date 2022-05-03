@@ -4,5 +4,6 @@ export default {
 		"^.+\\.tsx?$": "ts-jest"
 	},
 	collectCoverage: true,
-	collectCoverageFrom: ["SOLID/API.ts"]
+	collectCoverageFrom: ["api.ts"],
+	coveragePathIgnorePatterns: ["src/index.tsx"]
 }

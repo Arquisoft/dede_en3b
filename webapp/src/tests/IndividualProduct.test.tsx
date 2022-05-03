@@ -88,7 +88,9 @@ test ('We add a product to the cart', () => {
         fireEvent( getByRole('button', {name: "show 1new notifications"}), new MouseEvent('click', {
             bubbles: true,
             cancelable: true,
-          }));
+        }));
         const newScreen = screen.getAllByText('Pantalones')
         expect(newScreen[0]).toBeInTheDocument();
 });
+
+//Add tests for the creating the reviews and such.

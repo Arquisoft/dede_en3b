@@ -6,7 +6,69 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 import {Types} from 'mongoose';
 import api from '../routers/api';
+import { IOrder } from "../model/Order";
+import {IReview} from "../model/Review";
 const productSchema = require('../model/Products');
+const orderSchema = require('../model/Order')
+const reviewSchema = require('../model/Review')
+
+export const reviews:IReview[] = [
+    {
+        productId: new Types.ObjectId('6227ae61e18344de6a6f927c'),
+        name: "Name",
+        rating: 3,
+        comment: "Coment"
+    },
+    {
+        productId: new Types.ObjectId("6227ae62e18344de6a6f927e"),
+        name: "Name",
+        rating: 4,
+        comment: "Coment"
+    }
+]
+
+export const orders:IOrder[] = [
+    {
+        _id: new Types.ObjectId("624db9dfc3d4d99c47803bb3"),
+        webId: "webId",
+        orderProducts: [
+            {
+                id:"id",
+                name:"nombre",
+                quantity:2
+            }
+        ],
+        address: {
+            country_name:"Pais",
+            locality: "Localidad",
+            postal_code: "Codigo Postal",
+            region: "Region",
+            street_address: "Calle"
+        },
+        totalPrice: 40,
+        date: new Date(Date.now())
+    },
+    {
+        _id: new Types.ObjectId("6227ae61e18344de6a6f9274"),
+        webId: "otherwebid",
+        orderProducts: [
+            {
+                id:"id2",
+                name:"otronombre",
+                quantity:1
+            }
+        ],
+        address: {
+            country_name:"Pais2",
+            locality: "Localidad2",
+            postal_code: "Codigo Postal2",
+            region: "Region2",
+            street_address: "Calle2"
+        },
+        totalPrice: 12,
+        date: new Date(Date.now())
+    }
+]
 
 export const prods:IProduct[] = [
     {
@@ -90,4 +152,14 @@ module.exports.addProducts = async() => {
     //Perhaps check if the collection exists.
     productSchema.createCollection();
     productSchema.insertMany(prods);
+}
+
+module.exports.addOrders = async() => {
+    orderSchema.createCollection();
+    orderSchema.insertMany(orders);
+}
+
+module.exports.addReviews = async() => {
+    reviewSchema.createCollection();
+    reviewSchema.insertMany(reviews);
 }
