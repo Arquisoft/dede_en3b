@@ -35,17 +35,9 @@ function App(): JSX.Element {
   // eslint-disable-next-line
   const [shippingCosts, setShippingCosts] = useState(0);
 
-
-
   //Cart
   const cart = useSelector((state: RootState) => state.cart.value);
   const dispatch = useDispatch();
-
-
-
-
-
-
 
   /**
   * Function to restore the default values of the cart.
@@ -58,9 +50,11 @@ function App(): JSX.Element {
   const makeOrder = async () => {
     var webId: any = await getSolidWebId();
 
-    if (address !== undefined) {
-      addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
-    restoreDefaults();
+    var currentAddress = address;
+
+    if (currentAddress != undefined) {
+      addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
+      restoreDefaults();
     } else {
       console.log("Ni olvido ni perdon. ")
     }
@@ -159,19 +153,19 @@ function App(): JSX.Element {
           <Route path="/" element={<Home />} ></Route>
           <Route path="login" element={<Login></Login>}> </Route>
           <Route path="cart" element={<Cart />} />
-          <Route path="shop" element={<Catalogue /> } />
-          <Route path="products/:id" 
+          <Route path="shop" element={<Catalogue />} />
+          <Route path="products/:id"
             element={
               <IndividualProduct product={null as any} />
             }
           />
-        
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>}/>   
-        <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
-        <Route path="orders/:id" element={
-            <IndividualOrder order={null as any}/>
+
+          <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>} />
+          <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
+          <Route path="orders/:id" element={
+            <IndividualOrder order={null as any} />
           } />
-      </Routes>
+        </Routes>
 
       </BrowserRouter>
     </ThemeProvider>
