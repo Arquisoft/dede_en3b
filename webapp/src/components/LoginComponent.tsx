@@ -120,7 +120,7 @@ export function Login(): JSX.Element {
     };
 
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: '1em', height: '20em', display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ bgcolor: 'background.default', height: '20em', display: 'flex', flexDirection: 'column'}}>
       <BreadcrumbsLogin />
       <form noValidate autoComplete="off">
       <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: '20em', margin: 'auto',
