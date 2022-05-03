@@ -38,7 +38,7 @@ async function connect() {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
 			secure: true,
 			sameSite: false,
-			maxAge: 30 * 60 * 1000
+			maxAge: 30 * 60 * 1000,
 			httpOnly: true,
 		},
 	}));
