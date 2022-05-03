@@ -21,6 +21,7 @@ declare module 'express-session' {
 }
 
 async function connect() {
+	console.log(process.env.SOLIDAPI_URI);
 	const app = express();
 	app.set("trust proxy", 1);
 	app.use(session({
