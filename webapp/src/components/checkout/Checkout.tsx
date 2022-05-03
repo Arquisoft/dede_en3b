@@ -61,8 +61,8 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    isUserLoggedIn().then(isLoggedIn => {
-      if (isLoggedIn === false) {
+    isUserLoggedIn().then(logged => {
+      if (logged === false) {
         navigate('/login');
       }
     });
