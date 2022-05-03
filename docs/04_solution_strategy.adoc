@@ -16,11 +16,10 @@ A summary of the technical decisions that we have taken so far:
 The system is mainly composed of two parts: The webapp and the REST API.
 
 The webapp is designed using React. It interfaces with the REST API to fetch
-data and to retrieve POD information.
+data and to retrieve Pod information.
 
-The REST API is made with express in nodejs. It is formed by two essential systems.
-The API as such, which interfaces with MongoDB to store and retrieve data.
-The SOLID API, which is a RESTful API which interfaces with a Facade of our own.
+The REST API is made with Express in Node.js. It is formed by two essential systems: the API as such and the Solid API.
+The API as interfaces with MongoDB to store and retrieve data, while the Solid API, which is another RESTful API which interfaces with a facade of our own.
 
 === Decisions on how to achive key quality goals.
 
@@ -29,7 +28,7 @@ For now this will be the quality goals that we will focus on.
     * **Usability**: We will try to develop an app that is easy to use.
     * **Responsiveness**: We will try to develop an app that has optimal or at least acceptable response times.
     * **Accessibilty**: We will try to develop an app that anyone can use.
-    * **Security**: Thanks to SOLID we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.
+    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own Pods.
 
 
 === Organizational decisions.
@@ -37,27 +36,3 @@ For now this will be the quality goals that we will focus on.
 * **Meetings and communication**: Our meetings will occur in person and online. For the online meetings we will use apps such as Microsoft Teams and Discord. To communicate the smaller things we will use a Whatsapp group chat.
 * **Task organization**: To organize the tasks that we have to do for the app we will use the GitHub projects, a tool that displays our issues in a KanBan view. The main factor for this was its similarity to a tool we used in the IPS course and because it allows us to see our progress and our partners progress.
 * **Development**: We will create branches for every task that involves touching the repository files. To merge the project of the branches with the master branch we will use pull request since we believe it's great for proof-reading and it forces us to "know" a bit about every part of the project so that we don't have future problems when we will work with each other's code.
-
-
-
-
-[role="arc42help"]
-****
-.Contents
-A short summary and explanation of the fundamental decisions and solution strategies, that shape the system's architecture. These include
-
-* technology decisions
-* decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
-* decisions on how to achieve key quality goals
-* relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
-
-.Motivation
-These decisions form the cornerstones for your architecture. They are the basis for many other detailed decisions or implementation rules.
-
-.Form
-Keep the explanation of these key decisions short.
-
-Motivate what you have decided and why you decided that way,
-based upon your problem statement, the quality goals and key constraints.
-Refer to details in the following sections.
-****

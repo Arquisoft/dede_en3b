@@ -18,24 +18,24 @@ type State = {
 };
 
 function BreadcrumbsLogin() {
-  return(
+  return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" href="/" >
         <Typography
-        variant='h6'
-        sx={{color: 'text.secondary'}}>
-            Home
+          variant='h6'
+          sx={{ color: 'text.secondary' }}>
+          Home
         </Typography>
       </Link>
       <Typography variant='h6'
-        sx={{color: 'text.secondary'}}>
-            Connect to your POD
-        </Typography>
+        sx={{ color: 'text.secondary' }}>
+        Connect to your POD
+      </Typography>
     </Breadcrumbs>
   );
 }
 
-const initialState:State = {
+const initialState: State = {
   identityProvider: '',
   isButtonDisabled: true,
   helperText: '',
@@ -50,33 +50,33 @@ type Action = { type: 'setIdentityProvider', payload: string }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-   case 'setIdentityProvider': 
+    case 'setIdentityProvider':
       return {
         ...state,
-         identityProvider: action.payload
-       };
-  case 'setIsButtonDisabled': 
-       return {
-       ...state,
+        identityProvider: action.payload
+      };
+    case 'setIsButtonDisabled':
+      return {
+        ...state,
         isButtonDisabled: action.payload
-       };
-     case 'loginSuccess': 
-       return {
-      ...state,
+      };
+    case 'loginSuccess':
+      return {
+        ...state,
         helperText: action.payload,
         isError: false
-       };
-  case 'loginFailed': 
-     return {
-       ...state,
-        helperText: action.payload,
-       isError: true
       };
-   case 'setIsError': 
-       return {
-         ...state,
-     isError: action.payload
-    };
+    case 'loginFailed':
+      return {
+        ...state,
+        helperText: action.payload,
+        isError: true
+      };
+    case 'setIsError':
+      return {
+        ...state,
+        isError: action.payload
+      };
   }
 }
 
@@ -85,10 +85,10 @@ export function Login(): JSX.Element {
 
   useEffect(() => {
     if (state.identityProvider.trim()) {
-     dispatch({
-       type: 'setIsButtonDisabled',
-       payload: false
-     });
+      dispatch({
+        type: 'setIsButtonDisabled',
+        payload: false
+      });
     } else {
       dispatch({
         type: 'setIsButtonDisabled',
@@ -104,7 +104,7 @@ export function Login(): JSX.Element {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
-    
+
     if (event.key === 'Enter') {
       event.preventDefault();
       state.isButtonDisabled || handleLogin();
@@ -156,11 +156,7 @@ export function Login(): JSX.Element {
             Go to the service
           </Button>
         </Box>
-      </Box>
-      <Box sx={{paddingBottom: 2, paddingTop: 2, alignSelf: 'center'}}>
-        <p style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>Don't know what a SOLID POD is? check out the&nbsp;<a href="https://solidproject.org/">SOLID project</a></p>
-      </Box>
-    </form>
+      </form>
     </Box>
   );
 }
