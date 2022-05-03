@@ -60,8 +60,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 		connection = new SolidConnection();
 
 	try {
-	await connection
-		.tryHandleRedirect(`${apiEndPoint}${req.url}`);
+		await connection
+			.tryHandleRedirect(`${apiEndPoint}${req.url}`);
 	} catch(error: unknown) {
 		return res.status(500).json({
 			message: `Error trying to connect to solid: ${error}`
@@ -71,6 +71,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
 	req.session.save();
+
+	console.log("Logged in " + req.session.webId)
 
 	res.redirect(`https://dedeen3b.herokuapp.com/`);
 	//res.redirect(`http://localhost:3000/`);
@@ -192,9 +194,11 @@ solid.get("/webId", async (req: Request, res: Response): Promise<Response> => {
 });
 
 solid.get("/isLoggedIn", async (req: Request, res: Response): Promise<Response> => {
+	console.log("user " + req.session.webId);
 	if(!SessionStorage.instance.has(req.session.webId))
 		return res.status(200).json({ isLoggedIn: false });
 	let connection = SessionStorage.instance.get(req.session.webId);
+
 
 	return res.status(200).json({
 		isLoggedIn: connection.isLoggedIn()

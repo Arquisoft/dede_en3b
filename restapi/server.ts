@@ -22,6 +22,7 @@ declare module 'express-session' {
 
 async function connect() {
 	const app = express();
+	app.set("trust proxy", 1);
 	app.use(session({
 		secret: "mysecret420",
 		resave: false,
