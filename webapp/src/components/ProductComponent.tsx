@@ -50,11 +50,11 @@ function ProductComponent(props: ProductComponentProps): JSX.Element {
         {//<Button size="small">Share</Button>
 }
         <Button sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark', ml: { xs: 0, md: 6}}} 
-          onClick={event => onAddToCart(productToItem(props.product))}>
+          onClick={_event => onAddToCart(productToItem(props.product))}>
             Add to cart
             </Button>
         <Button sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
-          onClick={event => navigate(`/products/${props.product._id}`)}>
+          onClick={_event => navigate(`/products/${props.product._id}`)}>
           See more
           </Button>
       </CardActions>
