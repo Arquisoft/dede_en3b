@@ -40,6 +40,9 @@ function App(): JSX.Element {
 	const cart = useSelector((state: RootState) => state.cart.value);
 	const dispatch = useDispatch();
 
+	let currentWebID =
+		useSelector((state: RootState) => state.user.value);
+
 	/**
 	 * Function to restore the default values of the cart.
 	 */
@@ -50,8 +53,6 @@ function App(): JSX.Element {
 
 	const makeOrder = async () => {
 
-		let currentWebID =
-			useSelector((state: RootState) => state.user.value);
 		var webId: any = await getSolidWebId(currentWebID);
 
 		if (address !== undefined) {

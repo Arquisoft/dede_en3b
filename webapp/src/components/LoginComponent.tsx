@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 import TextField from '@material-ui/core/TextField';
 import CardContent from '@material-ui/core/CardContent';
@@ -84,6 +85,9 @@ const reducer = (state: State, action: Action): State => {
 export function Login(): JSX.Element {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
+	let currentWebID =
+		useSelector((state: RootState) => state.user.value);
+
 	useEffect(() => {
 		if (state.identityProvider.trim()) {
 			dispatch({
@@ -98,19 +102,13 @@ export function Login(): JSX.Element {
 		}
 	}, [state.identityProvider]);
 
-	let currentWebID =
-		useSelector((state: RootState) => state.user.value);
-
 	const handleLogin = async () => {
 		console.log(state.identityProvider);
 		await doSolidLogin(state.identityProvider);
-		console.log(getSolidWebId(webId));
+		console.log(getSolidWebId(currentWebID));
 	};
 
 	const handleKeyPress = (event: React.KeyboardEvent) => {
-
-		let currentWebID =
-			useSelector((state: RootState) => state.user.value);
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			state.isButtonDisabled || handleLogin();

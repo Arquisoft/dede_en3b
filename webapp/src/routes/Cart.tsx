@@ -38,10 +38,10 @@ const Cart = () => {
 
 	let navigate = useNavigate();
 
-	const checkOut = async () => {
+	let currentWebID = 
+		useSelector((state: RootState) => state.user.value);
 
-		let currentWebID = 
-			useSelector((state: RootState) => state.user.value);
+	const checkOut = async () => {
 		var obj = await isLoggedIn(currentWebID);
 		console.log("¿Is user logged in? " + obj.isLoggedIn);
 		if (obj.isLoggedIn) {
