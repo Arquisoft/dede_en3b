@@ -28,7 +28,7 @@ For now this will be the quality goals that we will focus on.
     * **Usability**: We will try to develop an app that is easy to use.
     * **Responsiveness**: We will try to develop an app that has optimal or at least acceptable response times.
     * **Accessibilty**: We will try to develop an app that anyone can use.
-    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.
+    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own Pods.
 
 
 === Organizational decisions.
