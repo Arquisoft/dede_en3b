@@ -52,7 +52,7 @@ function App(): JSX.Element {
 
     var currentAddress = address;
 
-    if (currentAddress != undefined) {
+    if (currentAddress !== undefined) {
       addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
       restoreDefaults();
     } else {
