@@ -71,7 +71,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
-	//req.session.save();
+	req.session.save();
 
 	console.log("Logged in " + req.session.webId)
 
