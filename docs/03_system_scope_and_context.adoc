@@ -27,4 +27,4 @@ image:03-02_Mario_TechnicalContext.png["Technical details"]
 The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
 be behind a RESTful API, and user data will be fetched from any Solid Pod system, making use of our custom
 Solid facade and Solid RESTful API.
-The application itself will be written in nodejs with typescript, and will be deployed in heroku.
+The application itself will be written in nodejs with TypeScript, and will be deployed in heroku.
