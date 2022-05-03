@@ -21,13 +21,12 @@ declare module 'express-session' {
 }
 
 async function connect() {
-	console.log(process.env.SOLIDAPI_URI);
-	console.log(process.env);
 	const app = express();
 	app.set("trust proxy", 1);
 	app.use(cors({
 		credentials: true,
-		origin: "https://dedeen3b.herokuapp.com",
+		origin: (_: any, cb: (a: any, b: boolean) => void) =>
+			cb(null, true), 
 	}));
 	app.use(session({
 		secret: "mysecret420",
@@ -36,8 +35,9 @@ async function connect() {
 		cookie: {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
 			secure: true,
-			sameSite: "none",
-			maxAge: 30 * 60 * 1000
+			sameSite: "Lax",
+			maxAge: 30 * 60 * 1000,
+			httpOnly: true,
 		},
 	}));
 
