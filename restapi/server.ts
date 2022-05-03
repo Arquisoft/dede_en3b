@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
@@ -31,7 +31,7 @@ async function connect() {
 		saveUninitialized: true,
 		cookie: {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
-			secure: true,
+			secure: false,
 			sameSite: "Lax",
 			maxAge: 30 * 60 * 1000
 		},
