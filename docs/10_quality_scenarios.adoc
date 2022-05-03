@@ -12,7 +12,7 @@ image:10_Oscar_QualityTree.png["Quality tree diagram"]
 | Quality attribute | Scenario | Approach
 | Usability |  We want to have a way of filtering the products that makes the searching process faster for the client | We develop a primitive search engine and classification for the types of products.
 | Usability | Fast paying process | We developed an easy check out process that is called directly from the cart.
-| Decentralization | Decentralization of the log in process (serverless) | is gained by means of calling the Pod service provider and delegating the process to it.
-| Privacy | We don't want to put in danger user data | Unless it is required by the client the application won't show any personal data.
+| Decentralization | Decentralization of the log in process (serverless) | It is gained by means of calling the Pod service provider and delegating the process to it.
+| Privacy | We don't want to put in danger user data | Unless it is required by the client the application will not show any personal data.
 | Accesibilty | We want to traverse the application easily | Intuitive navigation bar present in every route of the application.
 |===
