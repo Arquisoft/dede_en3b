@@ -76,7 +76,8 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 	console.log("Logged in " + req.session.webId)
 
 	console.log(process.env.APPLICATION_URI || "http://localhost:3000");
-	res.redirect(process.env.APPLICATION_URI || "http://localhost:3000");
+	//res.redirect(process.env.APPLICATION_URI || "http://localhost:3000");
+	res.redirect(process.env.APPLICATION_URI || "https://dedeen3b.herokuapp.com");
 });
 
 solid.get("/address", async (req: Request, res: Response)
