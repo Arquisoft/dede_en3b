@@ -101,18 +101,6 @@ export function Login(): JSX.Element {
     console.log(state.identityProvider);
     await doSolidLogin(state.identityProvider);
     console.log(getSolidWebId());
-    // if (state.identityPovider.trim().length != 0) {
-    //   dispatch({
-    //     type: 'loginSuccess',
-    //     payload: 'Login Successfully'
-    //   });
-    
-    // } else {
-    //   dispatch({
-    //     type: 'loginFailed',
-    //     payload: 'Incorrect username or password'
-    //   });
-    // }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {

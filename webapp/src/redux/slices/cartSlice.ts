@@ -20,7 +20,9 @@ export const cartSlice = createSlice({
             // });
             const isItemInCart = state.value.map((item=> {return item.product._id})).indexOf(action.payload.product._id);
             if (isItemInCart >= 0) {
-                state.value[isItemInCart].units++;
+                if (state.value[isItemInCart].units < 100) {
+                    state.value[isItemInCart].units++;
+                }
             }
             else {
                 state.value.push(action.payload);
