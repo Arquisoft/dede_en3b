@@ -30,8 +30,8 @@ async function connect() {
 		resave: false,
 		saveUninitialized: true,
 		cookie: {
-			secure: process.env.NODE_ENV &&
-				process.env.NODE_ENV === "production",
+			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
+			secure: true,
 			sameSite: "Lax",
 			maxAge: 30 * 60 * 1000
 		},

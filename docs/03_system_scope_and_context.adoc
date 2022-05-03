@@ -12,8 +12,10 @@ the cost of the item bought.
 
 image:03-01_Mario_BusinessContext.png["Business context diagram"]
 
-The user gives permission to use their data via the POD system, then he can browse products
-placed by vendors, order new items or see their previous orders.
+The user, unidentified, is able to browse products in the store and add them to
+the cart. However, they must identify themselves if they want to buy. Once they
+have logged in to their PODs, the system fetches their data and uses it
+to place an order.
 
 The system stores the products in a regular database, and asks the POD system
 for user data when needed (to see previous orders or to see their address).
@@ -23,5 +25,6 @@ for user data when needed (to see previous orders or to see their address).
 image:03-02_Mario_TechnicalContext.png["Technical details"]
 
 The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
-be behind a RESTful API, and user data will be fetched from a POD system (which is yet to be disclosed).
+be behind a RESTful API, and user data will be fetched from any SOLID POD system, making use of our custom
+SOLID facade and SOLID RESTful API.
 The application itself will be written in nodejs with typescript, and will be deployed in heroku.

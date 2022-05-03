@@ -59,7 +59,7 @@ Continuous deployment system::
 |===
 | **Technology** | **Used** | **Pros** | **Cons**
 
-| Heroku | Yes (will be used)
+| Heroku | Yes 
 | Recommended by the teachers. We are somewhat familiar with it
 already. Powerful and not too hard to use, as it is
 just an environment for the server. Does not
@@ -86,7 +86,7 @@ About SOLID::
 | Ease of use. Better code legibility. Generally more friendly
 for the majority of the team. Only the person who develops it truly
 needs to dig into how solid works.
-| It needs to be build. If wrongly designed, it could hinder
+| It needs to be built. If wrongly designed, it could hinder
 development. Only the person who develops it truly needs 
 to dig into how solid works.
 
