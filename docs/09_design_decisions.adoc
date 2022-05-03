@@ -8,12 +8,12 @@ DataBase Management System::
 | **Technology** | **Used** | **Pros** | **Cons**
 
 | MongoDB | Yes 
-| Non relational database, stores information in JSON. It's query
+| Non relational database, stores information in JSON. Its query
 language is based on JS, which happens to be the language we are
 building the application on. Also, it is not neccesary to define
 the tables. It is not the most used DBMS, but it is widely used
-along JS.
-| A bit slow, and doesn't support JOIN. It also has no query cache.
+alongside JS.
+| A bit slow, and does not support JOIN. It also has no query cache.
 
 | MySQL | No
 | Relational database, with tables and JOIN operations. It is more

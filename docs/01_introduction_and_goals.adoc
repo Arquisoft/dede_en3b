@@ -15,7 +15,7 @@ DeDe is an application to simulate the management of an online shop, including t
 === Requirements Overview
 
 The application runs online, deployed on Heroku. Most of the actions taken by the users work using Solid Pods.
-Users are able to browse the catalog and order products. Then, the app calculates the price based on the delivery address selected by the user, which is stored in their pod.
+Users are able to browse the catalog and order products. Then, the app calculates the price based on the delivery address selected by the user, which is stored in their Pod.
 
 === Quality Goals
 
@@ -25,7 +25,7 @@ The quality goals are the following:
 The system must make it easy for novice users or non-technical peaple to learn quickly. Also allows steady progression to expertise.
 
 ==== Decentralization: 
-The application will not store personal information from customers but will obtain that information from the user’s pods given that the users give the necessary permissions to the shopping system.
+The application will not store personal information from customers but will obtain that information from the user’s Pods given that the users give the necessary permissions to the shopping system.
 
 ==== Security/Privacy:
 The system will ask for permissionss in order to ensure security.It will not lead to any security problems by not storing personal information about the user.

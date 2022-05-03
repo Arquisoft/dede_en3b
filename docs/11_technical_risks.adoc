@@ -22,5 +22,5 @@ These are some risks we might encounter during the development process.
 [cols="1,2" options="header"]
 |===
 | **Risk** | **Description**
-| Solid failure | If the pod host fails or the Solid specification changes due to it being a fairly new concept, our application will not work properly.
+| Solid failure | If the Pod host fails or the Solid specification changes due to it being a fairly new concept, our application will not work properly.
 |===
