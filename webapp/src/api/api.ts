@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
 const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
 const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
 //const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
 //const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+
+let currentWebID = useSelector((state: RootState) => state.user.value);
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.
@@ -95,6 +99,9 @@ export async function getSolidName(): Promise<any> {
 	var str: string = solidEndPoint + "/name";
 	let response = await fetch(str, {
 		credentials: "same-origin",
+		body: JSON.stringify({
+			webId: currentWebID
+		})
 	});
 	return response.json();
 }
@@ -106,6 +113,9 @@ export async function getSolidWebId(): Promise<string> {
 	var str: string = solidEndPoint + "/webId";
 	let response = await fetch(str, {
 		credentials: "same-origin",
+		body: JSON.stringify({
+			webId: currentWebID
+		})
 	});
 	let webId = await response.json();
 	return webId.webId;
@@ -118,6 +128,9 @@ export async function getSolidAddress(): Promise<Address[]> {
 	var str: string = solidEndPoint + "/address";
 	let response = await fetch(str, {
 		credentials: "same-origin",
+		body: JSON.stringify({
+			webId: currentWebID
+		})
 	});
 	console.log(response);
 	return response.json();
@@ -146,6 +159,9 @@ export async function isLoggedIn(): Promise<any> {
 	console.log(str);
 	let response = await fetch(str, {
 		credentials: "same-origin",
+		body: JSON.stringify({
+			webId: currentWebID
+		})
 	});
 	return response.json();
 }
@@ -176,6 +192,7 @@ export async function addReview(
 			name: name,
 			rating: rating,
 			comment: comment,
+			webId: currentWebID
 		}),
 	});
 	if (response.status === 200) return true;
@@ -194,6 +211,7 @@ export async function addAddressToSolid(address: Address) {
 		locality: address.locality,
 		street_address: address.street_address,
 		postal_code: address.postal_code,
+		webId: currentWebID
 	};
 
 	fetch(str, {
