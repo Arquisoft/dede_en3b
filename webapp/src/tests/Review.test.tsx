@@ -12,6 +12,7 @@ test('The review prop is rendered properly', ()=> {
         expDate: "21/21",
         cvv:"123"
     }
+    //We create the adress
     const address:Address = {
         country_name: "España",
         locality:"Posada de Llanera",
