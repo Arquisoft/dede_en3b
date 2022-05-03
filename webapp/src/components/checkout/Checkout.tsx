@@ -14,9 +14,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { useState } from 'react';
 import { Alert } from '@mui/material';
 import { Address } from '../../shared/shareddtypes';
+import { useState, useEffect } from "react";
+import { isLoggedIn } from "../../api/api";
+import { useNavigate } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -51,8 +53,27 @@ const theme = createTheme();
 
 export default function Checkout(props: CheckoutProps): JSX.Element {
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
+  const isUserLoggedIn = async () => {
+    const res: boolean = await isLoggedIn();
+    setLoggedIn(res);
+  };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    isUserLoggedIn();
+
+    if (loggedIn === false) {
+      navigate('/login');
+    }
+  },
+    // eslint-disable-next-line
+    []);
+
+  
+  const [activeStep, setActiveStep] = React.useState(0);
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
