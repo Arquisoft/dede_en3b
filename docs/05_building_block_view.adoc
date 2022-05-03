@@ -61,7 +61,7 @@ image:05_building_blocks_overview.png["Whitebox Overall System"]
 
 Motivation::
 
-Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in PODs.
+Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.
 
 
 Contained Building Blocks::
@@ -69,9 +69,9 @@ Contained Building Blocks::
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's POD.
-| POD Provider | System that stores the PODs of the users and will be used to access them.
-| User's POD | The user's information will be stored here in order to keep it decentralized.
+| DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's Pod.
+| Pod Provider | System that stores the Pods of the users and will be used to access them.
+| User's Pod | The user's information will be stored here in order to keep it decentralized.
 | mongodb | In this database, the minimal information of the application will be stored.
 |===
 
@@ -98,7 +98,7 @@ according the the following black box template:
 |===
 | **Name** | **Responsibility**
 | User Interface | Layer containing the user interface. Everything the user may interact with will be developed here.
-| Data Access | The main task of this layer will be accessing data in both the database and the user's POD.
+| Data Access | The main task of this layer will be accessing data in both the database and the user's Pod.
 |===
 
 
@@ -124,6 +124,6 @@ Leave out normal, simple, boring or standardized parts of your system
 | Product | The user will be able to see the full information of a single product and will be able to choose to buy it.
 | Products Catalogue | The user will be able to see the full catalogue offered by the retail company and will be able to choose what to buy.
 | Shopping cart | The user can check here the products they have selected to buy.
-| SOLID API | Provides the libraries to communicate between the user's POD and the POD provider.
+| Solid API | Provides the libraries to communicate between the user's Pod and the Pod provider.
 | RestApi | Provides communication between the database and the application.
 |===

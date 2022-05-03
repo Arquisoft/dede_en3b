@@ -52,7 +52,7 @@ The performance on the deployment build will depend on the user's internet conne
 |Element|Description
 | Client | The device of the user, of course internet connection is required.
 | Web server | Where we will host our app, all browsers should be compatible.
-| POD provider | Solid pods will be provided by Solid Community
+| Pod provider | Solid pods will be provided by Solid Community
 | WebApp | the front end of our application
 | RestApi | the back-end of our application
 | Database server | Where our database will be hosted, since we are using mongoDB Atlas
@@ -75,7 +75,7 @@ The same as in the point above, nothing much changes, just the fact that all is 
 |Element|Description
 | Developer | The device of the developer, internet connection is needed to access the database.
 | Development environment | The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.
-| POD provider | Solid pods will be provided by Solid Community
+| Pod provider | Solid pods will be provided by Solid Community
 | WebApp | the front end of our application
 | RestApi | the back-end of our application
 | Database server | Where our database will be hosted, since we are using mongoDB Atlas

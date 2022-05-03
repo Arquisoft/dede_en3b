@@ -16,11 +16,11 @@ A summary of the technical decisions that we have taken so far:
 The system is mainly composed of two parts: The webapp and the REST API.
 
 The webapp is designed using React. It interfaces with the REST API to fetch
-data and to retrieve POD information.
+data and to retrieve Pod information.
 
 The REST API is made with express in nodejs. It is formed by two essential systems.
 The API as such, which interfaces with MongoDB to store and retrieve data.
-The SOLID API, which is a RESTful API which interfaces with a Facade of our own.
+The Solid API, which is a RESTful API which interfaces with a Facade of our own.
 
 === Decisions on how to achive key quality goals.
 
@@ -29,7 +29,7 @@ For now this will be the quality goals that we will focus on.
     * **Usability**: We will try to develop an app that is easy to use.
     * **Responsiveness**: We will try to develop an app that has optimal or at least acceptable response times.
     * **Accessibilty**: We will try to develop an app that anyone can use.
-    * **Security**: Thanks to SOLID we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.
+    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own pods.
 
 
 === Organizational decisions.

@@ -46,6 +46,6 @@ The system should be ready for testing purposes: quality of test strategy and te
 | Developers | The students that are part of the development team | Everything related with design and development issues
 | Final users | The clients that will interact with the system | The aim of the application, the users that should be satisfied by the system's benefits
 | Classmates | Classmates from the other projects | Since it is not about a competition, the development team can obtain help from other development teams by solving doubts or teaching some techniques, for example.
-| SOLID community | The SOLID community | Users related with SOLID community that are interested on making the product better
+| Solid community | The Solid community | Users related with Solid community that are interested on making the product better
 | Inrupt and empathy | Those enterprises | Interested on knowing the skills of the students related with the project and the project itself
 |===

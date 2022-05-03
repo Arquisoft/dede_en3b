@@ -72,17 +72,17 @@ a bit restrictive. Not a lot of documentation.
 | Serverless architecture. Powered by Amazon. It is the most used
 cloud computing service.
 | Hard to use. We are not so used to it, and it would impede application
-development. We are not sure how well it works with SOLID. We need
+development. We are not sure how well it works with Solid. We need
 to write specific code for it.
 |===
 
-About SOLID::
+About Solid::
 
 [cols="1,1,3,3", options="header"]
 |===
 | **Option** | **Used** | **Pros** | **Cons**
 
-| Design a custom API to work with the POD | Yes
+| Design a custom API to work with the Pod | Yes
 | Ease of use. Better code legibility. Generally more friendly
 for the majority of the team. Only the person who develops it truly
 needs to dig into how solid works.
@@ -90,10 +90,10 @@ needs to dig into how solid works.
 development. Only the person who develops it truly needs 
 to dig into how solid works.
 
-| Use the POD with just inrupt API | No
-| More flexibility. Forces all the team to learn how SOLID works.
+| Use the Pod with just inrupt API | No
+| More flexibility. Forces all the team to learn how Solid works.
 | Hard and cumbersome to use. Poor legibility. Forces all the team
-to learn how SOLID works.
+to learn how Solid works.
 |===
 
 RESTful API::
