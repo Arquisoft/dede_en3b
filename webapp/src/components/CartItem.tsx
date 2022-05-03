@@ -46,6 +46,7 @@ function CartItem(props: Props): JSX.Element {
             disableElevation
             variant="contained"
             onClick={() => removeFromCart(props.item)}
+            sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
           >
             -
           </StyledButton>
@@ -55,6 +56,7 @@ function CartItem(props: Props): JSX.Element {
             disableElevation
             variant="contained"
             onClick={() => addToCart(props.item)}
+            sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
           >
             +
           </StyledButton>

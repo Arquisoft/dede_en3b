@@ -57,7 +57,7 @@ export default function ProductReviewList(props: ProductReviewListProps) {
             <Box sx={{ display: 'flex' }}>
                 {!reviewing && (
                     <StyledButton
-                        sx={{ marginLeft: 'auto', marginRight: 4 }}
+                        sx={{ marginLeft: 'auto', marginRight: 4, bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
                         onClick={startReviewing}
                     >
                         Add review
@@ -104,6 +104,7 @@ export default function ProductReviewList(props: ProductReviewListProps) {
                         </Box>
                         <Box sx={{ marginLeft: 'auto', marginRight: 4 }}>
                             <StyledButton
+                                sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
                                 onClick={endReviewing}>
                                 Send
                             </StyledButton>
