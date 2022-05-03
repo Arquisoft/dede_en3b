@@ -13,7 +13,7 @@ const IndividualProduct = (props: GreetingComponentProps) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(dispatch(setWebId(webId || "")));
+        dispatch(dispatch(setWebId(decodeURI(webId || ""))));
     },
         // eslint-disable-next-line
         []);
