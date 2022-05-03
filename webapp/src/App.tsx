@@ -20,6 +20,7 @@ import { RootState } from './redux/store';
 import { emptyCart } from "./redux/slices/cartSlice"
 
 import { ThemeProvider, PaletteMode, createTheme } from '@mui/material';
+import GreetingComponent from './components/GreetingComponent';
 function App(): JSX.Element {
 
   // eslint-disable-next-line
@@ -35,17 +36,9 @@ function App(): JSX.Element {
   // eslint-disable-next-line
   const [shippingCosts, setShippingCosts] = useState(0);
 
-
-
   //Cart
   const cart = useSelector((state: RootState) => state.cart.value);
   const dispatch = useDispatch();
-
-
-
-
-
-
 
   /**
   * Function to restore the default values of the cart.
@@ -60,7 +53,7 @@ function App(): JSX.Element {
 
     if (address !== undefined) {
       addOrder(cart, webId, address, computeTotalPrice(cart), new Date());
-    restoreDefaults();
+      restoreDefaults();
     } else {
       console.log("Ni olvido ni perdon. ")
     }
@@ -74,7 +67,6 @@ function App(): JSX.Element {
     ordersFound = await findOrdersByUser(WebId);
     setOrders(ordersFound);
   }
-
 
   const themeOptions = (b: boolean) => (b ? "dark" : "light");
 
@@ -157,21 +149,22 @@ function App(): JSX.Element {
 
         <Routes>
           <Route path="/" element={<Home />} ></Route>
-          <Route path="login" element={<Login></Login>}> </Route>
+          <Route path="login" element={<Login></Login>}></Route>
           <Route path="cart" element={<Cart />} />
-          <Route path="shop" element={<Catalogue /> } />
-          <Route path="products/:id" 
+          <Route path="shop" element={<Catalogue />} />
+          <Route path="products/:id"
             element={
               <IndividualProduct product={null as any} />
             }
           />
-        
-        <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>}/>   
-        <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders}/> } />
-        <Route path="orders/:id" element={
-            <IndividualOrder order={null as any}/>
+
+          <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>} />
+          <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
+          <Route path="orders/:id" element={
+            <IndividualOrder order={null as any} />
           } />
-      </Routes>
+          <Route path="solid/webId/:webId" element={<GreetingComponent />}></Route>
+        </Routes>
 
       </BrowserRouter>
     </ThemeProvider>
