@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const cors = require('cors');
 const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
