@@ -36,7 +36,7 @@ async function connect() {
 		cookie: {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
 			secure: true,
-			sameSite: "Lax",
+			sameSite: "none",
 			maxAge: 30 * 60 * 1000
 		},
 	}));
