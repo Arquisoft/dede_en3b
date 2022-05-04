@@ -1,169 +1,177 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
-import  {findProductsByName, getProducts, filterProducts} from './api/api';
+// eslint-disable-next-line
+import React, { useState, useEffect, FormEvent } from 'react';
+// eslint-disable-next-line
+import { findOrdersByUser, addOrder, getSolidWebId, getSolidAddress } from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import { ICartItem } from './components/ICartItem';
-import { IProduct } from '../../restapi/model/Products';
+import { IOrder, Address } from './shared/shareddtypes';
 import Cart from './routes/Cart';
 import Catalogue from './routes/Catalogue';
 import IndividualProduct from './routes/IndividualProduct';
 import Login from './components/LoginComponent';
+import { computeTotalPrice } from './utils/utils';
+import Home from './routes/Home';
+import UserOrders from './routes/UserOrders';
+import IndividualOrder from './routes/IndividualOrder';
+import Checkout from './components/checkout/Checkout';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './redux/store';
+import { emptyCart } from "./redux/slices/cartSlice"
 
-
-
+import { ThemeProvider, PaletteMode, createTheme } from '@mui/material';
 function App(): JSX.Element {
 
-  //Products showed in the catalogue
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [value,setValue] = useState('');
+  // eslint-disable-next-line
+  const [value, setValue] = useState('');
+  //Address
+  // eslint-disable-next-line
+  const [address, setAddress] = useState<Address>();
+  //PaymentMean
+  // eslint-disable-next-line
+  const [paymentMean, setPaymentMean] = useState('');
+
+  //Shipping
+  // eslint-disable-next-line
+  const [shippingCosts, setShippingCosts] = useState(0);
 
   //Cart
-  const [shoppingCart, setShoppingCart] = useState<ICartItem[]>([]);
+  const cart = useSelector((state: RootState) => state.cart.value);
+  const dispatch = useDispatch();
 
-  const refreshProductList = async () => {
-    const productsResult : IProduct[] = await getProducts();
+  /**
+  * Function to restore the default values of the cart.
+  */
+  const restoreDefaults = () => {
+    dispatch(emptyCart());
+  };
 
-    setProducts(productsResult);
+
+  const makeOrder = async () => {
+    var webId: any = await getSolidWebId();
+
+    var currentAddress = address;
+
+    console.log(currentAddress);
+    if (currentAddress !== undefined) {
+      addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
+      restoreDefaults();
+      console.log("Pediu realizau. ")
+    } else {
+      console.log("Ni olvido ni perdon. ")
+    }
   }
 
-  useEffect(()=>{
-    refreshProductList();
-  },[]);
+  //Orders
+  const [orders, setOrders] = useState<IOrder[]>([]);
 
-  /**
-   * Filters the products by name
-   * @param event 
-   */
-  const searchForProducts = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const input = form.querySelector('#searchText') as HTMLInputElement;
-    console.log(input.value);
-    updateProductList(input);
-
-  };
-
-  /**
-   * Updates the list of products
-   * @param input 
-   */
-  const updateProductList = async (input: HTMLInputElement) => {
-    const filteredProducts: IProduct[] = await findProductsByName(input.value);
-    setProducts(filteredProducts);
-    input.value = '';
+  const getUserOrders = async (orders: IOrder[], WebId: string) => {
+    var ordersFound: IOrder[];
+    ordersFound = await findOrdersByUser(WebId);
+    setOrders(ordersFound);
   }
 
-  const search = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const input = form.querySelector('#searchText') as HTMLInputElement;
-//    setProductSearch(input.value);
-    input.value = '';
-  };
 
-  /**
-   * Function to add a product to the cart
-   * 
-   * @param clickedItem 
-   */
-  const onAddToCart = (clickedItem: ICartItem) => {
-    setShoppingCart((prev) => {
-      const isItemInCart = prev.find((item) => item.product._id === clickedItem.product._id);
+  const themeOptions = (b: boolean) => (b ? "dark" : "light");
 
-      if (isItemInCart) {
-        return prev.map((item) =>
-          item.product === clickedItem.product
-            ? { ...item, units: item.units + 1 }
-            : item
-        );
-      }
-
-      return [...prev, { ...clickedItem, units: clickedItem.units }];
-    });
-  };
-
-  /**
-   * Function to remove a product from the cart
-   * 
-   * @param clickedItem 
-   */
-   const onRemoveFromCart = (clickedItem : ICartItem) => {
-    setShoppingCart((prev) =>
-      prev.reduce((acc, item) => {
-        if (item.product._id === clickedItem.product._id) {
-          
-          if (item.units === 1) {
-            return acc;
-          } else {
-            item.units = item.units - 1;
+  //palettes for both theme options
+  const getPaletteForTheme = (mode: PaletteMode) => ({
+    palette: {
+      ...(mode === "light"
+        ? {
+          primary: { main: '#fff' },
+          secondary: { main: '#212121' },
+          background: {
+            default: '#697689',
+            card: '#fff',
+            dark: '#272a40',
+            button: '#9681f2',
+            buttonhover: '#81c9f2',
+            light: '#fff'
+          },
+          text: {
+            primary: '#000',
+            default: '#000',
+            secondary: '#454545',
+            dark: '#000',
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b',
           }
-            
-          return [...acc, { ...item, amount: item.units - 1 }];
-        } else {
-          return [...acc, item];
         }
-      }, [] as ICartItem[])
-    );
-  };
-  
-  /**
-  * Function to empty the shopping cart
-  */ 
-  const emptyCart = () => {
-    let empty : ICartItem[] = new Array();
-    setShoppingCart(empty);
-  };
-
-
-  const filterProduct = async (event: ChangeEvent<HTMLSelectElement>) => {
-    var type = event.target.value;
-    var filteredProducts: IProduct[];
-    if(type=="Default") {
-      filteredProducts = await getProducts();
+        : {
+          primary: { main: '#ebebeb' },
+          secondary: { main: '#e0dcd8' },
+          background: {
+            default: '#6b6b6b',
+            card: '#454545',
+            dark: '#121212',
+            button: '#cccce0',
+            buttonhover: '#fff',
+            light: '#fff'
+          },
+          text: {
+            primary: '#ebebeb',
+            default: '#ebebeb',
+            secondary: '#e0dcd8',
+            dark: '#121212',
+            light: '#ebebeb',
+            lighterdark: '#6b6b6b'
+          }
+        }
+      )
     }
-    else {
-      filteredProducts = await filterProducts(type);
-    }
-    setProducts(filteredProducts);
+  });
+
+  let chosenTheme: boolean = true;
+
+  if (localStorage.getItem("theme") === null) {
+    localStorage.setItem("theme", String(chosenTheme));
+  } else {
+    chosenTheme = localStorage.getItem("theme") === "true";
   }
 
-  const handleChange = async (event: { target: { value: string } }) => {
-    var type = event.target.value;
-    var filteredProducts: IProduct[];
-    if(!type) {
-      filteredProducts = await getProducts();
-    }
-    else {
-      filteredProducts = await filterProducts(type);
-    }
-    setProducts(filteredProducts);
-    setValue(type);
+  const [mode, setMode] = React.useState<PaletteMode>(
+    themeOptions(!chosenTheme)
+  );
+
+  const theme = React.useMemo(() => createTheme(getPaletteForTheme(mode)), [mode]);
+
+  /**
+   * Function to change the theme mode
+   */
+  const changeThemeMode = () => {
+    setMode(themeOptions(mode === "light"));
+    localStorage.setItem("theme", String(mode === "dark"));
   };
 
-  
   return (
-  
-    <BrowserRouter>
-      
-      <NavigationBar numberOfProductsInCart={shoppingCart.length} />
 
-      <Routes>
-        <Route path="login" element={<Login></Login>}> </Route>
-        <Route path="cart" element={<Cart cartItems={shoppingCart} addToCart={onAddToCart} removeFromCart={onRemoveFromCart} emptyCart={emptyCart} />} />
-        <Route path="/" element={<Catalogue products={products} searchForProducts={searchForProducts} addToCart={onAddToCart} handleChange={handleChange} /> } />
-        <Route path="products/:id" 
-          element={
-            <IndividualProduct product={ null as any } onAddToCart={onAddToCart} /> 
-          } 
-        />
-       
-        
-      </Routes>
-    
-    </BrowserRouter>
-      
-      
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+
+        <NavigationBar changeTheme={changeThemeMode} themeState={chosenTheme} />
+
+        <Routes>
+          <Route path="/" element={<Home />} ></Route>
+          <Route path="login" element={<Login></Login>}> </Route>
+          <Route path="cart" element={<Cart />} />
+          <Route path="shop" element={<Catalogue />} />
+          <Route path="products/:id"
+            element={
+              <IndividualProduct product={null as any} />
+            }
+          />
+
+          <Route path="shipping/payment" element={<Checkout makeOrder={makeOrder} setAddress={setAddress}></Checkout>} />
+          <Route path="orders/find" element={<UserOrders orders={orders} getUserOrders={getUserOrders} />} />
+          <Route path="orders/:id" element={
+            <IndividualOrder order={null as any} />
+          } />
+        </Routes>
+
+      </BrowserRouter>
+    </ThemeProvider>
+
   );
 }
 

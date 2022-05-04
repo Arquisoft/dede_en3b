@@ -1,49 +1,42 @@
-import React, { useReducer, useEffect, useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { useReducer, useEffect } from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import { SolidConnection } from '../SOLID/API';
+import { doSolidLogin, getSolidWebId } from '../api/api';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-
-
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: 400,
-      margin: `${theme.spacing(0)} auto`
-    },
-    loginBtn: {
-      marginTop: theme.spacing(2),
-      flexGrow: 1
-    },
-    header: {
-      textAlign: 'center',
-      background: '#212121',
-      color: '#fff'
-    },
-    card: {
-      marginTop: theme.spacing(10)
-    }
-  })
-);
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 type State = {
-  identityPovider: string
+  identityProvider: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
 };
 
-const initialState:State = {
-  identityPovider: '',
+function BreadcrumbsLogin() {
+  return (
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/" >
+        <Typography
+          variant='h6'
+          sx={{ color: 'text.secondary' }}>
+          Home
+        </Typography>
+      </Link>
+      <Typography variant='h6'
+        sx={{ color: 'text.secondary' }}>
+        Connect to your POD
+      </Typography>
+    </Breadcrumbs>
+  );
+}
+
+const initialState: State = {
+  identityProvider: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false
@@ -57,29 +50,29 @@ type Action = { type: 'setIdentityProvider', payload: string }
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'setIdentityProvider': 
+    case 'setIdentityProvider':
       return {
         ...state,
-        identityPovider: action.payload
+        identityProvider: action.payload
       };
-    case 'setIsButtonDisabled': 
+    case 'setIsButtonDisabled':
       return {
         ...state,
         isButtonDisabled: action.payload
       };
-    case 'loginSuccess': 
+    case 'loginSuccess':
       return {
         ...state,
         helperText: action.payload,
         isError: false
       };
-    case 'loginFailed': 
+    case 'loginFailed':
       return {
         ...state,
         helperText: action.payload,
         isError: true
       };
-    case 'setIsError': 
+    case 'setIsError':
       return {
         ...state,
         isError: action.payload
@@ -87,44 +80,33 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const Login = () => {
-  const classes = useStyles();
-    const [state, dispatch] = useReducer(reducer, initialState);
+export function Login(): JSX.Element {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (state.identityPovider.trim()) {
-     dispatch({
-       type: 'setIsButtonDisabled',
-       payload: false
-     });
+    if (state.identityProvider.trim()) {
+      dispatch({
+        type: 'setIsButtonDisabled',
+        payload: false
+      });
     } else {
       dispatch({
         type: 'setIsButtonDisabled',
         payload: true
       });
     }
-  }, [state.identityPovider]);
+  }, [state.identityProvider]);
 
-  const handleLogin = () => {
-    if (state.identityPovider.trim().length != 0) {
-      dispatch({
-        type: 'loginSuccess',
-        payload: 'Login Successfully'
-      });
-    
-    let connection = new SolidConnection(state.identityPovider);
-    connection.login('cart');
-
-    } else {
-      dispatch({
-        type: 'loginFailed',
-        payload: 'Incorrect username or password'
-      });
-    }
+  const handleLogin = async () => {
+    console.log(state.identityProvider);
+    await doSolidLogin(state.identityProvider);
+    console.log(getSolidWebId());
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.keyCode === 13 || event.which === 13) {
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
       state.isButtonDisabled || handleLogin();
     }
   };
@@ -138,9 +120,17 @@ const Login = () => {
     };
 
   return (
-    <form className={classes.container} noValidate autoComplete="off">
-      <Card className={classes.card}>
-        <CardHeader className={classes.header} title="POD Service Provider" />
+    <Box sx={{ bgcolor: 'background.default', padding: '1em', height: '100%',  pb: {xs: 40, md:50}, display: 'flex', flexDirection: 'column'}}>
+      <BreadcrumbsLogin />
+      <form noValidate autoComplete="off">
+      <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: {xs: '15em', sm:'20em'}, margin: 'auto',
+       marginTop: 4, bgcolor: 'background.light'}}>
+        <Box sx={{textAlign: 'center', bgcolor: 'background.dark', color: 'text.light', pl: '4em', pr: '4em', pt: '2em', pb: '2em', width: {xs: '7em', sm:'12em'}}}>
+          <Typography
+            variant='h5'>
+          POD Service Provider
+          </Typography>
+          </Box> 
         <CardContent>
           <div>
             <TextField
@@ -156,19 +146,19 @@ const Login = () => {
             />
           </div>
         </CardContent>
-        <CardActions>
+        <Box sx={{paddingBottom: 2, paddingTop: 2, alignSelf: 'center'}}>
           <Button
             variant="contained"
             size="large"
             color="secondary"
-            className={classes.loginBtn}
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
             Go to the service
           </Button>
-        </CardActions>
-      </Card>
-    </form>
+          </Box>
+        </Box>
+      </form>
+    </Box>
   );
 }
 

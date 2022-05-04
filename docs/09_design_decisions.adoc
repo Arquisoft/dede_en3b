@@ -1,26 +1,107 @@
 [[section-design-decisions]]
 == Design Decisions
 
+DataBase Management System::
 
-[role="arc42help"]
-****
-.Contents
-Important, expensive, large scale or risky architecture decisions including rationals.
-With "decisions" we mean selecting one alternative based on given criteria.
+[cols="1,1,3,3", options="header"]
+|===
+| **Technology** | **Used** | **Pros** | **Cons**
 
-Please use your judgement to decide whether an architectural decision should be documented
-here in this central section or whether you better document it locally
-(e.g. within the white box template of one building block).
+| MongoDB | Yes 
+| Non relational database, stores information in JSON. Its query
+language is based on JS, which happens to be the language we are
+building the application on. Also, it is not neccesary to define
+the tables. It is not the most used DBMS, but it is widely used
+alongside JS.
+| A bit slow, and does not support JOIN. It also has no query cache.
 
-Avoid redundancy. Refer to section 4, where you already captured the most important decisions of your architecture.
+| MySQL | No
+| Relational database, with tables and JOIN operations. It is more
+similar to the DBMS we are used to. It also is widely used in the
+industry, so a lot of docs are available.
+| You have to define the schemas, and the query language is more
+like SQL.
 
-.Motivation
-Stakeholders of your system should be able to comprehend and retrace your decisions.
+| SQLite | No
+| Lightweight, proven, standard-of-the-industry. Comprehensive 
+documentation. Most used DBMS in the world.
+| Very basic, and does not support advanced operations that are
+not basic SQL language.
+|===
 
-.Form
-Various options:
+Continuous deployment system::
 
-* List or table, ordered by importance and consequences or:
-* more detailed in form of separate sections per decision
-* ADR (architecture decision record) for every important decision
-****
+[cols="1,1,3,3", options="header"]
+|===
+| **Technology** | **Used** | **Pros** | **Cons**
+
+| Heroku | Yes 
+| Recommended by the teachers. We are somewhat familiar with it
+already. Powerful and not too hard to use, as it is
+just an environment for the server. Does not
+require special code. Compatibility with docker
+containers for deployment.
+| Special code and configuration needs to be written. Free plan is 
+a bit restrictive. Not a lot of documentation.
+
+| AWS | No
+| Serverless architecture. Powered by Amazon. It is the most used
+cloud computing service.
+| Hard to use. We are not so used to it, and it would impede application
+development. We are not sure how well it works with Solid. We need
+to write specific code for it.
+|===
+
+About Solid::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Option** | **Used** | **Pros** | **Cons**
+
+| Design a custom API to work with the Pod | Yes
+| Ease of use. Better code legibility. Generally more friendly
+for the majority of the team. Only the person who develops it truly
+needs to dig into how solid works.
+| It needs to be built. If wrongly designed, it could hinder
+development. Only the person who develops it truly needs 
+to dig into how solid works.
+
+| Use the Pod with just inrupt API | No
+| More flexibility. Forces all the team to learn how Solid works.
+| Hard and cumbersome to use. Poor legibility. Forces all the team
+to learn how Solid works.
+|===
+
+RESTful API::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Option** | **Used** | **Pros** | **Cons**
+
+| RESTful API | Yes
+| Separates client and server, yet makes it easier for them to work
+together. Stateless and uniform interface.
+| It needs to be designed. A poor design could hinder project
+development.
+
+| No API | No
+| Faster to build. Easier to do and understand for a small project.
+| Cumbersome, and rapidly loses legibility and cohesivity as
+project size increases. Will incurr in a lot of technical debt.
+|===
+
+
+User Accounts::
+
+[cols="1,1,3,3", options="header"]
+|===
+| **Option** | **Used** | **Pros** | **Cons**
+
+| Use only the Pod to identify a user | Yes
+| Allows for more privacy and aligns more closely with the Solid philosophy of decentralization.
+| Can cause problems realted the constant access to the Pods and the Solid servers.
+
+| Force users to have accounts | No
+| Users get identified in our server and their info is stored in our database, reducing the interaction with Solid to a minimum.
+| Goes against all the privacy and decentralization principles that Solid stands for.
+|===

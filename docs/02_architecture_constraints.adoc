@@ -9,11 +9,11 @@
 |Constraint
 |Explanation
 
-|SOLID
-|For this project, we are required to follow the link:https://solidproject.org/[SOLID principles]. The use of PODs preserves the privacy of the customers as their data is stored in a decentralized way.
+|Solid
+|For this project, we are required to follow the link:https://solidproject.org/[Solid principles]. The use of Pods preserves the privacy of the customers as their data is stored in a decentralized way.
 
-|React and Typescript
-|The application will be implemented using the React framework and Typescript.
+|React and TypeScript
+|The application will be implemented using the React framework and TypeScript.
 
 |Continuous integration system
 |The application should be accessible and deployed using a continuous integration system.

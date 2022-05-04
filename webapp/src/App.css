@@ -1,3 +1,4 @@
+
 .App {
   padding: 0px 100px;
 }
@@ -132,7 +133,13 @@ h2 {
   font-size: 1.5em;
 }
 
-@keyframes slidein {
+.order-item{
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* @keyframes slidein {
   from {
     opacity: 0.2;
     margin-top: 50%;
@@ -144,7 +151,7 @@ h2 {
     margin-top: 0.5%;
     width: 100%;
   }
-}
+} */
 
 @keyframes fadein {
   from {

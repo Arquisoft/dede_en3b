@@ -3,7 +3,7 @@
 
 The application, called DeDe, is a privacy-aware retail system, that aims to provide users
 a way to buy goods without having their data compromised. To do this, the user data will
-be fetched from a SOLID project Pod, provided that authorization is granted by the user. 
+be fetched from a Solid project Pod, provided that authorization is granted by the user. 
 The application will provide the user with a way to place orders, as well as 
 allowing the user to view past ones. It also has capabilities to calculate
 the cost of the item bought.
@@ -12,8 +12,10 @@ the cost of the item bought.
 
 image:03-01_Mario_BusinessContext.png["Business context diagram"]
 
-The user gives permission to use their data via the POD system, then he can browse products
-placed by vendors, order new items or see their previous orders.
+The user, unidentified, is able to browse products in the store and add them to
+the cart. However, they must identify themselves if they want to buy. Once they
+have logged in to their Pods, the system fetches their data and uses it
+to place an order.
 
 The system is structured in two parts. It has a frontend and a backend. The user
 only interfaces with the frontend, which in turn interfaces with the
