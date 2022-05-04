@@ -78,10 +78,10 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
             return (
                 <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
-                    <BreadcrumbsIndividualOrder order='Not exists'/>
+                    <BreadcrumbsIndividualOrder order={new Date(order.date).toUTCString()}/>
                     <Typography
                         variant='h3'
-                        sx={{ color: 'text.default', pt: 3, pb: 2 }}
+                        sx={{ color: 'text.default', pt: 3, pb: 2, typography: { sm: 'h3', xs: 'h4' } }}
                     >
                         Order made on: {new Date(order.date).toUTCString()}
                     </Typography>
@@ -104,13 +104,13 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
                     <Typography
                         variant='h5'
-                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                        sx={{ color: 'text.default', pt: 0, pb: 0, typography: { sm: 'h5', xs: 'h6' } }}
                     >
                         Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}
                     </Typography>
                     <Typography
                         variant='h5'
-                        sx={{ color: 'text.default', pt: 0, pb: 0 }}
+                        sx={{ color: 'text.default', pt: 0, pb: 0, typography: { sm: 'h5', xs: 'h6' } }}
                     >
                         Total: {(order.totalPrice).toFixed(2)} €
                     </Typography>
