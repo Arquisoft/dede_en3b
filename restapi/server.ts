@@ -49,9 +49,6 @@ async function connect() {
 		next();
 	});
 
-	const options = {
-	};
-
 	console.log("Application started: " + port);
 
 	const metricsMiddleware = promBundle({

@@ -119,7 +119,6 @@ export async function getSolidAddress(): Promise<Address[]> {
 	let response = await fetch(str, {
 		credentials: "include",
 	});
-	console.log(response);
 	return response.json();
 }
 
@@ -128,7 +127,6 @@ export async function getSolidAddress(): Promise<Address[]> {
  */
 export async function doSolidLogin(provider: string): Promise<any> {
 	var str: string = solidEndPoint + "/login?provider=" + provider;
-	console.log(str);
 	window.location.href = str;
 }
 
@@ -138,7 +136,6 @@ export async function doSolidLogin(provider: string): Promise<any> {
  export async function doSolidLogout(): Promise<any> {
 	var str: string = solidEndPoint + '/logout';
 	 await fetch(str);
-	 console.log(isLoggedIn());
 }
 
 export async function isLoggedIn(): Promise<any> {
@@ -201,6 +198,5 @@ export async function addAddressToSolid(address: Address) {
 		headers: { "Content-type": "application/json; charset=UTF-8" },
 		credentials: "include",
 	})
-		.then((response) => response.json())
-		.then((json) => console.log(json));
+		.then((response) => response.json());
 }

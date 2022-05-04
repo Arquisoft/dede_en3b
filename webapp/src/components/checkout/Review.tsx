@@ -57,7 +57,6 @@ export default function Review(props: ReviewProps): JSX.Element {
 
     React.useEffect(() => {
         computeShippingCosts();
-        console.log(shippingCosts);
     },
         // eslint-disable-next-line
         []);

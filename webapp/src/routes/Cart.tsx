@@ -41,7 +41,6 @@ const Cart = () => {
   const checkOut = async () => {
   
       var obj = await isLoggedIn();
-      console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
         navigate("../shipping/payment");

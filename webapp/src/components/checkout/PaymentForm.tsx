@@ -28,7 +28,6 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
 
   // This function will be triggered when a radio button is selected
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(selectedAddress);
     var newAddress = event.target.value;
     setSelectedAddress(newAddress);
     props.setShippingAddress(stringToAddress(newAddress));    
@@ -37,16 +36,12 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
 
   const getAddresses = async () => {
     var solidAddresses: Address[] = await getSolidAddress();
-    console.log(solidAddresses);
-
     setAddresses(solidAddresses);
-    console.log(addresses);
     return solidAddresses
   }
 
   React.useEffect(() => {
     getAddresses();
-    console.log(addresses);
   },
     // eslint-disable-next-line
     []);
