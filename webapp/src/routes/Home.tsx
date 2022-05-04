@@ -95,7 +95,7 @@ export default function Home() {
               bgcolor: "background.default",
               height:"93vh"
             }}>
-                <Grid item xs wrap="wrap">
+                <Grid item xs >
                     <Typography 
                         variant="h1"
                         align="center"

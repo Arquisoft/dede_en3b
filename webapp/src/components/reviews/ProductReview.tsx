@@ -15,7 +15,7 @@ export default function ProductReview(props: ProductReviewProps) {
                     <Box sx={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                         <Typography
                         variant='h6'
-                        sx={{color: 'text.lighterdark'}}>
+                        sx={{color: 'text.lighterdark', typography: { sm: 'h6', xs: 'body1' }}}>
                             {props.review?.name}
                             </Typography>
                         <Rating 
@@ -26,7 +26,7 @@ export default function ProductReview(props: ProductReviewProps) {
                 <Grid item xs={12}>
                     <Typography
                     variant='h6'
-                    sx={{color: 'text.dark', pl: 2}}>
+                    sx={{color: 'text.dark', pl: 2, typography: { sm: 'h6', xs: 'body1' }}}>
                         {props.review?.comment}
                     </Typography>
                 </Grid>
