@@ -14,14 +14,14 @@ require('dotenv').config();
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 const port: number = (process.env.PORT !== undefined ? +process.env.PORT : 5000) || 5000;
 
+const frontend = "https://dedeen3b.herokuapp.com";
+//const frontend = "http://localhost:3000";
+
 declare module 'express-session' {
 	interface SessionData {
 		webId?: URL;
 	}
 }
-
-const frontend = "https://dedeen3b.herokuapp.com";
-//const frontend = "http://localhost:3000";
 
 async function connect() {
 	console.log(process.env.SOLIDAPI_URI);
@@ -44,8 +44,8 @@ async function connect() {
 		},
 	}));
 	app.use((req: Request, res: Response, next: NextFunction) => {
-		`res.header('Access-Control-Allow-Credentials', true);
-		res.header('Access-Control-Allow-Origin', '${frontend}');` 
+		res.header('Access-Control-Allow-Credentials', 'true');
+		res.header('Access-Control-Allow-Origin', frontend);
 		next();
 	});
 
