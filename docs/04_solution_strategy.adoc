@@ -1,14 +1,14 @@
 [[section-solution-strategy]]
 == Solution Strategy
 
-=== Technology decisions.
+=== Technology decisions
 
 A summary of the technical decisions that we have taken so far:
 
     * **MongoDB**: The DMBS of our choice.
-    * **Express**: Express is a framework to handle the backend of our application.
-    * **Redux**: It was used to keep the contents of user's carts.
-    * **Heroku**: It will be where we will deploy our app.
+    * **Express**: A framework to handle the backend of our application.
+    * **Redux**: Used to keep the contents of user's carts.
+    * **Heroku**: The cloud platform where we deployed our app.
 
 
 === Decisions about the the top-level decomposition of the system
@@ -19,19 +19,19 @@ The webapp is designed using React. It interfaces with the REST API to fetch
 data and to retrieve Pod information.
 
 The REST API is made with Express in Node.js. It is formed by two essential systems: the API as such and the Solid API.
-The API as interfaces with MongoDB to store and retrieve data, while the Solid API, which is another RESTful API which interfaces with a facade of our own.
+The API interfaces with MongoDB to store and retrieve data, while the Solid API, which is another RESTful API, interfaces with a facade of our own.
 
-=== Decisions on how to achive key quality goals.
+=== Decisions on how to achive key quality goals
 
-For now this will be the quality goals that we will focus on.
+This are the quality goals we focused on
 
     * **Usability**: We will try to develop an app that is easy to use.
     * **Responsiveness**: We will try to develop an app that has optimal or at least acceptable response times.
     * **Accessibilty**: We will try to develop an app that anyone can use.
-    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own Pods.
+    * **Security**: Thanks to Solid we will try to store as little sensitive information about the user in our servers as possible, taking the maximum possible information about the user from their own Pods.
 
 
-=== Organizational decisions.
+=== Organizational decisions
 
 * **Meetings and communication**: Our meetings will occur in person and online. For the online meetings we will use apps such as Microsoft Teams and Discord. To communicate the smaller things we will use a Whatsapp group chat.
 * **Task organization**: To organize the tasks that we have to do for the app we will use the GitHub projects, a tool that displays our issues in a KanBan view. The main factor for this was its similarity to a tool we used in the IPS course and because it allows us to see our progress and our partners progress.

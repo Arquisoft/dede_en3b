@@ -9,10 +9,10 @@ DataBase Management System::
 
 | MongoDB | Yes 
 | Non relational database, stores information in JSON. Its query
-language is based on JS, which happens to be the language we are
+language is based on JavaScrypt, which happens to be like TypeScript, the language we are
 building the application on. Also, it is not neccesary to define
 the tables. It is not the most used DBMS, but it is widely used
-alongside JS.
+alongside JavaScript.
 | A bit slow, and does not support JOIN. It also has no query cache.
 
 | MySQL | No

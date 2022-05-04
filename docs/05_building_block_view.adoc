@@ -9,7 +9,7 @@ image:05_building_blocks_overview.png["Whitebox Overall System"]
 
 Motivation::
 
-Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.
+Decentralized Delivery (DeDe) is a retail system that offers the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.
 
 
 Contained Building Blocks::
@@ -18,9 +18,9 @@ Contained Building Blocks::
 |===
 | **Name** | **Responsibility**
 | DeDe | Main part of the application. The user will interact with it and it will access the necessary data from the database and the user's Pod.
-| Pod Provider | System that stores the Pods of the users and will be used to access them.
+| Pod Provider | System that stores the Pods of the users and can be used to access them.
 | User's Pod | The user's information will be stored here in order to keep it decentralized.
-| mongodb | In this database, the minimal information of the application will be stored.
+| MongoDB | In this database, the minimal information of the application will be stored.
 |===
 
 
