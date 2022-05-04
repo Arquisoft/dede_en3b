@@ -20,8 +20,8 @@ declare module 'express-session' {
 	}
 }
 
-//const frontend = "https://dedeen3b.herokuapp.com";
-const frontend = "http://localhost:3000";
+const frontend = "https://dedeen3b.herokuapp.com";
+//const frontend = "http://localhost:3000";
 
 async function connect() {
 	console.log(process.env.SOLIDAPI_URI);
