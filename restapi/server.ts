@@ -14,7 +14,7 @@ require('dotenv').config();
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 const port: number = (process.env.PORT !== undefined ? +process.env.PORT : 5000) || 5000;
 
-const frontend = "https://dedeen3b.herokuapp.com";
+const frontend = "http://www.dedeen3b.com";
 //const frontend = "http://localhost:3000";
 
 declare module 'express-session' {

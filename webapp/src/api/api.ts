@@ -1,7 +1,7 @@
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
 
-const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
-const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
+const apiEndPoint = process.env.API_URI || 'http://api.dedeen3b.com/api';
+const solidEndPoint = process.env.SOLIDAPI_URI || 'http://api.dedeen3b.com/api';
 //const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
 //const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
