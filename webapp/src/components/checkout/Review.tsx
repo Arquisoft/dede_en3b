@@ -17,7 +17,7 @@ import { Alert } from '@mui/material';
 interface ReviewProps {
     paymentData: PaymentData,
     address: Address,
-    setShippingPossible: (b: boolean) => void 
+    setShippingPossible: (b: boolean) => void
 }
 
 const ERROR_CODE = -1;
@@ -45,9 +45,12 @@ export default function Review(props: ReviewProps): JSX.Element {
 
         if (res === ERROR_CODE) {
             setShippingCostsAlert(true);
+            
+
         } else {
             setShippingCosts(Number((res * 0.10).toFixed(2)));
             props.setShippingPossible(true);
+            
         }
             
     };

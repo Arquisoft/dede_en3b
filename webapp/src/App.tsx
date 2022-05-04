@@ -47,19 +47,16 @@ function App(): JSX.Element {
   };
 
 
-  const makeOrder = async () => {
+  const makeOrder = async (currentAddress: Address) => {
     var webId: any = await getSolidWebId();
 
-    var currentAddress = address;
-
     console.log(currentAddress);
-    if (currentAddress !== undefined) {
-      addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
-      restoreDefaults();
-      console.log("Pediu realizau. ")
-    } else {
-      console.log("Ni olvido ni perdon. ")
-    }
+    addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
+    restoreDefaults();
+    console.log("Pediu realizau. ")
+
+    console.log("No se realizó el pedido. ")
+
   }
 
   //Orders
