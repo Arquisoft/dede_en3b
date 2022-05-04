@@ -25,7 +25,7 @@ function BreadcrumbsIndividualOrder(props:any) {
               Home
           </Typography>
         </Link>
-        <Link underline="hover" href="order" >
+        <Link underline="hover" href="/orders/find" >
         <Typography variant='h6'
           sx={{color: 'text.secondary'}}>
               Orders
