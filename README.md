@@ -15,7 +15,7 @@ This project is a basic example of website using **React** with **Typescript** a
 
 ## The app.
 
-<p float="left"><img src="./webapp/public/logoNoBackground.png"></p>
+<p float="left"><img height="100" src="./webapp/public/logoNoBackground.png"></p>
 Here is a link for the app deployed in heroku. [app](http://www.dedeen3b.com/)
 
 ## Quick start guide
