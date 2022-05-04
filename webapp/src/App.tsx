@@ -1,7 +1,7 @@
 // eslint-disable-next-line
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState} from 'react';
 // eslint-disable-next-line
-import { findOrdersByUser, addOrder, getSolidWebId, getSolidAddress } from './api/api';
+import { findOrdersByUser, addOrder, getSolidWebId} from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -49,14 +49,8 @@ function App(): JSX.Element {
 
   const makeOrder = async (currentAddress: Address) => {
     var webId: any = await getSolidWebId();
-
-    console.log(currentAddress);
     addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
     restoreDefaults();
-    console.log("Pediu realizau. ")
-
-    console.log("No se realizó el pedido. ")
-
   }
 
   //Orders
