@@ -41,7 +41,6 @@ const Cart = () => {
   const checkOut = async () => {
   
       var obj = await isLoggedIn();
-      console.log("¿Is user logged in? " + obj.isLoggedIn);
       if (obj.isLoggedIn) {
         //navigate('/login'); //Careful navigate is commented.
         navigate("../shipping/payment");
@@ -76,7 +75,9 @@ const Cart = () => {
        
           <StyledButton 
             sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
-            onClick={checkOut}>
+          onClick={checkOut}
+        disabled={cart.length == 0}>
+            
             Check out</StyledButton> 
           
          
