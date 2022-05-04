@@ -1,4 +1,5 @@
 import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
+import Cookies from "js-cookie";
 
 const apiEndPoint = process.env.API_URI || 'https://dedeen3b-restapi.herokuapp.com/api';
 const solidEndPoint = process.env.SOLIDAPI_URI || 'https://dedeen3b-restapi.herokuapp.com/solid';
@@ -144,6 +145,7 @@ export async function doSolidLogin(provider: string): Promise<any> {
 export async function isLoggedIn(): Promise<any> {
 	var str: string = solidEndPoint + "/isLoggedIn";
 	console.log(str);
+	console.log(Cookies.get("session");
 	let response = await fetch(str, {
 		credentials: "include",
 	});
