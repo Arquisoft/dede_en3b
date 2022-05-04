@@ -57,7 +57,13 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
           >
               Your Orders
       </Typography>
-      {orders.length === 0 ? <p>No orders made.</p> : <p></p>}
+      {orders.length === 0 && 
+        <Typography
+          variant='h5'
+          align="left"
+          sx ={{color:"text.primary", padding: 2}}>
+          No orders made.
+          </Typography>}
       <Grid container justifyContent='space-evenly'
         sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
         {orders.map((order: IOrder) => {

@@ -50,7 +50,7 @@ export default function ProductReviewList(props: ProductReviewListProps) {
         <Paper elevation={4} sx={{bgcolor: 'background.card', ml: 0, mr: 4}}>
             <Typography
                 variant='h5'
-                sx={{ color: 'text.default', m: 3, p: 2 }}
+                sx={{ color: 'text.default', m: 3, p: 2, typography: { sm: 'h5', xs: 'h6' } }}
             >
                 See what other users thought
             </Typography>
