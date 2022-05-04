@@ -42,7 +42,6 @@ const Cart = () => {
   
       var obj = await isLoggedIn();
       if (obj.isLoggedIn) {
-        //navigate('/login'); //Careful navigate is commented.
         navigate("../shipping/payment");
       } else {
         navigate("../login");

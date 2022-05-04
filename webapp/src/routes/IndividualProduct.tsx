@@ -100,13 +100,13 @@ const IndividualProduct = (props: IndividualProductProps) => {
                 <Box sx={{flexDirection: 'column', pt:2, pl: 5}}>
                 <BreadcrumbsProduct product={product.name}/>           
 
-                <Box sx={{borderRadius: 25, justifyContent: "center", padding: 10,
+                <Box sx={{borderRadius: 25, justifyContent: "center", padding: {xs: 0, sm: 2, md:10},
                             display: 'flex',  flexDirection: {xs: 'column', lg: 'row'} }}>
      
                     <Box >
                         <div className="product-pic">
                             <StyledImg
-                                sx={{ height: {xs: 500, md: 600} }}
+                                sx={{ height: {xs: 300, sm: 400, md: 600}, ml: {xs:1, sm: 10, xl: 30} }}
                                 src={imageRef}
                                 alt={product.name}
                             />
@@ -118,17 +118,17 @@ const IndividualProduct = (props: IndividualProductProps) => {
                         <div className="product-info">
                             <Typography
                                 variant='h3'
-                                sx={{color: 'text.default', pt: 4, pb: 4}}
+                                sx={{color: 'text.default', pt: 4, pb: 4, typography: { sm: 'h3', xs: 'h5' }}}
                             >
                                 {product.name}
                             </Typography>
                             <Rating value={rating} readOnly sx={{pb:2}}/>
-                            <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light'}}>
-                                <Typography sx={{color: 'text.dark'}}>{product.description}</Typography>
+                            <Card sx={{maxWidth: 550, p: 2, bgcolor: 'background.light', mr: {xs: 4, sm: 0}}}>
+                                <Typography sx={{color: 'text.dark', typography: { sm: 'body1', xs: 'body2' }}}>{product.description}</Typography>
                             </Card>
                             <Typography
                                 variant='h5'
-                                sx={{pt: 4, pb:4, color: 'text.default'}}
+                                sx={{pt: 4, pb:4, color: 'text.default', typography: { sm: 'h5', xs: 'h6' }}}
                             >
                                 Price: {product.price}€
                             </Typography>
@@ -139,7 +139,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
                                 style={{ }}
                                 ></NumberPicker>
                         
-                                <StyledButton sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
+                                <StyledButton sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark', mr: {xs: 0, sm: 2, md: 10, lg: 0, xl: 30}}} 
                                 onClick={addProductToCart}>Add to cart</StyledButton>
                             </Box>
                             

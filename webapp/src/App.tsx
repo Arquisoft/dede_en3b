@@ -1,7 +1,5 @@
-// eslint-disable-next-line
-import React, { useState} from 'react';
-// eslint-disable-next-line
-import { findOrdersByUser, addOrder, getSolidWebId} from './api/api';
+import React, { useState } from 'react';
+import { findOrdersByUser, addOrder, getSolidWebId } from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';

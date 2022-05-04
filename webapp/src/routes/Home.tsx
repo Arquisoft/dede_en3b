@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import React from "react";
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import {Link} from 'react-router-dom';
@@ -95,7 +93,7 @@ export default function Home() {
               bgcolor: "background.default",
               height:"93vh"
             }}>
-                <Grid item xs wrap="wrap">
+                <Grid item xs >
                     <Typography 
                         variant="h1"
                         align="center"

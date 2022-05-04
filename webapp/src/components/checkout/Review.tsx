@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import { computeTotalPrice } from '../../utils/utils';
 import { ERROR_CODE, getShippingCosts, SERVICE_NOT_WORKING_CODE } from '../../api/ShippingApi';
 import { useState } from 'react';
-// eslint-disable-next-line
 import { PaymentData } from './Checkout';
 import { Address } from '../../shared/shareddtypes';
 import { useSelector } from 'react-redux';
@@ -57,7 +56,6 @@ export default function Review(props: ReviewProps): JSX.Element {
 
     React.useEffect(() => {
         computeShippingCosts();
-        console.log(shippingCosts);
     },
         // eslint-disable-next-line
         []);

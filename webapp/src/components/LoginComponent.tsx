@@ -98,9 +98,7 @@ export function Login(): JSX.Element {
   }, [state.identityProvider]);
 
   const handleLogin = async () => {
-    console.log(state.identityProvider);
     await doSolidLogin(state.identityProvider);
-    console.log(getSolidWebId());
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -120,7 +118,7 @@ export function Login(): JSX.Element {
     };
 
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: '1em', height: '100%',  pb: {xs: 40, md:50}, display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{ bgcolor: 'background.default', padding: '1em', height: '100%',  pb: {xs: 60, lg: 65}, display: 'flex', flexDirection: 'column'}}>
       <BreadcrumbsLogin />
       <form noValidate autoComplete="off">
       <Box sx={{display: 'flex', flexDirection: 'column', flexWrap: 'wrap', width: {xs: '15em', sm:'20em'}, margin: 'auto',

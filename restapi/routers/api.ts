@@ -26,7 +26,6 @@ let users: Array<User> = [];
 api.get(
     "/users/list",
     async (req: Request, res: Response): Promise<Response> => {
-        // return res.status(200).send(users);
         //Await is an asynchronous keyword that forces the system to wait for this call to end. Siempre va con funciones async
         //Find all users.
         const users:IUser[] = await User.find({});
@@ -43,8 +42,6 @@ api.post(
     check('email').isEmail().normalizeEmail(),
   ],
   async (req: Request, res: Response): Promise<Response> => {
-    // let name = req.body.name;
-    // let email = req.body.email;
     //We create a new User, simple, kinda like java, since we are using mongodb we can have empty fields only needed the required fields
     const user = new User({name: req.body.name,email:req.body.email});
 	  console.log(user);
@@ -85,7 +82,6 @@ api.get("/products/filter/:type", async (req: Request, res:Response): Promise<Re
   return res.status(200).send(products);
 });
 /**
- * OSCAR
  * Response for finding products by name 
  */
 api.get("/products/search/:name", async (req: Request, res: Response): Promise<Response> => {
@@ -101,7 +97,7 @@ api.post(
   ],
   async (req: Request, res: Response): Promise<Response> => {
     console.log(req.body.address);
-    //Creting the order
+    //Creating the order
     const order = new Order ({webId:req.body.webId, orderProducts:req.body.products, address:req.body.address, totalPrice:req.body.price, date:req.body.date});
     //Adding the order to the database
     await order.save();
