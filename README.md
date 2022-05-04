@@ -15,7 +15,7 @@ This project is a basic example of website using **React** with **Typescript** a
 
 ## The app.
 
-Here is a link for the app deployed in heroku. [www.dedeen3b.com](www.dedeen3b.com)
+Here is a link for the app deployed in heroku. [app](http://www.dedeen3b.com/)
 
 ## Quick start guide
 <mark>In case you already have node.js and npm, make sure you update them before attempting to build the images</mark>
