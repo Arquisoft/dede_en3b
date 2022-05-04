@@ -107,17 +107,11 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
       if (isShippingPossible) {
         setActiveStep(activeStep + 1);
         var a: Address = shippingAddress;
-        console.log(a);
-        console.log(shippingAddress)
         props.setAddress(a);
         props.makeOrder(a);
-        //
       }
 
     } else if (activeStep === 1) {
-      console.log(paymentData);
-      console.log(defaultPaymentData)
-
       if (paymentData.cardName !== defaultPaymentData.cardName
         && paymentData.cardNumber !== defaultPaymentData.cardNumber
         && paymentData.cvv !== defaultPaymentData.cvv
