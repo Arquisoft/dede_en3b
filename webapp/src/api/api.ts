@@ -2,11 +2,9 @@ import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtyp
 
 const apiEndPoint = process.env.API_URI || 'http://api.dedeen3b.com/api';
 const solidEndPoint = process.env.SOLIDAPI_URI || 'http://api.dedeen3b.com/solid';
-//const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
-//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
 /**
- * This fucntion returns the productst that are currently stored in the databse.
+ * This function returns the productst that are currently stored in the databse.
  * First we get the api endpoint that we are going to be listening on.
  * Then we call the api function with the address that we want to request at. (localhost:5000/products/list)
  * Then we send back the response.

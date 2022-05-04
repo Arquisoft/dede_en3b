@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import { computeTotalPrice } from '../../utils/utils';
 import { getShippingCosts } from '../../api/ShippingApi';
 import { useState } from 'react';
-// eslint-disable-next-line
 import { PaymentData } from './Checkout';
 import { Address} from '../../shared/shareddtypes';
 import { useSelector } from 'react-redux';

@@ -25,7 +25,6 @@ export class SessionStorage {
 		if(!con.isLoggedIn())
 			throw new Error("Solid not logged in, cannot store");
 
-		//TODO: check if it works changing this also
 		this._connections.set(con.getWebId().href, con);
 		this.resetTimeout(con.getWebId());
 	}

@@ -109,7 +109,6 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
         var a: Address = shippingAddress;
         props.setAddress(a);
         props.makeOrder(a);
-        //
       }
 
     } else if (activeStep === 1) {
