@@ -29,7 +29,8 @@ function OrderItem(props: Props): JSX.Element {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={event => navigate(`/orders/${props.item._id}`)}>See order</Button>
+        <Button sx={{ bgcolor: 'background.button', ":hover": { bgcolor: 'background.buttonhover' }, color: 'text.dark', ml: { xs: 0, md: 6 } }}
+          onClick={event => navigate(`/orders/${props.item._id}`)}>See order</Button>
       </CardActions>
     </Card>
   );
