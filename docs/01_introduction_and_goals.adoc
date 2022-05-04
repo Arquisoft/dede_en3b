@@ -28,7 +28,7 @@ The system must make it easy for novice users or non-technical peaple to learn q
 The application will not store personal information from customers but will obtain that information from the user’s Pods given that the users give the necessary permissions to the shopping system.
 
 ==== Security/Privacy:
-The system will ask for permissionss in order to ensure security.It will not lead to any security problems by not storing personal information about the user.
+The system will ask for permissionss in order to ensure security. It will not lead to any security problems by not storing personal information about the user.
 
 ==== Accessibilty:
 High accessibility should be reached thanks to a continuous integration system.

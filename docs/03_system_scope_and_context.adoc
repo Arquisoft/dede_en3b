@@ -19,7 +19,7 @@ to place an order.
 
 The system is structured in two parts. It has a frontend and a backend. The user
 only interfaces with the frontend, which in turn interfaces with the
-backend, which theen works with the Solid Pod provider and the database
+backend, which then works with the Solid Pod provider and the database
 serve the data the frontend might need.
 
 === Technical Context
