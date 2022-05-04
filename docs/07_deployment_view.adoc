@@ -8,11 +8,11 @@
 image:07-Deployment-View-En.png["Deployment view"]
 
 .Motivation
-In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student's machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the latter, at the production stage.
+In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student's machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the later, the production stage.
 
 
-.Quality and/or performance features
-The performance on the deployment build will depend on the user's internet connection and the servers used for the deployment of the app since those are factors that we can not control. But the performance of the application can be maxed with posible improvements on our code.
+.Quality and performance features
+The performance on the deployment build will depend on the user's internet connection and the servers used for the deployment of the app since those are factors that we cannot control. The performance of the application can be maximized with posible improvements on our code.
 
 .Mapping of building blocks to infrastructure
 [options="header",cols="1,2"]
@@ -23,7 +23,7 @@ The performance on the deployment build will depend on the user's internet conne
 | Virtual Earth | A service to introduce addresses and get the distance from our warehouse to the destination of the order.
 | Pod provider | Solid Pods can be provided by any provider that implements the Solid protocol.
 | WebApp | The front end of our application.
-| RestApi | The back-end of our application. It's made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.
+| RestApi | The backend of our application. It's made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.
 | Database server | Where our database is hosted, since we are using MongoDB Atlas.
 |===
 
@@ -33,7 +33,7 @@ The performance on the deployment build will depend on the user's internet conne
 image:07-Deployment-View-Development-En.png["Deployment view"]
 
 .Motivation
-The motivation here, as stated in the previous point is similar, but this is how the deployment view would look for the development/testing environment
+The motivation here is similar to the stated in the previous point, but in this case we are referring to how the deployment view would looks for the development/testing environment.
 
 .Quality
 The same as in the point above, nothing much changes, just the fact that all is hosted on the developer's pc.
@@ -43,10 +43,10 @@ The same as in the point above, nothing much changes, just the fact that all is 
 |===
 |Element|Description
 | Developer | The device of the developer, internet connection is needed to access the database.
-| Development environment | The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.
+| Development environment | The backend and frontend will be hosted locally, in order to not make many changes on the deployment host.
 | Virtual Earth | A service to introduce addresses and get the distance from our warehouse to the destination of the order.
 | Pod provider | Solid Pods can be provided by any provider that implements the Solid protocol.
 | WebApp | The front end of our application.
-| RestApi | The back-end of our application. It's made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.
+| RestApi | The backend of our application. It's made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.
 | Database server | Where our database will be hosted, since we are using MongoDB Atlas.
 |===
