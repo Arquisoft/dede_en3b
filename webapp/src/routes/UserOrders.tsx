@@ -46,7 +46,7 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
 
   getUserOrders(orders, webId);
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', pb: {xs:50}, display: 'flex', flexDirection: 'column' }}>
       
       <BreadcrumbsOrders />
       
@@ -64,11 +64,11 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
           sx ={{color:"text.primary", padding: 2}}>
           No orders made.
           </Typography>}
-      <Grid container justifyContent='space-evenly'
-        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%' }}>
+      <Grid container justifyContent='space-evenly' spacing={2}
+        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '100%', ml: {xs: 2, sm: 0, md: 0} }}>
         {orders.map((order: IOrder) => {
           return (
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={12} sm={6} md={5} lg={4} xl={3}>
               <OrderItem
                 key={order._id.toString()}
                 item={order}

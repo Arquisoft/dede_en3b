@@ -13,7 +13,7 @@ function IndividualOrderProduct(props: Props): JSX.Element {
   let imageRef: string = require("../static/images/" + props.id + ".png");
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 345, height: 300, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
+    <Card sx={{ width: {xs: 250, md: 345}, height: 300, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
       <CardMedia
         component="img"
         height="200"
@@ -21,10 +21,10 @@ function IndividualOrderProduct(props: Props): JSX.Element {
         alt={props.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" component="div" sx={{ typography: { md: 'h5', xs: 'h6' } }}>
           {props.name}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5" component="div" sx={{ typography: { md: 'h5', xs: 'h6' } }}>
           Ordered: {props.units}
         </Typography>
       </CardContent>

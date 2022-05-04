@@ -77,7 +77,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
         if (order.webId === webId) {
 
             return (
-                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', pb: {xs: 5, lg: 10, xl: 40}, display: 'flex', flexDirection: 'column' }}>
                     <BreadcrumbsIndividualOrder order={new Date(order.date).toUTCString()}/>
                     <Typography
                         variant='h3'
@@ -86,12 +86,17 @@ const IndividualProduct = (props: IndividualOrderProps) => {
                         Order made on: {new Date(order.date).toUTCString()}
                     </Typography>
 
-                    <h2>Products Ordered</h2>
-                    <Grid container justifyContent='space-evenly' columns={4}
-                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'column', width: '80%', height:'50%' }}>
+                    <Typography
+                        variant='h4'
+                        sx={{ color: 'text.default', pt: 2, typography: { sm: 'h4', xs: 'h5' }}}    
+                    >
+                        Products Ordered
+                    </Typography>
+                    <Grid container justifyContent='space-evenly' spacing={2}
+                        sx={{ pt: 2, display: 'flex', flexWrap: 'wrap', flexDirection: 'row', width: '80%', height:'50%' }}>
                         {order.orderProducts.map(product => {
                             return (
-                                <Grid item xs={8} sm={6} md={3}>
+                                <Grid item xs={8} sm={6} md={6} lg={4} xl={3}>
                                     <IndividualOrderProduct
                                         key={product.id}
                                         id={product.id}
@@ -104,7 +109,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
                     <Typography
                         variant='h5'
-                        sx={{ color: 'text.default', pt: 0, pb: 0, typography: { sm: 'h5', xs: 'h6' } }}
+                        sx={{ color: 'text.default', pt: 3, pb: 0, typography: { sm: 'h5', xs: 'h6' } }}
                     >
                         Country: {order.address.country_name}, Region: {order.address.region}, Postal Code: {order.address.postal_code}, Street: {order.address.street_address}
                     </Typography>

@@ -14,10 +14,10 @@ type Props = {
 function OrderItem(props: Props): JSX.Element {
   const navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 400, minWidth: 400, height: 250, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
+    <Card sx={{ width: {xs: 300, md: 400}, height: 250, bgcolor: "background.card", borderRadius: 8, boxShadow: '10' }}>
       <CardMedia
       />
-      <CardContent>
+      <CardContent sx={{ height: 150 }}>
         <Typography gutterBottom variant="h5" component="div">
           {new Date(props.item.date).toUTCString()}
         </Typography>
@@ -29,7 +29,7 @@ function OrderItem(props: Props): JSX.Element {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button sx={{ bgcolor: 'background.button', ":hover": { bgcolor: 'background.buttonhover' }, color: 'text.dark', ml: { xs: 0, md: 6 } }}
+        <Button sx={{ bgcolor: 'background.button', ":hover": { bgcolor: 'background.buttonhover' }, color: 'text.dark', ml: { xs: 11, md: 17 } }}
           onClick={event => navigate(`/orders/${props.item._id}`)}>See order</Button>
       </CardActions>
     </Card>

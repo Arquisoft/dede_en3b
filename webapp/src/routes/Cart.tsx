@@ -50,18 +50,23 @@ const Cart = () => {
   };
         
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', pb: 70, display: 'flex', flexDirection: 'column' }}>
       
       <BreadcrumbsCart />
       
       <Typography
         variant='h3'
-        sx={{color: 'text.default', pt: 4, pb:2}}
+        sx={{color: 'text.default', pt: 4, pb:2, typography: { sm: 'h3', xs: 'h4' }}}
       >
         Your Cart
       </Typography>
       
-      {cart.length === 0 ? <p>No items in cart.</p> : null}
+      {cart.length === 0 &&      
+      <Typography
+        sx={{color: 'text.default', typography: { sm: 'h4', xs: 'h5' }}}
+      >
+        No items in cart.
+      </Typography>}
       {cart.map((item) => (
         <CartItem
           key={item.product._id.toString()}
