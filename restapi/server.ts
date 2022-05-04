@@ -8,7 +8,7 @@ import solid from "./routers/solid";
 import { SolidConnection } from "./SOLID/API";
 import { SessionStorage } from "./SOLID/SessionStorage";
 const mongoose = require('mongoose');
-import { Application } from "express";
+import { Application, Request, Response, NextFunction } from "express";
 require('dotenv').config();
 
 //mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
@@ -20,6 +20,9 @@ declare module 'express-session' {
 	}
 }
 
+//const frontend = "https://dedeen3b.herokuapp.com";
+const frontend = "http://localhost:3000";
+
 async function connect() {
 	console.log(process.env.SOLIDAPI_URI);
 	console.log(process.env);
@@ -27,8 +30,7 @@ async function connect() {
 	app.set("trust proxy", 1);
 	app.use(cors({
 		credentials: true,
-		//origin: "http://localhost:3000",
-		origin: "https://dedeen3b.herokuapp.com",
+		origin: frontend,
 	}));
 	app.use(session({
 		secret: "mysecret420",
@@ -37,10 +39,15 @@ async function connect() {
 		cookie: {
 			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
 			secure: true,
-			sameSite: "Lax",
+			sameSite: "none",
 			maxAge: 30 * 60 * 1000
 		},
 	}));
+	app.use((req: Request, res: Response, next: NextFunction) => {
+		`res.header('Access-Control-Allow-Credentials', true);
+		res.header('Access-Control-Allow-Origin', '${frontend}');` 
+		next();
+	});
 
 	const options = {
 	};
