@@ -3,7 +3,7 @@ import React, { useReducer, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import { doSolidLogin, getSolidWebId } from '../api/api';
+import { doSolidLogin } from '../api/api';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
