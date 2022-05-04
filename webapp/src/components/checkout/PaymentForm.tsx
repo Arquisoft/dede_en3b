@@ -73,16 +73,21 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
         <Grid item xs={12} >
           <FormControl component="fieldset">
             <FormLabel component="legend">Choose an address between your POD addresses: </FormLabel>
-            <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
+            {
+              addresses.length === 0
+                ? "It seems there are no addresses in the POD... you can add an address in the Shipping address from to complete your order."
+                : <RadioGroup aria-label="address" name="address1" value={selectedAddress} onChange={handleAddressChange}>
 
-              {
-                addresses.length === 0 ? "Loading..." : addresses.filter(l => l !== (null || undefined)).map((a) => (
-                <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                  value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                  control={<Radio />}/>))
-              }
-
-            </RadioGroup>
+                {
+                  addresses.map((a : Address) => (
+                  <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                    value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                      control={<Radio />} />))
+                }
+  
+              </RadioGroup>
+                
+            }
           </FormControl>
         </Grid>
       </Grid>
