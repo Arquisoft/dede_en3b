@@ -19,7 +19,7 @@ export async function getShippingCosts(address: Address): Promise<any> {
         + "&waypoint.1=" + storeGeolocation;
     
     let response = await fetch(url);
-    if (response.status == 500) {
+    if (response.status === 500) {
         return SERVICE_NOT_WORKING_CODE;
     }
     return response.json().then(value => { return value.resourceSets[0].resources[0].travelDistance}).catch(e => -1);
