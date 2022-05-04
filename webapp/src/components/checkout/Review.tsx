@@ -5,10 +5,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { computeTotalPrice } from '../../utils/utils';
-import { getShippingCosts } from '../../api/ShippingApi';
+import { ERROR_CODE, getShippingCosts, SERVICE_NOT_WORKING_CODE } from '../../api/ShippingApi';
 import { useState } from 'react';
 import { PaymentData } from './Checkout';
-import { Address} from '../../shared/shareddtypes';
+import { Address } from '../../shared/shareddtypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Alert } from '@mui/material';
@@ -19,13 +19,12 @@ interface ReviewProps {
     setShippingPossible: (b: boolean) => void
 }
 
-const ERROR_CODE = -1;
-
 export default function Review(props: ReviewProps): JSX.Element {
 
     const cart = useSelector((state: RootState) => state.cart.value);
 
     const [shippingCostsAlert, setShippingCostsAlert] = useState(false);
+    const [serviceNotWorkingAlert, setServiceNotWorkingAlert] = useState(false);
 
     const defaultAddress = {
         country_name: "string",
@@ -44,14 +43,15 @@ export default function Review(props: ReviewProps): JSX.Element {
 
         if (res === ERROR_CODE) {
             setShippingCostsAlert(true);
-            
-
+        } else if (res === SERVICE_NOT_WORKING_CODE) {
+            setServiceNotWorkingAlert(true);
+            props.setShippingPossible(false);
         } else {
             setShippingCosts(Number((res * 0.10).toFixed(2)));
             props.setShippingPossible(true);
-            
+            setServiceNotWorkingAlert(false);
         }
-            
+
     };
 
     React.useEffect(() => {
@@ -66,6 +66,7 @@ export default function Review(props: ReviewProps): JSX.Element {
                 Order summary
             </Typography>
             {shippingCostsAlert && <Alert severity="error">Sorry, the selected address could not be found by our shipping company. Select a valid address or add a new one to the POD. </Alert>}
+            {serviceNotWorkingAlert && <Alert severity="error">Sorry, our Shipping service is not working at this moment, please wait some minutes until problems are fixed. </Alert>}
             <List disablePadding>
                 {cart.map((product) => (
                     <ListItem key={product.product.name} sx={{ py: 1, px: 0 }}>

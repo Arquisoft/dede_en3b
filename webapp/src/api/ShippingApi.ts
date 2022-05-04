@@ -1,7 +1,8 @@
 import { Address } from "../shared/shareddtypes";
 
 const storeGeolocation = "43.53544 -6.71935"; // Our Store, located in Navia
-const ERROR_CODE = -1;
+export const ERROR_CODE = -1;
+export const SERVICE_NOT_WORKING_CODE = -500;
 
 /**
  * Function that returns the shipping costs
@@ -18,6 +19,9 @@ export async function getShippingCosts(address: Address): Promise<any> {
         + "&waypoint.1=" + storeGeolocation;
     
     let response = await fetch(url);
+    if (response.status == 500) {
+        return SERVICE_NOT_WORKING_CODE;
+    }
     return response.json().then(value => { return value.resourceSets[0].resources[0].travelDistance}).catch(e => -1);
 } 
   
