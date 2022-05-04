@@ -52,9 +52,11 @@ function App(): JSX.Element {
 
     var currentAddress = address;
 
+    console.log(currentAddress);
     if (currentAddress !== undefined) {
       addOrder(cart, webId, currentAddress, computeTotalPrice(cart), new Date());
       restoreDefaults();
+      console.log("Pediu realizau. ")
     } else {
       console.log("Ni olvido ni perdon. ")
     }
