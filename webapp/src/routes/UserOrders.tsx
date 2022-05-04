@@ -46,7 +46,7 @@ const UserOrders = ({ orders, getUserOrders }: Props) => {
 
   getUserOrders(orders, webId);
   return (
-    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', pb: {xs:50}, display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100%', pb: {xs:90}, display: 'flex', flexDirection: 'column' }}>
       
       <BreadcrumbsOrders />
       
