@@ -145,7 +145,7 @@ export async function doSolidLogin(provider: string): Promise<any> {
 export async function isLoggedIn(): Promise<any> {
 	var str: string = solidEndPoint + "/isLoggedIn";
 	console.log(str);
-	console.log(Cookies.get("session");
+	console.log(Cookies.get("session"));
 	let response = await fetch(str, {
 		credentials: "include",
 	});
