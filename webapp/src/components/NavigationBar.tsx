@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
+import InfoIcon from '@mui/icons-material/Info';
 import { Link} from 'react-router-dom';
 import logo from '../logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -88,6 +89,11 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
   const handleLogout = async () => {
     handleMenuClose();
     await doSolidLogout();
+  }
+
+  const handleAboutClick = () => {
+    handleMenuClose();
+    window.open("https://arquisoft.github.io/dede_en3b/");
   }
 
   const menuId = 'primary-search-account-menu';
@@ -190,6 +196,19 @@ export default function PrimarySearchAppBar(props: NavigationBarProps) : JSX.Ele
             sx={{ color:'text.dark'}}>
             Shopping cart
           </Typography>
+      </MenuItem>
+      <MenuItem onClick={() => {
+          handleAboutClick();
+      }}>
+        <IconButton size="large" aria-label="about us" color="default">
+            <InfoIcon/>
+        </IconButton>
+        <Typography
+              sx={{ color:'text.dark'}}
+            >
+              About us
+            </Typography> 
+          
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
