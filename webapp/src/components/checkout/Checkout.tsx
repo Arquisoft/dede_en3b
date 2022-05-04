@@ -45,7 +45,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 
 interface CheckoutProps {
-  makeOrder: () => void;
+  makeOrder: (a: Address) => void;
   setAddress: (a: Address) => void;
 }
 
@@ -110,7 +110,8 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
         console.log(a);
         console.log(shippingAddress)
         props.setAddress(a);
-        props.makeOrder();
+        props.makeOrder(a);
+        //
       }
 
     } else if (activeStep === 1) {
@@ -216,6 +217,7 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
                     variant="contained"
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
+                    disabled={activeStep === steps.length - 1 ? !isShippingPossible : false}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>
@@ -226,6 +228,6 @@ export default function Checkout(props: CheckoutProps): JSX.Element {
         </Paper>
         <Copyright />
       </Container>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
