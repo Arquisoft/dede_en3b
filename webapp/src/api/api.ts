@@ -117,6 +117,10 @@ export async function getSolidAddress(): Promise<Address[]> {
 	let response = await fetch(str, {
 		credentials: "include",
 	});
+	
+	if (response.status === 404) {
+		return [];
+	}
 	return response.json();
 }
 
