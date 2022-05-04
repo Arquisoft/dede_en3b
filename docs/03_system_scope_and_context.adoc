@@ -19,7 +19,7 @@ to place an order.
 
 The system is structured in two parts. It has a frontend and a backend. The user
 only interfaces with the frontend, which in turn interfaces with the
-backend, which theen works with the Solid Pod provider and the database
+backend, which then works with the Solid Pod provider and the database
 serve the data the frontend might need.
 
 === Technical Context
@@ -27,16 +27,16 @@ serve the data the frontend might need.
 image:03-02_Mario_TechnicalContext.png["Technical details"]
 
 The frontend of the application is made with React and Material UI, and has a Shipping API
-which uses a bing service, VirtualEarth, to calculate distance and shipping costs.
+which uses a Bing service, VirtualEarth, to calculate distance and shipping costs.
 It also uses Redux to store the cart state.
 
-The backend uses Express and NodeJS to serve the data. It has two RESTful APIs.
+The backend uses Express and Node.js to serve the data. It has two RESTful APIs.
 One is the regular REST API which fetches data from or saves data to a database, which
 is built using MongoDB and Mongoose. The other API is the Solid REST API, which uses
 a custom Solid facade to interface with the Solid Pod provider of the user, and 
-fetch their data or save a new address they might have input.
+fetch their data or saves a new address they can add.
 
-The whole thing uses Git for the SCCS and GitHub as a means of distributing it.
+The whole system uses Git for the SCCS and GitHub as a means of distributing it.
 Both parts are on their own Docker containers and deployed to their separate
 Heroku APPs using GitHub Actions. Then, Google Domains and its DNS service are
 used to fuse the app under one domain.
