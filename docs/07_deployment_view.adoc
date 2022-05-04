@@ -20,9 +20,10 @@ The performance on the deployment build will depend on the user's internet conne
 |Element|Description
 | Client | The device of the user, of course internet connection is required.
 | Web server | Where we host our app, all browsers should be compatible.
+| Virtual Earth | A service to introduce addresses and get the distance from our warehouse to the destination of the order
 | Pod provider | Solid Pods can be provided by any provider that implements the Solid protocol.
 | WebApp | The front end of our application.
-| RestApi | The back-end of our application.
+| RestApi | The back-end of our application. It's made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.
 | Database server | Where our database is hosted, since we are using mongoDB Atlas.
 |===
 
@@ -43,6 +44,7 @@ The same as in the point above, nothing much changes, just the fact that all is 
 |Element|Description
 | Developer | The device of the developer, internet connection is needed to access the database.
 | Development environment | The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.
+| Virtual Earth | A service to introduce addresses and get the distance from our warehouse to the destination of the order
 | Pod provider | Solid Pods can be provided by any provider that implements the Solid protocol.
 | WebApp | The front end of our application.
 | RestApi | The back-end of our application.
