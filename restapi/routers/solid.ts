@@ -8,11 +8,6 @@ const { v4: uuidv4 } = require('uuid');
 
 const solid: Router = express.Router();
 
-/**
- * TODO: Deshardcodear esto.
- */
-//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
-//const frontend = process.env.APPLICATION_URI || "http://localhost:3000";
 const solidEndPoint = "http://api.dedeen3b.com/solid";
 const frontend = process.env.APPLICATION_URI || "http://www.dedeen3b.com";
 
@@ -73,7 +68,6 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 	SessionStorage.instance.set(connection);
 	req.session.webId = connection.getWebId();
-	//req.session.save();
 
 	console.log("Logged in " + req.session.webId)
 

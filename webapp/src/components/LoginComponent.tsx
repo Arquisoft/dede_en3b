@@ -98,9 +98,7 @@ export function Login(): JSX.Element {
   }, [state.identityProvider]);
 
   const handleLogin = async () => {
-    console.log(state.identityProvider);
     await doSolidLogin(state.identityProvider);
-    console.log(getSolidWebId());
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {

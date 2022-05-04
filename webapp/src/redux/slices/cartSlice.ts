@@ -15,9 +15,6 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action:PayloadAction<ICartItem>) => {
-            // const isItemInCart = state.value.find((item) => {
-            //     return item.product._id == action.payload.product._id
-            // });
             const isItemInCart = state.value.map((item=> {return item.product._id})).indexOf(action.payload.product._id);
             if (isItemInCart >= 0) {
                 if (state.value[isItemInCart].units < 100) {
