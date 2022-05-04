@@ -15,13 +15,28 @@ image:03-01_Mario_BusinessContext.png["Business context diagram"]
 The user gives permission to use their data via the POD system, then he can browse products
 placed by vendors, order new items or see their previous orders.
 
-The system stores the products in a regular database, and asks the POD system
-for user data when needed (to see previous orders or to see their address).
+The system is structured in two parts. It has a frontend and a backend. The user
+only interfaces with the frontend, which in turn interfaces with the
+backend, which theen works with the SOLID POD provider and the database
+serve the data the frontend might need.
 
 === Technical Context
 
 image:03-02_Mario_TechnicalContext.png["Technical details"]
 
-The user will interact with the UI made in React. All product data will be stored in a MongoDB database, which will
-be behind a RESTful API, and user data will be fetched from a POD system (which is yet to be disclosed).
-The application itself will be written in nodejs with typescript, and will be deployed in heroku.
+The frontend of the application is made with React and Material UI, and has a Shipping API
+which uses a bing service, VirtualEarth, to calculate distance and shipping costs.
+It also uses Redux to store the cart state.
+
+The backend uses Express and NodeJS to serve the data. It has two RESTful APIs.
+One is the regular REST API which fetches data from or saves data to a database, which
+is built using MongoDB and Mongoose. The other API is the SOLID REST API, which uses
+a custom SOLID facade to interface with the SOLID POD provider of the user, and 
+fetch their data or save a new address they might have input.
+
+The whole thing uses Git for the SCCS and GitHub as a means of distributing it.
+Both parts are on their own Docker containers and deployed to their separate
+Heroku APPs using GitHub Actions. Then, Google Domains and its DNS service are
+used to fuse the app under one domain.
+
+The application is tested using Jest.
