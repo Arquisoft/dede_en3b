@@ -24,7 +24,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://www.dedeen3b.com/">
+      <Link color="inherit" href="http://www.dedeen3b.com/">
         DEDE_EN3b
       </Link>{' '}
       {new Date().getFullYear()}
