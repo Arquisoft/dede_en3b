@@ -75,7 +75,7 @@ const Cart = () => {
           <StyledButton 
             sx={{bgcolor: 'background.button', ":hover": {bgcolor: 'background.buttonhover'}, color: 'text.dark'}} 
           onClick={checkOut}
-        disabled={cart.length == 0}>
+        disabled={cart.length === 0}>
             
             Check out</StyledButton> 
           
