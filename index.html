@@ -464,10 +464,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-solution-strategy">4. Solution Strategy</a>
 <ul class="sectlevel2">
-<li><a href="#_technology_decisions">4.1. Technology decisions.</a></li>
+<li><a href="#_technology_decisions">4.1. Technology decisions</a></li>
 <li><a href="#_decisions_about_the_the_top_level_decomposition_of_the_system">4.2. Decisions about the the top-level decomposition of the system</a></li>
-<li><a href="#_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals.</a></li>
-<li><a href="#_organizational_decisions">4.4. Organizational decisions.</a></li>
+<li><a href="#_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals</a></li>
+<li><a href="#_organizational_decisions">4.4. Organizational decisions</a></li>
 </ul>
 </li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
@@ -579,7 +579,7 @@ Users are able to browse the catalog and order products. Then, the app calculate
 <div class="sect3">
 <h4 id="_securityprivacy">1.2.3. Security/Privacy:</h4>
 <div class="paragraph">
-<p>The system will ask for permissionss in order to ensure security.It will not lead to any security problems by not storing personal information about the user.</p>
+<p>The system will ask for permissionss in order to ensure security. It will not lead to any security problems by not storing personal information about the user.</p>
 </div>
 </div>
 <div class="sect3">
@@ -613,33 +613,33 @@ Users are able to browse the catalog and order products. Then, the app calculate
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Teachers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The teachers assigned to the group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The teachers assigned to the group.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provide project guidance, doubt resolution, supervision&#8230;&#8203;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Developers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The students that are part of the development team</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Everything related with design and development issues</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The students that are part of the development team.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Everything related with design and development issues.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Final users</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The clients that will interact with the system</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The aim of the application, the users that should be satisfied by the system&#8217;s benefits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The clients that will interact with the system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The aim of the application, the users that should be satisfied by the system&#8217;s benefits.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Classmates</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Classmates from the other projects</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Classmates from the other projects.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Since it is not about a competition, the development team can obtain help from other development teams by solving doubts or teaching some techniques, for example.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Solid community</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Solid community</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Users related with Solid community that are interested on making the product better</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Solid community.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users related with Solid community that are interested on making the product better.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inrupt and empathy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Those enterprises</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Interested on knowing the skills of the students related with the project and the project itself</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inrupt and Empathy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Those enterprises.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interested on knowing the skills of the students related with the project and the project itself.</p></td>
 </tr>
 </tbody>
 </table>
@@ -761,7 +761,7 @@ to place an order.</p>
 <div class="paragraph">
 <p>The system is structured in two parts. It has a frontend and a backend. The user
 only interfaces with the frontend, which in turn interfaces with the
-backend, which theen works with the Solid Pod provider and the database
+backend, which then works with the Solid Pod provider and the database
 serve the data the frontend might need.</p>
 </div>
 </div>
@@ -772,18 +772,18 @@ serve the data the frontend might need.</p>
 </div>
 <div class="paragraph">
 <p>The frontend of the application is made with React and Material UI, and has a Shipping API
-which uses a bing service, VirtualEarth, to calculate distance and shipping costs.
+which uses a Bing service, VirtualEarth, to calculate distance and shipping costs.
 It also uses Redux to store the cart state.</p>
 </div>
 <div class="paragraph">
-<p>The backend uses Express and NodeJS to serve the data. It has two RESTful APIs.
+<p>The backend uses Express and Node.js to serve the data. It has two RESTful APIs.
 One is the regular REST API which fetches data from or saves data to a database, which
 is built using MongoDB and Mongoose. The other API is the Solid REST API, which uses
 a custom Solid facade to interface with the Solid Pod provider of the user, and
-fetch their data or save a new address they might have input.</p>
+fetch their data or saves a new address they can add.</p>
 </div>
 <div class="paragraph">
-<p>The whole thing uses Git for the SCCS and GitHub as a means of distributing it.
+<p>The whole system uses Git for the SCCS and GitHub as a means of distributing it.
 Both parts are on their own Docker containers and deployed to their separate
 Heroku APPs using GitHub Actions. Then, Google Domains and its DNS service are
 used to fuse the app under one domain.</p>
@@ -799,7 +799,7 @@ used to fuse the app under one domain.</p>
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_technology_decisions">4.1. Technology decisions.</h3>
+<h3 id="_technology_decisions">4.1. Technology decisions</h3>
 <div class="paragraph">
 <p>A summary of the technical decisions that we have taken so far:</p>
 </div>
@@ -809,13 +809,13 @@ used to fuse the app under one domain.</p>
 <p><strong>MongoDB</strong>: The DMBS of our choice.</p>
 </li>
 <li>
-<p><strong>Express</strong>: Express is a framework to handle the backend of our application.</p>
+<p><strong>Express</strong>: A framework to handle the backend of our application.</p>
 </li>
 <li>
-<p><strong>Redux</strong>: It was used to keep the contents of user&#8217;s carts.</p>
+<p><strong>Redux</strong>: Used to keep the contents of user&#8217;s carts.</p>
 </li>
 <li>
-<p><strong>Heroku</strong>: It will be where we will deploy our app.</p>
+<p><strong>Heroku</strong>: The cloud platform where we deployed our app.</p>
 </li>
 </ul>
 </div>
@@ -831,13 +831,13 @@ data and to retrieve Pod information.</p>
 </div>
 <div class="paragraph">
 <p>The REST API is made with Express in Node.js. It is formed by two essential systems: the API as such and the Solid API.
-The API as interfaces with MongoDB to store and retrieve data, while the Solid API, which is another RESTful API which interfaces with a facade of our own.</p>
+The API interfaces with MongoDB to store and retrieve data, while the Solid API, which is another RESTful API, interfaces with a facade of our own.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals.</h3>
+<h3 id="_decisions_on_how_to_achive_key_quality_goals">4.3. Decisions on how to achive key quality goals</h3>
 <div class="paragraph">
-<p>For now this will be the quality goals that we will focus on.</p>
+<p>This are the quality goals we focused on</p>
 </div>
 <div class="ulist">
 <ul>
@@ -851,13 +851,13 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 <p><strong>Accessibilty</strong>: We will try to develop an app that anyone can use.</p>
 </li>
 <li>
-<p><strong>Security</strong>: Thanks to Solid we will try to store as little sensitive information about the user in our servers, taking the information about the user from their own Pods.</p>
+<p><strong>Security</strong>: Thanks to Solid we will try to store as little sensitive information about the user in our servers as possible, taking the maximum possible information about the user from their own Pods.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_organizational_decisions">4.4. Organizational decisions.</h3>
+<h3 id="_organizational_decisions">4.4. Organizational decisions</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -887,7 +887,7 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>Decentralized Delivery (DeDe) is a retail system that will offer the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.</p>
+<p>Decentralized Delivery (DeDe) is a retail system that offers the users the possibility of shopping online and delivering it to their address while keeping the users' private information decentralized in Pods.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 </dl>
@@ -910,14 +910,14 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pod Provider</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">System that stores the Pods of the users and will be used to access them.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System that stores the Pods of the users and can be used to access them.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User&#8217;s Pod</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s information will be stored here in order to keep it decentralized.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">mongodb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In this database, the minimal information of the application will be stored.</p></td>
 </tr>
 </tbody>
@@ -1046,11 +1046,11 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </div>
 <div class="paragraph">
 <div class="title">Motivation</div>
-<p>In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student&#8217;s machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the latter, at the production stage.</p>
+<p>In our case the deployment view will be different depending on the stage of the project is on. For development and testing the execution environment will be on each student&#8217;s machine. But for the production phase it will be deployed in a Dockerized environment hosted on Heroku. Above is the Deployment view of the later, the production stage.</p>
 </div>
 <div class="paragraph">
-<div class="title">Quality and/or performance features</div>
-<p>The performance on the deployment build will depend on the user&#8217;s internet connection and the servers used for the deployment of the app since those are factors that we can not control. But the performance of the application can be maxed with posible improvements on our code.</p>
+<div class="title">Quality and performance features</div>
+<p>The performance on the deployment build will depend on the user&#8217;s internet connection and the servers used for the deployment of the app since those are factors that we cannot control. The performance of the application can be maximized with posible improvements on our code.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Mapping of building blocks to infrastructure</caption>
@@ -1075,7 +1075,7 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Earth</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A service to introduce addresses and get the distance from our warehouse to the destination of the order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A service to introduce addresses and get the distance from our warehouse to the destination of the order.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pod provider</p></td>
@@ -1087,11 +1087,11 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RestApi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The back-end of our application. It&#8217;s made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The backend of our application. It&#8217;s made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database server</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database is hosted, since we are using mongoDB Atlas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database is hosted, since we are using MongoDB Atlas.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1103,7 +1103,7 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </div>
 <div class="paragraph">
 <div class="title">Motivation</div>
-<p>The motivation here, as stated in the previous point is similar, but this is how the deployment view would look for the development/testing environment</p>
+<p>The motivation here is similar to the stated in the previous point, but in this case we are referring to how the deployment view would looks for the development/testing environment.</p>
 </div>
 <div class="paragraph">
 <div class="title">Quality</div>
@@ -1128,11 +1128,11 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Development environment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The back-end and front-end will be hosted locally, in order to not make many changes on the deployment host.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The backend and frontend will be hosted locally, in order to not make many changes on the deployment host.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Virtual Earth</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A service to introduce addresses and get the distance from our warehouse to the destination of the order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A service to introduce addresses and get the distance from our warehouse to the destination of the order.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pod provider</p></td>
@@ -1144,11 +1144,11 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RestApi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The back-end of our application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The backend of our application. It&#8217;s made up of two apis, one that connects to the database to save/fetch data from it and the other connects to solid and fetches/writes data.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database server</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database will be hosted, since we are using mongoDB Atlas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where our database will be hosted, since we are using MongoDB Atlas.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1168,8 +1168,8 @@ The API as interfaces with MongoDB to store and retrieve data, while the Solid A
 <div class="sect2">
 <h3 id="_reduced_pod_storage">8.2. Reduced Pod storage</h3>
 <div class="paragraph">
-<p>We do not store anything in the user&#8217;s Pod, as we cannot be sure of what does the user want stored in it.
-We do allow the user to add a new address to their Pod if they do not already have one and want to add it to the Pod.
+<p>We do not store anything in the user&#8217;s Pod whithout asking for confirmation, as we cannot be sure of what the user wants stored in it.
+We do allow the user to add a new address to their Pod if they do not already have one or want to add a new one to the Pod.
 We store all the necesary information in our database, keeping some references to the WebId of the users.</p>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1204,10 +1204,10 @@ We store all the necesary information in our database, keeping some references t
 <td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Non relational database, stores information in JSON. Its query
-language is based on JS, which happens to be the language we are
+language is based on JavaScrypt, which happens to be like TypeScript, the language we are
 building the application on. Also, it is not neccesary to define
 the tables. It is not the most used DBMS, but it is widely used
-alongside JS.</p></td>
+alongside JavaScript.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A bit slow, and does not support JOIN. It also has no query cache.</p></td>
 </tr>
 <tr>
@@ -1415,27 +1415,27 @@ project size increases. Will incurr in a lot of technical debt.</p></td>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We want to have a way of filtering the products that makes the searching process faster for the client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We want to have a way of filtering the products that makes the searching process faster for the client.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We develop a primitive search engine and classification for the types of products.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fast paying process</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We developed an easy check out process that is called directly from the cart.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fast payment process.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We developed an easy check out process that is accessed directly from the cart.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Decentralization</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralization of the log in process (serverless)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It is gained by means of calling the Pod service provider and delegating the process to it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decentralization of the log in process (serverless).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is achieved by means of calling the Pod provider and delegating the process to it.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Privacy</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We don&#8217;t want to put in danger user data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We don&#8217;t want to put in danger user data.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unless it is required by the client the application will not show any personal data.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Accesibilty</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We want to traverse the application easily</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We want to traverse the application easily.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intuitive navigation bar present in every route of the application.</p></td>
 </tr>
 </tbody>
@@ -1566,7 +1566,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-04 18:31:45 +0200
+Last updated 2022-05-04 00:35:41 +0200
 </div>
 </div>
 </body>
