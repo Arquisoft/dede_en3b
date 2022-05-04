@@ -9,6 +9,6 @@ image:08-01_Nico_DomainModel.png["UML Diagram of the domain model"]
 
 === Reduced Pod storage
 
-We do not store anything in the user's Pod, as we cannot be sure of what does the user want stored in it.
-We do allow the user to add a new address to their Pod if they do not already have one and want to add it to the Pod.
+We do not store anything in the user's Pod whithout asking for confirmation, as we cannot be sure of what the user wants stored in it.
+We do allow the user to add a new address to their Pod if they do not already have one or want to add a new one to the Pod.
 We store all the necesary information in our database, keeping some references to the WebId of the users.
