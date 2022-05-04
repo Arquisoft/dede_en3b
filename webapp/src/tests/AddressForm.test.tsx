@@ -10,12 +10,3 @@ test('The address form is rendered properly.', () => {
         </Provider>
     )
 })
-
-// Make tests for the inputs later.
-// test('The address form is rendered properly.', () => {
-//     render(
-//         <Provider store={store}>
-//             <AddressForm/>
-//         </Provider>
-//     )
-// })

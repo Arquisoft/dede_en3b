@@ -5,17 +5,13 @@ const bp = require('body-parser');
 const promBundle = require("express-prom-bundle");
 import api from "./routers/api";
 import solid from "./routers/solid";
-import { SolidConnection } from "./SOLID/API";
-import { SessionStorage } from "./SOLID/SessionStorage";
 const mongoose = require('mongoose');
 import { Application, Request, Response, NextFunction } from "express";
 require('dotenv').config();
 
-//mongodb+srv://username:password@pruebaasw.dxqcq.mongodb.net/exampleDatabase?retryWrites=true&w=majority
 const port: number = (process.env.PORT !== undefined ? +process.env.PORT : 5000) || 5000;
 
 const frontend = "http://www.dedeen3b.com";
-//const frontend = "http://localhost:3000";
 
 declare module 'express-session' {
 	interface SessionData {
@@ -37,7 +33,6 @@ async function connect() {
 		resave: false,
 		saveUninitialized: true,
 		cookie: {
-			//secure: process.env.NODE_ENV && process.env.NODE_ENV === "production",
 			secure: true,
 			sameSite: "none",
 			maxAge: 30 * 60 * 1000
@@ -70,7 +65,6 @@ async function connect() {
 }
 
 function restapi(app: Application) {
-	// const mongoUrl = "mongodb://localhost:27017/exampleDatabase";
 	//This is the url of the connection to the database, currently the database is stored in MongoDB Atlas (A browser version for MongoDB)
 	//The user and the password are for this instance only and will be changed for when this is merged.
 	var mongoUrl = process.env.DEDE || process.env.DEDE_HEROKU;

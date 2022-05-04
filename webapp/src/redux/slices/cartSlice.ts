@@ -14,11 +14,8 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addItem: (state, action:PayloadAction<ICartItem>) => {
-            // const isItemInCart = state.value.find((item) => {
-            //     return item.product._id == action.payload.product._id
-            // });
-            const isItemInCart = state.value.map((item=> {return item.product._id})).indexOf(action.payload.product._id);
+        addItem: (state, action: PayloadAction<ICartItem>) => {
+            const isItemInCart = state.value.map((item => { return item.product._id })).indexOf(action.payload.product._id);
             if (isItemInCart >= 0) {
                 if (state.value[isItemInCart].units < 100) {
                     state.value[isItemInCart].units++;
@@ -27,20 +24,20 @@ export const cartSlice = createSlice({
             else {
                 state.value.push(action.payload);
             }
-        } ,
-        removeItem: (state, action:PayloadAction<ICartItem>) => {
-            const isItemInCart = state.value.map((item=> {return item.product._id})).indexOf(action.payload.product._id);
+        },
+        removeItem: (state, action: PayloadAction<ICartItem>) => {
+            const isItemInCart = state.value.map((item => { return item.product._id })).indexOf(action.payload.product._id);
             if (isItemInCart >= 0) {
                 state.value[isItemInCart].units--;
-                if(state.value[isItemInCart].units === 0) {
-                    state.value.splice(isItemInCart,1);
+                if (state.value[isItemInCart].units === 0) {
+                    state.value.splice(isItemInCart, 1);
                 }
             }
-        } ,
+        },
         emptyCart: (state) => {
             state.value = [];
-        } , 
-        loadCart: (state, action:PayloadAction<ICartItem[]>) => {
+        },
+        loadCart: (state, action: PayloadAction<ICartItem[]>) => {
             state.value = action.payload;
         }
     }

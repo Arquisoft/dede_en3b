@@ -1,9 +1,7 @@
-import {IProduct, IOrder, Address, Review, ICartItem} from '../shared/shareddtypes';
+import { IProduct, IOrder, Address, Review, ICartItem } from '../shared/shareddtypes';
 
 const apiEndPoint = process.env.API_URI || 'http://api.dedeen3b.com/api';
 const solidEndPoint = process.env.SOLIDAPI_URI || 'http://api.dedeen3b.com/solid';
-//const apiEndPoint = process.env.API_URI || 'http://localhost:5000/api';
-//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 
 /**
  * This fucntion returns the productst that are currently stored in the databse.
@@ -133,9 +131,9 @@ export async function doSolidLogin(provider: string): Promise<any> {
 /**
  * Function to solid logout
  */
- export async function doSolidLogout(): Promise<any> {
+export async function doSolidLogout(): Promise<any> {
 	var str: string = solidEndPoint + '/logout';
-	 await fetch(str);
+	await fetch(str);
 }
 
 export async function isLoggedIn(): Promise<any> {

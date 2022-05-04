@@ -13,14 +13,14 @@ const initialState: ProductState = {
 
 export const productSlice = createSlice({
     name: "products",
-    initialState, 
+    initialState,
     reducers: {
         //Perhaps an add and a delete product if the admin view is ever created.
-        loadProducts: (state, action:PayloadAction<IProduct[]>) => {
+        loadProducts: (state, action: PayloadAction<IProduct[]>) => {
             state.value = action.payload;
         }
     }
 });
 
-export const {loadProducts} = productSlice.actions;
+export const { loadProducts } = productSlice.actions;
 export default productSlice.reducer;

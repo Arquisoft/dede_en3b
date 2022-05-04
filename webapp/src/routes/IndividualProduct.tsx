@@ -61,7 +61,7 @@ const IndividualProduct = (props: IndividualProductProps) => {
     }
     // eslint-disable-next-line
     useEffect(() =>{ 
-        // eslint-disable-next-line
+        // eslint-disable-next-lineF
         selectProduct();
     },
     // eslint-disable-next-line

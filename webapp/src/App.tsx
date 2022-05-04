@@ -1,7 +1,5 @@
-// eslint-disable-next-line
-import React, { useState, useEffect, FormEvent } from 'react';
-// eslint-disable-next-line
-import { findOrdersByUser, addOrder, getSolidWebId, getSolidAddress } from './api/api';
+import React, { useState } from 'react';
+import { findOrdersByUser, addOrder, getSolidWebId } from './api/api';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -22,18 +20,11 @@ import { emptyCart } from "./redux/slices/cartSlice"
 import { ThemeProvider, PaletteMode, createTheme } from '@mui/material';
 function App(): JSX.Element {
 
-  // eslint-disable-next-line
-  const [value, setValue] = useState('');
   //Address
   // eslint-disable-next-line
   const [address, setAddress] = useState<Address>();
-  //PaymentMean
-  // eslint-disable-next-line
-  const [paymentMean, setPaymentMean] = useState('');
 
   //Shipping
-  // eslint-disable-next-line
-  const [shippingCosts, setShippingCosts] = useState(0);
 
   //Cart
   const cart = useSelector((state: RootState) => state.cart.value);

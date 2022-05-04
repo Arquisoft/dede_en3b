@@ -15,29 +15,29 @@ type IndividualOrderProps = {
     order: IOrder;
 }
 
-function BreadcrumbsIndividualOrder(props:any) {
-    return(
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" href="/" >
-          <Typography
-          variant='h6'
-          sx={{color: 'text.secondary'}}>
-              Home
-          </Typography>
-        </Link>
-        <Link underline="hover" href="/orders/find" >
-        <Typography variant='h6'
-          sx={{color: 'text.secondary'}}>
-              Orders
-          </Typography>
-        </Link>
-        <Typography variant='h6'
-        sx={{color: 'text.secondary'}}>
-            {props.order}
-        </Typography>
-      </Breadcrumbs>
+function BreadcrumbsIndividualOrder(props: any) {
+    return (
+        <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" href="/" >
+                <Typography
+                    variant='h6'
+                    sx={{ color: 'text.secondary' }}>
+                    Home
+                </Typography>
+            </Link>
+            <Link underline="hover" href="/orders/find" >
+                <Typography variant='h6'
+                    sx={{ color: 'text.secondary' }}>
+                    Orders
+                </Typography>
+            </Link>
+            <Typography variant='h6'
+                sx={{ color: 'text.secondary' }}>
+                {props.order}
+            </Typography>
+        </Breadcrumbs>
     );
-  }
+}
 
 const IndividualProduct = (props: IndividualOrderProps) => {
     const { id } = useParams();
@@ -68,8 +68,8 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
     if (typeof order === "undefined") {
         return (
-            <Box sx={{ bgcolor: 'background.default', height: '100vh', pl: 2, pt: 2}}>
-                <BreadcrumbsIndividualOrder order='Not exists'/>
+            <Box sx={{ bgcolor: 'background.default', height: '100vh', pl: 2, pt: 2 }}>
+                <BreadcrumbsIndividualOrder order='Not exists' />
                 <h2>The order does not exist</h2>
             </Box>
         );
@@ -78,7 +78,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
             return (
                 <Box sx={{ bgcolor: 'background.default', padding: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}>
-                    <BreadcrumbsIndividualOrder order={new Date(order.date).toUTCString()}/>
+                    <BreadcrumbsIndividualOrder order={new Date(order.date).toUTCString()} />
                     <Typography
                         variant='h3'
                         sx={{ color: 'text.default', pt: 3, pb: 2, typography: { sm: 'h3', xs: 'h4' } }}
@@ -88,7 +88,7 @@ const IndividualProduct = (props: IndividualOrderProps) => {
 
                     <h2>Products Ordered</h2>
                     <Grid container justifyContent='space-evenly' columns={4}
-                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'column', width: '80%', height:'50%' }}>
+                        sx={{ pt: 0, display: 'flex', flexWrap: 'wrap', flexDirection: 'column', width: '80%', height: '50%' }}>
                         {order.orderProducts.map(product => {
                             return (
                                 <Grid item xs={8} sm={6} md={3}>
@@ -118,8 +118,8 @@ const IndividualProduct = (props: IndividualOrderProps) => {
             );
         } else {
             return (
-                <Box sx={{ bgcolor: 'background.default', height: '90vh', pt: 2, pl: 2}}>
-                    <BreadcrumbsIndividualOrder order='No permission'/>
+                <Box sx={{ bgcolor: 'background.default', height: '90vh', pt: 2, pl: 2 }}>
+                    <BreadcrumbsIndividualOrder order='No permission' />
                     <h2>You don't have permission to view this order!</h2>
                 </Box>);
         }

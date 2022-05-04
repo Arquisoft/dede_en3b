@@ -9,18 +9,13 @@ import { store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
-// eslint-disable-next-line
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// eslint-disable-next-line
-import NavigationBar from './components/NavigationBar';
-
 let persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
-      <PersistGate loading={null} persistor = {persistor}>
-        <App/>  
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>,

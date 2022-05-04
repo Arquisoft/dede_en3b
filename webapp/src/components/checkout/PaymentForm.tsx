@@ -30,7 +30,7 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     var newAddress = event.target.value;
     setSelectedAddress(newAddress);
-    props.setShippingAddress(stringToAddress(newAddress));    
+    props.setShippingAddress(stringToAddress(newAddress));
   };
 
 
@@ -77,9 +77,9 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
 
               {
                 addresses.length === 0 ? "Loading..." : addresses.filter(l => l !== (null || undefined)).map((a) => (
-                <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                  value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
-                  control={<Radio />}/>))
+                  <FormControlLabel key={a.street_address} label={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                    value={a.street_address + ", " + a.locality + ", " + a.region + ", " + a.postal_code + ", " + a.country_name}
+                    control={<Radio />} />))
               }
 
             </RadioGroup>
@@ -150,9 +150,4 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
       </Grid>
     </React.Fragment>
   );
-}
-
-// eslint-disable-next-line
-function tbody(arg0: void) {
-  throw new Error('Function not implemented.');
 }

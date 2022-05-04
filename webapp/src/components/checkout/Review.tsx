@@ -7,9 +7,8 @@ import Grid from '@mui/material/Grid';
 import { computeTotalPrice } from '../../utils/utils';
 import { getShippingCosts } from '../../api/ShippingApi';
 import { useState } from 'react';
-// eslint-disable-next-line
 import { PaymentData } from './Checkout';
-import { Address} from '../../shared/shareddtypes';
+import { Address } from '../../shared/shareddtypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Alert } from '@mui/material';
@@ -45,14 +44,14 @@ export default function Review(props: ReviewProps): JSX.Element {
 
         if (res === ERROR_CODE) {
             setShippingCostsAlert(true);
-            
+
 
         } else {
             setShippingCosts(Number((res * 0.10).toFixed(2)));
             props.setShippingPossible(true);
-            
+
         }
-            
+
     };
 
     React.useEffect(() => {

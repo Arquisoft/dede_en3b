@@ -15,27 +15,26 @@ export class SessionStorage {
 	}
 
 	public static get instance(): SessionStorage {
-		if(this._instance === undefined)
+		if (this._instance === undefined)
 			this._instance = new SessionStorage()
 
 		return this._instance;
 	}
 
 	public set(con: SolidConnection) {
-		if(!con.isLoggedIn())
+		if (!con.isLoggedIn())
 			throw new Error("Solid not logged in, cannot store");
 
-		//TODO: check if it works changing this also
 		this._connections.set(con.getWebId().href, con);
 		this.resetTimeout(con.getWebId());
 	}
 
 	public get(webId: URL | undefined): SolidConnection {
-		if(webId === undefined)
+		if (webId === undefined)
 			throw new Error("Webid not in connections");
 
 		let res = this._connections.get(this.convertWebId(webId));
-		if(res === undefined)
+		if (res === undefined)
 			throw new Error("Webid not in connections");
 
 		this.resetTimeout(webId);
@@ -44,24 +43,24 @@ export class SessionStorage {
 	}
 
 	public has(webId: URL | undefined): boolean {
-		if(webId === undefined) return false;
+		if (webId === undefined) return false;
 		//this is some nasty code we have here
 		return this._connections.has(this.convertWebId(webId));
 	}
 
 	public remove(webId: URL | undefined) {
 		let converted = this.convertWebId(webId);
-		if(this.has(webId)) {
+		if (this.has(webId)) {
 			this._connections.delete(converted);
 			this._timeouts.delete(converted);
 		}
 	}
-	
+
 	private resetTimeout(webId: URL | undefined) {
 		let converted = this.convertWebId(webId);
 
 		let id = this._timeouts.get(converted);
-		if(id !== undefined) clearTimeout(id);
+		if (id !== undefined) clearTimeout(id);
 		id = setTimeout(
 			this.remove.bind(this, webId),
 			SessionStorage.TIMEOUT
