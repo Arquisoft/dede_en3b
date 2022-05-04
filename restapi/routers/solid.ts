@@ -11,13 +11,13 @@ const solid: Router = express.Router();
 /**
  * TODO: Deshardcodear esto.
  */
-//const apiEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
+//const solidEndPoint = process.env.SOLIDAPI_URI || 'http://localhost:5000/solid';
 //const frontend = process.env.APPLICATION_URI || "http://localhost:3000";
-const apiEndPoint = "https://dedeen3b-restapi.herokuapp.com/solid";
-const frontend = process.env.APPLICATION_URI || "https://dedeen3b.herokuapp.com"
+const solidEndPoint = "http://api.dedeen3b.com/solid";
+const frontend = process.env.APPLICATION_URI || "http://www.dedeen3b.com";
 
 solid.get("/login", async (req: Request, res: Response) => {
-	console.log(apiEndPoint, process.env.SOLIDAPI_URI);
+	console.log(solidEndPoint, process.env.SOLIDAPI_URI);
 	let connection;
 	if(req.query.provider !== null)
 		connection =
@@ -30,7 +30,7 @@ solid.get("/login", async (req: Request, res: Response) => {
 
 	if(!connection.isLoggedIn()) {
 		try {
-			await connection.login(`${apiEndPoint}/redirect`, res);
+			await connection.login(`${solidEndPoint}/redirect`, res);
 		} catch(error: unknown) {
 			return res.status(400).json({ cause: error });
 		}
@@ -64,7 +64,7 @@ solid.get("/redirect", async (req: Request, res: Response) => {
 
 	try {
 		await connection
-			.tryHandleRedirect(`${apiEndPoint}${req.url}`);
+			.tryHandleRedirect(`${solidEndPoint}${req.url}`);
 	} catch(error: unknown) {
 		return res.status(500).json({
 			message: `Error trying to connect to solid: ${error}`
