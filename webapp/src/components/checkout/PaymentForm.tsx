@@ -31,9 +31,7 @@ export default function PaymentForm(props: PaymentProps): JSX.Element {
     console.log(selectedAddress);
     var newAddress = event.target.value;
     setSelectedAddress(newAddress);
-    props.setShippingAddress(stringToAddress(newAddress));
-    console.log(selectedAddress);
-    
+    props.setShippingAddress(stringToAddress(newAddress));    
   };
 
 
